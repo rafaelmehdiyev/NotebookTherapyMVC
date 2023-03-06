@@ -19,5 +19,6 @@ public class Product : ITable
     public int? ProductCollectionId { get; set; }
     public ProductCollection ProductCollection { get; set; }
     public List<ProductImage> ProductImages { get; set; }
+    public List<CartItem> CartItems { get; set; }
     public List<Review> Reviews { get; set; }
 }

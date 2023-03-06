@@ -7,7 +7,7 @@ public class Sale : ITable
     public DateTime CreatedDate { get; set; }
 
     //Relations
-    public List<SaleItem> CartItems { get; set; }
+    public List<SaleItem> SaleItems { get; set; }
     public int UserId { get; set; }
     public AppUser User { get; set; }
 }
