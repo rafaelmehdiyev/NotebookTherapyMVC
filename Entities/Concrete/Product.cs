@@ -20,5 +20,7 @@ public class Product : ITable
     public ProductCollection ProductCollection { get; set; }
     public List<ProductImage> ProductImages { get; set; }
     public List<CartItem> CartItems { get; set; }
+    public List<SaleItem> SaleItems { get; set; }
     public List<Review> Reviews { get; set; }
+    public List<Favourite> Favourites { get; set; }
 }

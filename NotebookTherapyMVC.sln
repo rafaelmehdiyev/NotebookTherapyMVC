@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotebookTherapyMVC", "NotebookTherapyMVC\NotebookTherapyMVC.csproj", "{357456E5-6159-4D2F-B177-574A3B678912}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotebookTherapyMVC", "NotebookTherapyMVC\NotebookTherapyMVC.csproj", "{357456E5-6159-4D2F-B177-574A3B678912}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{86762D8C-28A6-435A-93CB-070CB5A1FEF5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entities", "Entities\Entities.csproj", "{86762D8C-28A6-435A-93CB-070CB5A1FEF5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLayer", "DataAccessLayer\DataAccessLayer.csproj", "{81D2F494-9CAD-474F-B29D-A963B5A37E16}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{86762D8C-28A6-435A-93CB-070CB5A1FEF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86762D8C-28A6-435A-93CB-070CB5A1FEF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86762D8C-28A6-435A-93CB-070CB5A1FEF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81D2F494-9CAD-474F-B29D-A963B5A37E16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81D2F494-9CAD-474F-B29D-A963B5A37E16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81D2F494-9CAD-474F-B29D-A963B5A37E16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81D2F494-9CAD-474F-B29D-A963B5A37E16}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
