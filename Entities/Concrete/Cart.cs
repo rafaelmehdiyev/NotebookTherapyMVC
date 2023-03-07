@@ -8,5 +8,6 @@ public class Cart : ITable
 
     //Relations
     public List<CartItem> CartItems { get; set; }
+    public int UserId { get; set; }
     public AppUser User { get; set; }
 }

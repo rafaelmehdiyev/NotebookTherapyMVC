@@ -6,8 +6,8 @@ public class AppUser : IdentityUser
     public string LastName { get; set; }
 
     //Relations
+    public int CartId { get; set; }
     public Cart Cart { get; set; }
-    public List<Product> Products { get; set; }
     public List<Favourite> Favourites { get; set; }
     public List<Review> Reviews { get; set; }
     public List<Shipping> Shippings { get; set; }

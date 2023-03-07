@@ -6,6 +6,7 @@ public class FAQ : ITable
     public string Question { get; set; }
     public string Answer { get; set; }
     public bool isAnswered { get; set; }
+    public bool isHidden { get; set; }
     public bool isDeleted { get; set; }
     public DateTime CreatedDate { get; set; }
 

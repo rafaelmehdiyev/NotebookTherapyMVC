@@ -2,3 +2,10 @@
 global using System.ComponentModel;
 global using Entities.Enums;
 global using Microsoft.AspNetCore.Identity;
+global using Entities.DTOs.Category;
+global using Entities.DTOs.Product;
+global using Entities.DTOs.ProductCollection;
+global using Entities.DTOs.Review;
+global using Entities.DTOs.FAQ;
+global using Entities.DTOs.FAQCategory;
+global using Entities.Concrete;
