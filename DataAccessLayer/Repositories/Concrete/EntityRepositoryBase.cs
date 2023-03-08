@@ -47,11 +47,6 @@ namespace DataAccessLayer.Repositories.Concrete
         {
             _context.Set<TEntity>().Remove(entity);
         }
-        public async Task<int> SaveAsync()
-        {
-            return await _context.SaveChangesAsync();
-        }
-
         #region Private Methods
         private IQueryable<TEntity> GetQuery(string[] includes)
         {
