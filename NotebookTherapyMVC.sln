@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotebookTherapyMVC", "Noteb
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entities", "Entities\Entities.csproj", "{86762D8C-28A6-435A-93CB-070CB5A1FEF5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLayer", "DataAccessLayer\DataAccessLayer.csproj", "{81D2F494-9CAD-474F-B29D-A963B5A37E16}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessLayer", "DataAccessLayer\DataAccessLayer.csproj", "{81D2F494-9CAD-474F-B29D-A963B5A37E16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLogicLayer", "BusinessLogicLayer\BusinessLogicLayer.csproj", "{A532A103-74D4-4433-A476-161C3C8DC326}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{81D2F494-9CAD-474F-B29D-A963B5A37E16}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81D2F494-9CAD-474F-B29D-A963B5A37E16}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{81D2F494-9CAD-474F-B29D-A963B5A37E16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A532A103-74D4-4433-A476-161C3C8DC326}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A532A103-74D4-4433-A476-161C3C8DC326}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A532A103-74D4-4433-A476-161C3C8DC326}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A532A103-74D4-4433-A476-161C3C8DC326}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
