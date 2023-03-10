@@ -4,7 +4,7 @@ public class FavouriteConfiguration : IEntityTypeConfiguration<Favourite>
 {
     public void Configure(EntityTypeBuilder<Favourite> builder)
     {
-        builder.HasKey(c => new { c.ProductId, c.UserId });
+        builder.HasKey(c=>c.Id);
 
         //Relations
         builder.HasOne(c => c.Product).WithMany(c => c.Favourites).HasForeignKey(c => c.ProductId);

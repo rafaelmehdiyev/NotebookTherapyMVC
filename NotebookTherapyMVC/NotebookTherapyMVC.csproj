@@ -6,4 +6,17 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BusinessLogicLayer\BusinessLogicLayer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+    <Folder Include="Models\" />
+    <Folder Include="wwwroot\assets\" />
+    <Folder Include="wwwroot\uploads\blog\" />
+    <Folder Include="wwwroot\uploads\productCollection\" />
+    <Folder Include="wwwroot\uploads\product\" />
+  </ItemGroup>
+
 </Project>
