@@ -4,6 +4,7 @@ public class ProductManager : IProductService
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
+    private readonly IWebHostEnvironment _env;
 
     public ProductManager(IUnitOfWork unitOfWork, IMapper mapper)
     {
@@ -34,6 +35,18 @@ public class ProductManager : IProductService
     public async Task<IResult> CreateAsync(ProductPostDto dto)
     {
         Product product = _mapper.Map<Product>(dto);
+        if (dto.formFiles is not null)
+        {
+            foreach (var file in dto.formFiles)
+            {
+                ProductImage image = new()
+                {
+                    Product = product,
+                    ImagePath = file.FileCreate(_env.WebRootPath, "uploads")
+                };
+                product.ProductImages.Add(image);
+            }
+        }
         await _unitOfWork.ProductRepository.CreateAsync(product);
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)

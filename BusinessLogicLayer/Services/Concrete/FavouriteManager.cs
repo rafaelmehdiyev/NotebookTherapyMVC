@@ -13,7 +13,7 @@ public class FavouriteManager : IFavouriteService
 
     public async Task<IDataResult<List<FavouriteGetDto>>> GetAllAsync(params string[] includes)
     {
-        List<Favourite> blogs = await _unitOfWork.FavouriteRepository.GetAllAsync(p => !p.isDeleted, includes);
+        List<Favourite> blogs = await _unitOfWork.FavouriteRepository.GetAllAsync(includes:includes);
         if (blogs is null)
         {
             return new ErrorDataResult<List<FavouriteGetDto>>("Favouritelar Tapilmadi");
@@ -23,7 +23,7 @@ public class FavouriteManager : IFavouriteService
 
     public async Task<IDataResult<FavouriteGetDto>> GetByIdAsync(int id, params string[] includes)
     {
-        Favourite blog = await _unitOfWork.FavouriteRepository.GetAsync(b => b.Id == id && !b.isDeleted, includes);
+        Favourite blog = await _unitOfWork.FavouriteRepository.GetAsync(b => b.Id == id, includes);
         if (blog is null)
         {
             return new ErrorDataResult<FavouriteGetDto>("Favourite Tapilmadi");
@@ -44,7 +44,7 @@ public class FavouriteManager : IFavouriteService
     }
     public async Task<IResult> UpdateAsync(FavouriteUpdateDto dto)
     {
-        Favourite blog = await _unitOfWork.FavouriteRepository.GetAsync(b => b.Id == dto.Id && !b.isDeleted);
+        Favourite blog = await _unitOfWork.FavouriteRepository.GetAsync(b => b.Id == dto.Id);
         blog = _mapper.Map<Favourite>(dto);
         _unitOfWork.FavouriteRepository.Update(blog);
         int result = await _unitOfWork.SaveAsync();
@@ -56,7 +56,7 @@ public class FavouriteManager : IFavouriteService
     }
     public async Task<IResult> HardDeleteByIdAsync(int id)
     {
-        Favourite blog = await _unitOfWork.FavouriteRepository.GetAsync(b => b.Id == id && !b.isDeleted);
+        Favourite blog = await _unitOfWork.FavouriteRepository.GetAsync(b => b.Id == id);
         _unitOfWork.FavouriteRepository.Delete(blog);
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
@@ -68,15 +68,7 @@ public class FavouriteManager : IFavouriteService
 
     public async Task<IResult> SoftDeleteByIdAsync(int id)
     {
-        Favourite blog = await _unitOfWork.FavouriteRepository.GetAsync(b => b.Id == id && !b.isDeleted);
-        blog.isDeleted = true;
-        _unitOfWork.FavouriteRepository.Update(blog);
-        int result = await _unitOfWork.SaveAsync();
-        if (result is 0)
-        {
-            return new ErrorResult("Favourite Siline bilmedi");
-        }
-        return new SuccessResult("Favourite Silindi");
+        throw new NotImplementedException();
     }
 }
 
