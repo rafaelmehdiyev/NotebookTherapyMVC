@@ -2,6 +2,7 @@
 
 public class CartPostDto : IDto
 {
+    public decimal TotalPrice { get; set; }
     //Relations
-    public int UserId { get; set; }
+    public string UserId { get; set; }
 }

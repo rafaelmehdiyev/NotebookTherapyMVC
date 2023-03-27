@@ -11,37 +11,42 @@ public class FavouriteManager : IFavouriteService
         _mapper = mapper;
     }
 
+    #region Get Requests
     public async Task<IDataResult<List<FavouriteGetDto>>> GetAllAsync(params string[] includes)
     {
-        List<Favourite> blogs = await _unitOfWork.FavouriteRepository.GetAllAsync(includes:includes);
-        if (blogs is null)
+        List<Favourite> favourites = await _unitOfWork.FavouriteRepository.GetAllAsync(includes: includes);
+        if (favourites is null)
         {
             return new ErrorDataResult<List<FavouriteGetDto>>("Favouritelar Tapilmadi");
         }
-        return new SuccessDataResult<List<FavouriteGetDto>>(_mapper.Map<List<FavouriteGetDto>>(blogs));
+        return new SuccessDataResult<List<FavouriteGetDto>>(_mapper.Map<List<FavouriteGetDto>>(favourites));
     }
-
     public async Task<IDataResult<FavouriteGetDto>> GetByIdAsync(int id, params string[] includes)
     {
-        Favourite blog = await _unitOfWork.FavouriteRepository.GetAsync(b => b.Id == id, includes);
-        if (blog is null)
+        Favourite favourite = await _unitOfWork.FavouriteRepository.GetAsync(b => b.Id == id, includes);
+        if (favourite is null)
         {
             return new ErrorDataResult<FavouriteGetDto>("Favourite Tapilmadi");
         }
-        return new SuccessDataResult<FavouriteGetDto>(_mapper.Map<FavouriteGetDto>(blog));
+        return new SuccessDataResult<FavouriteGetDto>(_mapper.Map<FavouriteGetDto>(favourite));
     }
+    #endregion
 
-    public async Task<IResult> CreateAsync(FavouritePostDto dto)
+    #region Post Requests
+    public async Task<IDataResult<FavouriteGetDto>> CreateAsync(FavouritePostDto dto)
     {
-        Favourite blog = _mapper.Map<Favourite>(dto);
-        await _unitOfWork.FavouriteRepository.CreateAsync(blog);
+        Favourite favourite = _mapper.Map<Favourite>(dto);
+        await _unitOfWork.FavouriteRepository.CreateAsync(favourite);
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorResult("Favourite Yaradila bilmedi");
+            return new ErrorDataResult<FavouriteGetDto>("Favourite Yaradila Bilmedi");
         }
-        return new SuccessResult("Favourite Yaradildi");
+        return new SuccessDataResult<FavouriteGetDto>(_mapper.Map<FavouriteGetDto>(favourite), "Favourite Yaradildi");
     }
+    #endregion
+
+    #region Update Requests
     public async Task<IResult> UpdateAsync(FavouriteUpdateDto dto)
     {
         Favourite blog = await _unitOfWork.FavouriteRepository.GetAsync(b => b.Id == dto.Id);
@@ -54,10 +59,13 @@ public class FavouriteManager : IFavouriteService
         }
         return new SuccessResult("Favourite Yenilendi");
     }
+    #endregion
+
+    #region Delete Requests
     public async Task<IResult> HardDeleteByIdAsync(int id)
     {
-        Favourite blog = await _unitOfWork.FavouriteRepository.GetAsync(b => b.Id == id);
-        _unitOfWork.FavouriteRepository.Delete(blog);
+        Favourite favourite = await _unitOfWork.FavouriteRepository.GetAsync(b => b.Id == id);
+        _unitOfWork.FavouriteRepository.Delete(favourite);
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
@@ -65,11 +73,8 @@ public class FavouriteManager : IFavouriteService
         }
         return new SuccessResult("Favourite Silindi");
     }
+    #endregion
 
-    public async Task<IResult> SoftDeleteByIdAsync(int id)
-    {
-        throw new NotImplementedException();
-    }
 }
 
 

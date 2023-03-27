@@ -11,6 +11,7 @@ public class CartManager : ICartService
         _mapper = mapper;
     }
 
+    #region Get Requests
     public async Task<IDataResult<List<CartGetDto>>> GetAllAsync(params string[] includes)
     {
         List<Cart> carts = await _unitOfWork.CartRepository.GetAllAsync(p => !p.isDeleted, includes);
@@ -30,7 +31,18 @@ public class CartManager : ICartService
         }
         return new SuccessDataResult<CartGetDto>(_mapper.Map<CartGetDto>(cart));
     }
+    public async Task<IDataResult<CartGetDto>> GetCartByUserIdAsync(string id, params string[] includes)
+    {
+        Cart cart = await _unitOfWork.CartRepository.GetAsync(b => b.UserId == id && !b.isDeleted, includes);
+        if (cart is null)
+        {
+            return new ErrorDataResult<CartGetDto>("Cart Tapilmadi");
+        }
+        return new SuccessDataResult<CartGetDto>(_mapper.Map<CartGetDto>(cart));
+    }
+    #endregion
 
+    #region Post Requests
     public async Task<IResult> CreateAsync(CartPostDto dto)
     {
         Cart cart = _mapper.Map<Cart>(dto);
@@ -42,6 +54,9 @@ public class CartManager : ICartService
         }
         return new SuccessResult("Cart Yaradildi");
     }
+    #endregion
+
+    #region Update Requests
     public async Task<IResult> UpdateAsync(CartUpdateDto dto)
     {
         Cart cart = await _unitOfWork.CartRepository.GetAsync(b => b.Id == dto.Id && !b.isDeleted);
@@ -54,6 +69,9 @@ public class CartManager : ICartService
         }
         return new SuccessResult("Cart Yenilendi");
     }
+    #endregion
+
+    #region Delete Requests
     public async Task<IResult> HardDeleteByIdAsync(int id)
     {
         Cart cart = await _unitOfWork.CartRepository.GetAsync(b => b.Id == id && !b.isDeleted);
@@ -78,6 +96,7 @@ public class CartManager : ICartService
         }
         return new SuccessResult("Cart Silindi");
     }
+    #endregion
 }
 
 

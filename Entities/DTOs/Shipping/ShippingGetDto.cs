@@ -11,5 +11,5 @@ public class ShippingGetDto : IDto
     public string? PostalCode { get; set; }
 
     //Relations
-    public AppUser User { get; set; }
+    public UserGetDto User { get; set; }
 }

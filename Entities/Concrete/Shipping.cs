@@ -13,6 +13,6 @@ public class Shipping : ITable
     public DateTime CreatedDate { get; set; }
 
     //Relations
-    public int UserId { get; set; }
+    public string UserId { get; set; }
     public AppUser User { get; set; }
 }

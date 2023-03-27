@@ -8,13 +8,14 @@ public class ProductGetDto : IDto
     public decimal Price { get; set; }
     public int DiscountPercent { get; set; }
     public bool isSale { get; set; }
-    public Color Color { get; set; }
-    public Size Size { get; set; }
-    public Bundle Bundle { get; set; }
     //Relations
     public CategoryGetDto Category { get; set; }
     public ProductCollectionGetDto? ProductCollection { get; set; }
+    public ColorGetDto? Color { get; set; }
     public List<ProductImage> ProductImages { get; set; }
     public List<CartItemGetDto> CartItems { get; set; }
     public List<ReviewGetDto> Reviews { get; set; }
+    public List<ProductSizeGetDto> ProductSizes { get; set; }
+    public List<ProductBundleGetDto> ProductBundles { get; set; }
+    public List<FavouriteGetDto> Favourites { get; set; }
 }

@@ -8,6 +8,6 @@ public class ReviewGetDto : IDto
     public DateTime CreatedDate { get; set; }
 
     //Relations
-    public AppUser User { get; set; }
+    public UserGetDto User { get; set; }
     public ProductGetDto Product { get; set; }
 }

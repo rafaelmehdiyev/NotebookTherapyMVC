@@ -2,5 +2,6 @@
 
 public class SalePostDto : IDto
 {
-    public int UserId { get; set; }
+    public decimal TotalPrice { get; set; }
+    public string UserId { get; set; }
 }

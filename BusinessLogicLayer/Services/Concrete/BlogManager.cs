@@ -30,6 +30,18 @@ public class BlogManager : IBlogService
         }
         return new SuccessDataResult<BlogGetDto>(_mapper.Map<BlogGetDto>(blog));
     }
+    public async Task<IResult> IncreaseViewCount(int id)
+    {
+        Blog blog = await _unitOfWork.BlogRepository.GetAsync(b => b.Id == id && !b.isDeleted);
+        blog.ViewCount++;
+        _unitOfWork.BlogRepository.Update(blog);
+        int result = await _unitOfWork.SaveAsync();
+        if (result is 0)
+        {
+            return new ErrorResult("Blog Yenilene bilmedi");
+        }
+        return new SuccessResult("Blog Yenilendi");
+    }
 
     public async Task<IResult> CreateAsync(BlogPostDto dto)
     {

@@ -6,7 +6,7 @@ public class FAQConfiguration : IEntityTypeConfiguration<FAQ>
     {
         builder.HasKey(b => b.Id);
         builder.Property(b => b.Question).IsRequired();
-        builder.Property(b => b.Answer).IsRequired();
+        builder.Property(b => b.Answer);
         builder.Property(b => b.isAnswered).IsRequired().HasDefaultValue(false);
         builder.Property(b => b.isHidden).IsRequired().HasDefaultValue(false);
         builder.Property(b => b.isDeleted).IsRequired().HasDefaultValue(false);

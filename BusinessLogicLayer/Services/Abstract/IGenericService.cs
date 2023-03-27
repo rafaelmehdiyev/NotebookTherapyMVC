@@ -6,7 +6,6 @@ public interface IGenericService<TGetDto, TPostDto, TUpdateDto>
 {
     Task<IDataResult<List<TGetDto>>> GetAllAsync(params string[] includes);
     Task<IDataResult<TGetDto>> GetByIdAsync(int id, params string[] includes);
-    //Task<IDataResult<TGetDto>> GetByNameAsync(string name, params string[] includes);
     Task<IResult> CreateAsync(TPostDto dto);
     Task<IResult> UpdateAsync(TUpdateDto dto);
     Task<IResult> SoftDeleteByIdAsync(int id);

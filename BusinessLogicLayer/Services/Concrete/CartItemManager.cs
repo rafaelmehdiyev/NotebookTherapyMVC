@@ -11,6 +11,7 @@ public class CartItemManager : ICartItemService
         _mapper = mapper;
     }
 
+    #region Get Requests
     public async Task<IDataResult<List<CartItemGetDto>>> GetAllAsync(params string[] includes)
     {
         List<CartItem> cartItems = await _unitOfWork.CartItemRepository.GetAllAsync(p => !p.isDeleted, includes);
@@ -31,29 +32,73 @@ public class CartItemManager : ICartItemService
         return new SuccessDataResult<CartItemGetDto>(_mapper.Map<CartItemGetDto>(cartItem));
     }
 
-    public async Task<IResult> CreateAsync(CartItemPostDto dto)
+    public async Task<IDataResult<List<CartItemGetDto>>> GetAllByCartIdAsync(int id, params string[] includes)
     {
-        CartItem cartItem = _mapper.Map<CartItem>(dto);
-        await _unitOfWork.CartItemRepository.CreateAsync(cartItem);
+        List<CartItem> cartItems = await _unitOfWork.CartItemRepository.GetAllAsync(b => b.CartId == id && !b.isDeleted, includes);
+        if (cartItems is null)
+        {
+            return new ErrorDataResult<List<CartItemGetDto>>("CartItem Tapilmadi");
+        }
+        return new SuccessDataResult<List<CartItemGetDto>>(_mapper.Map<List<CartItemGetDto>>(cartItems));
+    }
+
+    #endregion
+
+    #region Post Request
+    public async Task<IDataResult<CartItemGetDto>> CreateAsync(int productId, UserGetDto user)
+    {
+        CartItem cartItem = await _unitOfWork.CartItemRepository.GetAsync(c=>c.ProductId== productId && c.Cart.UserId == user.Id && !c.isDeleted);
+        if (cartItem is null)
+        {
+            cartItem = new()
+            {
+                ProductId = productId,
+                CartId = user.Cart.Id
+            };
+            await _unitOfWork.CartItemRepository.CreateAsync(cartItem);
+        }
+        else
+        {
+            cartItem.Quantity++;
+            _unitOfWork.CartItemRepository.Update(cartItem);
+        }
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorResult("CartItem Yaradila bilmedi");
+            return new ErrorDataResult<CartItemGetDto>(_mapper.Map<CartItemGetDto>(cartItem));
         }
-        return new SuccessResult("CartItem Yaradildi");
+        return new SuccessDataResult<CartItemGetDto>(_mapper.Map<CartItemGetDto>(cartItem));
     }
-    public async Task<IResult> UpdateAsync(CartItemUpdateDto dto)
+
+    #endregion
+
+    #region Update Requests
+    public async Task<IDataResult<CartItemGetDto>> RemoveItemFromCartAsync(int productId, UserGetDto user,bool deleteAll = false)
     {
-        CartItem cartItem = await _unitOfWork.CartItemRepository.GetAsync(b => b.Id == dto.Id && !b.isDeleted);
-        blog = _mapper.Map<CartItem>(dto);
+        CartItem cartItem = await _unitOfWork.CartItemRepository.GetAsync(c => c.ProductId == productId && c.Cart.UserId == user.Id && !c.isDeleted);
+        if(cartItem is null) return new ErrorDataResult<CartItemGetDto>(message:"CartItem tapilmadi");
+        if (deleteAll)
+        {
+            cartItem.isDeleted = true;
+            cartItem.Quantity = 0;
+        }
+        else
+        {
+            cartItem.isDeleted = cartItem.Quantity == 1 ? true : false;
+            cartItem.Quantity--;
+        }
         _unitOfWork.CartItemRepository.Update(cartItem);
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorResult("CartItem Yenilene bilmedi");
+            return new ErrorDataResult<CartItemGetDto>(_mapper.Map<CartItemGetDto>(cartItem));
         }
-        return new SuccessResult("CartItem Yenilendi");
+        return new SuccessDataResult<CartItemGetDto>(_mapper.Map<CartItemGetDto>(cartItem));
     }
+
+    #endregion
+
+    #region Delete Requests
     public async Task<IResult> HardDeleteByIdAsync(int id)
     {
         CartItem cartItem = await _unitOfWork.CartItemRepository.GetAsync(b => b.Id == id && !b.isDeleted);
@@ -78,5 +123,8 @@ public class CartItemManager : ICartItemService
         }
         return new SuccessResult("CartItem Silindi");
     }
+
+    #endregion
+
 }
 

@@ -21,6 +21,16 @@ public class FAQManager : IFAQService
         return new SuccessDataResult<List<FAQGetDto>>(_mapper.Map<List<FAQGetDto>>(FAQs));
     }
 
+    public async Task<IDataResult<List<FAQGetDto>>> GetFaqsByCategoryIdAsync(int id, params string[] includes)
+    {
+        List<FAQ> faq = await _unitOfWork.FAQRepository.GetAllAsync(b => b.FAQCategoryId == id && !b.isDeleted, includes);
+        if (faq is null)
+        {
+            return new ErrorDataResult<List<FAQGetDto>>("FAQlar Tapilmadi");
+        }
+        return new SuccessDataResult<List<FAQGetDto>>(_mapper.Map<List<FAQGetDto>>(faq));
+    }
+
     public async Task<IDataResult<FAQGetDto>> GetByIdAsync(int id, params string[] includes)
     {
         FAQ faq = await _unitOfWork.FAQRepository.GetAsync(b => b.Id == id && !b.isDeleted, includes);
@@ -46,6 +56,7 @@ public class FAQManager : IFAQService
     {
         FAQ faq = await _unitOfWork.FAQRepository.GetAsync(b => b.Id == dto.Id && !b.isDeleted);
         faq = _mapper.Map<FAQ>(dto);
+        faq.isAnswered = faq.Answer is null ? false : true;
         _unitOfWork.FAQRepository.Update(faq);
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)

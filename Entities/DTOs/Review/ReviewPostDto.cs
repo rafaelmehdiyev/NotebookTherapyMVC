@@ -6,6 +6,6 @@ public class ReviewPostDto : IDto
     public Rating Rating { get; set; }
 
     //Relations
-    public int UserId { get; set; }
+    public string UserId { get; set; }
     public int ProductId { get; set; }
 }

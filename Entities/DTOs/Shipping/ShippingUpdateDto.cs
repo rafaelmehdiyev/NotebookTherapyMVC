@@ -11,5 +11,5 @@ public class ShippingUpdateDto : IDto
     public string? PostalCode { get; set; }
 
     //Relations
-    public int UserId { get; set; }
+    public string UserId { get; set; }
 }

@@ -44,7 +44,7 @@ public class ShippingManager : IShippingService
     }
     public async Task<IResult> UpdateAsync(ShippingUpdateDto dto)
     {
-        Shipping shipping = await _unitOfWork.ShippingRepository.GetAsync(b => b.Id == dto.Id && !b.isDeleted);
+        Shipping shipping = await _unitOfWork.ShippingRepository.GetAsync(b => b.Id == dto.Id && !b.isDeleted, "User");
         shipping = _mapper.Map<Shipping>(dto);
         _unitOfWork.ShippingRepository.Update(shipping);
         int result = await _unitOfWork.SaveAsync();

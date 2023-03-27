@@ -5,6 +5,7 @@ public class CartItemConfiguration : IEntityTypeConfiguration<CartItem>
     public void Configure(EntityTypeBuilder<CartItem> builder)
     {
         builder.HasKey(b => b.Id);
+        builder.Property(b=>b.Quantity).HasDefaultValue(1);
         builder.Property(b => b.isDeleted).IsRequired().HasDefaultValue(false);
         builder.Property(b => b.CreatedDate).IsRequired().HasDefaultValueSql("GETUTCDATE()");
 

@@ -3,6 +3,7 @@
 public class SaleItemPostDto : IDto
 {
     public int Quantity { get; set; }
+    public decimal TotalPrice { get; set; }
 
     //Relations
     public int ProductId { get; set; }
