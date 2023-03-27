@@ -11,12 +11,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <Folder Include="Areas\Manage\Data\" />
+    <Folder Include="Areas\Manage\Models\" />
     <Folder Include="Models\" />
     <Folder Include="wwwroot\assets\" />
-    <Folder Include="wwwroot\uploads\blog\" />
     <Folder Include="wwwroot\uploads\productCollection\" />
     <Folder Include="wwwroot\uploads\product\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.13" />
   </ItemGroup>
 
 </Project>

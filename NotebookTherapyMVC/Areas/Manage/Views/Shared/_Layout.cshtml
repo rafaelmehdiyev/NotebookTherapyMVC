@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+	<partial name="_headPartial"/>
+	@RenderSection("Links",false);
+</head>
+
+<body class="ec-header-fixed ec-sidebar-fixed ec-sidebar-dark ec-header-light" id="body">
+
+	<!-- WRAPPER -->
+	<div class="wrapper">
+
+		<!-- LEFT MAIN SIDEBAR -->
+		<partial name="_leftSidebarPartial" />
+
+		<!-- PAGE WRAPPER -->
+		<div class="ec-page-wrapper">
+
+			<!-- Header -->
+			<partial name="_headerPartial"/>
+
+			<!-- CONTENT WRAPPER -->
+			<div class="ec-content-wrapper">
+				<div class="content">
+					@RenderBody();
+				</div> <!-- End Content -->
+			</div> <!-- End Content Wrapper -->
+
+			<!-- Footer -->
+			<partial name="_footerPartial" />
+
+		</div> <!-- End Page Wrapper -->
+
+	</div> <!-- End Wrapper -->
+	<partial name="_scriptsPartial"/>
+	@RenderSection("Scripts",false)
+</body>
+</html>

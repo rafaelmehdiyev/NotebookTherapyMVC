@@ -24,11 +24,15 @@ namespace NotebookTherapyMVC
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Account}/{action=Login}/{id?}");
-
-            app.Run();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                   name: "areas",
+                   pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                 );
+                endpoints.MapDefaultControllerRoute();
+            });
+			app.Run();
         }
     }
 }

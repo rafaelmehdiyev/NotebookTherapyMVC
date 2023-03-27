@@ -13,7 +13,7 @@ public class CategoryManager : ICategoryService
 
     public async Task<IDataResult<List<CategoryGetDto>>> GetAllAsync(params string[] includes)
     {
-        List<Category> categories = await _unitOfWork.CategoryRepository.GetAllAsync(p => !p.isDeleted, includes);
+        List<Category> categories = await _unitOfWork.CategoryRepository.GetAllAsync(includes:includes);
         if (categories is null)
         {
             return new ErrorDataResult<List<CategoryGetDto>>("Categorylar Tapilmadi");
