@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["Title"] = "FAQs";
+}
+@model IDataResult<List<FAQGetDto>>
+<div class="breadcrumb-wrapper breadcrumb-wrapper-2 breadcrumb-contacts">
+	<h1>Frequently Asked Questions</h1>
+	<p class="breadcrumbs">
+        <a class="btn btn-primary" asp-action="Create" asp-controller="FAQ">New Question</a>
+	</p>
+</div>
+<div class="row">
+	<div class="col-xl-12 col-lg-12">
+		<h3>Not Answered Questions</h3>
+		<div class="ec-cat-list card card-default">
+			<div class="card-body">
+				<div class="table-responsive">
+					<partial name="_faqGetPartial" model="Model.Data.Where(f=>!f.isAnswered && f.Answer is null).ToList()" />
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row py-5">
+	<div class="col-xl-12 col-lg-12">
+		<h3>Answered Questions</h3>
+		<div class="ec-cat-list card card-default">
+			<div class="card-body">
+				<div class="table-responsive">
+					<partial name="_faqGetPartial" model="Model.Data.Where(f=>f.isAnswered && f.Answer is not null).ToList()" />
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

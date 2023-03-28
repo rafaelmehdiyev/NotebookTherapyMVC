@@ -1,0 +1,53 @@
+﻿@{
+	ViewData["Title"] = "Questions";
+}
+@model FAQUpdateDto
+<div class="breadcrumb-wrapper d-flex align-items-center justify-content-between">
+	<div>
+		<h1>Update Question</h1>
+		<p class="breadcrumbs">
+			<span><a href="index.html">Home</a></span>
+			<span><i class="mdi mdi-chevron-right"></i></span>FAQs
+		</p>
+	</div>
+	<div>
+		<a asp-action="Index" asp-controller="FAQ" class="btn btn-primary">
+			Return to all Question
+		</a>
+	</div>
+</div>
+<div class="row">
+	<div class="col-12">
+		<div class="card card-default">
+			<div class="card-header card-header-border-bottom">
+				<h2>Update Question</h2>
+			</div>
+			<div class="card-body">
+				<div class="row ec-vendor-uploads">
+					<div class="col-lg-8">
+						<div class="ec-vendor-upload-detail">
+							<form class="row g-3" asp-action="Update" asp-controller="FAQ">
+                                <input type="hidden" asp-for="Id" />
+								<div class="col-md-12">
+									<label class="form-label">Select Category</label>
+									<select asp-for="FAQCategoryId" asp-items="@ViewBag.FAQCategories" class="form-select"></select>
+								</div>
+								<div class="col-md-12">
+									<label asp-for="Question" class="form-label">Question</label>
+									<textarea asp-for="Question" class="form-control" rows="2"></textarea>
+								</div>
+								<div class="col-md-12">
+									<label asp-for="Answer" class="form-label">Answer</label>
+									<textarea asp-for="Answer" class="form-control" rows="2"></textarea>
+								</div>
+								<div class="col-md-12">
+									<button type="submit" class="btn btn-primary">Submit</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

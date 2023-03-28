@@ -51,4 +51,11 @@ public class SizeController : Controller
 		await _sizeService.SoftDeleteByIdAsync(id);
 		return RedirectToAction(nameof(Index));
 	}
+	public async Task<IActionResult> Recover(int id)
+	{
+		var result = (await _sizeService.GetByIdAsync(id)).Data;
+		if (result == null) { return RedirectToAction(nameof(Index)); }
+		await _sizeService.RecoverByIdAsync(id);
+		return RedirectToAction(nameof(Index));
+	}
 }

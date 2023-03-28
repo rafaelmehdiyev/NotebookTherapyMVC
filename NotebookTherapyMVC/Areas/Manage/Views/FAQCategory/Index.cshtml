@@ -1,12 +1,12 @@
 ﻿@{
-    ViewData["Title"] = "Category";
+	ViewData["Title"] = "FAQCategory";
 }
-@model IDataResult<List<CategoryGetDto>>
+@model IDataResult<List<FAQCategoryGetDto>>
 <div class="breadcrumb-wrapper breadcrumb-wrapper-2 breadcrumb-contacts">
-	<h1>Main Category</h1>
+	<h1>Main FAQCategory</h1>
 	<p class="breadcrumbs">
 		<span><a href="index.html">Home</a></span>
-		<span><i class="mdi mdi-chevron-right"></i></span>Main Category
+		<span><i class="mdi mdi-chevron-right"></i></span>Main FAQCategory
 	</p>
 </div>
 <div class="row">
@@ -14,8 +14,8 @@
 		<div class="ec-cat-list card card-default mb-24px">
 			<div class="card-body">
 				<div class="ec-cat-form">
-					<h4>Add New Category</h4>
-					<partial name="_categoryCreatePartial" model="new CategoryPostDto()" />
+					<h4>Add New FAQCategory</h4>
+					<partial name="_faqCategoryCreatePartial" model="new FAQCategoryPostDto()" />
 				</div>
 			</div>
 		</div>
@@ -29,20 +29,21 @@
 							<tr>
 								<th>#</th>
 								<th>Name</th>
-								<th>Product Count</th>
+								<th>Question Count</th>
 								<th>Status</th>
 								<th>Action</th>
 							</tr>
 						</thead>
 						<tbody>
-							@foreach (var category in Model.Data)
+							@foreach (var faqCategory in Model.Data)
 							{
 								<tr>
-									<td>@category.Id</td>
-									<td>@category.Name</td>
-									<td>@category.Products.Count</td>
-									<td>@{
-											if (category.isDeleted)
+									<td>@faqCategory.Id</td>
+									<td>@faqCategory.Name</td>
+									<td>@faqCategory.FAQs.Count</td>
+									<td>
+										@{
+											if (faqCategory.isDeleted)
 											{
 												@:<span class="badge badge-danger">Inactive</span>
 											}
@@ -50,32 +51,33 @@
 											{
 												@:<span class="badge badge-success">Active</span>
 											}
-										}</td>
+										}
+									</td>
 									<td>
 										<div class="btn-group">
-											<button asp-action="Get" asp-controller="Category" asp-route-id="@category.Id" type="button" class="btn btn-outline-success">Info</button>
+											<button asp-action="Get" asp-controller="FAQCategory" asp-route-id="@faqCategory.Id" type="button" class="btn btn-outline-success">Info</button>
 											@{
 												<button type="button" class="btn btn-outline-success dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
 													<span class="sr-only">Info</span>
 												</button>
-												if (!category.isDeleted)
-												{													
+												if (!faqCategory.isDeleted)
+												{
 													<div class="dropdown-menu">
-														<a asp-action="Update" asp-controller="Category" asp-route-id="@category.Id" class="dropdown-item">Edit</a>
-														<a asp-action="Delete" asp-controller="Category" asp-route-id="@category.Id" class="dropdown-item">Delete</a>
+														<a asp-action="Update" asp-controller="FAQCategory" asp-route-id="@faqCategory.Id" class="dropdown-item">Edit</a>
+														<a asp-action="Delete" asp-controller="FAQCategory" asp-route-id="@faqCategory.Id" class="dropdown-item">Delete</a>
 													</div>
 												}
 												else
 												{
 													<div class="dropdown-menu">
-														<a asp-action="Recover" asp-controller="Category" asp-route-id="@category.Id" class="dropdown-item">Recover</a>
+														<a asp-action="Recover" asp-controller="FAQCategory" asp-route-id="@faqCategory.Id" class="dropdown-item">Recover</a>
 													</div>
 												}
 											}
 										</div>
 									</td>
 								</tr>
-							}							
+							}
 						</tbody>
 					</table>
 				</div>

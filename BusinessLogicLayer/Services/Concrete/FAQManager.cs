@@ -46,7 +46,8 @@ public class FAQManager : IFAQService
     public async Task<IResult> CreateAsync(FAQPostDto dto)
     {
         FAQ faq = _mapper.Map<FAQ>(dto);
-        await _unitOfWork.FAQRepository.CreateAsync(faq);
+		faq.isAnswered = faq.Answer is null ? false : true;
+		await _unitOfWork.FAQRepository.CreateAsync(faq);
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
@@ -112,8 +113,6 @@ public class FAQManager : IFAQService
     }
 
 	#endregion
-
-
 }
 
 
