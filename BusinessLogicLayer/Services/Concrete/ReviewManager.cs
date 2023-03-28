@@ -11,19 +11,19 @@ public class ReviewManager : IReviewService
         _mapper = mapper;
     }
 
-    public async Task<IDataResult<List<ReviewGetDto>>> GetAllAsync(params string[] includes)
+	#region Get Requests
+	public async Task<IDataResult<List<ReviewGetDto>>> GetAllAsync(params string[] includes)
     {
-        List<Review> reviews = await _unitOfWork.ReviewRepository.GetAllAsync(p => !p.isDeleted, includes);
+        List<Review> reviews = await _unitOfWork.ReviewRepository.GetAllAsync(includes: includes);
         if (reviews is null)
         {
             return new ErrorDataResult<List<ReviewGetDto>>("Reviewlar Tapilmadi");
         }
         return new SuccessDataResult<List<ReviewGetDto>>(_mapper.Map<List<ReviewGetDto>>(reviews));
     }
-
     public async Task<IDataResult<ReviewGetDto>> GetByIdAsync(int id, params string[] includes)
     {
-        Review review = await _unitOfWork.ReviewRepository.GetAsync(b => b.Id == id && !b.isDeleted, includes);
+        Review review = await _unitOfWork.ReviewRepository.GetAsync(b => b.Id == id, includes);
         if (review is null)
         {
             return new ErrorDataResult<ReviewGetDto>("Review Tapilmadi");
@@ -31,6 +31,9 @@ public class ReviewManager : IReviewService
         return new SuccessDataResult<ReviewGetDto>(_mapper.Map<ReviewGetDto>(review));
     }
 
+	#endregion
+
+	#region Post Requests
     public async Task<IResult> CreateAsync(ReviewPostDto dto)
     {
         Review review = _mapper.Map<Review>(dto);
@@ -42,6 +45,10 @@ public class ReviewManager : IReviewService
         }
         return new SuccessResult("Review Yaradildi");
     }
+
+	#endregion
+
+	#region Update Requests
     public async Task<IResult> UpdateAsync(ReviewUpdateDto dto)
     {
         Review review = await _unitOfWork.ReviewRepository.GetAsync(b => b.Id == dto.Id && !b.isDeleted);
@@ -54,7 +61,23 @@ public class ReviewManager : IReviewService
         }
         return new SuccessResult("Review Yenilendi");
     }
-    public async Task<IResult> HardDeleteByIdAsync(int id)
+	public async Task<IResult> RecoverByIdAsync(int id)
+	{
+		Review review = await _unitOfWork.ReviewRepository.GetAsync(b => b.Id == id && b.isDeleted);
+		review.isDeleted = false;
+		_unitOfWork.ReviewRepository.Update(review);
+		int result = await _unitOfWork.SaveAsync();
+		if (result is 0)
+		{
+			return new ErrorResult("Review is not recovered");
+		}
+		return new SuccessResult("Review is  recovered");
+	}
+
+	#endregion
+
+	#region Delete Requests
+	public async Task<IResult> HardDeleteByIdAsync(int id)
     {
         Review review = await _unitOfWork.ReviewRepository.GetAsync(b => b.Id == id && !b.isDeleted);
         _unitOfWork.ReviewRepository.Delete(review);
@@ -65,7 +88,6 @@ public class ReviewManager : IReviewService
         }
         return new SuccessResult("Review Silindi");
     }
-
     public async Task<IResult> SoftDeleteByIdAsync(int id)
     {
         Review review = await _unitOfWork.ReviewRepository.GetAsync(b => b.Id == id && !b.isDeleted);
@@ -78,4 +100,7 @@ public class ReviewManager : IReviewService
         }
         return new SuccessResult("Review Silindi");
     }
+
+	#endregion
+
 }

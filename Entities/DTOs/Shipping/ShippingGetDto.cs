@@ -9,7 +9,8 @@ public class ShippingGetDto : IDto
     public string City { get; set; }
     public string? PhoneNumber { get; set; }
     public string? PostalCode { get; set; }
+	public bool isDeleted { get; set; }
 
-    //Relations
-    public UserGetDto User { get; set; }
+	//Relations
+	public UserGetDto User { get; set; }
 }

@@ -10,6 +10,7 @@ public class ProductCollectionGetDto : IDto
     public string CollectionColor { get; set; }
     public string CollectionItemColor { get; set; }
     public string CollectionButtonColor { get; set; }
-    //Relations
-    public List<ProductGetDto> Products { get; set; }
+	public bool isDeleted { get; set; }
+	//Relations
+	public List<ProductGetDto> Products { get; set; }
 }

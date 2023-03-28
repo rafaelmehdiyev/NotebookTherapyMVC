@@ -11,7 +11,8 @@ public class ProductBundleManager : IProductBundleService
         _mapper = mapper;
     }
 
-    public async Task<IDataResult<List<ProductBundleGetDto>>> GetAllAsync(params string[] includes)
+	#region Get Requests
+	public async Task<IDataResult<List<ProductBundleGetDto>>> GetAllAsync(params string[] includes)
     {
         List<ProductBundle> productBundles = await _unitOfWork.ProductBundleRepository.GetAllAsync(includes: includes);
         if (productBundles is null)
@@ -20,7 +21,6 @@ public class ProductBundleManager : IProductBundleService
         }
         return new SuccessDataResult<List<ProductBundleGetDto>>(_mapper.Map<List<ProductBundleGetDto>>(productBundles));
     }
-
     public async Task<IDataResult<ProductBundleGetDto>> GetByIdAsync(int id, params string[] includes)
     {
         ProductBundle productBundle = await _unitOfWork.ProductBundleRepository.GetAsync(b => b.Id == id, includes);
@@ -31,6 +31,9 @@ public class ProductBundleManager : IProductBundleService
         return new SuccessDataResult<ProductBundleGetDto>(_mapper.Map<ProductBundleGetDto>(productBundle));
     }
 
+	#endregion
+
+	#region Post Requests
     public async Task<IResult> CreateAsync(ProductBundlePostDto dto)
     {
         ProductBundle productBundle = _mapper.Map<ProductBundle>(dto);
@@ -42,6 +45,10 @@ public class ProductBundleManager : IProductBundleService
         }
         return new SuccessResult("ProductBundle Yaradildi");
     }
+
+	#endregion
+
+	#region Update Requests
     public async Task<IResult> UpdateAsync(ProductBundleUpdateDto dto)
     {
         ProductBundle productBundle = await _unitOfWork.ProductBundleRepository.GetAsync(b => b.Id == dto.Id);
@@ -54,6 +61,10 @@ public class ProductBundleManager : IProductBundleService
         }
         return new SuccessResult("ProductBundle Yenilendi");
     }
+
+	#endregion
+
+	#region Delete Requests
     public async Task<IResult> HardDeleteByIdAsync(int id)
     {
         ProductBundle productBundle = await _unitOfWork.ProductBundleRepository.GetAsync(b => b.Id == id);
@@ -66,15 +77,5 @@ public class ProductBundleManager : IProductBundleService
         return new SuccessResult("ProductBundle Silindi");
     }
 
-    public async Task<IResult> SoftDeleteByIdAsync(int id)
-    {
-        ProductBundle productBundle = await _unitOfWork.ProductBundleRepository.GetAsync(b => b.Id == id);
-        _unitOfWork.ProductBundleRepository.Update(productBundle);
-        int result = await _unitOfWork.SaveAsync();
-        if (result is 0)
-        {
-            return new ErrorResult("ProductBundle Siline bilmedi");
-        }
-        return new SuccessResult("ProductBundle Silindi");
-    }
+	#endregion
 }

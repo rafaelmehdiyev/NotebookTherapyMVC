@@ -11,19 +11,19 @@ public class SaleItemManager : ISaleItemService
         _mapper = mapper;
     }
 
-    public async Task<IDataResult<List<SaleItemGetDto>>> GetAllAsync(params string[] includes)
+	#region Get Requests
+	public async Task<IDataResult<List<SaleItemGetDto>>> GetAllAsync(params string[] includes)
     {
-        List<SaleItem> saleItems = await _unitOfWork.SaleItemRepository.GetAllAsync(p => !p.isDeleted, includes);
+        List<SaleItem> saleItems = await _unitOfWork.SaleItemRepository.GetAllAsync(includes: includes);
         if (saleItems is null)
         {
             return new ErrorDataResult<List<SaleItemGetDto>>("SaleItemlar Tapilmadi");
         }
         return new SuccessDataResult<List<SaleItemGetDto>>(_mapper.Map<List<SaleItemGetDto>>(saleItems));
     }
-
     public async Task<IDataResult<SaleItemGetDto>> GetByIdAsync(int id, params string[] includes)
     {
-        SaleItem saleItem = await _unitOfWork.SaleItemRepository.GetAsync(b => b.Id == id && !b.isDeleted, includes);
+        SaleItem saleItem = await _unitOfWork.SaleItemRepository.GetAsync(b => b.Id == id, includes);
         if (saleItem is null)
         {
             return new ErrorDataResult<SaleItemGetDto>("SaleItem Tapilmadi");
@@ -31,6 +31,9 @@ public class SaleItemManager : ISaleItemService
         return new SuccessDataResult<SaleItemGetDto>(_mapper.Map<SaleItemGetDto>(saleItem));
     }
 
+	#endregion
+
+	#region Post Requests
     public async Task<IResult> CreateAsync(SaleItemPostDto dto)
     {
         SaleItem saleItem = _mapper.Map<SaleItem>(dto);
@@ -42,6 +45,10 @@ public class SaleItemManager : ISaleItemService
         }
         return new SuccessResult("SaleItem Yaradildi");
     }
+
+	#endregion
+
+	#region Update Requests
     public async Task<IResult> UpdateAsync(SaleItemUpdateDto dto)
     {
         SaleItem saleItem = await _unitOfWork.SaleItemRepository.GetAsync(b => b.Id == dto.Id && !b.isDeleted);
@@ -54,7 +61,23 @@ public class SaleItemManager : ISaleItemService
         }
         return new SuccessResult("SaleItem Yenilendi");
     }
-    public async Task<IResult> HardDeleteByIdAsync(int id)
+	public async Task<IResult> RecoverByIdAsync(int id)
+	{
+		SaleItem saleItem = await _unitOfWork.SaleItemRepository.GetAsync(b => b.Id == id && b.isDeleted);
+		saleItem.isDeleted = false;
+		_unitOfWork.SaleItemRepository.Update(saleItem);
+		int result = await _unitOfWork.SaveAsync();
+		if (result is 0)
+		{
+			return new ErrorResult("SaleItem is not recovered");
+		}
+		return new SuccessResult("SaleItem is recovered");
+	}
+
+	#endregion
+
+	#region Delete Requests
+	public async Task<IResult> HardDeleteByIdAsync(int id)
     {
         SaleItem saleItem = await _unitOfWork.SaleItemRepository.GetAsync(b => b.Id == id && !b.isDeleted);
         _unitOfWork.SaleItemRepository.Delete(saleItem);
@@ -65,7 +88,6 @@ public class SaleItemManager : ISaleItemService
         }
         return new SuccessResult("SaleItem Silindi");
     }
-
     public async Task<IResult> SoftDeleteByIdAsync(int id)
     {
         SaleItem saleItem = await _unitOfWork.SaleItemRepository.GetAsync(b => b.Id == id && !b.isDeleted);
@@ -78,4 +100,6 @@ public class SaleItemManager : ISaleItemService
         }
         return new SuccessResult("SaleItem Silindi");
     }
+
+	#endregion
 }

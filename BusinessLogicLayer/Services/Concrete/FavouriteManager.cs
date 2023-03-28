@@ -74,7 +74,4 @@ public class FavouriteManager : IFavouriteService
         return new SuccessResult("Favourite Silindi");
     }
     #endregion
-
 }
-
-

@@ -15,7 +15,7 @@ public class ProductManager : IProductService
     #region Get Requests
     public async Task<IDataResult<List<ProductGetDto>>> GetAllAsync(params string[] includes)
     {
-        List<Product> products = await _unitOfWork.ProductRepository.GetAllAsync(p => !p.isDeleted, includes);
+        List<Product> products = await _unitOfWork.ProductRepository.GetAllAsync(includes: includes);
         if (products is null)
         {
             return new ErrorDataResult<List<ProductGetDto>>("Productlar Tapilmadi");
@@ -24,7 +24,7 @@ public class ProductManager : IProductService
     }
     public async Task<IDataResult<ProductGetDto>> GetByIdAsync(int id, params string[] includes)
     {
-        Product product = await _unitOfWork.ProductRepository.GetAsync(b => b.Id == id && !b.isDeleted, includes);
+        Product product = await _unitOfWork.ProductRepository.GetAsync(b => b.Id == id, includes);
         if (product is null)
         {
             return new ErrorDataResult<ProductGetDto>("Product Tapilmadi");
@@ -91,10 +91,22 @@ public class ProductManager : IProductService
         }
         return new SuccessResult("Product Yenilendi");
     }
-    #endregion
+	public async Task<IResult> RecoverByIdAsync(int id)
+	{
+		Product product = await _unitOfWork.ProductRepository.GetAsync(b => b.Id == id && b.isDeleted);
+		product.isDeleted = false;
+		_unitOfWork.ProductRepository.Update(product);
+		int result = await _unitOfWork.SaveAsync();
+		if (result is 0)
+		{
+			return new ErrorResult("Product is not recovered");
+		}
+		return new SuccessResult("Product is recovered");
+	}
+	#endregion
 
-    #region Delete Requests
-    public async Task<IResult> HardDeleteByIdAsync(int id)
+	#region Delete Requests
+	public async Task<IResult> HardDeleteByIdAsync(int id)
     {
         Product product = await _unitOfWork.ProductRepository.GetAsync(b => b.Id == id && !b.isDeleted);
         _unitOfWork.ProductRepository.Delete(product);

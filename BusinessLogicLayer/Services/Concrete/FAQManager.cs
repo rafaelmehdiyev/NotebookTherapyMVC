@@ -11,29 +11,28 @@ public class FAQManager : IFAQService
         _mapper = mapper;
     }
 
-    public async Task<IDataResult<List<FAQGetDto>>> GetAllAsync(params string[] includes)
+	#region Get Requests
+	public async Task<IDataResult<List<FAQGetDto>>> GetAllAsync(params string[] includes)
     {
-        List<FAQ> FAQs = await _unitOfWork.FAQRepository.GetAllAsync(p => !p.isDeleted, includes);
+        List<FAQ> FAQs = await _unitOfWork.FAQRepository.GetAllAsync(includes: includes);
         if (FAQs is null)
         {
             return new ErrorDataResult<List<FAQGetDto>>("FAQlar Tapilmadi");
         }
         return new SuccessDataResult<List<FAQGetDto>>(_mapper.Map<List<FAQGetDto>>(FAQs));
     }
-
     public async Task<IDataResult<List<FAQGetDto>>> GetFaqsByCategoryIdAsync(int id, params string[] includes)
     {
-        List<FAQ> faq = await _unitOfWork.FAQRepository.GetAllAsync(b => b.FAQCategoryId == id && !b.isDeleted, includes);
+        List<FAQ> faq = await _unitOfWork.FAQRepository.GetAllAsync(b => b.FAQCategoryId == id, includes);
         if (faq is null)
         {
             return new ErrorDataResult<List<FAQGetDto>>("FAQlar Tapilmadi");
         }
         return new SuccessDataResult<List<FAQGetDto>>(_mapper.Map<List<FAQGetDto>>(faq));
     }
-
     public async Task<IDataResult<FAQGetDto>> GetByIdAsync(int id, params string[] includes)
     {
-        FAQ faq = await _unitOfWork.FAQRepository.GetAsync(b => b.Id == id && !b.isDeleted, includes);
+        FAQ faq = await _unitOfWork.FAQRepository.GetAsync(b => b.Id == id, includes);
         if (faq is null)
         {
             return new ErrorDataResult<FAQGetDto>("FAQ Tapilmadi");
@@ -41,6 +40,9 @@ public class FAQManager : IFAQService
         return new SuccessDataResult<FAQGetDto>(_mapper.Map<FAQGetDto>(faq));
     }
 
+	#endregion
+
+	#region Post Requests
     public async Task<IResult> CreateAsync(FAQPostDto dto)
     {
         FAQ faq = _mapper.Map<FAQ>(dto);
@@ -52,6 +54,10 @@ public class FAQManager : IFAQService
         }
         return new SuccessResult("FAQ Yaradildi");
     }
+
+	#endregion
+
+	#region Update Requests
     public async Task<IResult> UpdateAsync(FAQUpdateDto dto)
     {
         FAQ faq = await _unitOfWork.FAQRepository.GetAsync(b => b.Id == dto.Id && !b.isDeleted);
@@ -65,7 +71,23 @@ public class FAQManager : IFAQService
         }
         return new SuccessResult("FAQ Yenilendi");
     }
-    public async Task<IResult> HardDeleteByIdAsync(int id)
+	public async Task<IResult> RecoverByIdAsync(int id)
+	{
+		FAQ faq = await _unitOfWork.FAQRepository.GetAsync(b => b.Id == id && b.isDeleted);
+		faq.isDeleted = false;
+		_unitOfWork.FAQRepository.Update(faq);
+		int result = await _unitOfWork.SaveAsync();
+		if (result is 0)
+		{
+			return new ErrorResult("FAQ is not recoverd");
+		}
+		return new SuccessResult("FAQ is recovered");
+	}
+
+	#endregion
+
+	#region Delete Requests
+	public async Task<IResult> HardDeleteByIdAsync(int id)
     {
         FAQ faq = await _unitOfWork.FAQRepository.GetAsync(b => b.Id == id && !b.isDeleted);
         _unitOfWork.FAQRepository.Delete(faq);
@@ -76,7 +98,6 @@ public class FAQManager : IFAQService
         }
         return new SuccessResult("FAQ Silindi");
     }
-
     public async Task<IResult> SoftDeleteByIdAsync(int id)
     {
         FAQ faq = await _unitOfWork.FAQRepository.GetAsync(b => b.Id == id && !b.isDeleted);
@@ -89,6 +110,10 @@ public class FAQManager : IFAQService
         }
         return new SuccessResult("FAQ Silindi");
     }
+
+	#endregion
+
+
 }
 
 

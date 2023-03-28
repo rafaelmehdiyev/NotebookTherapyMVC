@@ -5,9 +5,9 @@ public class CartItemGetDto : IDto
     public int Id { get; set; }
     public int Quantity { get; set; }
     public decimal TotalPrice { get; set; }
+	public bool isDeleted { get; set; }
 
-
-    //Relations
-    public ProductGetDto Product { get; set; }
+	//Relations
+	public ProductGetDto Product { get; set; }
     public CartGetDto Cart { get; set; }
 }

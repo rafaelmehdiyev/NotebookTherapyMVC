@@ -14,7 +14,7 @@ public class CartManager : ICartService
     #region Get Requests
     public async Task<IDataResult<List<CartGetDto>>> GetAllAsync(params string[] includes)
     {
-        List<Cart> carts = await _unitOfWork.CartRepository.GetAllAsync(p => !p.isDeleted, includes);
+        List<Cart> carts = await _unitOfWork.CartRepository.GetAllAsync(includes:includes);
         if (carts is null)
         {
             return new ErrorDataResult<List<CartGetDto>>("Cartlar Tapilmadi");
@@ -24,7 +24,7 @@ public class CartManager : ICartService
 
     public async Task<IDataResult<CartGetDto>> GetByIdAsync(int id, params string[] includes)
     {
-        Cart cart = await _unitOfWork.CartRepository.GetAsync(b => b.Id == id && !b.isDeleted, includes);
+        Cart cart = await _unitOfWork.CartRepository.GetAsync(b => b.Id == id, includes);
         if (cart is null)
         {
             return new ErrorDataResult<CartGetDto>("Cart Tapilmadi");
@@ -33,7 +33,7 @@ public class CartManager : ICartService
     }
     public async Task<IDataResult<CartGetDto>> GetCartByUserIdAsync(string id, params string[] includes)
     {
-        Cart cart = await _unitOfWork.CartRepository.GetAsync(b => b.UserId == id && !b.isDeleted, includes);
+        Cart cart = await _unitOfWork.CartRepository.GetAsync(b => b.UserId == id, includes);
         if (cart is null)
         {
             return new ErrorDataResult<CartGetDto>("Cart Tapilmadi");
@@ -69,10 +69,23 @@ public class CartManager : ICartService
         }
         return new SuccessResult("Cart Yenilendi");
     }
-    #endregion
 
-    #region Delete Requests
-    public async Task<IResult> HardDeleteByIdAsync(int id)
+	public async Task<IResult> RecoverByIdAsync(int id)
+	{
+		Cart cart = await _unitOfWork.CartRepository.GetAsync(b => b.Id == id && b.isDeleted);
+		cart.isDeleted = false;
+		_unitOfWork.CartRepository.Update(cart);
+		int result = await _unitOfWork.SaveAsync();
+		if (result is 0)
+		{
+			return new ErrorResult("Cart is not recovered");
+		}
+		return new SuccessResult("Cart is recovered");
+	}
+	#endregion
+
+	#region Delete Requests
+	public async Task<IResult> HardDeleteByIdAsync(int id)
     {
         Cart cart = await _unitOfWork.CartRepository.GetAsync(b => b.Id == id && !b.isDeleted);
         _unitOfWork.CartRepository.Delete(cart);

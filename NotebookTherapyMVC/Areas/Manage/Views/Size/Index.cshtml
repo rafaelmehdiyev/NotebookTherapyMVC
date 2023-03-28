@@ -1,0 +1,80 @@
+﻿@{
+	ViewData["Title"] = "Size";
+}
+@model IDataResult<List<SizeGetDto>>
+<div class="breadcrumb-wrapper breadcrumb-wrapper-2 breadcrumb-contacts">
+	<h1>Sizes</h1>
+	<p class="breadcrumbs">
+		<span><a href="index.html">Home</a></span>
+		<span><i class="mdi mdi-chevron-right"></i></span>Size
+	</p>
+</div>
+<div class="row">
+	<div class="col-xl-4 col-lg-12">
+		<div class="ec-cat-list card card-default mb-24px">
+			<div class="card-body">
+				<div class="ec-cat-form">
+					<h4>Add New Size</h4>
+					<partial name="_sizeCreatePartial" model="new SizePostDto()" />
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-xl-8 col-lg-12">
+		<div class="ec-cat-list card card-default">
+			<div class="card-body">
+				<div class="table-responsive">
+					<table id="responsive-data-table" class="table">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Name</th>
+								<th>Status</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach (var size in Model.Data)
+							{
+								<tr>
+									<td>@size.Id</td>
+									<td>@size.Name</td>
+									<td>
+										@{
+											if (size.isDeleted)
+											{
+												@:<span class="badge badge-danger">Inactive</span>
+											}
+											else
+											{
+												@:<span class="badge badge-success">Active</span>
+											}
+										}
+									</td>
+									<td>
+										<div class="btn-group">
+											<button asp-action="Get" asp-controller="Size" asp-route-id="@size.Id" type="button" class="btn btn-outline-success">Info</button>
+											@{
+												if (!size.isDeleted)
+												{
+													<button type="button" class="btn btn-outline-success dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+														<span class="sr-only">Info</span>
+													</button>
+													<div class="dropdown-menu">
+														<a asp-action="Update" asp-controller="Size" asp-route-id="@size.Id" class="dropdown-item">Edit</a>
+														<a asp-action="Delete" asp-controller="Size" asp-route-id="@size.Id" class="dropdown-item">Delete</a>
+													</div>
+												}
+											}
+										</div>
+									</td>
+								</tr>
+							}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

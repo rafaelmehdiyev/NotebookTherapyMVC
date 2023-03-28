@@ -11,19 +11,19 @@ public class FAQCategoryManager : IFAQCategoryService
         _mapper = mapper;
     }
 
-    public async Task<IDataResult<List<FAQCategoryGetDto>>> GetAllAsync(params string[] includes)
+	#region Get Requests
+	public async Task<IDataResult<List<FAQCategoryGetDto>>> GetAllAsync(params string[] includes)
     {
-        List<FAQCategory> fAQCategories = await _unitOfWork.FAQCategoryRepository.GetAllAsync(p => !p.isDeleted, includes);
+        List<FAQCategory> fAQCategories = await _unitOfWork.FAQCategoryRepository.GetAllAsync(includes: includes);
         if (fAQCategories is null)
         {
             return new ErrorDataResult<List<FAQCategoryGetDto>>("FAQCategorylar Tapilmadi");
         }
         return new SuccessDataResult<List<FAQCategoryGetDto>>(_mapper.Map<List<FAQCategoryGetDto>>(fAQCategories));
     }
-
     public async Task<IDataResult<FAQCategoryGetDto>> GetByIdAsync(int id, params string[] includes)
     {
-        FAQCategory fAQCategory = await _unitOfWork.FAQCategoryRepository.GetAsync(b => b.Id == id && !b.isDeleted, includes);
+        FAQCategory fAQCategory = await _unitOfWork.FAQCategoryRepository.GetAsync(b => b.Id == id, includes);
         if (fAQCategory is null)
         {
             return new ErrorDataResult<FAQCategoryGetDto>("FAQCategory Tapilmadi");
@@ -31,6 +31,9 @@ public class FAQCategoryManager : IFAQCategoryService
         return new SuccessDataResult<FAQCategoryGetDto>(_mapper.Map<FAQCategoryGetDto>(fAQCategory));
     }
 
+	#endregion
+
+	#region Post Requests
     public async Task<IResult> CreateAsync(FAQCategoryPostDto dto)
     {
         FAQCategory fAQCategory = _mapper.Map<FAQCategory>(dto);
@@ -42,6 +45,10 @@ public class FAQCategoryManager : IFAQCategoryService
         }
         return new SuccessResult("FAQCategory Yaradildi");
     }
+
+	#endregion
+
+	#region Update Requests
     public async Task<IResult> UpdateAsync(FAQCategoryUpdateDto dto)
     {
         FAQCategory fAQCategory = await _unitOfWork.FAQCategoryRepository.GetAsync(b => b.Id == dto.Id && !b.isDeleted);
@@ -54,7 +61,23 @@ public class FAQCategoryManager : IFAQCategoryService
         }
         return new SuccessResult("FAQCategory Yenilendi");
     }
-    public async Task<IResult> HardDeleteByIdAsync(int id)
+	public async Task<IResult> RecoverByIdAsync(int id)
+	{
+		FAQCategory fAQCategory = await _unitOfWork.FAQCategoryRepository.GetAsync(b => b.Id == id && b.isDeleted);
+		fAQCategory.isDeleted = false;
+		_unitOfWork.FAQCategoryRepository.Update(fAQCategory);
+		int result = await _unitOfWork.SaveAsync();
+		if (result is 0)
+		{
+			return new ErrorResult("FAQCategory is not recovered");
+		}
+		return new SuccessResult("FAQCategory is recovered");
+	}
+
+	#endregion
+
+	#region Delete Requests
+	public async Task<IResult> HardDeleteByIdAsync(int id)
     {
         FAQCategory fAQCategory = await _unitOfWork.FAQCategoryRepository.GetAsync(b => b.Id == id && !b.isDeleted);
         _unitOfWork.FAQCategoryRepository.Delete(fAQCategory);
@@ -65,7 +88,6 @@ public class FAQCategoryManager : IFAQCategoryService
         }
         return new SuccessResult("FAQCategory Silindi");
     }
-
     public async Task<IResult> SoftDeleteByIdAsync(int id)
     {
         FAQCategory fAQCategory = await _unitOfWork.FAQCategoryRepository.GetAsync(b => b.Id == id && !b.isDeleted);
@@ -78,6 +100,8 @@ public class FAQCategoryManager : IFAQCategoryService
         }
         return new SuccessResult("FAQCategory Silindi");
     }
+
+	#endregion
 }
 
 

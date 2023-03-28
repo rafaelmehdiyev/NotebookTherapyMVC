@@ -6,8 +6,9 @@ public class ReviewGetDto : IDto
     public string Comment { get; set; }
     public Rating Rating { get; set; }
     public DateTime CreatedDate { get; set; }
+	public bool isDeleted { get; set; }
 
-    //Relations
-    public UserGetDto User { get; set; }
+	//Relations
+	public UserGetDto User { get; set; }
     public ProductGetDto Product { get; set; }
 }

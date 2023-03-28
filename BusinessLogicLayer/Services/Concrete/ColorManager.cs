@@ -11,19 +11,19 @@ public class ColorManager : IColorService
         _mapper = mapper;
     }
 
-    public async Task<IDataResult<List<ColorGetDto>>> GetAllAsync(params string[] includes)
+	#region Get Requests
+	public async Task<IDataResult<List<ColorGetDto>>> GetAllAsync(params string[] includes)
     {
-        List<Color> sizes = await _unitOfWork.ColorRepository.GetAllAsync(p => !p.isDeleted, includes);
+        List<Color> sizes = await _unitOfWork.ColorRepository.GetAllAsync(includes: includes);
         if (sizes is null)
         {
             return new ErrorDataResult<List<ColorGetDto>>("Colorlar Tapilmadi");
         }
         return new SuccessDataResult<List<ColorGetDto>>(_mapper.Map<List<ColorGetDto>>(sizes));
     }
-
     public async Task<IDataResult<ColorGetDto>> GetByIdAsync(int id, params string[] includes)
     {
-        Color size = await _unitOfWork.ColorRepository.GetAsync(b => b.Id == id && !b.isDeleted, includes);
+        Color size = await _unitOfWork.ColorRepository.GetAsync(b => b.Id == id, includes);
         if (size is null)
         {
             return new ErrorDataResult<ColorGetDto>("Color Tapilmadi");
@@ -31,6 +31,9 @@ public class ColorManager : IColorService
         return new SuccessDataResult<ColorGetDto>(_mapper.Map<ColorGetDto>(size));
     }
 
+	#endregion
+
+	#region Post Requests
     public async Task<IResult> CreateAsync(ColorPostDto dto)
     {
         Color size = _mapper.Map<Color>(dto);
@@ -42,6 +45,10 @@ public class ColorManager : IColorService
         }
         return new SuccessResult("Color Yaradildi");
     }
+
+	#endregion
+
+	#region Update Requests
     public async Task<IResult> UpdateAsync(ColorUpdateDto dto)
     {
         Color size = await _unitOfWork.ColorRepository.GetAsync(b => b.Id == dto.Id && !b.isDeleted);
@@ -54,7 +61,22 @@ public class ColorManager : IColorService
         }
         return new SuccessResult("Color Yenilendi");
     }
-    public async Task<IResult> HardDeleteByIdAsync(int id)
+	public async Task<IResult> RecoverByIdAsync(int id)
+	{
+		Color size = await _unitOfWork.ColorRepository.GetAsync(b => b.Id == id && b.isDeleted);
+		size.isDeleted = false;
+		_unitOfWork.ColorRepository.Update(size);
+		int result = await _unitOfWork.SaveAsync();
+		if (result is 0)
+		{
+			return new ErrorResult("Color is not recovered");
+		}
+		return new SuccessResult("Color is recovered");
+	}
+	#endregion
+
+	#region Delete Requests
+	public async Task<IResult> HardDeleteByIdAsync(int id)
     {
         Color size = await _unitOfWork.ColorRepository.GetAsync(b => b.Id == id && !b.isDeleted);
         _unitOfWork.ColorRepository.Delete(size);
@@ -65,7 +87,6 @@ public class ColorManager : IColorService
         }
         return new SuccessResult("Color Silindi");
     }
-
     public async Task<IResult> SoftDeleteByIdAsync(int id)
     {
         Color size = await _unitOfWork.ColorRepository.GetAsync(b => b.Id == id && !b.isDeleted);
@@ -78,4 +99,7 @@ public class ColorManager : IColorService
         }
         return new SuccessResult("Color Silindi");
     }
+
+	#endregion
+
 }

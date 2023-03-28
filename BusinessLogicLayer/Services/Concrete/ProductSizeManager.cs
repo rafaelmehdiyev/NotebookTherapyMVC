@@ -11,7 +11,8 @@ public class ProductSizeManager : IProductSizeService
         _mapper = mapper;
     }
 
-    public async Task<IDataResult<List<ProductSizeGetDto>>> GetAllAsync(params string[] includes)
+	#region Get Requests
+	public async Task<IDataResult<List<ProductSizeGetDto>>> GetAllAsync(params string[] includes)
     {
         List<ProductSize> productSizes = await _unitOfWork.ProductSizeRepository.GetAllAsync(includes:includes);
         if (productSizes is null)
@@ -20,7 +21,6 @@ public class ProductSizeManager : IProductSizeService
         }
         return new SuccessDataResult<List<ProductSizeGetDto>>(_mapper.Map<List<ProductSizeGetDto>>(productSizes));
     }
-
     public async Task<IDataResult<ProductSizeGetDto>> GetByIdAsync(int id, params string[] includes)
     {
         ProductSize productSize = await _unitOfWork.ProductSizeRepository.GetAsync(b => b.Id == id, includes);
@@ -31,6 +31,9 @@ public class ProductSizeManager : IProductSizeService
         return new SuccessDataResult<ProductSizeGetDto>(_mapper.Map<ProductSizeGetDto>(productSize));
     }
 
+	#endregion
+
+	#region Post Requests
     public async Task<IResult> CreateAsync(ProductSizePostDto dto)
     {
         ProductSize productSize = _mapper.Map<ProductSize>(dto);
@@ -42,6 +45,10 @@ public class ProductSizeManager : IProductSizeService
         }
         return new SuccessResult("ProductSize Yaradildi");
     }
+
+	#endregion
+
+	#region Update Requests
     public async Task<IResult> UpdateAsync(ProductSizeUpdateDto dto)
     {
         ProductSize productSize = await _unitOfWork.ProductSizeRepository.GetAsync(b => b.Id == dto.Id);
@@ -54,6 +61,10 @@ public class ProductSizeManager : IProductSizeService
         }
         return new SuccessResult("ProductSize Yenilendi");
     }
+
+	#endregion
+
+	#region Delete Requests
     public async Task<IResult> HardDeleteByIdAsync(int id)
     {
         ProductSize productSize = await _unitOfWork.ProductSizeRepository.GetAsync(b => b.Id == id);
@@ -66,15 +77,5 @@ public class ProductSizeManager : IProductSizeService
         return new SuccessResult("ProductSize Silindi");
     }
 
-    public async Task<IResult> SoftDeleteByIdAsync(int id)
-    {
-        ProductSize productSize = await _unitOfWork.ProductSizeRepository.GetAsync(b => b.Id == id);
-        _unitOfWork.ProductSizeRepository.Update(productSize);
-        int result = await _unitOfWork.SaveAsync();
-        if (result is 0)
-        {
-            return new ErrorResult("ProductSize Siline bilmedi");
-        }
-        return new SuccessResult("ProductSize Silindi");
-    }
+	#endregion
 }

@@ -10,20 +10,19 @@ public class ShippingManager : IShippingService
         _unitOfWork = unitOfWork;
         _mapper = mapper;
     }
-
-    public async Task<IDataResult<List<ShippingGetDto>>> GetAllAsync(params string[] includes)
+	#region Get Requests
+	public async Task<IDataResult<List<ShippingGetDto>>> GetAllAsync(params string[] includes)
     {
-        List<Shipping> shippings = await _unitOfWork.ShippingRepository.GetAllAsync(p => !p.isDeleted, includes);
+        List<Shipping> shippings = await _unitOfWork.ShippingRepository.GetAllAsync(includes: includes);
         if (shippings is null)
         {
             return new ErrorDataResult<List<ShippingGetDto>>("Shippinglar Tapilmadi");
         }
         return new SuccessDataResult<List<ShippingGetDto>>(_mapper.Map<List<ShippingGetDto>>(shippings));
     }
-
     public async Task<IDataResult<ShippingGetDto>> GetByIdAsync(int id, params string[] includes)
     {
-        Shipping shipping = await _unitOfWork.ShippingRepository.GetAsync(b => b.Id == id && !b.isDeleted, includes);
+        Shipping shipping = await _unitOfWork.ShippingRepository.GetAsync(b => b.Id == id, includes);
         if (shipping is null)
         {
             return new ErrorDataResult<ShippingGetDto>("Shipping Tapilmadi");
@@ -31,6 +30,9 @@ public class ShippingManager : IShippingService
         return new SuccessDataResult<ShippingGetDto>(_mapper.Map<ShippingGetDto>(shipping));
     }
 
+	#endregion
+
+	#region Post Requests
     public async Task<IResult> CreateAsync(ShippingPostDto dto)
     {
         Shipping shipping = _mapper.Map<Shipping>(dto);
@@ -42,6 +44,10 @@ public class ShippingManager : IShippingService
         }
         return new SuccessResult("Shipping Yaradildi");
     }
+
+	#endregion
+
+	#region Update Requests
     public async Task<IResult> UpdateAsync(ShippingUpdateDto dto)
     {
         Shipping shipping = await _unitOfWork.ShippingRepository.GetAsync(b => b.Id == dto.Id && !b.isDeleted, "User");
@@ -54,7 +60,23 @@ public class ShippingManager : IShippingService
         }
         return new SuccessResult("Shipping Yenilendi");
     }
-    public async Task<IResult> HardDeleteByIdAsync(int id)
+	public async Task<IResult> RecoverByIdAsync(int id)
+	{
+		Shipping shipping = await _unitOfWork.ShippingRepository.GetAsync(b => b.Id == id && b.isDeleted);
+		shipping.isDeleted = false;
+		_unitOfWork.ShippingRepository.Update(shipping);
+		int result = await _unitOfWork.SaveAsync();
+		if (result is 0)
+		{
+			return new ErrorResult("Shipping is not recovered");
+		}
+		return new SuccessResult("Shipping is recovered");
+	}
+
+	#endregion
+
+	#region Delete Requests
+	public async Task<IResult> HardDeleteByIdAsync(int id)
     {
         Shipping shipping = await _unitOfWork.ShippingRepository.GetAsync(b => b.Id == id && !b.isDeleted);
         _unitOfWork.ShippingRepository.Delete(shipping);
@@ -65,7 +87,6 @@ public class ShippingManager : IShippingService
         }
         return new SuccessResult("Shipping Silindi");
     }
-
     public async Task<IResult> SoftDeleteByIdAsync(int id)
     {
         Shipping shipping = await _unitOfWork.ShippingRepository.GetAsync(b => b.Id == id && !b.isDeleted);
@@ -78,4 +99,6 @@ public class ShippingManager : IShippingService
         }
         return new SuccessResult("Shipping Silindi");
     }
+
+	#endregion
 }

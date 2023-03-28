@@ -1,0 +1,36 @@
+﻿@{
+	ViewData["Title"] = "Size";
+}
+@model SizeUpdateDto
+
+<div class="breadcrumb-wrapper breadcrumb-wrapper-2 breadcrumb-contacts">
+	<h1>Size</h1>
+	<p class="breadcrumbs">
+		<span><a href="index.html">Home</a></span>
+		<span><i class="mdi mdi-chevron-right"></i></span>Size
+	</p>
+</div>
+<div class="row">
+	<div class="col-xl-12 col-lg-12">
+		<div class="ec-cat-list card card-default mb-24px">
+			<div class="card-body">
+				<div class="ec-cat-form">
+					<h4>Update Size</h4>
+					<form asp-action="Update" asp-controller="Size" asp-area="Manage">
+						<div class="form-group row">
+							<label asp-for="Name" class="col-12 col-form-label">Name</label>
+							<div class="col-12">
+								<input asp-for="Name" class="form-control here slug-title" type="text">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12">
+								<button name="submit" type="submit" class="btn btn-primary">Submit</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

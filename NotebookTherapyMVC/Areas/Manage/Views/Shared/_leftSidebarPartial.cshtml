@@ -79,15 +79,15 @@
 				</li>
 
 				<!-- Category -->
-				<li class="has-sub active expand">
+				<li class="has-sub">
 					<a class="sidenav-item-link" href="javascript:void(0)">
 						<i class="mdi mdi-dns-outline"></i>
 						<span class="nav-text">Categories</span> <b class="caret"></b>
 					</a>
-					<div class="collapse show">
+					<div class="collapse">
 						<ul class="sub-menu" id="categorys" data-parent="#sidebar-menu">
 							<li class="active">
-								<a class="sidenav-item-link" href="main-category.html">
+								<a class="sidenav-item-link" asp-controller="Category" asp-action="Index">
 									<span class="nav-text">Category List</span>
 								</a>
 							</li>
@@ -121,6 +121,33 @@
 							<li class="">
 								<a class="sidenav-item-link" href="product-detail.html">
 									<span class="nav-text">Product Detail</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</li>
+
+				<!--Product Parameters -->
+				<li class="has-sub">
+					<a class="sidenav-item-link" href="javascript:void(0)">
+						<i class="mdi mdi-table-settings"></i>
+						<span class="nav-text">Parameters</span> <b class="caret"></b>
+					</a>
+					<div class="collapse">
+						<ul class="sub-menu" id="parameters" data-parent="#sidebar-menu">
+							<li class="">
+								<a class="sidenav-item-link" asp-controller="Size" asp-action="Index">
+									<span class="nav-text">Size</span>
+								</a>
+							</li>
+							<li class="">
+								<a class="sidenav-item-link" asp-controller="Color" asp-action="Index">
+									<span class="nav-text">Color</span>
+								</a>
+							</li>
+							<li class="">
+								<a class="sidenav-item-link" asp-controller="Bundle" asp-action="Index">
+									<span class="nav-text">Bundle</span>
 								</a>
 							</li>
 						</ul>
@@ -176,22 +203,22 @@
 					<hr>
 				</li>
 
-				<!-- Authentication -->
+				<!-- FAQ -->
 				<li class="has-sub">
 					<a class="sidenav-item-link" href="javascript:void(0)">
-						<i class="mdi mdi-login"></i>
-						<span class="nav-text">Authentication</span> <b class="caret"></b>
+						<i class="mdi mdi-comment-question-outline"></i>
+						<span class="nav-text">FAQ</span> <b class="caret"></b>
 					</a>
 					<div class="collapse">
-						<ul class="sub-menu" id="authentication" data-parent="#sidebar-menu">
+						<ul class="sub-menu" id="faqs" data-parent="#sidebar-menu">
 							<li class="">
-								<a href="sign-in.html">
-									<span class="nav-text">Sign In</span>
+								<a asp-controller="FAQCategory" asp-action="Index">
+									<span class="nav-text">FAQ Categories</span>
 								</a>
 							</li>
 							<li class="">
-								<a href="sign-up.html">
-									<span class="nav-text">Sign Up</span>
+								<a asp-controller="FAQ" asp-action="Index">
+									<span class="nav-text">FAQs</span>
 								</a>
 							</li>
 						</ul>
