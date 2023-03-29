@@ -98,7 +98,7 @@
 				<!-- Products -->
 				<li class="has-sub">
 					<a class="sidenav-item-link" href="javascript:void(0)">
-						<i class="mdi mdi-palette-advanced"></i>
+						<i class="fa-solid fa-notebook"></i>
 						<span class="nav-text">Products</span> <b class="caret"></b>
 					</a>
 					<div class="collapse">
@@ -130,7 +130,7 @@
 				<!--Product Parameters -->
 				<li class="has-sub">
 					<a class="sidenav-item-link" href="javascript:void(0)">
-						<i class="mdi mdi-table-settings"></i>
+						<i class="fa-solid fa-toolbox"></i>
 						<span class="nav-text">Parameters</span> <b class="caret"></b>
 					</a>
 					<div class="collapse">
@@ -152,6 +152,15 @@
 							</li>
 						</ul>
 					</div>
+				</li>
+
+				<!-- Product Collection -->
+				<li>
+					<a class="sidenav-item-link" asp-controller="ProductCollection" asp-action="Index">
+						<i class="fa-solid fa-rectangle-vertical-history"></i>
+						<span class="nav-text">Collections</span>
+					</a>
+					<hr>
 				</li>
 
 				<!-- Orders -->
@@ -223,6 +232,15 @@
 							</li>
 						</ul>
 					</div>
+                    <hr />
+				</li>
+
+				<!-- Blog -->
+				<li>
+					<a class="sidenav-item-link" asp-action="Index" asp-controller="Blog">
+						<i class="mdi mdi-blogger"></i>
+						<span class="nav-text">Blogs</span>
+					</a>
 				</li>
 
 				<!-- Icons -->

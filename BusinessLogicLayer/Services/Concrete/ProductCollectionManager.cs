@@ -110,15 +110,15 @@ public class ProductCollectionManager : IProductCollectionService
 	#region Private Methods
 	private void AddImagesToCollection(ProductCollection collection, params Microsoft.AspNetCore.Http.IFormFile[] formFiles)
 	{
-		collection.CollectionHeaderImage = formFiles[0].FileCreate(_env.WebRootPath, "uploads/productCollection/headerImages");
-		collection.CollectionFooterImage = formFiles[1].FileCreate(_env.WebRootPath, "uploads/productCollection/footerImages");
-		collection.CollectionItemBackgroundImage = formFiles[2].FileCreate(_env.WebRootPath, "uploads/productCollection/itemBG");
+		collection.CollectionHeaderImage = formFiles[0].FileCreate(_env.WebRootPath, "uploads/productCollection");
+		collection.CollectionFooterImage = formFiles[1].FileCreate(_env.WebRootPath, "uploads/productCollection");
+		collection.CollectionItemBackgroundImage = formFiles[2].FileCreate(_env.WebRootPath, "uploads/productCollection");
 	}
 	private void DeleteImagesFromCollection(ProductCollection collection)
 	{
-		File.Delete(Path.Combine(_env.WebRootPath, "uploads/productCollection/headerImages", collection.CollectionHeaderImage));
-		File.Delete(Path.Combine(_env.WebRootPath, "uploads/productCollection/itemBG", collection.CollectionItemBackgroundImage));
-		File.Delete(Path.Combine(_env.WebRootPath, "uploads/productCollection/footerImages", collection.CollectionFooterImage));
+		File.Delete(Path.Combine(_env.WebRootPath, "uploads/productCollection", collection.CollectionHeaderImage));
+		File.Delete(Path.Combine(_env.WebRootPath, "uploads/productCollection", collection.CollectionItemBackgroundImage));
+		File.Delete(Path.Combine(_env.WebRootPath, "uploads/productCollection", collection.CollectionFooterImage));
 	}
 
 	#endregion
