@@ -17,7 +17,7 @@ public class FavouriteManager : IFavouriteService
         List<Favourite> favourites = await _unitOfWork.FavouriteRepository.GetAllAsync(includes: includes);
         if (favourites is null)
         {
-            return new ErrorDataResult<List<FavouriteGetDto>>("Favouritelar Tapilmadi");
+            return new ErrorDataResult<List<FavouriteGetDto>>(Messages.NotFound(Messages.Favourite));
         }
         return new SuccessDataResult<List<FavouriteGetDto>>(_mapper.Map<List<FavouriteGetDto>>(favourites));
     }
@@ -26,7 +26,7 @@ public class FavouriteManager : IFavouriteService
         Favourite favourite = await _unitOfWork.FavouriteRepository.GetAsync(b => b.Id == id, includes);
         if (favourite is null)
         {
-            return new ErrorDataResult<FavouriteGetDto>("Favourite Tapilmadi");
+            return new ErrorDataResult<FavouriteGetDto>(Messages.NotFound(Messages.Favourite));
         }
         return new SuccessDataResult<FavouriteGetDto>(_mapper.Map<FavouriteGetDto>(favourite));
     }
@@ -40,9 +40,9 @@ public class FavouriteManager : IFavouriteService
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorDataResult<FavouriteGetDto>("Favourite Yaradila Bilmedi");
+            return new ErrorDataResult<FavouriteGetDto>(Messages.NotCreated(Messages.Favourite));
         }
-        return new SuccessDataResult<FavouriteGetDto>(_mapper.Map<FavouriteGetDto>(favourite), "Favourite Yaradildi");
+        return new SuccessDataResult<FavouriteGetDto>(_mapper.Map<FavouriteGetDto>(favourite), Messages.Created(Messages.Favourite));
     }
     #endregion
 
@@ -55,9 +55,9 @@ public class FavouriteManager : IFavouriteService
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorResult("Favourite Yenilene bilmedi");
+            return new ErrorResult(Messages.NotUpdated(Messages.Favourite));
         }
-        return new SuccessResult("Favourite Yenilendi");
+        return new SuccessResult(Messages.Updated(Messages.Favourite));
     }
     #endregion
 
@@ -69,9 +69,9 @@ public class FavouriteManager : IFavouriteService
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorResult("Favourite Siline bilmedi");
+            return new ErrorResult(Messages.NotDeleted(Messages.Favourite));
         }
-        return new SuccessResult("Favourite Silindi");
+        return new SuccessResult(Messages.Deleted(Messages.Favourite));
     }
     #endregion
 }

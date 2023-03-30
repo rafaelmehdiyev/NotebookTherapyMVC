@@ -18,7 +18,7 @@ public class ProductManager : IProductService
         List<Product> products = await _unitOfWork.ProductRepository.GetAllAsync(includes: includes);
         if (products is null)
         {
-            return new ErrorDataResult<List<ProductGetDto>>("Productlar Tapilmadi");
+            return new ErrorDataResult<List<ProductGetDto>>(Messages.NotFound(Messages.Product));
         }
         return new SuccessDataResult<List<ProductGetDto>>(_mapper.Map<List<ProductGetDto>>(products));
     }
@@ -27,7 +27,7 @@ public class ProductManager : IProductService
         Product product = await _unitOfWork.ProductRepository.GetAsync(b => b.Id == id, includes);
         if (product is null)
         {
-            return new ErrorDataResult<ProductGetDto>("Product Tapilmadi");
+            return new ErrorDataResult<ProductGetDto>(Messages.NotFound(Messages.Product));
         }
         return new SuccessDataResult<ProductGetDto>(_mapper.Map<ProductGetDto>(product));
     }
@@ -42,9 +42,9 @@ public class ProductManager : IProductService
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorResult("Product Yaradila bilmedi");
+            return new ErrorResult(Messages.NotCreated(Messages.Product));
         }
-        return new SuccessResult("Product Yaradildi");
+        return new SuccessResult(Messages.Created(Messages.Product));
     }
     #endregion
 
@@ -87,9 +87,9 @@ public class ProductManager : IProductService
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorResult("Product Yenilene bilmedi");
+            return new ErrorResult(Messages.NotUpdated(Messages.Product));
         }
-        return new SuccessResult("Product Yenilendi");
+        return new SuccessResult(Messages.Updated(Messages.Product));
     }
 	public async Task<IResult> RecoverByIdAsync(int id)
 	{
@@ -99,9 +99,9 @@ public class ProductManager : IProductService
 		int result = await _unitOfWork.SaveAsync();
 		if (result is 0)
 		{
-			return new ErrorResult("Product is not recovered");
+			return new ErrorResult(Messages.NotRecovered(Messages.Product));
 		}
-		return new SuccessResult("Product is recovered");
+		return new SuccessResult(Messages.Recovered(Messages.Product));
 	}
 	#endregion
 
@@ -113,9 +113,9 @@ public class ProductManager : IProductService
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorResult("Product Siline bilmedi");
+            return new ErrorResult(Messages.NotDeleted(Messages.Product));
         }
-        return new SuccessResult("Product Silindi");
+        return new SuccessResult(Messages.Deleted(Messages.Product));
     }
     public async Task<IResult> SoftDeleteByIdAsync(int id)
     {
@@ -125,9 +125,9 @@ public class ProductManager : IProductService
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorResult("Product Siline bilmedi");
+            return new ErrorResult(Messages.NotDeleted(Messages.Product));
         }
-        return new SuccessResult("Product Silindi");
+        return new SuccessResult(Messages.Deleted(Messages.Product));
     }
     #endregion
 

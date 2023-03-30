@@ -7,6 +7,7 @@ global using Entities.DTOs.Blog;
 global using Entities.DTOs.Bundle;
 global using Entities.DTOs.CartItem;
 global using Entities.DTOs.Category;
+global using Entities.DTOs.Color;
 global using Entities.DTOs.FAQ;
 global using Entities.DTOs.FAQCategory;
 global using Entities.DTOs.Favourite;

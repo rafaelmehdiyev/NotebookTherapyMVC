@@ -19,7 +19,7 @@ public class ProductCollectionManager : IProductCollectionService
 		List<ProductCollection> productCollections = await _unitOfWork.ProductCollectionRepository.GetAllAsync(includes: includes);
 		if (productCollections is null)
 		{
-			return new ErrorDataResult<List<ProductCollectionGetDto>>("ProductCollectionlar Tapilmadi");
+			return new ErrorDataResult<List<ProductCollectionGetDto>>(Messages.NotFound(Messages.ProductCollection));
 		}
 		return new SuccessDataResult<List<ProductCollectionGetDto>>(_mapper.Map<List<ProductCollectionGetDto>>(productCollections));
 	}
@@ -28,7 +28,7 @@ public class ProductCollectionManager : IProductCollectionService
 		ProductCollection productCollection = await _unitOfWork.ProductCollectionRepository.GetAsync(b => b.Id == id, includes);
 		if (productCollection is null)
 		{
-			return new ErrorDataResult<ProductCollectionGetDto>("ProductCollection Tapilmadi");
+			return new ErrorDataResult<ProductCollectionGetDto>(Messages.NotFound(Messages.ProductCollection));
 		}
 		return new SuccessDataResult<ProductCollectionGetDto>(_mapper.Map<ProductCollectionGetDto>(productCollection));
 	}
@@ -43,9 +43,9 @@ public class ProductCollectionManager : IProductCollectionService
 		int result = await _unitOfWork.SaveAsync();
 		if (result is 0)
 		{
-			return new ErrorResult("ProductCollection Yaradila bilmedi");
+			return new ErrorResult(Messages.NotCreated(Messages.ProductCollection));
 		}
-		return new SuccessResult("ProductCollection Yaradildi");
+		return new SuccessResult(Messages.Created(Messages.ProductCollection));
 	}
 
 	#endregion
@@ -61,9 +61,9 @@ public class ProductCollectionManager : IProductCollectionService
 		int result = await _unitOfWork.SaveAsync();
 		if (result is 0)
 		{
-			return new ErrorResult("ProductCollection Yenilene bilmedi");
+			return new ErrorResult(Messages.NotUpdated(Messages.ProductCollection));
 		}
-		return new SuccessResult("ProductCollection Yenilendi");
+		return new SuccessResult(Messages.Updated(Messages.ProductCollection));
 	}
 	public async Task<IResult> RecoverByIdAsync(int id)
 	{
@@ -73,9 +73,9 @@ public class ProductCollectionManager : IProductCollectionService
 		int result = await _unitOfWork.SaveAsync();
 		if (result is 0)
 		{
-			return new ErrorResult("ProductCollection is not recovered");
+			return new ErrorResult(Messages.NotRecovered(Messages.ProductCollection));
 		}
-		return new SuccessResult("ProductCollection is recovered");
+		return new SuccessResult(Messages.Recovered(Messages.ProductCollection));
 	}
 
 	#endregion
@@ -88,9 +88,9 @@ public class ProductCollectionManager : IProductCollectionService
 		int result = await _unitOfWork.SaveAsync();
 		if (result is 0)
 		{
-			return new ErrorResult("ProductCollection Siline bilmedi");
+			return new ErrorResult(Messages.NotDeleted(Messages.ProductCollection));
 		}
-		return new SuccessResult("ProductCollection Silindi");
+		return new SuccessResult(Messages.Deleted(Messages.ProductCollection));
 	}
 	public async Task<IResult> SoftDeleteByIdAsync(int id)
 	{
@@ -100,9 +100,9 @@ public class ProductCollectionManager : IProductCollectionService
 		int result = await _unitOfWork.SaveAsync();
 		if (result is 0)
 		{
-			return new ErrorResult("ProductCollection Siline bilmedi");
+			return new ErrorResult(Messages.NotDeleted(Messages.ProductCollection));
 		}
-		return new SuccessResult("ProductCollection Silindi");
+		return new SuccessResult(Messages.Deleted(Messages.ProductCollection));
 	}
 
 	#endregion
@@ -123,5 +123,3 @@ public class ProductCollectionManager : IProductCollectionService
 
 	#endregion
 }
-
-

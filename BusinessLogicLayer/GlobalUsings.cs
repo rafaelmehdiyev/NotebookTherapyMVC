@@ -1,6 +1,7 @@
 ﻿global using AutoMapper;
 global using BusinessLogicLayer.Services.Abstract;
 global using BusinessLogicLayer.Services.Concrete;
+global using BusinessLogicLayer.Utilities.Constants;
 global using BusinessLogicLayer.Utilities.Extensions;
 global using BusinessLogicLayer.Utilities.Results;
 global using BusinessLogicLayer.Utilities.Security.Encrption;

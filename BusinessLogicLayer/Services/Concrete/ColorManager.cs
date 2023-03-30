@@ -17,7 +17,7 @@ public class ColorManager : IColorService
         List<Color> sizes = await _unitOfWork.ColorRepository.GetAllAsync(includes: includes);
         if (sizes is null)
         {
-            return new ErrorDataResult<List<ColorGetDto>>("Colorlar Tapilmadi");
+            return new ErrorDataResult<List<ColorGetDto>>(Messages.NotFound(Messages.Color));
         }
         return new SuccessDataResult<List<ColorGetDto>>(_mapper.Map<List<ColorGetDto>>(sizes));
     }
@@ -26,7 +26,7 @@ public class ColorManager : IColorService
         Color size = await _unitOfWork.ColorRepository.GetAsync(b => b.Id == id, includes);
         if (size is null)
         {
-            return new ErrorDataResult<ColorGetDto>("Color Tapilmadi");
+            return new ErrorDataResult<ColorGetDto>(Messages.NotFound(Messages.Color));
         }
         return new SuccessDataResult<ColorGetDto>(_mapper.Map<ColorGetDto>(size));
     }
@@ -41,9 +41,9 @@ public class ColorManager : IColorService
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorResult("Color Yaradila bilmedi");
+            return new ErrorResult(Messages.NotCreated(Messages.Color));
         }
-        return new SuccessResult("Color Yaradildi");
+        return new SuccessResult(Messages.Created(Messages.Color));
     }
 
 	#endregion
@@ -57,9 +57,9 @@ public class ColorManager : IColorService
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorResult("Color Yenilene bilmedi");
+            return new ErrorResult(Messages.NotUpdated(Messages.Color));
         }
-        return new SuccessResult("Color Yenilendi");
+        return new SuccessResult(Messages.Updated(Messages.Color));
     }
 	public async Task<IResult> RecoverByIdAsync(int id)
 	{
@@ -69,9 +69,9 @@ public class ColorManager : IColorService
 		int result = await _unitOfWork.SaveAsync();
 		if (result is 0)
 		{
-			return new ErrorResult("Color is not recovered");
+			return new ErrorResult(Messages.NotRecovered(Messages.Color));
 		}
-		return new SuccessResult("Color is recovered");
+		return new SuccessResult(Messages.Recovered(Messages.Color));
 	}
 	#endregion
 
@@ -83,9 +83,9 @@ public class ColorManager : IColorService
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorResult("Color Siline bilmedi");
+            return new ErrorResult(Messages.NotDeleted(Messages.Color));
         }
-        return new SuccessResult("Color Silindi");
+        return new SuccessResult(Messages.Deleted(Messages.Color));
     }
     public async Task<IResult> SoftDeleteByIdAsync(int id)
     {
@@ -95,9 +95,9 @@ public class ColorManager : IColorService
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorResult("Color Siline bilmedi");
+            return new ErrorResult(Messages.NotDeleted(Messages.Color));
         }
-        return new SuccessResult("Color Silindi");
+        return new SuccessResult(Messages.Deleted(Messages.Color));
     }
 
 	#endregion

@@ -17,7 +17,7 @@ public class SaleManager : ISaleService
         List<Sale> sales = await _unitOfWork.SaleRepository.GetAllAsync(includes: includes);
         if (sales is null)
         {
-            return new ErrorDataResult<List<SaleGetDto>>("Salelar Tapilmadi");
+            return new ErrorDataResult<List<SaleGetDto>>(Messages.NotFound(Messages.Sale));
         }
         return new SuccessDataResult<List<SaleGetDto>>(_mapper.Map<List<SaleGetDto>>(sales));
     }
@@ -26,7 +26,7 @@ public class SaleManager : ISaleService
         Sale sale = await _unitOfWork.SaleRepository.GetAsync(b => b.Id == id, includes);
         if (sale is null)
         {
-            return new ErrorDataResult<SaleGetDto>("Sale Tapilmadi");
+            return new ErrorDataResult<SaleGetDto>(Messages.NotFound(Messages.Sale));
         }
         return new SuccessDataResult<SaleGetDto>(_mapper.Map<SaleGetDto>(sale));
     }
@@ -41,9 +41,9 @@ public class SaleManager : ISaleService
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorResult("Sale Yaradila bilmedi");
+            return new ErrorResult(Messages.NotCreated(Messages.Sale));
         }
-        return new SuccessResult("Sale Yaradildi");
+        return new SuccessResult(Messages.Created(Messages.Sale));
     }
 
 	#endregion
@@ -57,9 +57,9 @@ public class SaleManager : ISaleService
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorResult("Sale Yenilene bilmedi");
+            return new ErrorResult(Messages.NotUpdated(Messages.Sale));
         }
-        return new SuccessResult("Sale Yenilendi");
+        return new SuccessResult(Messages.Updated(Messages.Sale));
     }
 	public async Task<IResult> RecoverByIdAsync(int id)
 	{
@@ -69,9 +69,9 @@ public class SaleManager : ISaleService
 		int result = await _unitOfWork.SaveAsync();
 		if (result is 0)
 		{
-			return new ErrorResult("Sale Siline bilmedi");
+			return new ErrorResult(Messages.NotRecovered(Messages.Sale));
 		}
-		return new SuccessResult("Sale Silindi");
+		return new SuccessResult(Messages.Recovered(Messages.Sale));
 	}
 
 	#endregion
@@ -84,9 +84,9 @@ public class SaleManager : ISaleService
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorResult("Sale Siline bilmedi");
+            return new ErrorResult(Messages.NotDeleted(Messages.Sale));
         }
-        return new SuccessResult("Sale Silindi");
+        return new SuccessResult(Messages.Deleted(Messages.Sale));
     }
     public async Task<IResult> SoftDeleteByIdAsync(int id)
     {
@@ -96,9 +96,9 @@ public class SaleManager : ISaleService
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorResult("Sale Siline bilmedi");
+            return new ErrorResult(Messages.NotDeleted(Messages.Sale));
         }
-        return new SuccessResult("Sale Silindi");
+        return new SuccessResult(Messages.Deleted(Messages.Sale));
     }
 
 	#endregion

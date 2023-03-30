@@ -4,7 +4,6 @@ public class BlogManager : IBlogService
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
-
     public BlogManager(IUnitOfWork unitOfWork, IMapper mapper)
     {
         _unitOfWork = unitOfWork;
@@ -17,7 +16,7 @@ public class BlogManager : IBlogService
 		List<Blog> blogs = await _unitOfWork.BlogRepository.GetAllAsync(includes:includes);
 		if (blogs is null)
 		{
-			return new ErrorDataResult<List<BlogGetDto>>("Bloglar Tapilmadi");
+			return new ErrorDataResult<List<BlogGetDto>>(Messages.NotFound(Messages.Blog));
 		}
 		return new SuccessDataResult<List<BlogGetDto>>(_mapper.Map<List<BlogGetDto>>(blogs));
 	}
@@ -26,7 +25,7 @@ public class BlogManager : IBlogService
 		Blog blog = await _unitOfWork.BlogRepository.GetAsync(b => b.Id == id, includes);
 		if (blog is null)
 		{
-			return new ErrorDataResult<BlogGetDto>("Blog Tapilmadi");
+			return new ErrorDataResult<BlogGetDto>(Messages.NotFound(Messages.Blog));
 		}
 		return new SuccessDataResult<BlogGetDto>(_mapper.Map<BlogGetDto>(blog));
 	}
@@ -40,9 +39,9 @@ public class BlogManager : IBlogService
 		int result = await _unitOfWork.SaveAsync();
 		if (result is 0)
 		{
-			return new ErrorResult("Blog Yaradila bilmedi");
+			return new ErrorResult(Messages.NotCreated(Messages.Blog));
 		}
-		return new SuccessResult("Blog Yaradildi");
+		return new SuccessResult(Messages.Created(Messages.Blog));
 	}
 
 	#endregion
@@ -56,9 +55,9 @@ public class BlogManager : IBlogService
 		int result = await _unitOfWork.SaveAsync();
 		if (result is 0)
 		{
-			return new ErrorResult("Blog Yenilene bilmedi");
+			return new ErrorResult(Messages.NotUpdated(Messages.Blog));
 		}
-		return new SuccessResult("Blog Yenilendi");
+		return new SuccessResult(Messages.Updated(Messages.Blog));
 	}
 
 	public async Task<IResult> UpdateAsync(BlogUpdateDto dto)
@@ -69,9 +68,9 @@ public class BlogManager : IBlogService
 		int result = await _unitOfWork.SaveAsync();
 		if (result is 0)
 		{
-			return new ErrorResult("Blog Yenilene bilmedi");
+			return new ErrorResult(Messages.NotUpdated(Messages.Blog));
 		}
-		return new SuccessResult("Blog Yenilendi");
+		return new SuccessResult(Messages.Updated(Messages.Blog));
 	}
 
 	public async Task<IResult> RecoverByIdAsync(int id)
@@ -82,9 +81,9 @@ public class BlogManager : IBlogService
 		int result = await _unitOfWork.SaveAsync();
 		if (result is 0)
 		{
-			return new ErrorResult("Blog is not recovered");
+			return new ErrorResult(Messages.NotRecovered(Messages.Blog));
 		}
-		return new SuccessResult("Blog is recovered");
+		return new SuccessResult(Messages.Recovered(Messages.Blog));
 	}
 	#endregion
 
@@ -96,9 +95,9 @@ public class BlogManager : IBlogService
 		int result = await _unitOfWork.SaveAsync();
 		if (result is 0)
 		{
-			return new ErrorResult("Blog Siline bilmedi");
+			return new ErrorResult(Messages.NotDeleted(Messages.Blog));
 		}
-		return new SuccessResult("Blog Silindi");
+		return new SuccessResult(Messages.Deleted(Messages.Blog));
 	}
 
 	public async Task<IResult> SoftDeleteByIdAsync(int id)
@@ -109,9 +108,9 @@ public class BlogManager : IBlogService
 		int result = await _unitOfWork.SaveAsync();
 		if (result is 0)
 		{
-			return new ErrorResult("Blog Siline bilmedi");
+			return new ErrorResult(Messages.NotDeleted(Messages.Blog));
 		}
-		return new SuccessResult("Blog Silindi");
+		return new SuccessResult(Messages.Deleted(Messages.Blog));
 	}
 	#endregion
 }

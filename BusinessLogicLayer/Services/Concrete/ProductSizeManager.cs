@@ -17,7 +17,7 @@ public class ProductSizeManager : IProductSizeService
         List<ProductSize> productSizes = await _unitOfWork.ProductSizeRepository.GetAllAsync(includes:includes);
         if (productSizes is null)
         {
-            return new ErrorDataResult<List<ProductSizeGetDto>>("ProductSizelar Tapilmadi");
+            return new ErrorDataResult<List<ProductSizeGetDto>>(Messages.NotFound(Messages.ProductSize));
         }
         return new SuccessDataResult<List<ProductSizeGetDto>>(_mapper.Map<List<ProductSizeGetDto>>(productSizes));
     }
@@ -26,7 +26,7 @@ public class ProductSizeManager : IProductSizeService
         ProductSize productSize = await _unitOfWork.ProductSizeRepository.GetAsync(b => b.Id == id, includes);
         if (productSize is null)
         {
-            return new ErrorDataResult<ProductSizeGetDto>("ProductSize Tapilmadi");
+            return new ErrorDataResult<ProductSizeGetDto>(Messages.NotFound(Messages.ProductSize));
         }
         return new SuccessDataResult<ProductSizeGetDto>(_mapper.Map<ProductSizeGetDto>(productSize));
     }
@@ -41,9 +41,9 @@ public class ProductSizeManager : IProductSizeService
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorResult("ProductSize Yaradila bilmedi");
+            return new ErrorResult(Messages.NotCreated(Messages.ProductSize));
         }
-        return new SuccessResult("ProductSize Yaradildi");
+        return new SuccessResult(Messages.Created(Messages.ProductSize));
     }
 
 	#endregion
@@ -57,9 +57,9 @@ public class ProductSizeManager : IProductSizeService
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorResult("ProductSize Yenilene bilmedi");
+            return new ErrorResult(Messages.NotUpdated(Messages.ProductSize));
         }
-        return new SuccessResult("ProductSize Yenilendi");
+        return new SuccessResult(Messages.Updated(Messages.ProductSize));
     }
 
 	#endregion
@@ -72,9 +72,9 @@ public class ProductSizeManager : IProductSizeService
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorResult("ProductSize Siline bilmedi");
+            return new ErrorResult(Messages.NotDeleted(Messages.ProductSize));
         }
-        return new SuccessResult("ProductSize Silindi");
+        return new SuccessResult(Messages.Deleted(Messages.ProductSize));
     }
 
 	#endregion

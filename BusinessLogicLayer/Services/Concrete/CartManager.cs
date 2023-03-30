@@ -17,7 +17,7 @@ public class CartManager : ICartService
         List<Cart> carts = await _unitOfWork.CartRepository.GetAllAsync(includes:includes);
         if (carts is null)
         {
-            return new ErrorDataResult<List<CartGetDto>>("Cartlar Tapilmadi");
+            return new ErrorDataResult<List<CartGetDto>>(Messages.NotFound(Messages.Cart));
         }
         return new SuccessDataResult<List<CartGetDto>>(_mapper.Map<List<CartGetDto>>(carts));
     }
@@ -27,7 +27,7 @@ public class CartManager : ICartService
         Cart cart = await _unitOfWork.CartRepository.GetAsync(b => b.Id == id, includes);
         if (cart is null)
         {
-            return new ErrorDataResult<CartGetDto>("Cart Tapilmadi");
+            return new ErrorDataResult<CartGetDto>(Messages.NotFound(Messages.Cart));
         }
         return new SuccessDataResult<CartGetDto>(_mapper.Map<CartGetDto>(cart));
     }
@@ -36,7 +36,7 @@ public class CartManager : ICartService
         Cart cart = await _unitOfWork.CartRepository.GetAsync(b => b.UserId == id, includes);
         if (cart is null)
         {
-            return new ErrorDataResult<CartGetDto>("Cart Tapilmadi");
+            return new ErrorDataResult<CartGetDto>(Messages.NotFound(Messages.Cart));
         }
         return new SuccessDataResult<CartGetDto>(_mapper.Map<CartGetDto>(cart));
     }
@@ -50,9 +50,9 @@ public class CartManager : ICartService
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorResult("Cart Yaradila bilmedi");
+            return new ErrorResult(Messages.NotCreated(Messages.CartItem));
         }
-        return new SuccessResult("Cart Yaradildi");
+        return new SuccessResult(Messages.Created(Messages.CartItem));
     }
     #endregion
 
@@ -65,9 +65,9 @@ public class CartManager : ICartService
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorResult("Cart Yenilene bilmedi");
+            return new ErrorResult(Messages.NotUpdated(Messages.Cart));
         }
-        return new SuccessResult("Cart Yenilendi");
+        return new SuccessResult(Messages.Updated(Messages.Cart));
     }
 
 	public async Task<IResult> RecoverByIdAsync(int id)
@@ -78,9 +78,9 @@ public class CartManager : ICartService
 		int result = await _unitOfWork.SaveAsync();
 		if (result is 0)
 		{
-			return new ErrorResult("Cart is not recovered");
+			return new ErrorResult(Messages.NotRecovered(Messages.Cart));
 		}
-		return new SuccessResult("Cart is recovered");
+		return new SuccessResult(Messages.Recovered(Messages.Cart));
 	}
 	#endregion
 
@@ -92,9 +92,9 @@ public class CartManager : ICartService
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorResult("Cart Siline bilmedi");
+            return new ErrorResult(Messages.NotDeleted(Messages.Cart));
         }
-        return new SuccessResult("Cart Silindi");
+        return new SuccessResult(Messages.Deleted(Messages.Cart));
     }
 
     public async Task<IResult> SoftDeleteByIdAsync(int id)
@@ -105,9 +105,9 @@ public class CartManager : ICartService
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorResult("Cart Siline bilmedi");
+            return new ErrorResult(Messages.NotDeleted(Messages.Cart));
         }
-        return new SuccessResult("Cart Silindi");
+        return new SuccessResult(Messages.Deleted(Messages.Cart));
     }
     #endregion
 }

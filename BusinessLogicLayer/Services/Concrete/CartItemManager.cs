@@ -17,7 +17,7 @@ public class CartItemManager : ICartItemService
         List<CartItem> cartItems = await _unitOfWork.CartItemRepository.GetAllAsync(p => !p.isDeleted, includes);
         if (cartItems is null)
         {
-            return new ErrorDataResult<List<CartItemGetDto>>("CartItemlar Tapilmadi");
+            return new ErrorDataResult<List<CartItemGetDto>>(Messages.NotFound(Messages.CartItem));
         }
         return new SuccessDataResult<List<CartItemGetDto>>(_mapper.Map<List<CartItemGetDto>>(cartItems));
     }
@@ -27,7 +27,7 @@ public class CartItemManager : ICartItemService
         CartItem cartItem = await _unitOfWork.CartItemRepository.GetAsync(b => b.Id == id && !b.isDeleted, includes);
         if (cartItem is null)
         {
-            return new ErrorDataResult<CartItemGetDto>("CartItem Tapilmadi");
+            return new ErrorDataResult<CartItemGetDto>(Messages.NotFound(Messages.CartItem));
         }
         return new SuccessDataResult<CartItemGetDto>(_mapper.Map<CartItemGetDto>(cartItem));
     }
@@ -37,7 +37,7 @@ public class CartItemManager : ICartItemService
         List<CartItem> cartItems = await _unitOfWork.CartItemRepository.GetAllAsync(b => b.CartId == id && !b.isDeleted, includes);
         if (cartItems is null)
         {
-            return new ErrorDataResult<List<CartItemGetDto>>("CartItem Tapilmadi");
+            return new ErrorDataResult<List<CartItemGetDto>>(Messages.NotFound(Messages.CartItem));
         }
         return new SuccessDataResult<List<CartItemGetDto>>(_mapper.Map<List<CartItemGetDto>>(cartItems));
     }
@@ -65,9 +65,9 @@ public class CartItemManager : ICartItemService
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorDataResult<CartItemGetDto>(_mapper.Map<CartItemGetDto>(cartItem));
+            return new ErrorDataResult<CartItemGetDto>(_mapper.Map<CartItemGetDto>(cartItem),Messages.NotCreated(Messages.CartItem));
         }
-        return new SuccessDataResult<CartItemGetDto>(_mapper.Map<CartItemGetDto>(cartItem));
+        return new SuccessDataResult<CartItemGetDto>(_mapper.Map<CartItemGetDto>(cartItem),Messages.Created(Messages.CartItem));
     }
 
     #endregion
@@ -76,7 +76,7 @@ public class CartItemManager : ICartItemService
     public async Task<IDataResult<CartItemGetDto>> RemoveItemFromCartAsync(int productId, UserGetDto user,bool deleteAll = false)
     {
         CartItem cartItem = await _unitOfWork.CartItemRepository.GetAsync(c => c.ProductId == productId && c.Cart.UserId == user.Id && !c.isDeleted);
-        if(cartItem is null) return new ErrorDataResult<CartItemGetDto>(message:"CartItem tapilmadi");
+        if(cartItem is null) return new ErrorDataResult<CartItemGetDto>(message: Messages.NotFound(Messages.CartItem));
         if (deleteAll)
         {
             cartItem.isDeleted = true;
@@ -91,9 +91,9 @@ public class CartItemManager : ICartItemService
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorDataResult<CartItemGetDto>(_mapper.Map<CartItemGetDto>(cartItem));
+            return new ErrorDataResult<CartItemGetDto>(_mapper.Map<CartItemGetDto>(cartItem), Messages.NotUpdated(Messages.CartItem));
         }
-        return new SuccessDataResult<CartItemGetDto>(_mapper.Map<CartItemGetDto>(cartItem));
+        return new SuccessDataResult<CartItemGetDto>(_mapper.Map<CartItemGetDto>(cartItem), Messages.Updated(Messages.CartItem));
     }
 
     #endregion
@@ -106,9 +106,9 @@ public class CartItemManager : ICartItemService
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorResult("CartItem Siline bilmedi");
+            return new ErrorResult(Messages.NotDeleted(Messages.CartItem));
         }
-        return new SuccessResult("CartItem Silindi");
+        return new SuccessResult(Messages.Deleted(Messages.CartItem));
     }
 
     public async Task<IResult> SoftDeleteByIdAsync(int id)
@@ -119,9 +119,9 @@ public class CartItemManager : ICartItemService
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorResult("CartItem Siline bilmedi");
+            return new ErrorResult(Messages.NotDeleted(Messages.CartItem));
         }
-        return new SuccessResult("CartItem Silindi");
+        return new SuccessResult(Messages.Deleted(Messages.CartItem));
     }
 
     #endregion

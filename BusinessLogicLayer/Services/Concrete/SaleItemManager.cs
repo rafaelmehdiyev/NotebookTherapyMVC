@@ -17,7 +17,7 @@ public class SaleItemManager : ISaleItemService
         List<SaleItem> saleItems = await _unitOfWork.SaleItemRepository.GetAllAsync(includes: includes);
         if (saleItems is null)
         {
-            return new ErrorDataResult<List<SaleItemGetDto>>("SaleItemlar Tapilmadi");
+            return new ErrorDataResult<List<SaleItemGetDto>>(Messages.NotFound(Messages.SaleItem));
         }
         return new SuccessDataResult<List<SaleItemGetDto>>(_mapper.Map<List<SaleItemGetDto>>(saleItems));
     }
@@ -26,7 +26,7 @@ public class SaleItemManager : ISaleItemService
         SaleItem saleItem = await _unitOfWork.SaleItemRepository.GetAsync(b => b.Id == id, includes);
         if (saleItem is null)
         {
-            return new ErrorDataResult<SaleItemGetDto>("SaleItem Tapilmadi");
+            return new ErrorDataResult<SaleItemGetDto>(Messages.NotFound(Messages.SaleItem));
         }
         return new SuccessDataResult<SaleItemGetDto>(_mapper.Map<SaleItemGetDto>(saleItem));
     }
@@ -41,9 +41,9 @@ public class SaleItemManager : ISaleItemService
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorResult("SaleItem Yaradila bilmedi");
+            return new ErrorResult(Messages.NotCreated(Messages.SaleItem));
         }
-        return new SuccessResult("SaleItem Yaradildi");
+        return new SuccessResult(Messages.Created(Messages.SaleItem));
     }
 
 	#endregion
@@ -57,9 +57,9 @@ public class SaleItemManager : ISaleItemService
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorResult("SaleItem Yenilene bilmedi");
+            return new ErrorResult(Messages.NotUpdated(Messages.SaleItem));
         }
-        return new SuccessResult("SaleItem Yenilendi");
+        return new SuccessResult(Messages.Updated(Messages.SaleItem));
     }
 	public async Task<IResult> RecoverByIdAsync(int id)
 	{
@@ -69,9 +69,9 @@ public class SaleItemManager : ISaleItemService
 		int result = await _unitOfWork.SaveAsync();
 		if (result is 0)
 		{
-			return new ErrorResult("SaleItem is not recovered");
+			return new ErrorResult(Messages.NotRecovered(Messages.SaleItem));
 		}
-		return new SuccessResult("SaleItem is recovered");
+		return new SuccessResult(Messages.Recovered(Messages.SaleItem));
 	}
 
 	#endregion
@@ -84,9 +84,9 @@ public class SaleItemManager : ISaleItemService
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorResult("SaleItem Siline bilmedi");
+            return new ErrorResult(Messages.NotDeleted(Messages.SaleItem));
         }
-        return new SuccessResult("SaleItem Silindi");
+        return new SuccessResult(Messages.Deleted(Messages.SaleItem));
     }
     public async Task<IResult> SoftDeleteByIdAsync(int id)
     {
@@ -96,9 +96,9 @@ public class SaleItemManager : ISaleItemService
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorResult("SaleItem Siline bilmedi");
+            return new ErrorResult(Messages.NotDeleted(Messages.SaleItem));
         }
-        return new SuccessResult("SaleItem Silindi");
+        return new SuccessResult(Messages.Deleted(Messages.SaleItem));
     }
 
 	#endregion

@@ -17,7 +17,7 @@ public class ReviewManager : IReviewService
         List<Review> reviews = await _unitOfWork.ReviewRepository.GetAllAsync(includes: includes);
         if (reviews is null)
         {
-            return new ErrorDataResult<List<ReviewGetDto>>("Reviewlar Tapilmadi");
+            return new ErrorDataResult<List<ReviewGetDto>>(Messages.NotFound(Messages.Review));
         }
         return new SuccessDataResult<List<ReviewGetDto>>(_mapper.Map<List<ReviewGetDto>>(reviews));
     }
@@ -26,7 +26,7 @@ public class ReviewManager : IReviewService
         Review review = await _unitOfWork.ReviewRepository.GetAsync(b => b.Id == id, includes);
         if (review is null)
         {
-            return new ErrorDataResult<ReviewGetDto>("Review Tapilmadi");
+            return new ErrorDataResult<ReviewGetDto>(Messages.NotFound(Messages.Review));
         }
         return new SuccessDataResult<ReviewGetDto>(_mapper.Map<ReviewGetDto>(review));
     }
@@ -41,9 +41,9 @@ public class ReviewManager : IReviewService
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorResult("Review Yaradila bilmedi");
+            return new ErrorResult(Messages.NotCreated(Messages.Review));
         }
-        return new SuccessResult("Review Yaradildi");
+        return new SuccessResult(Messages.Created(Messages.Review));
     }
 
 	#endregion
@@ -57,9 +57,9 @@ public class ReviewManager : IReviewService
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorResult("Review Yenilene bilmedi");
+            return new ErrorResult(Messages.NotUpdated(Messages.Review));
         }
-        return new SuccessResult("Review Yenilendi");
+        return new SuccessResult(Messages.Updated(Messages.Review));
     }
 	public async Task<IResult> RecoverByIdAsync(int id)
 	{
@@ -69,9 +69,9 @@ public class ReviewManager : IReviewService
 		int result = await _unitOfWork.SaveAsync();
 		if (result is 0)
 		{
-			return new ErrorResult("Review is not recovered");
+			return new ErrorResult(Messages.NotRecovered(Messages.Review));
 		}
-		return new SuccessResult("Review is  recovered");
+		return new SuccessResult(Messages.Recovered(Messages.Review));
 	}
 
 	#endregion
@@ -84,9 +84,9 @@ public class ReviewManager : IReviewService
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorResult("Review Siline bilmedi");
+            return new ErrorResult(Messages.NotDeleted(Messages.Review));
         }
-        return new SuccessResult("Review Silindi");
+        return new SuccessResult(Messages.Deleted(Messages.Review));
     }
     public async Task<IResult> SoftDeleteByIdAsync(int id)
     {
@@ -96,9 +96,9 @@ public class ReviewManager : IReviewService
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorResult("Review Siline bilmedi");
+            return new ErrorResult(Messages.NotDeleted(Messages.Review));
         }
-        return new SuccessResult("Review Silindi");
+        return new SuccessResult(Messages.Deleted(Messages.Review));
     }
 
 	#endregion

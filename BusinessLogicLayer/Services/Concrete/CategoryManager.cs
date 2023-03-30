@@ -17,7 +17,7 @@ public class CategoryManager : ICategoryService
 		List<Category> categories = await _unitOfWork.CategoryRepository.GetAllAsync(includes: includes);
 		if (categories is null)
 		{
-			return new ErrorDataResult<List<CategoryGetDto>>("Categorylar Tapilmadi");
+			return new ErrorDataResult<List<CategoryGetDto>>(Messages.NotFound(Messages.Category));
 		}
 		return new SuccessDataResult<List<CategoryGetDto>>(_mapper.Map<List<CategoryGetDto>>(categories));
 	}
@@ -26,7 +26,7 @@ public class CategoryManager : ICategoryService
 		Category category = await _unitOfWork.CategoryRepository.GetAsync(b => b.Id == id, includes);
 		if (category is null)
 		{
-			return new ErrorDataResult<CategoryGetDto>("Category Tapilmadi");
+			return new ErrorDataResult<CategoryGetDto>(Messages.NotFound(Messages.Category));
 		}
 		return new SuccessDataResult<CategoryGetDto>(_mapper.Map<CategoryGetDto>(category));
 	}
@@ -40,9 +40,9 @@ public class CategoryManager : ICategoryService
 		int result = await _unitOfWork.SaveAsync();
 		if (result is 0)
 		{
-			return new ErrorResult("Category Yaradila bilmedi");
+			return new ErrorResult(Messages.NotCreated(Messages.Category));
 		}
-		return new SuccessResult("Category Yaradildi");
+		return new SuccessResult(Messages.Created(Messages.Category));
 	}
 
 	#endregion
@@ -56,9 +56,9 @@ public class CategoryManager : ICategoryService
 		int result = await _unitOfWork.SaveAsync();
 		if (result is 0)
 		{
-			return new ErrorResult("Category Yenilene bilmedi");
+			return new ErrorResult(Messages.NotUpdated(Messages.Category));
 		}
-		return new SuccessResult("Category Yenilendi");
+		return new SuccessResult(Messages.Updated(Messages.Category));
 	}
 	public async Task<IResult> RecoverByIdAsync(int id)
 	{
@@ -68,9 +68,9 @@ public class CategoryManager : ICategoryService
 		int result = await _unitOfWork.SaveAsync();
 		if (result is 0)
 		{
-			return new ErrorResult("Category is not recovered");
+			return new ErrorResult(Messages.NotRecovered(Messages.Category));
 		}
-		return new SuccessResult("Category is recovered");
+		return new SuccessResult(Messages.Recovered(Messages.Category));
 	}
 	#endregion
 
@@ -82,9 +82,9 @@ public class CategoryManager : ICategoryService
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorResult("Category Siline bilmedi");
+            return new ErrorResult(Messages.NotDeleted(Messages.Category));
         }
-        return new SuccessResult("Category Silindi");
+        return new SuccessResult(Messages.Deleted(Messages.Category));
     }
     public async Task<IResult> SoftDeleteByIdAsync(int id)
     {
@@ -94,13 +94,11 @@ public class CategoryManager : ICategoryService
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorResult("Category Siline bilmedi");
+            return new ErrorResult(Messages.NotDeleted(Messages.Category));
         }
-        return new SuccessResult("Category Silindi");
+        return new SuccessResult(Messages.Deleted(Messages.Category));
     }
-
 	#endregion
-
 }
 
 

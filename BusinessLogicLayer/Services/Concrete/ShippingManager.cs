@@ -16,7 +16,7 @@ public class ShippingManager : IShippingService
         List<Shipping> shippings = await _unitOfWork.ShippingRepository.GetAllAsync(includes: includes);
         if (shippings is null)
         {
-            return new ErrorDataResult<List<ShippingGetDto>>("Shippinglar Tapilmadi");
+            return new ErrorDataResult<List<ShippingGetDto>>(Messages.NotFound(Messages.Shipping));
         }
         return new SuccessDataResult<List<ShippingGetDto>>(_mapper.Map<List<ShippingGetDto>>(shippings));
     }
@@ -25,7 +25,7 @@ public class ShippingManager : IShippingService
         Shipping shipping = await _unitOfWork.ShippingRepository.GetAsync(b => b.Id == id, includes);
         if (shipping is null)
         {
-            return new ErrorDataResult<ShippingGetDto>("Shipping Tapilmadi");
+            return new ErrorDataResult<ShippingGetDto>(Messages.NotFound(Messages.Shipping));
         }
         return new SuccessDataResult<ShippingGetDto>(_mapper.Map<ShippingGetDto>(shipping));
     }
@@ -40,9 +40,9 @@ public class ShippingManager : IShippingService
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorResult("Shipping Yaradila bilmedi");
+            return new ErrorResult(Messages.NotCreated(Messages.Shipping));
         }
-        return new SuccessResult("Shipping Yaradildi");
+        return new SuccessResult(Messages.Created(Messages.Shipping));
     }
 
 	#endregion
@@ -56,9 +56,9 @@ public class ShippingManager : IShippingService
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorResult("Shipping Yenilene bilmedi");
+            return new ErrorResult(Messages.NotUpdated(Messages.Shipping));
         }
-        return new SuccessResult("Shipping Yenilendi");
+        return new SuccessResult(Messages.Updated(Messages.Shipping));
     }
 	public async Task<IResult> RecoverByIdAsync(int id)
 	{
@@ -68,9 +68,9 @@ public class ShippingManager : IShippingService
 		int result = await _unitOfWork.SaveAsync();
 		if (result is 0)
 		{
-			return new ErrorResult("Shipping is not recovered");
+			return new ErrorResult(Messages.NotRecovered(Messages.Shipping));
 		}
-		return new SuccessResult("Shipping is recovered");
+		return new SuccessResult(Messages.Recovered(Messages.Shipping));
 	}
 
 	#endregion
@@ -83,9 +83,9 @@ public class ShippingManager : IShippingService
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorResult("Shipping Siline bilmedi");
+            return new ErrorResult(Messages.NotDeleted(Messages.Shipping));
         }
-        return new SuccessResult("Shipping Silindi");
+        return new SuccessResult(Messages.Deleted(Messages.Shipping));
     }
     public async Task<IResult> SoftDeleteByIdAsync(int id)
     {
@@ -95,9 +95,9 @@ public class ShippingManager : IShippingService
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorResult("Shipping Siline bilmedi");
+            return new ErrorResult(Messages.NotDeleted(Messages.Shipping));
         }
-        return new SuccessResult("Shipping Silindi");
+        return new SuccessResult(Messages.Deleted(Messages.Shipping));
     }
 
 	#endregion

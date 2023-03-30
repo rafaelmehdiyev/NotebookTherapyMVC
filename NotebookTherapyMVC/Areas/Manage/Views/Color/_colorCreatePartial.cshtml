@@ -1,0 +1,14 @@
+﻿@model ColorPostDto
+<form asp-action="Create" asp-controller="Color" asp-area="Manage">
+	<div class="form-group row">
+		<label asp-for="ColorCode" class="col-12 col-form-label">Color</label>
+		<div class="col-12">
+			<input asp-for="ColorCode" style="width:100%!important" class="form-control here slug-title" type="color">
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-12">
+			<button name="submit" type="submit" class="btn btn-primary">Submit</button>
+		</div>
+	</div>
+</form>

@@ -15,7 +15,7 @@ public class SizeManager : ISizeService
         List<Size> sizes = await _unitOfWork.SizeRepository.GetAllAsync(includes: includes);
         if (sizes is null)
         {
-            return new ErrorDataResult<List<SizeGetDto>>("Sizelar Tapilmadi");
+            return new ErrorDataResult<List<SizeGetDto>>(Messages.NotFound(Messages.Size));
         }
         return new SuccessDataResult<List<SizeGetDto>>(_mapper.Map<List<SizeGetDto>>(sizes));
     }
@@ -24,7 +24,7 @@ public class SizeManager : ISizeService
         Size size = await _unitOfWork.SizeRepository.GetAsync(b => b.Id == id, includes);
         if (size is null)
         {
-            return new ErrorDataResult<SizeGetDto>("Size Tapilmadi");
+            return new ErrorDataResult<SizeGetDto>(Messages.NotFound(Messages.Size));
         }
         return new SuccessDataResult<SizeGetDto>(_mapper.Map<SizeGetDto>(size));
     }
@@ -39,9 +39,9 @@ public class SizeManager : ISizeService
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorResult("Size Yaradila bilmedi");
+            return new ErrorResult(Messages.NotCreated(Messages.Size));
         }
-        return new SuccessResult("Size Yaradildi");
+        return new SuccessResult(Messages.Created(Messages.Size));
     }
 
 	#endregion
@@ -55,9 +55,9 @@ public class SizeManager : ISizeService
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorResult("Size Yenilene bilmedi");
+            return new ErrorResult(Messages.NotUpdated(Messages.Size));
         }
-        return new SuccessResult("Size Yenilendi");
+        return new SuccessResult(Messages.Updated(Messages.Size));
     }
 	public async Task<IResult> RecoverByIdAsync(int id)
 	{
@@ -67,9 +67,9 @@ public class SizeManager : ISizeService
 		int result = await _unitOfWork.SaveAsync();
 		if (result is 0)
 		{
-			return new ErrorResult("Size is not recovered");
+			return new ErrorResult(Messages.NotRecovered(Messages.Size));
 		}
-		return new SuccessResult("Size is recovered");
+		return new SuccessResult(Messages.Recovered(Messages.Size));
 	}
 
 	#endregion
@@ -82,9 +82,9 @@ public class SizeManager : ISizeService
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorResult("Size Siline bilmedi");
+            return new ErrorResult(Messages.NotDeleted(Messages.Size));
         }
-        return new SuccessResult("Size Silindi");
+        return new SuccessResult(Messages.Deleted(Messages.Size));
     }
     public async Task<IResult> SoftDeleteByIdAsync(int id)
     {
@@ -94,9 +94,9 @@ public class SizeManager : ISizeService
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorResult("Size Siline bilmedi");
+            return new ErrorResult(Messages.NotDeleted(Messages.Size));
         }
-        return new SuccessResult("Size Silindi");
+        return new SuccessResult(Messages.Deleted(Messages.Size));
     }
 
 	#endregion

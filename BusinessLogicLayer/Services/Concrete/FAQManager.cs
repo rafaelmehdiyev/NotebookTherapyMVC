@@ -17,7 +17,7 @@ public class FAQManager : IFAQService
         List<FAQ> FAQs = await _unitOfWork.FAQRepository.GetAllAsync(includes: includes);
         if (FAQs is null)
         {
-            return new ErrorDataResult<List<FAQGetDto>>("FAQlar Tapilmadi");
+            return new ErrorDataResult<List<FAQGetDto>>(Messages.NotFound(Messages.FAQ));
         }
         return new SuccessDataResult<List<FAQGetDto>>(_mapper.Map<List<FAQGetDto>>(FAQs));
     }
@@ -26,7 +26,7 @@ public class FAQManager : IFAQService
         List<FAQ> faq = await _unitOfWork.FAQRepository.GetAllAsync(b => b.FAQCategoryId == id, includes);
         if (faq is null)
         {
-            return new ErrorDataResult<List<FAQGetDto>>("FAQlar Tapilmadi");
+            return new ErrorDataResult<List<FAQGetDto>>(Messages.NotFound(Messages.FAQ));
         }
         return new SuccessDataResult<List<FAQGetDto>>(_mapper.Map<List<FAQGetDto>>(faq));
     }
@@ -35,7 +35,7 @@ public class FAQManager : IFAQService
         FAQ faq = await _unitOfWork.FAQRepository.GetAsync(b => b.Id == id, includes);
         if (faq is null)
         {
-            return new ErrorDataResult<FAQGetDto>("FAQ Tapilmadi");
+            return new ErrorDataResult<FAQGetDto>(Messages.NotFound(Messages.FAQ));
         }
         return new SuccessDataResult<FAQGetDto>(_mapper.Map<FAQGetDto>(faq));
     }
@@ -51,9 +51,9 @@ public class FAQManager : IFAQService
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorResult("FAQ Yaradila bilmedi");
+            return new ErrorResult(Messages.NotCreated(Messages.FAQ));
         }
-        return new SuccessResult("FAQ Yaradildi");
+        return new SuccessResult(Messages.Created(Messages.FAQ));
     }
 
 	#endregion
@@ -68,9 +68,9 @@ public class FAQManager : IFAQService
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorResult("FAQ Yenilene bilmedi");
+            return new ErrorResult(Messages.NotUpdated(Messages.FAQ));
         }
-        return new SuccessResult("FAQ Yenilendi");
+        return new SuccessResult(Messages.Updated(Messages.FAQ));
     }
 	public async Task<IResult> RecoverByIdAsync(int id)
 	{
@@ -80,9 +80,9 @@ public class FAQManager : IFAQService
 		int result = await _unitOfWork.SaveAsync();
 		if (result is 0)
 		{
-			return new ErrorResult("FAQ is not recoverd");
+			return new ErrorResult(Messages.NotRecovered(Messages.FAQ));
 		}
-		return new SuccessResult("FAQ is recovered");
+		return new SuccessResult(Messages.Recovered(Messages.FAQ));
 	}
 
 	#endregion
@@ -95,9 +95,9 @@ public class FAQManager : IFAQService
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorResult("FAQ Siline bilmedi");
+            return new ErrorResult(Messages.NotDeleted(Messages.FAQ));
         }
-        return new SuccessResult("FAQ Silindi");
+        return new SuccessResult(Messages.Deleted(Messages.FAQ));
     }
     public async Task<IResult> SoftDeleteByIdAsync(int id)
     {
@@ -107,9 +107,9 @@ public class FAQManager : IFAQService
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorResult("FAQ Siline bilmedi");
+            return new ErrorResult(Messages.NotDeleted(Messages.FAQ));
         }
-        return new SuccessResult("FAQ Silindi");
+        return new SuccessResult(Messages.Deleted(Messages.FAQ));
     }
 
 	#endregion

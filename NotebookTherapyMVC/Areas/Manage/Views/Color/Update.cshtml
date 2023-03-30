@@ -1,0 +1,36 @@
+﻿@{
+	ViewData["Title"] = "Color";
+}
+@model ColorUpdateDto
+
+<div class="breadcrumb-wrapper breadcrumb-wrapper-2 breadcrumb-contacts">
+	<h1>Size</h1>
+	<p class="breadcrumbs">
+		<span><a href="index.html">Home</a></span>
+		<span><i class="mdi mdi-chevron-right"></i></span>Color
+	</p>
+</div>
+<div class="row">
+	<div class="col-xl-12 col-lg-12">
+		<div class="ec-cat-list card card-default mb-24px">
+			<div class="card-body">
+				<div class="ec-cat-form">
+					<h4>Update Color</h4>
+					<form asp-action="Update" asp-controller="Color" asp-area="Manage">
+						<div class="form-group row">
+							<label asp-for="ColorCode" class="col-12 col-form-label">Color Code</label>
+							<div class="col-12">
+								<input asp-for="ColorCode" style="width:100%!important" class="form-control here slug-title" type="color">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12">
+								<button name="submit" type="submit" class="btn btn-primary">Submit</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
