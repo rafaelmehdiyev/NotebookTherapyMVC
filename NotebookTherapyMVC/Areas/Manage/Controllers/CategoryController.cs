@@ -13,7 +13,7 @@ public class CategoryController : Controller
 	}
 	public async Task<IActionResult> Index()
     {
-        var result = await _categoryService.GetAllAsync();
+        var result = await _categoryService.GetAllAsync(Includes.CategoryIncludes);
         return View(result);
     }
     [HttpPost]

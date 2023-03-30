@@ -232,8 +232,8 @@ $(document).ready(function () {
     var responsiveDataTable = $("#responsive-data-table");
     if (responsiveDataTable.length !== 0) {
         responsiveDataTable.DataTable({
-            "aLengthMenu": [[20, 30, 50, 75, -1], [20, 30, 50, 75, "All"]],
-            "pageLength": 20,
+            "aLengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
+            "pageLength": 5,
             "dom": '<"row justify-content-between top-information"lf>rt<"row justify-content-between bottom-information"ip><"clear">'
         });
     }
@@ -241,8 +241,8 @@ $(document).ready(function () {
     var responsiveDataTable2 = $(".responsive-data-table");
     if (responsiveDataTable2.length !== 0) {
         responsiveDataTable2.DataTable({
-            "aLengthMenu": [[20, 30, 50, 75, -1], [20, 30, 50, 75, "All"]],
-            "pageLength": 20,
+            "aLengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
+            "pageLength": 5,
             "dom": '<"row justify-content-between top-information"lf>rt<"row justify-content-between bottom-information"ip><"clear">'
         });
     }

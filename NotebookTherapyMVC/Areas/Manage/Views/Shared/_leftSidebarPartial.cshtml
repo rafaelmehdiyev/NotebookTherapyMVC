@@ -21,34 +21,6 @@
 					<hr>
 				</li>
 
-				<!-- Vendors -->
-				<li class="has-sub">
-					<a class="sidenav-item-link" href="javascript:void(0)">
-						<i class="mdi mdi-account-group-outline"></i>
-						<span class="nav-text">Vendors</span> <b class="caret"></b>
-					</a>
-					<div class="collapse">
-						<ul class="sub-menu" id="vendors" data-parent="#sidebar-menu">
-							<li class="">
-								<a class="sidenav-item-link" href="vendor-card.html">
-									<span class="nav-text">Vendor Grid</span>
-								</a>
-							</li>
-
-							<li class="">
-								<a class="sidenav-item-link" href="vendor-list.html">
-									<span class="nav-text">Vendor List</span>
-								</a>
-							</li>
-							<li class="">
-								<a class="sidenav-item-link" href="vendor-profile.html">
-									<span class="nav-text">Vendors Profile</span>
-								</a>
-							</li>
-						</ul>
-					</div>
-				</li>
-
 				<!-- Users -->
 				<li class="has-sub">
 					<a class="sidenav-item-link" href="javascript:void(0)">
@@ -79,20 +51,11 @@
 				</li>
 
 				<!-- Category -->
-				<li class="has-sub">
-					<a class="sidenav-item-link" href="javascript:void(0)">
+				<li>
+					<a class="sidenav-item-link" asp-controller="Category" asp-action="Index">
 						<i class="mdi mdi-dns-outline"></i>
-						<span class="nav-text">Categories</span> <b class="caret"></b>
+						<span class="nav-text">Categories</span>
 					</a>
-					<div class="collapse">
-						<ul class="sub-menu" id="categorys" data-parent="#sidebar-menu">
-							<li class="active">
-								<a class="sidenav-item-link" asp-controller="Category" asp-action="Index">
-									<span class="nav-text">Category List</span>
-								</a>
-							</li>
-						</ul>
-					</div>
 				</li>
 
 				<!-- Products -->
@@ -104,23 +67,13 @@
 					<div class="collapse">
 						<ul class="sub-menu" id="products" data-parent="#sidebar-menu">
 							<li class="">
-								<a class="sidenav-item-link" href="product-add.html">
-									<span class="nav-text">Add Product</span>
+								<a class="sidenav-item-link" asp-controller="Product" asp-action="Create">
+									<span class="nav-text">Add New Product</span>
 								</a>
 							</li>
 							<li class="">
-								<a class="sidenav-item-link" href="product-list.html">
-									<span class="nav-text">List Product</span>
-								</a>
-							</li>
-							<li class="">
-								<a class="sidenav-item-link" href="product-grid.html">
-									<span class="nav-text">Grid Product</span>
-								</a>
-							</li>
-							<li class="">
-								<a class="sidenav-item-link" href="product-detail.html">
-									<span class="nav-text">Product Detail</span>
+								<a class="sidenav-item-link" asp-controller="Product" asp-action="Index">
+									<span class="nav-text">All Products</span>
 								</a>
 							</li>
 						</ul>

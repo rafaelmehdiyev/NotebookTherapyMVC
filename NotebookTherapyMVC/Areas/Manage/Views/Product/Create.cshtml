@@ -1,0 +1,225 @@
+﻿@{
+    ViewData["Title"] = "Products";
+}
+@model ProductPostDto
+@section Links{
+    <link href="https://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/css/bootstrap-multiselect.css" rel="stylesheet" type="text/css" />
+    <style>
+        .input-upload img {
+            max-width: 100px;
+            margin-bottom: 20px;
+        }
+
+        .ec-vendor-uploads .ec-vendor-upload-detail div.row label {
+            width: 100%;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .ec-vendor-uploads .ec-vendor-upload-detail div.row label span {
+            font-size: 13px;
+            color: #999;
+            font-weight: 300;
+            text-transform: none;
+        }
+
+        .ec-vendor-uploads .ec-vendor-upload-detail div.row input {
+            width: 100%;
+            margin-bottom: 30px;
+            padding: 0 15px;
+            border-radius: 0;
+            border: 1px solid #eeeeee !important;
+            background-color: transparent;
+            color: #777;
+            line-height: 3;
+            border-radius: 15px;
+        }
+
+        .ec-vendor-uploads .ec-vendor-upload-detail div.row textarea {
+            width: 100%;
+            margin-bottom: 30px;
+            padding: 0 15px;
+            border-radius: 0;
+            border: 1px solid #eeeeee !important;
+            background-color: transparent;
+            color: #777;
+            padding: 15px;
+            border-radius: 15px;
+        }
+
+        .ec-vendor-uploads .ec-vendor-upload-detail div.row select {
+            width: 100%;
+            height: 45px;
+            margin-bottom: 30px;
+            padding: 0 15px;
+            border-radius: 0;
+            border: 1px solid #eeeeee !important;
+            background-color: transparent;
+            color: #777;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            outline: none;
+            border-radius: 15px;
+        }
+
+        .ec-vendor-uploads .ec-vendor-upload-detail div.row input[type=text] {
+            height: 45px;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            outline: none;
+            border-radius: 15px;
+        }
+
+        .ec-vendor-uploads .ec-vendor-upload-detail div.row input[type=color] {
+            width: 25px !important;
+            height: 25px !important;
+            padding: 0;
+            border-radius: 15px;
+            border-radius: 0 !important;
+            display: -webkit-inline-box;
+            display: -ms-inline-flexbox;
+            display: inline-flex;
+            margin: 4px;
+            min-height: 25px;
+        }
+
+        .ec-vendor-uploads .ec-vendor-upload-detail div.row input[type=color] i {
+            border-radius: 0;
+        }
+
+        .ec-vendor-uploads .ec-vendor-upload-detail div.row .form-checkbox-box {
+            height: 30px;
+            margin-top: 5px;
+            display: inline-block;
+        }
+
+        .ec-vendor-uploads .ec-vendor-upload-detail div.row .form-check {
+            height: 20px;
+            margin: 0 5px 0 0;
+            padding: 0;
+            display: -webkit-inline-box;
+            display: -ms-inline-flexbox;
+            display: inline-flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+        }
+
+       .ec-vendor-uploads .ec-vendor-upload-detail div.row .form-check input {
+           width: 35px !important;
+           height: 100% !important;
+           margin: 0;
+       }
+
+       .ec-vendor-uploads .ec-vendor-upload-detail div.row .form-check label {
+           margin: 5px 5px 2px 7px;
+           line-height: 11px;
+           color: #999;
+       }
+    </style>
+}
+<div class="breadcrumb-wrapper d-flex align-items-center justify-content-between">
+    <div>
+        <h1>Add Product</h1>
+        <p class="breadcrumbs">
+            <span><a href="index.html">Home</a></span>
+            <span><i class="mdi mdi-chevron-right"></i></span>Product
+        </p>
+    </div>
+    <div>
+        <a asp-action="Index" asp-controller="Product" class="btn btn-primary">
+            Return to all Products
+        </a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card card-default">
+            <div class="card-header card-header-border-bottom">
+                <h2>Add Product</h2>
+            </div>
+            <div class="card-body">
+                <form method="post" asp-controller="Product" asp-action="Create" enctype="multipart/form-data" class="row ec-vendor-uploads">
+                    <div class="col-lg-4">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h4>Media</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="input-upload text-center">
+                                    <img src="~/Manage/assets/img/icons/upload.svg" alt="">
+                                    <input class="form-control" asp-for="formFiles" type="file" multiple>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="ec-vendor-upload-detail">
+                            <div class="row g-3">
+                                <div class="col-md-12">
+                                    <label asp-for="Name" class="form-label">Product Name *</label>
+                                    <input type="text" class="form-control slug-title" asp-for="Name">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Select Category *</label>
+                                    <select asp-for="CategoryId" asp-items="ViewBag.Categories" class="form-select"></select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Select Collection (Optional)</label>
+                                    <select asp-for="ProductCollectionId" asp-items="ViewBag.Collections" class="form-select">
+                                        <option value="">Select a collection</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-12">
+                                    <label asp-for="Description" class="form-label">Product Description *</label>
+                                    <textarea class="form-control" asp-for="Description" rows="2"></textarea>
+                                </div>
+                                <div class="col-md-4 mb-25">
+                                    <label class="form-label">Colors</label>
+                                    <select asp-for="ColorId" asp-items="ViewBag.Colors"></select>
+                                </div>
+                                <div class="col-md-4 mb-25">
+                                    <label class="form-label">Sizes</label>
+                                    <select asp-for="SizeIds" asp-items="ViewBag.Sizes"></select>
+                                </div>
+                                <div class="col-md-4 mb-25">
+                                    <label class="form-label">Bundles</label>
+                                    <select asp-for="BundlesIds" asp-items="ViewBag.Bundles"></select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" asp-for="Price">
+                                        Price<span> ( In USD )</span>
+                                    </label>
+                                    <input type="number" class="form-control" asp-for="Price" min="0">
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="https://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/js/bootstrap-multiselect.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#SizeIds").multiselect({
+                templates: {
+                    button: '<button type="button" class="multiselect dropdown-toggle btn btn-primary" data-toggle="dropdown" data-bs-toggle="dropdown" aria-expanded="false"><span class="multiselect-selected-text"></span></button>',
+                },
+            });
+        });
+        $(document).ready(function () {
+            $("#BundlesIds").multiselect({
+                templates: {
+                    button: '<button type="button" class="multiselect dropdown-toggle btn btn-primary" data-toggle="dropdown" data-bs-toggle="dropdown" aria-expanded="false"><span class="multiselect-selected-text"></span></button>',
+                },
+            });
+        });
+    </script>
+}
