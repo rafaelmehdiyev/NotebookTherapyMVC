@@ -1,4 +1,8 @@
-﻿namespace BusinessLogicLayer.Utilities.Extensions;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Options;
+
+namespace BusinessLogicLayer.Utilities.Extensions;
 public static class ServiceCollectionExtension
 {
     public static IServiceCollection AddBusinessConfiguration(this IServiceCollection services, IConfiguration configuration)
@@ -32,17 +36,57 @@ public static class ServiceCollectionExtension
         services.AddScoped<ISaleService, SaleManager>();
         services.AddScoped<ISaleItemService, SaleItemManager>();
         services.AddScoped<IShippingService, ShippingManager>();
-        services.AddAuthentication().AddJwtBearer(opt =>
+        //services.AddAuthentication().AddJwtBearer(opt =>
+        //{
+        //    opt.TokenValidationParameters = new TokenValidationParameters
+        //    {
+        //        ValidateIssuer = true,
+        //        ValidateAudience = true,
+        //        ValidateLifetime = true,
+        //        ValidateIssuerSigningKey = true,
+        //        ValidIssuer = tokenOptions.Issuer,
+        //        ValidAudience = tokenOptions.Auidence,
+        //        IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
+        //    };
+        //});
+        services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+        .AddCookie("AdminScheme", opt =>
         {
-            opt.TokenValidationParameters = new TokenValidationParameters
+            opt.LoginPath = new PathString("/Manage/Account/Login");
+            opt.Events = new CookieAuthenticationEvents
             {
-                ValidateIssuer = true,
-                ValidateAudience = true,
-                ValidateLifetime = true,
-                ValidateIssuerSigningKey = true,
-                ValidIssuer = tokenOptions.Issuer,
-                ValidAudience = tokenOptions.Auidence,
-                IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
+                OnRedirectToLogin = context =>
+                {
+                    if (context.Request.Path.StartsWithSegments("/Manage"))
+                    {
+                        context.Response.Redirect("/Manage/Account/Login");
+                    }
+                    else
+                    {
+                        context.Response.Redirect("/Account/Login");
+                    }
+                    return Task.CompletedTask;
+                }
+            };
+        })
+        .AddCookie("UserScheme", opt =>
+        {
+            opt.LoginPath = new PathString("/Account/Login");
+            opt.AccessDeniedPath = new PathString("/Account/AccessDenied");
+            opt.Events = new CookieAuthenticationEvents
+            {
+                OnRedirectToLogin = context =>
+                {
+                    if (context.Request.Path.StartsWithSegments("/Manage"))
+                    {
+                        context.Response.Redirect("/Manage/Account/Login");
+                    }
+                    else
+                    {
+                        context.Response.Redirect("/Account/Login");
+                    }
+                    return Task.CompletedTask;
+                }
             };
         });
         services.AddAuthorization();

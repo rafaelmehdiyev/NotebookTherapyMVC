@@ -33,7 +33,7 @@ public class AccountManager : IAccountService
             new Claim(ClaimTypes.NameIdentifier,user.Id),
             new Claim(ClaimTypes.Name,user.UserName)
         });
-        await _userManager.AddToRoleAsync(user, "User");
+        await _userManager.AddToRoleAsync(user, "Admin");
         await _cartService.CreateAsync(new CartPostDto { UserId = user.Id });
         var cartResult = await _cartService.GetCartByUserIdAsync(user.Id);
         user.CartId = cartResult.Data.Id;

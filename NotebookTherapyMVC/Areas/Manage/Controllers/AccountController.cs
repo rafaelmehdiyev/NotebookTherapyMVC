@@ -39,13 +39,13 @@
             if (!result.Success) { return View(result); }
             return RedirectToAction("Index", "Product");
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin", AuthenticationSchemes = "AdminScheme")]
         public async Task<IActionResult> Signout()
         {
             await _accountService.SignOutAsync();
             return RedirectToAction(nameof(Login));
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin", AuthenticationSchemes ="AdminScheme")]
         public async Task<IActionResult> Profile()
         {
             var result = await _accountService.GetUser(User, Includes.UserIncludes);

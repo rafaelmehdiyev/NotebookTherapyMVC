@@ -1,8 +1,7 @@
 ﻿namespace NotebookTherapyMVC.Areas.Manage.Controllers
 {
-
     [Area("Manage")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin", AuthenticationSchemes = "AdminScheme")]
     public class ColorController : Controller
     {
         private readonly IColorService _colorService;
