@@ -8,6 +8,12 @@ public class Mapper : Profile
         CreateMap<RegisterDto, AppUser>();
         CreateMap<AppUser, UserGetDto>().ReverseMap();
 
+        //Role
+        CreateMap<IdentityRole, RoleGetDto>();
+        CreateMap<RolePostDto, IdentityRole>();
+        CreateMap<RoleUpdateDto, IdentityRole>();
+        CreateMap<RoleGetDto, RoleUpdateDto>();
+
         //Blog
         CreateMap<Blog, BlogGetDto>();
         CreateMap<BlogPostDto, Blog>();

@@ -11,7 +11,8 @@ public static class ServiceCollectionExtension
         services.AddControllersWithViews();
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
         services.AddScoped<IUnitOfWork, UnitOfWork>();
-        services.AddScoped<IAuthService, AuthManager>();
+        services.AddScoped<IAccountService, AccountManager>();
+        services.AddScoped<IRoleSevice, RoleManager>();
         services.AddScoped<ITokenHelper, JWTHelper>();
         services.AddScoped<IBlogService, BlogManager>();
         services.AddScoped<ICartService, CartManager>();

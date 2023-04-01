@@ -62,6 +62,7 @@ static class Messages
 	public static string Sale = "Sale";
 	public static string SaleItem = "SaleItem";
 	public static string Shipping = "Shipping";
-	#endregion
+	public static string Role = "Role";
+    #endregion
 }
 

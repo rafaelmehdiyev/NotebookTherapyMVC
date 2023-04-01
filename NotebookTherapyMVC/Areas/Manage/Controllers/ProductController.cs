@@ -8,13 +8,13 @@ public class ProductController : Controller
 	private readonly IBundleService _bundleService;
 	private readonly IProductCollectionService _productCollectionService;
 	private readonly IFavouriteService _favService;
-	private readonly IAuthService _authService;
+	private readonly IAccountService _authService;
 	private readonly IReviewService _reviewService;
 	private readonly ICartItemService _cartItemService;
 	private readonly IColorService _colorServoce;
 	private readonly IMapper _mapper;
 
-    public ProductController(IProductService service, IMapper mapper, ICategoryService categoryService, IProductCollectionService productCollectionService, ISizeService sizeService, IBundleService bundleService, IFavouriteService favService, IAuthService authService, IReviewService reviewService, ICartItemService cartItemService, IColorService colorServoce)
+    public ProductController(IProductService service, IMapper mapper, ICategoryService categoryService, IProductCollectionService productCollectionService, ISizeService sizeService, IBundleService bundleService, IFavouriteService favService, IAccountService authService, IReviewService reviewService, ICartItemService cartItemService, IColorService colorServoce)
     {
         _productService = service;
         _mapper = mapper;

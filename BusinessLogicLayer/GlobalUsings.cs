@@ -17,6 +17,7 @@ global using Entities.DTOs.Cart;
 global using Entities.DTOs.CartItem;
 global using Entities.DTOs.Category;
 global using Entities.DTOs.Color;
+global using Entities.DTOs.Role;
 global using Entities.DTOs.FAQ;
 global using Entities.DTOs.FAQCategory;
 global using Entities.DTOs.Favourite;

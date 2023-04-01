@@ -1,7 +1,4 @@
-﻿using BusinessLogicLayer.Services.Abstract;
-using Entities.Abstract;
-
-namespace NotebookTherapyMVC.Areas.Manage.Controllers;
+﻿namespace NotebookTherapyMVC.Areas.Manage.Controllers;
 [Area("Manage")]
 public class BlogController : Controller
 {
@@ -34,36 +31,36 @@ public class BlogController : Controller
         await _blogService.CreateAsync(dto);
         return RedirectToAction(nameof(Index));
     }
-	[HttpGet]
-	public async Task<IActionResult> Update(int id)
-	{
+    [HttpGet]
+    public async Task<IActionResult> Update(int id)
+    {
         var result = await _blogService.GetByIdAsync(id);
         BlogUpdateDto dto = _mapper.Map<BlogUpdateDto>(result.Data);
         return View(dto);
-	}
-	[HttpPost]
-	public async Task<IActionResult> Update(BlogUpdateDto dto)
-	{
-		if (!ModelState.IsValid)
-		{
-			return View(dto);
-		}
-		await _blogService.UpdateAsync(dto);
-		return RedirectToAction(nameof(Index));
-	}
-	public async Task<IActionResult> Delete(int id)
+    }
+    [HttpPost]
+    public async Task<IActionResult> Update(BlogUpdateDto dto)
     {
-		var result = (await _blogService.GetByIdAsync(id)).Data;
-		if (result == null) { return RedirectToAction(nameof(Index)); }
-		await _blogService.SoftDeleteByIdAsync(id);
-		return RedirectToAction(nameof(Index));
-	}
+        if (!ModelState.IsValid)
+        {
+            return View(dto);
+        }
+        await _blogService.UpdateAsync(dto);
+        return RedirectToAction(nameof(Index));
+    }
+    public async Task<IActionResult> Delete(int id)
+    {
+        var result = (await _blogService.GetByIdAsync(id)).Data;
+        if (result == null) { return RedirectToAction(nameof(Index)); }
+        await _blogService.SoftDeleteByIdAsync(id);
+        return RedirectToAction(nameof(Index));
+    }
 
-	public async Task<IActionResult> Recover(int id)
+    public async Task<IActionResult> Recover(int id)
     {
-		var result = (await _blogService.GetByIdAsync(id)).Data;
-		if (result == null) { return RedirectToAction(nameof(Index)); }
-		await _blogService.RecoverByIdAsync(id);
-		return RedirectToAction(nameof(Index));
-	}
+        var result = (await _blogService.GetByIdAsync(id)).Data;
+        if (result == null) { return RedirectToAction(nameof(Index)); }
+        await _blogService.RecoverByIdAsync(id);
+        return RedirectToAction(nameof(Index));
+    }
 }

@@ -1,0 +1,65 @@
+﻿@{
+    ViewData["Title"] = "Role";
+}
+@model IDataResult<List<RoleGetDto>>
+<div class="breadcrumb-wrapper breadcrumb-wrapper-2 breadcrumb-contacts">
+    <h1>Roles</h1>
+    <p class="breadcrumbs">
+        <span><a href="index.html">Home</a></span>
+        <span><i class="mdi mdi-chevron-right"></i></span>Roles
+    </p>
+</div>
+<div class="row">
+    <div class="col-xl-4 col-lg-12">
+        <div class="ec-cat-list card card-default mb-24px">
+            <div class="card-body">
+                <div class="ec-cat-form">
+                    <h4>Add New Role</h4>
+                    <partial name="_roleCreatePartial" model="new RolePostDto()" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-8 col-lg-12">
+        <div class="ec-cat-list card card-default">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="responsive-data-table" class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>User Count</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int i = 0; i < Model.Data.Count; i++)
+                            {
+                                <tr>
+                                    <td>@(i+1)</td>
+                                    <td>@Model.Data[i].Name</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button asp-action="Get" asp-controller="Role" asp-route-id="@Model.Data[i].Id" type="button" class="btn btn-outline-success">Info</button>
+                                            @{
+                                                <button type="button" class="btn btn-outline-success dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                                                    <span class="sr-only">Info</span>
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a asp-action="Update" asp-controller="Role" asp-route-id="@Model.Data[i].Id" class="dropdown-item">Edit</a>
+                                                    <a asp-action="Delete" asp-controller="Role" asp-route-id="@Model.Data[i].Id" class="dropdown-item">Delete</a>
+                                                </div>
+                                            }
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

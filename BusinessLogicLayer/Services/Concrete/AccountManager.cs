@@ -1,18 +1,20 @@
 ﻿namespace BusinessLogicLayer.Services.Concrete;
 
-public class AuthManager : IAuthService
+public class AccountManager : IAccountService
 {
     private readonly UserManager<AppUser> _userManager;
+    private readonly RoleManager<IdentityRole> _roleManager;
     private readonly SignInManager<AppUser> _signInManager;
     private readonly ICartService _cartService;
     private readonly IMapper _mapper;
 
-    public AuthManager(UserManager<AppUser> userManager, IMapper mapper, SignInManager<AppUser> signInManager, ICartService cartService)
+    public AccountManager(UserManager<AppUser> userManager, IMapper mapper, SignInManager<AppUser> signInManager, ICartService cartService, RoleManager<IdentityRole> roleManager)
     {
         _userManager = userManager;
         _mapper = mapper;
         _signInManager = signInManager;
         _cartService = cartService;
+        _roleManager = roleManager;
     }
 
     #region Auth Requests
@@ -55,6 +57,11 @@ public class AuthManager : IAuthService
     #endregion
 
     #region Get Requests
+    public async Task<IDataResult<List<UserGetDto>>> GetAllUser(params string[] includes)
+    {
+        List<AppUser> userList = GetQueryForAll(includes);
+        return new SuccessDataResult<List<UserGetDto>>(_mapper.Map<List<UserGetDto>>(userList));
+    }
     public async Task<IDataResult<UserGetDto>> GetUser(ClaimsPrincipal userClaims, params string[] includes)
     {
         AppUser user = await _userManager.GetUserAsync(userClaims);
@@ -65,6 +72,18 @@ public class AuthManager : IAuthService
     #endregion
 
     #region Private Methods
+    private List<AppUser> GetQueryForAll(string[] includes)
+    {
+        IQueryable<AppUser> query = _userManager.Users;
+        if (includes is not null)
+        {
+            foreach (var include in includes)
+            {
+                query = query.Include(include);
+            }
+        }
+        return query.ToList();
+    }
     private IQueryable<AppUser> GetQuery(string[] includes)
     {
         IQueryable<AppUser> query = _userManager.Users;
