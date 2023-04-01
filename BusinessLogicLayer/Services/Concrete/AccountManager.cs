@@ -3,18 +3,16 @@
 public class AccountManager : IAccountService
 {
     private readonly UserManager<AppUser> _userManager;
-    private readonly RoleManager<IdentityRole> _roleManager;
     private readonly SignInManager<AppUser> _signInManager;
     private readonly ICartService _cartService;
     private readonly IMapper _mapper;
 
-    public AccountManager(UserManager<AppUser> userManager, IMapper mapper, SignInManager<AppUser> signInManager, ICartService cartService, RoleManager<IdentityRole> roleManager)
+    public AccountManager(UserManager<AppUser> userManager, IMapper mapper, SignInManager<AppUser> signInManager, ICartService cartService)
     {
         _userManager = userManager;
         _mapper = mapper;
         _signInManager = signInManager;
         _cartService = cartService;
-        _roleManager = roleManager;
     }
 
     #region Auth Requests

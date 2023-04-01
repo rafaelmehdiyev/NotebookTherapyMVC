@@ -1,5 +1,6 @@
 ﻿namespace NotebookTherapyMVC.Areas.Manage.Controllers;
 [Area("Manage")]
+[Authorize(Roles = "Admin")]
 public class BlogController : Controller
 {
     private readonly IBlogService _blogService;
