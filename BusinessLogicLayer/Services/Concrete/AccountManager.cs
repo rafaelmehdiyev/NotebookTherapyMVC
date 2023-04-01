@@ -1,4 +1,7 @@
-﻿namespace BusinessLogicLayer.Services.Concrete;
+﻿using Microsoft.AspNetCore.Authentication;
+using System.Security.Principal;
+
+namespace BusinessLogicLayer.Services.Concrete;
 
 public class AccountManager : IAccountService
 {
@@ -7,16 +10,16 @@ public class AccountManager : IAccountService
     private readonly ICartService _cartService;
     private readonly IMapper _mapper;
 
-    public AccountManager(UserManager<AppUser> userManager, IMapper mapper, SignInManager<AppUser> signInManager, ICartService cartService)
-    {
-        _userManager = userManager;
-        _mapper = mapper;
-        _signInManager = signInManager;
-        _cartService = cartService;
-    }
+	public AccountManager(UserManager<AppUser> userManager, IMapper mapper, SignInManager<AppUser> signInManager, ICartService cartService)
+	{
+		_userManager = userManager;
+		_mapper = mapper;
+		_signInManager = signInManager;
+		_cartService = cartService;
+	}
 
-    #region Auth Requests
-    public async Task<IDataResult<UserGetDto>> Register(RegisterDto registerDto)
+	#region Auth Requests
+	public async Task<IDataResult<UserGetDto>> Register(RegisterDto registerDto)
     {
         AppUser userForCheck = await _userManager.FindByNameAsync(registerDto.UserName);
         if (userForCheck is not null) { return new ErrorDataResult<UserGetDto>(_mapper.Map<UserGetDto>(userForCheck), "User Already Exist"); }
@@ -33,7 +36,7 @@ public class AccountManager : IAccountService
             new Claim(ClaimTypes.NameIdentifier,user.Id),
             new Claim(ClaimTypes.Name,user.UserName)
         });
-        await _userManager.AddToRoleAsync(user, "Admin");
+        await _userManager.AddToRoleAsync(user, "User");
         await _cartService.CreateAsync(new CartPostDto { UserId = user.Id });
         var cartResult = await _cartService.GetCartByUserIdAsync(user.Id);
         user.CartId = cartResult.Data.Id;
@@ -44,8 +47,8 @@ public class AccountManager : IAccountService
     {
         AppUser user = await _userManager.FindByEmailAsync(loginDto.Email);
         if (user is null) { return new ErrorDataResult<UserGetDto>(_mapper.Map<UserGetDto>(user), "User is not exist"); }
-        await _signInManager.SignInAsync(user, false);
-        return new SuccessDataResult<UserGetDto>(_mapper.Map<UserGetDto>(user), "Login Succesful");
+		 await _signInManager.SignInAsync(user,false);
+		return new SuccessDataResult<UserGetDto>(_mapper.Map<UserGetDto>(user), "Login Succesful");
     }
     public async Task<IResult> SignOutAsync()
     {

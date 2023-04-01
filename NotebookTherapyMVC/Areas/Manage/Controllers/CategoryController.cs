@@ -1,7 +1,7 @@
 ﻿namespace NotebookTherapyMVC.Areas.Manage.Controllers;
 
 [Area("Manage")]
-[Authorize(Roles = "Admin", AuthenticationSchemes = "AdminScheme")]
+[Authorize(Roles = "Admin")]
 public class CategoryController : Controller
 {
     private readonly ICategoryService _categoryService;

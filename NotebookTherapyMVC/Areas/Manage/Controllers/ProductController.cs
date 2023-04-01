@@ -1,6 +1,6 @@
 ﻿namespace NotebookTherapyMVC.Areas.Manage.Controllers;
 [Area("Manage")]
-[Authorize(Roles = "Admin", AuthenticationSchemes = "AdminScheme")]
+[Authorize(Roles = "Admin")]
 public class ProductController : Controller
 {
 	private readonly IProductService _productService;
