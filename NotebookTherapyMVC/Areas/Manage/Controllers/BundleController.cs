@@ -15,7 +15,7 @@
 
         public async Task<IActionResult> Index()
         {
-            var result = await _bundleService.GetAllAsync();
+            IDataResult<List<BundleGetDto>> result = await _bundleService.GetAllAsync(true);
             return View(result);
         }
         [HttpPost]
@@ -25,14 +25,14 @@
             {
                 return View();
             }
-            var result = await _bundleService.CreateAsync(dto);
+            IResult result = await _bundleService.CreateAsync(dto);
             return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
-            var result = await _bundleService.GetByIdAsync(id);
+            IDataResult<BundleGetDto> result = await _bundleService.GetByIdAsync(id);
             BundleUpdateDto dto = _mapper.Map<BundleUpdateDto>(result.Data);
             return View(dto);
         }
@@ -48,18 +48,25 @@
         }
         public async Task<IActionResult> Delete(int id)
         {
-            var result = (await _bundleService.GetByIdAsync(id)).Data;
+            BundleGetDto result = (await _bundleService.GetByIdAsync(id)).Data;
             if (result == null) { return RedirectToAction(nameof(Index)); }
             await _bundleService.SoftDeleteByIdAsync(id);
             return RedirectToAction(nameof(Index));
         }
         public async Task<IActionResult> Recover(int id)
         {
-            var result = (await _bundleService.GetByIdAsync(id)).Data;
+            BundleGetDto result = (await _bundleService.GetByIdAsync(id)).Data;
             if (result == null) { return RedirectToAction(nameof(Index)); }
             await _bundleService.RecoverByIdAsync(id);
             return RedirectToAction(nameof(Index));
         }
-    }
+		public async Task<IActionResult> HardDelete(int id)
+		{
+            BundleGetDto result = (await _bundleService.GetByIdAsync(id)).Data;
+			if (result == null) { return RedirectToAction(nameof(Index)); }
+			await _bundleService.HardDeleteByIdAsync(id);
+			return RedirectToAction(nameof(Index));
+		}
+	}
 }
 

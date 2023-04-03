@@ -12,9 +12,11 @@ public class CartManager : ICartService
     }
 
     #region Get Requests
-    public async Task<IDataResult<List<CartGetDto>>> GetAllAsync(params string[] includes)
+    public async Task<IDataResult<List<CartGetDto>>> GetAllAsync(bool getDeleted, params string[] includes)
     {
-        List<Cart> carts = await _unitOfWork.CartRepository.GetAllAsync(includes:includes);
+        List<Cart> carts = getDeleted
+            ? await _unitOfWork.CartRepository.GetAllAsync(includes: includes)
+            : await _unitOfWork.CartRepository.GetAllAsync(b => !b.isDeleted, includes);
         if (carts is null)
         {
             return new ErrorDataResult<List<CartGetDto>>(Messages.NotFound(Messages.Cart));

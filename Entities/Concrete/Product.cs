@@ -13,6 +13,7 @@ public class Product : ITable
     public decimal LastPrice { get; set; }
     public int DiscountPercent { get; set; }
     public decimal Price { get; set; }
+    public decimal TotalRating { get; set; }
     public bool isSale { get; set; }
     public bool isDeleted { get; set; }
     public DateTime CreatedDate { get; set; }

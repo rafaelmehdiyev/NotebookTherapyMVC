@@ -14,9 +14,11 @@ public class ProductCollectionManager : IProductCollectionService
 	}
 
 	#region Get Requests
-	public async Task<IDataResult<List<ProductCollectionGetDto>>> GetAllAsync(params string[] includes)
+	public async Task<IDataResult<List<ProductCollectionGetDto>>> GetAllAsync(bool getDeleted, params string[] includes)
 	{
-		List<ProductCollection> productCollections = await _unitOfWork.ProductCollectionRepository.GetAllAsync(includes: includes);
+		List<ProductCollection> productCollections = getDeleted
+			? await _unitOfWork.ProductCollectionRepository.GetAllAsync(includes: includes)
+			: await _unitOfWork.ProductCollectionRepository.GetAllAsync(b => !b.isDeleted, includes);
 		if (productCollections is null)
 		{
 			return new ErrorDataResult<List<ProductCollectionGetDto>>(Messages.NotFound(Messages.ProductCollection));

@@ -11,7 +11,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		@foreach (var faq in Model)
+		@foreach (FAQGetDto faq in Model)
 		{
 			<tr>
 				<td>@faq.Id</td>
@@ -52,6 +52,7 @@
 							{
 								<div class="dropdown-menu">
 									<a asp-action="Recover" asp-controller="FAQ" asp-route-id="@faq.Id" class="dropdown-item">Recover</a>
+									<a asp-action="HardDelete" asp-controller="FAQ" asp-route-id="@faq.Id" class="dropdown-item">Permamently Delete</a>
 								</div>
 							}
 						}

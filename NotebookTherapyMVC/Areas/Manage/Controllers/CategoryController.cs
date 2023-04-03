@@ -14,7 +14,7 @@ public class CategoryController : Controller
 	}
 	public async Task<IActionResult> Index()
     {
-        var result = await _categoryService.GetAllAsync(Includes.CategoryIncludes);
+        IDataResult<List<CategoryGetDto>> result = await _categoryService.GetAllAsync(true,Includes.CategoryIncludes);
         return View(result);
     }
     [HttpPost]
@@ -24,14 +24,14 @@ public class CategoryController : Controller
         {         
             return View();
         }
-        var result = await _categoryService.CreateAsync(dto);
+        IResult result = await _categoryService.CreateAsync(dto);
 		return RedirectToAction(nameof(Index));
 	}
 
     [HttpGet]
 	public async Task<IActionResult> Update(int id)
 	{
-		var result = await _categoryService.GetByIdAsync(id);
+		IDataResult<CategoryGetDto> result = await _categoryService.GetByIdAsync(id);
         CategoryUpdateDto dto = _mapper.Map<CategoryUpdateDto>(result.Data);
 		return View(dto);
 	}
@@ -47,7 +47,7 @@ public class CategoryController : Controller
 	}
 	public async Task<IActionResult> Delete(int id)
 	{
-		var result = (await _categoryService.GetByIdAsync(id)).Data;
+		CategoryGetDto result = (await _categoryService.GetByIdAsync(id)).Data;
 		if (result == null) { return RedirectToAction(nameof(Index)); }
 		await _categoryService.SoftDeleteByIdAsync(id);
 		return RedirectToAction(nameof(Index));
@@ -55,9 +55,16 @@ public class CategoryController : Controller
 
 	public async Task<IActionResult> Recover(int id)
 	{
-		var result = (await _categoryService.GetByIdAsync(id)).Data;
+		CategoryGetDto result = (await _categoryService.GetByIdAsync(id)).Data;
 		if (result == null) { return RedirectToAction(nameof(Index)); }
 		await _categoryService.RecoverByIdAsync(id);
+		return RedirectToAction(nameof(Index));
+	}
+	public async Task<IActionResult> HardDelete(int id)
+	{
+		CategoryGetDto result = (await _categoryService.GetByIdAsync(id)).Data;
+		if (result == null) { return RedirectToAction(nameof(Index)); }
+		await _categoryService.HardDeleteByIdAsync(id);
 		return RedirectToAction(nameof(Index));
 	}
 }

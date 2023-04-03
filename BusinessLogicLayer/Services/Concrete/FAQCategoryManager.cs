@@ -12,9 +12,11 @@ public class FAQCategoryManager : IFAQCategoryService
     }
 
 	#region Get Requests
-	public async Task<IDataResult<List<FAQCategoryGetDto>>> GetAllAsync(params string[] includes)
+	public async Task<IDataResult<List<FAQCategoryGetDto>>> GetAllAsync(bool getDeleted, params string[] includes)
     {
-        List<FAQCategory> fAQCategories = await _unitOfWork.FAQCategoryRepository.GetAllAsync(includes: includes);
+        List<FAQCategory> fAQCategories = getDeleted
+            ? await _unitOfWork.FAQCategoryRepository.GetAllAsync(includes: includes)
+            : await _unitOfWork.FAQCategoryRepository.GetAllAsync(b => !b.isDeleted, includes);
         if (fAQCategories is null)
         {
             return new ErrorDataResult<List<FAQCategoryGetDto>>(Messages.NotFound(Messages.FAQCategory));
@@ -79,7 +81,7 @@ public class FAQCategoryManager : IFAQCategoryService
 	#region Delete Requests
 	public async Task<IResult> HardDeleteByIdAsync(int id)
     {
-        FAQCategory fAQCategory = await _unitOfWork.FAQCategoryRepository.GetAsync(b => b.Id == id && !b.isDeleted);
+        FAQCategory fAQCategory = await _unitOfWork.FAQCategoryRepository.GetAsync(b => b.Id == id && b.isDeleted);
         _unitOfWork.FAQCategoryRepository.Delete(fAQCategory);
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)

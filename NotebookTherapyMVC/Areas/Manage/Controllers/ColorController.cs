@@ -15,7 +15,7 @@
 
         public async Task<IActionResult> Index()
         {
-            var result = await _colorService.GetAllAsync();
+            IDataResult<List<ColorGetDto>> result = await _colorService.GetAllAsync(true);
             return View(result);
         }
         [HttpPost]
@@ -25,14 +25,14 @@
             {
                 return View();
             }
-            var result = await _colorService.CreateAsync(dto);
+            IResult result = await _colorService.CreateAsync(dto);
             return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
-            var result = await _colorService.GetByIdAsync(id);
+            IDataResult<ColorGetDto> result = await _colorService.GetByIdAsync(id);
             ColorUpdateDto dto = _mapper.Map<ColorUpdateDto>(result.Data);
             return View(dto);
         }
@@ -48,16 +48,23 @@
         }
         public async Task<IActionResult> Delete(int id)
         {
-            var result = (await _colorService.GetByIdAsync(id)).Data;
+            ColorGetDto result = (await _colorService.GetByIdAsync(id)).Data;
             if (result == null) { return RedirectToAction(nameof(Index)); }
             await _colorService.SoftDeleteByIdAsync(id);
             return RedirectToAction(nameof(Index));
         }
         public async Task<IActionResult> Recover(int id)
         {
-            var result = (await _colorService.GetByIdAsync(id)).Data;
+            ColorGetDto result = (await _colorService.GetByIdAsync(id)).Data;
             if (result == null) { return RedirectToAction(nameof(Index)); }
             await _colorService.RecoverByIdAsync(id);
+            return RedirectToAction(nameof(Index));
+        }
+        public async Task<IActionResult> HardDelete(int id)
+        {
+            ColorGetDto result = (await _colorService.GetByIdAsync(id)).Data;
+            if (result == null) { return RedirectToAction(nameof(Index)); }
+            await _colorService.HardDeleteByIdAsync(id);
             return RedirectToAction(nameof(Index));
         }
     }

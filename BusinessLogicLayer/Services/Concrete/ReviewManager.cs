@@ -12,9 +12,11 @@ public class ReviewManager : IReviewService
     }
 
 	#region Get Requests
-	public async Task<IDataResult<List<ReviewGetDto>>> GetAllAsync(params string[] includes)
+	public async Task<IDataResult<List<ReviewGetDto>>> GetAllAsync(bool getDeleted, params string[] includes)
     {
-        List<Review> reviews = await _unitOfWork.ReviewRepository.GetAllAsync(includes: includes);
+        List<Review> reviews = getDeleted
+            ? await _unitOfWork.ReviewRepository.GetAllAsync(includes: includes)
+            : await _unitOfWork.ReviewRepository.GetAllAsync(b => !b.isDeleted, includes);
         if (reviews is null)
         {
             return new ErrorDataResult<List<ReviewGetDto>>(Messages.NotFound(Messages.Review));

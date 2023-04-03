@@ -14,7 +14,7 @@ public class BlogController : Controller
 
     public async Task<IActionResult> Index()
     {
-        var result = await _blogService.GetAllAsync();
+        IDataResult<List<BlogGetDto>> result = await _blogService.GetAllAsync(true);
         return View(result);
     }
     [HttpGet]
@@ -35,7 +35,7 @@ public class BlogController : Controller
     [HttpGet]
     public async Task<IActionResult> Update(int id)
     {
-        var result = await _blogService.GetByIdAsync(id);
+        IDataResult<BlogGetDto> result = await _blogService.GetByIdAsync(id);
         BlogUpdateDto dto = _mapper.Map<BlogUpdateDto>(result.Data);
         return View(dto);
     }
@@ -51,7 +51,7 @@ public class BlogController : Controller
     }
     public async Task<IActionResult> Delete(int id)
     {
-        var result = (await _blogService.GetByIdAsync(id)).Data;
+        BlogGetDto result = (await _blogService.GetByIdAsync(id)).Data;
         if (result == null) { return RedirectToAction(nameof(Index)); }
         await _blogService.SoftDeleteByIdAsync(id);
         return RedirectToAction(nameof(Index));
@@ -59,9 +59,16 @@ public class BlogController : Controller
 
     public async Task<IActionResult> Recover(int id)
     {
-        var result = (await _blogService.GetByIdAsync(id)).Data;
+        BlogGetDto result = (await _blogService.GetByIdAsync(id)).Data;
         if (result == null) { return RedirectToAction(nameof(Index)); }
         await _blogService.RecoverByIdAsync(id);
+        return RedirectToAction(nameof(Index));
+    }
+    public async Task<IActionResult> HardDelete(int id)
+    {
+        BlogGetDto result = (await _blogService.GetByIdAsync(id)).Data;
+        if (result == null) { return RedirectToAction(nameof(Index)); }
+        await _blogService.HardDeleteByIdAsync(id);
         return RedirectToAction(nameof(Index));
     }
 }

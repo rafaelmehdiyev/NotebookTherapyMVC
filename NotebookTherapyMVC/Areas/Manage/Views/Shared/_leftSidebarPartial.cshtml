@@ -22,32 +22,20 @@
 				</li>
 
 				<!-- Users -->
-				<li class="has-sub">
-					<a class="sidenav-item-link" href="javascript:void(0)">
+				<li>
+					<a class="sidenav-item-link" asp-controller="User" asp-action="Index">
 						<i class="mdi mdi-account-group"></i>
-						<span class="nav-text">Users</span> <b class="caret"></b>
+						<span class="nav-text">Users</span>
 					</a>
-					<div class="collapse">
-						<ul class="sub-menu" id="users" data-parent="#sidebar-menu">
-							<li>
-								<a class="sidenav-item-link" href="user-card.html">
-									<span class="nav-text">User Grid</span>
-								</a>
-							</li>
+				</li>
 
-							<li class="">
-								<a class="sidenav-item-link" href="user-list.html">
-									<span class="nav-text">User List</span>
-								</a>
-							</li>
-							<li class="">
-								<a class="sidenav-item-link" href="user-profile.html">
-									<span class="nav-text">Users Profile</span>
-								</a>
-							</li>
-						</ul>
-					</div>
-					<hr>
+				<!-- Roles -->
+				<li>
+					<a class="sidenav-item-link" asp-controller="Role" asp-action="Index">
+						<i class="fas fa-user-tag"></i>
+						<span class="nav-text">Roles</span>
+					</a>
+					<hr />	
 				</li>
 
 				<!-- Category -->
@@ -108,12 +96,25 @@
 				</li>
 
 				<!-- Product Collection -->
-				<li>
-					<a class="sidenav-item-link" asp-controller="ProductCollection" asp-action="Index">
-						<i class="fa-solid fa-rectangle-vertical-history"></i>
-						<span class="nav-text">Collections</span>
+				<li class="has-sub">
+					<a class="sidenav-item-link" href="javascript:void(0)">
+						<i class="fas fa-tag"></i>
+						<span class="nav-text">Collections</span> <b class="caret"></b>
 					</a>
-					<hr>
+					<div class="collapse">
+						<ul class="sub-menu" id="collections" data-parent="#sidebar-menu">
+							<li class="">
+								<a class="sidenav-item-link" asp-controller="ProductCollection" asp-action="Create">
+									<span class="nav-text">Add New Collection</span>
+								</a>
+							</li>
+							<li class="">
+								<a class="sidenav-item-link" asp-controller="ProductCollection" asp-action="Index">
+									<span class="nav-text">All Collections</span>
+								</a>
+							</li>
+						</ul>
+					</div>
 				</li>
 
 				<!-- Orders -->
@@ -154,15 +155,7 @@
 						<i class="mdi mdi-star-half"></i>
 						<span class="nav-text">Reviews</span>
 					</a>
-				</li>
-
-				<!-- Brands -->
-				<li>
-					<a class="sidenav-item-link" href="brand-list.html">
-						<i class="mdi mdi-tag-faces"></i>
-						<span class="nav-text">Brands</span>
-					</a>
-					<hr>
+					<hr />
 				</li>
 
 				<!-- FAQ -->
@@ -194,48 +187,15 @@
 						<i class="mdi mdi-blogger"></i>
 						<span class="nav-text">Blogs</span>
 					</a>
+					<hr />
 				</li>
 
-				<!-- Icons -->
-				<li class="has-sub">
-					<a class="sidenav-item-link" href="javascript:void(0)">
-						<i class="mdi mdi-diamond-stone"></i>
-						<span class="nav-text">Icons</span> <b class="caret"></b>
+				<!-- Sign out -->
+				<li>
+					<a class="sidenav-item-link" asp-action="SignOut" asp-controller="Account" asp-area="">
+						<i class="fas fa-sign-out-alt"></i>
+						<span class="nav-text">Sign Out</span>
 					</a>
-					<div class="collapse">
-						<ul class="sub-menu" id="icons" data-parent="#sidebar-menu">
-							<li class="">
-								<a class="sidenav-item-link" href="material-icon.html">
-									<span class="nav-text">Material Icon</span>
-								</a>
-							</li>
-							<li class="">
-								<a class="sidenav-item-link" href="font-awsome-icons.html">
-									<span class="nav-text">Font Awsome Icon</span>
-								</a>
-							</li>
-							<li class="">
-								<a class="sidenav-item-link" href="flag-icon.html">
-									<span class="nav-text">Flag Icon</span>
-								</a>
-							</li>
-						</ul>
-					</div>
-				</li>
-
-				<!-- Other Pages -->
-				<li class="has-sub">
-					<a class="sidenav-item-link" href="javascript:void(0)">
-						<i class="mdi mdi-image-filter-none"></i>
-						<span class="nav-text">Other Pages</span> <b class="caret"></b>
-					</a>
-					<div class="collapse">
-						<ul class="sub-menu" id="otherpages" data-parent="#sidebar-menu">
-							<li class="has-sub">
-								<a href="404.html">404 Page</a>
-							</li>
-						</ul>
-					</div>
 				</li>
 			</ul>
 		</div>

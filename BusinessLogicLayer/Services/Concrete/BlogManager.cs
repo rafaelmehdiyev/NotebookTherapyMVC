@@ -11,16 +11,19 @@ public class BlogManager : IBlogService
     }
 
 	#region Get Requests
-	public async Task<IDataResult<List<BlogGetDto>>> GetAllAsync(params string[] includes)
+	public async Task<IDataResult<List<BlogGetDto>>> GetAllAsync(bool getDeleted,params string[] includes)
 	{
-		List<Blog> blogs = await _unitOfWork.BlogRepository.GetAllAsync(includes:includes);
-		if (blogs is null)
+		List<Blog> blogs = getDeleted
+			? await _unitOfWork.BlogRepository.GetAllAsync(includes: includes)
+			: await _unitOfWork.BlogRepository.GetAllAsync(b => !b.isDeleted, includes);
+        if (blogs is null)
 		{
 			return new ErrorDataResult<List<BlogGetDto>>(Messages.NotFound(Messages.Blog));
 		}
 		return new SuccessDataResult<List<BlogGetDto>>(_mapper.Map<List<BlogGetDto>>(blogs));
 	}
-	public async Task<IDataResult<BlogGetDto>> GetByIdAsync(int id, params string[] includes)
+
+    public async Task<IDataResult<BlogGetDto>> GetByIdAsync(int id, params string[] includes)
 	{
 		Blog blog = await _unitOfWork.BlogRepository.GetAsync(b => b.Id == id, includes);
 		if (blog is null)
@@ -90,7 +93,7 @@ public class BlogManager : IBlogService
 	#region Delete Requests
 	public async Task<IResult> HardDeleteByIdAsync(int id)
 	{
-		Blog blog = await _unitOfWork.BlogRepository.GetAsync(b => b.Id == id && !b.isDeleted);
+		Blog blog = await _unitOfWork.BlogRepository.GetAsync(b => b.Id == id && b.isDeleted);
 		_unitOfWork.BlogRepository.Delete(blog);
 		int result = await _unitOfWork.SaveAsync();
 		if (result is 0)

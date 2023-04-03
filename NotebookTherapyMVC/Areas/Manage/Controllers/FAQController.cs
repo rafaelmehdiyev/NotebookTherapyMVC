@@ -16,7 +16,7 @@ public class FAQController : Controller
 
     public async Task<IActionResult> Index()
     {
-        var result = await _faqService.GetAllAsync(Includes.FAQIncludes);
+        IDataResult<List<FAQGetDto>> result = await _faqService.GetAllAsync(true, Includes.FAQIncludes);
         return View(result);
     }
 
@@ -42,7 +42,7 @@ public class FAQController : Controller
 	[HttpGet]
 	public async Task<IActionResult> Update(int id)
 	{
-		var result = await _faqService.GetByIdAsync(id);
+        IDataResult<FAQGetDto> result = await _faqService.GetByIdAsync(id);
         await GetFAQCategories();
         FAQUpdateDto dto = _mapper.Map<FAQUpdateDto>(result.Data);
 		return View(dto);
@@ -62,7 +62,7 @@ public class FAQController : Controller
 
 	public async Task<IActionResult> Delete(int id)
 	{
-		var result = (await _faqService.GetByIdAsync(id)).Data;
+		FAQGetDto result = (await _faqService.GetByIdAsync(id)).Data;
 		if (result == null) { return RedirectToAction(nameof(Index)); }
 		await _faqService.SoftDeleteByIdAsync(id);
 		return RedirectToAction(nameof(Index));
@@ -70,16 +70,24 @@ public class FAQController : Controller
 
 	public async Task<IActionResult> Recover(int id)
 	{
-		var result = (await _faqService.GetByIdAsync(id)).Data;
+		FAQGetDto result = (await _faqService.GetByIdAsync(id)).Data;
 		if (result == null) { return RedirectToAction(nameof(Index)); }
 		await _faqService.RecoverByIdAsync(id);
 		return RedirectToAction(nameof(Index));
 	}
-	#region Private Methods
-	private async Task GetFAQCategories()
+
+    public async Task<IActionResult> HardDelete(int id)
     {
-        var result = await _faqCategoryService.GetAllAsync();
-        var faqCategories = result.Data.Select(c => new SelectListItem
+        FAQGetDto result = (await _faqService.GetByIdAsync(id)).Data;
+        if (result == null) { return RedirectToAction(nameof(Index)); }
+        await _faqService.HardDeleteByIdAsync(id);
+        return RedirectToAction(nameof(Index));
+    }
+    #region Private Methods
+    private async Task GetFAQCategories()
+    {
+        IDataResult<List<FAQCategoryGetDto>> result = await _faqCategoryService.GetAllAsync(false);
+        IEnumerable<SelectListItem> faqCategories = result.Data.Select(c => new SelectListItem
         {
             Value = c.Id.ToString(),
             Text = c.Name

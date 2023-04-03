@@ -35,7 +35,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							@foreach (var bundle in Model.Data)
+							@foreach (BundleGetDto bundle in Model.Data)
 							{
 								<tr>
 									<td>@bundle.Id</td>
@@ -70,6 +70,7 @@
 												{
 													<div class="dropdown-menu">
 														<a asp-action="Recover" asp-controller="Bundle" asp-route-id="@bundle.Id" class="dropdown-item">Recover</a>
+														<a asp-action="HardDelete" asp-controller="Bundle" asp-route-id="@bundle.Id" class="dropdown-item">Permamently Delete</a>
 													</div>
 												}
 											}

@@ -35,7 +35,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var product in Model.Data)
+                            @foreach (ProductGetDto product in Model.Data)
                             {
                                 <tr>
                                     <td>@product.Id</td>
@@ -76,7 +76,7 @@
                                         @{
                                             if (product.ProductSizes.Count > 0)
                                             {
-                                                foreach (var size in product.ProductSizes)
+                                                foreach (ProductSizeGetDto size in product.ProductSizes)
                                                 {
                                                     @size.Size.Name
                                                 }
@@ -87,12 +87,12 @@
                                             }
                                         }
                                     </td>
-                                    <td style="background-color:@product.Color.ColorCode"></td>
+                                    <td style="background-color:@product.Color.Name"></td>
                                     <td>
                                         @{
                                             if (product.ProductBundles.Count > 0)
                                             {
-                                                foreach (var bundle in product.ProductBundles)
+                                                foreach (ProductBundleGetDto bundle in product.ProductBundles)
                                                 {
                                                     @bundle.Bundle.Name
                                                 }

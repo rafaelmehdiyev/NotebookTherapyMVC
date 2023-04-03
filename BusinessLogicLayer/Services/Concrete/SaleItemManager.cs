@@ -12,9 +12,11 @@ public class SaleItemManager : ISaleItemService
     }
 
 	#region Get Requests
-	public async Task<IDataResult<List<SaleItemGetDto>>> GetAllAsync(params string[] includes)
+	public async Task<IDataResult<List<SaleItemGetDto>>> GetAllAsync(bool getDeleted, params string[] includes)
     {
-        List<SaleItem> saleItems = await _unitOfWork.SaleItemRepository.GetAllAsync(includes: includes);
+        List<SaleItem> saleItems = getDeleted
+            ? await _unitOfWork.SaleItemRepository.GetAllAsync(includes: includes)
+            : await _unitOfWork.SaleItemRepository.GetAllAsync(b => !b.isDeleted, includes);
         if (saleItems is null)
         {
             return new ErrorDataResult<List<SaleItemGetDto>>(Messages.NotFound(Messages.SaleItem));

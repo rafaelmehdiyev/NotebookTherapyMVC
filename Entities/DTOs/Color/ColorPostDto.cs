@@ -2,5 +2,5 @@
 
 public class ColorPostDto : IDto
 {
-    public string ColorCode { get; set; }
+    public string Name { get; set; }
 }

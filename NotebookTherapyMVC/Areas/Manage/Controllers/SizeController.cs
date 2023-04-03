@@ -14,7 +14,7 @@ public class SizeController : Controller
 	}
 	public async Task<IActionResult> Index()
 	{
-		var result = await _sizeService.GetAllAsync();
+        IDataResult<List<SizeGetDto>> result = await _sizeService.GetAllAsync(true);
 		return View(result);
 	}
 	[HttpPost]
@@ -24,16 +24,15 @@ public class SizeController : Controller
 		{
 			return View();
 		}
-		var result = await _sizeService.CreateAsync(dto);
+		IResult result = await _sizeService.CreateAsync(dto);
 		return RedirectToAction(nameof(Index));
 	}
 
 	[HttpGet]
 	public async Task<IActionResult> Update(int id)
 	{
-		var result = await _sizeService.GetByIdAsync(id);
-		SizeUpdateDto dto = _mapper.Map<SizeUpdateDto>(result.Data);
-		return View(dto);
+        IDataResult<SizeGetDto> result = await _sizeService.GetByIdAsync(id);
+		return View(_mapper.Map<SizeUpdateDto>(result.Data));
 	}
 	[HttpPost]
 	public async Task<IActionResult> Update(SizeUpdateDto dto)
@@ -47,16 +46,23 @@ public class SizeController : Controller
 	}
 	public async Task<IActionResult> Delete(int id)
 	{
-		var result = (await _sizeService.GetByIdAsync(id)).Data;
+		SizeGetDto result = (await _sizeService.GetByIdAsync(id)).Data;
 		if (result == null) { return RedirectToAction(nameof(Index)); }
 		await _sizeService.SoftDeleteByIdAsync(id);
 		return RedirectToAction(nameof(Index));
 	}
 	public async Task<IActionResult> Recover(int id)
 	{
-		var result = (await _sizeService.GetByIdAsync(id)).Data;
+		SizeGetDto result = (await _sizeService.GetByIdAsync(id)).Data;
 		if (result == null) { return RedirectToAction(nameof(Index)); }
 		await _sizeService.RecoverByIdAsync(id);
+		return RedirectToAction(nameof(Index));
+	}
+	public async Task<IActionResult> HardDelete(int id)
+	{
+		SizeGetDto result = (await _sizeService.GetByIdAsync(id)).Data;
+		if (result == null) { return RedirectToAction(nameof(Index)); }
+		await _sizeService.HardDeleteByIdAsync(id);
 		return RedirectToAction(nameof(Index));
 	}
 }

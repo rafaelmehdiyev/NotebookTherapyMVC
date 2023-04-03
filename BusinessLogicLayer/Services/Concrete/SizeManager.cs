@@ -10,9 +10,11 @@ public class SizeManager : ISizeService
         _mapper = mapper;
     }
 	#region Get Requests
-	public async Task<IDataResult<List<SizeGetDto>>> GetAllAsync(params string[] includes)
+	public async Task<IDataResult<List<SizeGetDto>>> GetAllAsync(bool getDeleted=true,params string[] includes)
     {
-        List<Size> sizes = await _unitOfWork.SizeRepository.GetAllAsync(includes: includes);
+        List<Size> sizes = getDeleted
+            ? await _unitOfWork.SizeRepository.GetAllAsync(includes: includes)
+            : await _unitOfWork.SizeRepository.GetAllAsync(b => !b.isDeleted, includes);
         if (sizes is null)
         {
             return new ErrorDataResult<List<SizeGetDto>>(Messages.NotFound(Messages.Size));

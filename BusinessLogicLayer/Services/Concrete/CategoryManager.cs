@@ -12,16 +12,19 @@ public class CategoryManager : ICategoryService
     }
 
 	#region Get Requests
-	public async Task<IDataResult<List<CategoryGetDto>>> GetAllAsync(params string[] includes)
+	public async Task<IDataResult<List<CategoryGetDto>>> GetAllAsync(bool getDeleted, params string[] includes)
 	{
-		List<Category> categories = await _unitOfWork.CategoryRepository.GetAllAsync(includes: includes);
+		List<Category> categories = getDeleted
+			? await _unitOfWork.CategoryRepository.GetAllAsync(includes: includes)
+			: await _unitOfWork.CategoryRepository.GetAllAsync(b => !b.isDeleted, includes);
 		if (categories is null)
 		{
 			return new ErrorDataResult<List<CategoryGetDto>>(Messages.NotFound(Messages.Category));
 		}
 		return new SuccessDataResult<List<CategoryGetDto>>(_mapper.Map<List<CategoryGetDto>>(categories));
 	}
-	public async Task<IDataResult<CategoryGetDto>> GetByIdAsync(int id, params string[] includes)
+
+    public async Task<IDataResult<CategoryGetDto>> GetByIdAsync(int id, params string[] includes)
 	{
 		Category category = await _unitOfWork.CategoryRepository.GetAsync(b => b.Id == id, includes);
 		if (category is null)
@@ -77,7 +80,7 @@ public class CategoryManager : ICategoryService
 	#region Delete Requests
 	public async Task<IResult> HardDeleteByIdAsync(int id)
     {
-        Category category = await _unitOfWork.CategoryRepository.GetAsync(b => b.Id == id && !b.isDeleted);
+        Category category = await _unitOfWork.CategoryRepository.GetAsync(b => b.Id == id && b.isDeleted);
         _unitOfWork.CategoryRepository.Delete(category);
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)

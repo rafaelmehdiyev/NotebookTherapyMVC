@@ -12,17 +12,19 @@ public class BundleManager : IBundleService
     }
 
 	#region Get Requests
-	public async Task<IDataResult<List<BundleGetDto>>> GetAllAsync(params string[] includes)
+	public async Task<IDataResult<List<BundleGetDto>>> GetAllAsync(bool getDeleted,params string[] includes)
 	{
-		List<Bundle> bundles = await _unitOfWork.BundleRepository.GetAllAsync(includes:includes);
-		if (bundles is null)
+		List<Bundle> bundles = getDeleted
+			? await _unitOfWork.BundleRepository.GetAllAsync(includes: includes)
+			: await _unitOfWork.BundleRepository.GetAllAsync(b => !b.isDeleted, includes);
+        if (bundles is null)
 		{
 			return new ErrorDataResult<List<BundleGetDto>>(Messages.NotFound(Messages.Bundle));
 		}
 		return new SuccessDataResult<List<BundleGetDto>>(_mapper.Map<List<BundleGetDto>>(bundles));
 	}
 
-	public async Task<IDataResult<BundleGetDto>> GetByIdAsync(int id, params string[] includes)
+    public async Task<IDataResult<BundleGetDto>> GetByIdAsync(int id, params string[] includes)
 	{
 		Bundle bundle = await _unitOfWork.BundleRepository.GetAsync(b => b.Id == id, includes);
 		if (bundle is null)
@@ -78,7 +80,7 @@ public class BundleManager : IBundleService
 
 	public async Task<IResult> HardDeleteByIdAsync(int id)
 	{
-		Bundle bundle = await _unitOfWork.BundleRepository.GetAsync(b => b.Id == id && !b.isDeleted);
+		Bundle bundle = await _unitOfWork.BundleRepository.GetAsync(b => b.Id == id && b.isDeleted);
 		_unitOfWork.BundleRepository.Delete(bundle);
 		int result = await _unitOfWork.SaveAsync();
 		if (result is 0)

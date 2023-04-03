@@ -13,9 +13,11 @@ public class ProductManager : IProductService
     }
 
     #region Get Requests
-    public async Task<IDataResult<List<ProductGetDto>>> GetAllAsync(params string[] includes)
+    public async Task<IDataResult<List<ProductGetDto>>> GetAllAsync(bool getDeleted, params string[] includes)
     {
-        List<Product> products = await _unitOfWork.ProductRepository.GetAllAsync(includes: includes);
+        List<Product> products = getDeleted
+            ? await _unitOfWork.ProductRepository.GetAllAsync(includes: includes)
+            : await _unitOfWork.ProductRepository.GetAllAsync(b => !b.isDeleted, includes);
         if (products is null)
         {
             return new ErrorDataResult<List<ProductGetDto>>(Messages.NotFound(Messages.Product));
@@ -54,7 +56,7 @@ public class ProductManager : IProductService
         Product product = await _unitOfWork.ProductRepository.GetAsync(b => b.Id == dto.Id && !b.isDeleted, "ProductImages", "ProductSizes.Size", "ProductBundles.Bundle");
         if (product.ProductSizes.ToList().Count != 0)
         {
-            foreach (var size in product.ProductSizes.ToList())
+            foreach (ProductSize size in product.ProductSizes.ToList())
             {
                 _unitOfWork.ProductSizeRepository.Delete(size);
                 await _unitOfWork.SaveAsync();
@@ -63,7 +65,7 @@ public class ProductManager : IProductService
         }
         if (product.ProductBundles.ToList().Count != 0)
         {
-            foreach (var bundle in product.ProductBundles.ToList())
+            foreach (ProductBundle bundle in product.ProductBundles.ToList())
             {
                 _unitOfWork.ProductBundleRepository.Delete(bundle);
                 await _unitOfWork.SaveAsync();
@@ -72,7 +74,7 @@ public class ProductManager : IProductService
         }
         if (product.ProductImages.ToList().Count != 0)
         {
-            foreach (var image in product.ProductImages.ToList())
+            foreach (ProductImage image in product.ProductImages.ToList())
             {
                 File.Delete(Path.Combine(_env.WebRootPath, "uploads/product", image.ImagePath));
                 _unitOfWork.ProductImageRepository.Delete(image);
@@ -108,7 +110,7 @@ public class ProductManager : IProductService
 	#region Delete Requests
 	public async Task<IResult> HardDeleteByIdAsync(int id)
     {
-        Product product = await _unitOfWork.ProductRepository.GetAsync(b => b.Id == id && !b.isDeleted);
+        Product product = await _unitOfWork.ProductRepository.GetAsync(b => b.Id == id && b.isDeleted);
         _unitOfWork.ProductRepository.Delete(product);
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
@@ -132,7 +134,7 @@ public class ProductManager : IProductService
     #endregion
 
     #region Private Methods
-    private async void FillProduct(Product product, List<Microsoft.AspNetCore.Http.IFormFile> files, List<int> SizeIds, List<int> BundlesIds)
+    private async void FillProduct(Product product, List<IFormFile> files, List<int> SizeIds, List<int> BundlesIds)
     {
         if (files is not null)
         {
@@ -147,9 +149,9 @@ public class ProductManager : IProductService
             AddBundles(product, BundlesIds);
         }
     }
-    private async void AddProductImages(Product product, List<Microsoft.AspNetCore.Http.IFormFile> files)
+    private async void AddProductImages(Product product, List<IFormFile> files)
     {
-        foreach (var file in files)
+        foreach (IFormFile file in files)
         {
             ProductImage image = new()
             {
@@ -162,7 +164,7 @@ public class ProductManager : IProductService
 
     private async void AddSizes(Product product, List<int> SizeIds)
     {
-        foreach (var sizeId in SizeIds)
+        foreach (int sizeId in SizeIds)
         {
             ProductSize productSize = new()
             {
@@ -174,7 +176,7 @@ public class ProductManager : IProductService
     }
     private async void AddBundles(Product product, List<int> BundlesIds)
     {
-        foreach (var bundleId in BundlesIds)
+        foreach (int bundleId in BundlesIds)
         {
             ProductBundle productBundle = new()
             {

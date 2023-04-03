@@ -1,4 +1,6 @@
-﻿namespace BusinessLogicLayer.Services.Concrete;
+﻿using Entities.Abstract;
+
+namespace BusinessLogicLayer.Services.Concrete;
 
 public class RoleManager : IRoleSevice
 {
@@ -16,7 +18,7 @@ public class RoleManager : IRoleSevice
     public async Task<IResult> CreateAsync(RolePostDto dto)
     {
         IdentityRole role = _mapper.Map<IdentityRole>(dto);
-        var result = await _roleManager.CreateAsync(role);
+        IdentityResult result = await _roleManager.CreateAsync(role);
         if (!result.Succeeded)
         {
             return new ErrorResult(Messages.NotCreated(Messages.Role));
@@ -33,10 +35,10 @@ public class RoleManager : IRoleSevice
         {
             return new ErrorDataResult<List<RoleGetDto>>(Messages.NotFound(Messages.Category));
         }
-        var result = _mapper.Map<List<RoleGetDto>>(roles);
-        foreach (var dto in result)
+        List<RoleGetDto> result = _mapper.Map<List<RoleGetDto>>(roles);
+        foreach (RoleGetDto dto in result)
         {
-            dto.UserCount = await GetUserCount(dto);
+            dto.Users = _mapper.Map<List<UserGetDto>>(await _userManager.GetUsersInRoleAsync(dto.Name));
         }
         return new SuccessDataResult<List<RoleGetDto>>(result);
     }
@@ -48,8 +50,8 @@ public class RoleManager : IRoleSevice
         {
             return new ErrorDataResult<RoleGetDto>(Messages.NotFound(Messages.Category));
         }
-        var result = _mapper.Map<RoleGetDto>(role);
-        result.UserCount = await GetUserCount(result);
+        RoleGetDto result = _mapper.Map<RoleGetDto>(role);
+        result.Users = _mapper.Map<List<UserGetDto>>(await _userManager.GetUsersInRoleAsync(result.Name));
         return new SuccessDataResult<RoleGetDto>(result);
     }
 
@@ -60,7 +62,7 @@ public class RoleManager : IRoleSevice
     {
         IdentityRole role = await _roleManager.FindByIdAsync(dto.Id);
         role.Name = dto.Name;
-        var result = await _roleManager.UpdateAsync(role);
+        IdentityResult result = await _roleManager.UpdateAsync(role);
         if (!result.Succeeded)
         {
             return new ErrorResult(Messages.NotUpdated(Messages.Role));
@@ -73,7 +75,7 @@ public class RoleManager : IRoleSevice
     public async Task<IResult> HardDeleteByIdAsync(string id)
     {
         IdentityRole role = await _roleManager.FindByIdAsync(id);
-        var result = await _roleManager.DeleteAsync(role);
+        IdentityResult result = await _roleManager.DeleteAsync(role);
         if (!result.Succeeded)
         {
             return new ErrorResult(Messages.NotDeleted(Messages.Role));
@@ -82,9 +84,4 @@ public class RoleManager : IRoleSevice
     }
 
     #endregion
-
-    private async Task<int> GetUserCount(RoleGetDto dto)
-    {
-        return (await _userManager.GetUsersInRoleAsync(dto.Name)).Count;
-    }
 }

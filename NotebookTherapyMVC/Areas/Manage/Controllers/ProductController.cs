@@ -32,12 +32,12 @@ public class ProductController : Controller
 
     public async Task<IActionResult> Index()
 	{
-		var result = await _productService.GetAllAsync(Includes.ProductIncludes);
+        IDataResult<List<ProductGetDto>> result = await _productService.GetAllAsync(true, Includes.ProductIncludes);
 		return View(result);
 	}
 	public async Task<IActionResult> Get(int id)
 	{
-		var product = await _productService.GetByIdAsync(id, Includes.ProductIncludes);
+        IDataResult<ProductGetDto> product = await _productService.GetByIdAsync(id, Includes.ProductIncludes);
 		return View(product);
 	}
 	[HttpGet]
@@ -60,10 +60,9 @@ public class ProductController : Controller
 	[HttpGet]
 	public async Task<IActionResult> Update(int id)
 	{
-		var result = await _productService.GetByIdAsync(id, "ProductImages", "Category", "ProductCollection", "ProductSizes.Size", "ProductBundles.Bundle");
-		var product = _mapper.Map<ProductUpdateDto>(result.Data);
+        IDataResult<ProductGetDto> result = await _productService.GetByIdAsync(id, "ProductImages", "Category", "ProductCollection", "ProductSizes.Size", "ProductBundles.Bundle");
 		await GetViewBags();
-		return View(product);
+		return View(_mapper.Map<ProductUpdateDto>(result.Data));
 	}
 	[HttpPost]
 	public async Task<IActionResult> Update(ProductUpdateDto dto)
@@ -78,7 +77,7 @@ public class ProductController : Controller
 	}
 	public async Task<IActionResult> Delete(int id)
 	{
-		var result = await _productService.GetByIdAsync(id);
+        IDataResult<ProductGetDto> result = await _productService.GetByIdAsync(id);
 		if (result is null)
 		{
 			return RedirectToAction(nameof(Index), result);
@@ -89,7 +88,7 @@ public class ProductController : Controller
 
     public async Task<IActionResult> Recover(int id)
     {
-        var result = await _productService.GetByIdAsync(id);
+        IDataResult<ProductGetDto> result = await _productService.GetByIdAsync(id);
         if (result is null)
         {
             return RedirectToAction(nameof(Index), result);
@@ -100,7 +99,7 @@ public class ProductController : Controller
 
     public async Task<IActionResult> HardDelete(int id)
     {
-        var result = await _productService.GetByIdAsync(id);
+        IDataResult<ProductGetDto> result = await _productService.GetByIdAsync(id);
         if (result is null)
         {
             return RedirectToAction(nameof(Index), result);
@@ -117,15 +116,13 @@ public class ProductController : Controller
 			ProductId = id,
 			UserId = (await _authService.GetUser(User)).Data.Id
 		};
-		var result = await _favService.CreateAsync(dto);
-		return result;
+		return await _favService.CreateAsync(dto);
 	}
 
 	[HttpPost]
 	public async Task<IResult> RemoveFromFavourite(int id)
 	{
-		var result = await _favService.HardDeleteByIdAsync(id);
-		return result;
+		return await _favService.HardDeleteByIdAsync(id);
 	}
 
 	[HttpPost]
@@ -138,26 +135,24 @@ public class ProductController : Controller
 	[HttpPost]
 	public async Task<IDataResult<CartItemGetDto>> AddItemToCart(int id)
 	{
-		var result = await _cartItemService.CreateAsync(id, (await _authService.GetUser(User)).Data);
-		return result;
+		return await _cartItemService.CreateAsync(id, (await _authService.GetUser(User)).Data);
 	}
 
 	[HttpPost]
 	public async Task<IDataResult<CartItemGetDto>> RemoveItemFromCart(int id, bool deleteAll = false)
 	{
-		var result = await _cartItemService.RemoveItemFromCartAsync(id, (await _authService.GetUser(User)).Data, deleteAll);
-		return result;
+		return await _cartItemService.RemoveItemFromCartAsync(id, (await _authService.GetUser(User)).Data, deleteAll);
 	}
 	#endregion
 
 	#region Private Methods
 	private async Task GetViewBags()
 	{
-		var categories = await _categoryService.GetAllAsync();
-		var collections = await _productCollectionService.GetAllAsync();
-		var sizes = await _sizeService.GetAllAsync();
-		var bundles = await _bundleService.GetAllAsync();
-		var colors = await _colorServoce.GetAllAsync();
+        IDataResult<List<CategoryGetDto>> categories = await _categoryService.GetAllAsync(false);
+		IDataResult<List<ProductCollectionGetDto>> collections = await _productCollectionService.GetAllAsync(false);
+		IDataResult<List<SizeGetDto>> sizes = await _sizeService.GetAllAsync(false);
+		IDataResult<List<BundleGetDto>> bundles = await _bundleService.GetAllAsync(false);
+		IDataResult<List<ColorGetDto>> colors = await _colorServoce.GetAllAsync(false);
         ViewBag.Categories = categories.Data.Select(c => new SelectListItem
 		{
 			Value = c.Id.ToString(),
@@ -181,7 +176,7 @@ public class ProductController : Controller
 		ViewBag.Colors = colors.Data.Select(c => new SelectListItem
         {
             Value = c.Id.ToString(),
-            Text = c.ColorCode
+            Text = c.Name
         });
     }
 	#endregion

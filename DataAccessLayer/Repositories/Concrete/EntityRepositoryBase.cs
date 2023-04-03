@@ -53,7 +53,7 @@ namespace DataAccessLayer.Repositories.Concrete
             IQueryable<TEntity> query = _context.Set<TEntity>();
             if (includes is not null)
             {
-                foreach (var include in includes)
+                foreach (string include in includes)
                 {
                     query = query.Include(include);
                 }

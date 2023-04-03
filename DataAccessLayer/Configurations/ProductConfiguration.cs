@@ -8,6 +8,7 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.Property(b => b.Name).IsRequired().HasMaxLength(255);
         builder.Property(b => b.Description).IsRequired();
         builder.Property(b => b.DiscountPercent).HasDefaultValue(0);
+        builder.Property(b => b.TotalRating).HasDefaultValue(0);
         builder.Property(b => b.isSale).HasDefaultValue(false);
         builder.Property(b => b.isDeleted).IsRequired().HasDefaultValue(false);
         builder.Property(b => b.CreatedDate).IsRequired().HasDefaultValueSql("GETUTCDATE()");

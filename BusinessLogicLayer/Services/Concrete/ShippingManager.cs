@@ -11,9 +11,11 @@ public class ShippingManager : IShippingService
         _mapper = mapper;
     }
 	#region Get Requests
-	public async Task<IDataResult<List<ShippingGetDto>>> GetAllAsync(params string[] includes)
+	public async Task<IDataResult<List<ShippingGetDto>>> GetAllAsync(bool getDeleted, params string[] includes)
     {
-        List<Shipping> shippings = await _unitOfWork.ShippingRepository.GetAllAsync(includes: includes);
+        List<Shipping> shippings = getDeleted
+            ? await _unitOfWork.ShippingRepository.GetAllAsync(includes: includes)
+            : await _unitOfWork.ShippingRepository.GetAllAsync(b => !b.isDeleted, includes);
         if (shippings is null)
         {
             return new ErrorDataResult<List<ShippingGetDto>>(Messages.NotFound(Messages.Shipping));

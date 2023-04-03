@@ -12,9 +12,11 @@ public class FAQManager : IFAQService
     }
 
 	#region Get Requests
-	public async Task<IDataResult<List<FAQGetDto>>> GetAllAsync(params string[] includes)
+	public async Task<IDataResult<List<FAQGetDto>>> GetAllAsync(bool getDeleted, params string[] includes)
     {
-        List<FAQ> FAQs = await _unitOfWork.FAQRepository.GetAllAsync(includes: includes);
+        List<FAQ> FAQs = getDeleted
+            ? await _unitOfWork.FAQRepository.GetAllAsync(includes: includes)
+            : await _unitOfWork.FAQRepository.GetAllAsync(b => !b.isDeleted, includes);
         if (FAQs is null)
         {
             return new ErrorDataResult<List<FAQGetDto>>(Messages.NotFound(Messages.FAQ));

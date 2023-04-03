@@ -15,12 +15,12 @@ public class ProductCollectionController : Controller
     public async Task<IActionResult> Index()
 
     {
-        var result = await _productCollectionService.GetAllAsync();
+        IDataResult<List<ProductCollectionGetDto>> result = await _productCollectionService.GetAllAsync(true);
         return View(result);
     }
     public async Task<IActionResult> Get(int id)
     {
-        var collection = await _productCollectionService.GetByIdAsync(id);
+        IDataResult<ProductCollectionGetDto> collection = await _productCollectionService.GetByIdAsync(id);
         return View(collection);
     }
     [HttpGet]
@@ -41,7 +41,7 @@ public class ProductCollectionController : Controller
     [HttpGet]
     public async Task<IActionResult> Update(int id)
     {
-        var collection = await _productCollectionService.GetByIdAsync(id);
+        IDataResult<ProductCollectionGetDto> collection = await _productCollectionService.GetByIdAsync(id);
         ProductCollectionUpdateDto dto = _mapper.Map<ProductCollectionUpdateDto>(collection.Data);
         return View(dto);
     }
@@ -57,7 +57,7 @@ public class ProductCollectionController : Controller
     }
     public async Task<IActionResult> Delete(int id)
     {
-        var result = await _productCollectionService.GetByIdAsync(id);
+        IDataResult<ProductCollectionGetDto> result = await _productCollectionService.GetByIdAsync(id);
         if (result is null)
         {
             return RedirectToAction(nameof(Index), result);
@@ -67,12 +67,19 @@ public class ProductCollectionController : Controller
     }
 	public async Task<IActionResult> Recover(int id)
 	{
-		var result = await _productCollectionService.GetByIdAsync(id);
+		IDataResult<ProductCollectionGetDto> result = await _productCollectionService.GetByIdAsync(id);
 		if (result is null)
 		{
 			return RedirectToAction(nameof(Index), result);
 		}
 		await _productCollectionService.RecoverByIdAsync(result.Data.Id);
+		return RedirectToAction(nameof(Index));
+	}
+	public async Task<IActionResult> HardDelete(int id)
+	{
+		IDataResult<ProductCollectionGetDto> result = await _productCollectionService.GetByIdAsync(id);
+		if (result is null){return RedirectToAction(nameof(Index), result);}
+		await _productCollectionService.HardDeleteByIdAsync(result.Data.Id);
 		return RedirectToAction(nameof(Index));
 	}
 }

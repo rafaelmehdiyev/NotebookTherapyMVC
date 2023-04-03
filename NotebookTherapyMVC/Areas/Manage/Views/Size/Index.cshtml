@@ -34,7 +34,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							@foreach (var size in Model.Data)
+							@foreach (SizeGetDto size in Model.Data)
 							{
 								<tr>
 									<td>@size.Id</td>
@@ -69,6 +69,7 @@
 												{
 													<div class="dropdown-menu">
 														<a asp-action="Recover" asp-controller="Size" asp-route-id="@size.Id" class="dropdown-item">Recover</a>
+														<a asp-action="HardDelete" asp-controller="Size" asp-route-id="@size.Id" class="dropdown-item">Permamently Delete</a>
 													</div>
 												}
 											}

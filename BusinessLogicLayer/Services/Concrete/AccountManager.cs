@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using System.Security.Principal;
-
-namespace BusinessLogicLayer.Services.Concrete;
+﻿namespace BusinessLogicLayer.Services.Concrete;
 
 public class AccountManager : IAccountService
 {
@@ -10,25 +7,25 @@ public class AccountManager : IAccountService
     private readonly ICartService _cartService;
     private readonly IMapper _mapper;
 
-	public AccountManager(UserManager<AppUser> userManager, IMapper mapper, SignInManager<AppUser> signInManager, ICartService cartService)
-	{
-		_userManager = userManager;
-		_mapper = mapper;
-		_signInManager = signInManager;
-		_cartService = cartService;
-	}
+    public AccountManager(UserManager<AppUser> userManager, IMapper mapper, SignInManager<AppUser> signInManager, ICartService cartService)
+    {
+        _userManager = userManager;
+        _mapper = mapper;
+        _signInManager = signInManager;
+        _cartService = cartService;
+    }
 
-	#region Auth Requests
-	public async Task<IDataResult<UserGetDto>> Register(RegisterDto registerDto)
+    #region Auth Requests
+    public async Task<IDataResult<UserGetDto>> Register(RegisterDto registerDto)
     {
         AppUser userForCheck = await _userManager.FindByNameAsync(registerDto.UserName);
         if (userForCheck is not null) { return new ErrorDataResult<UserGetDto>(_mapper.Map<UserGetDto>(userForCheck), "User Already Exist"); }
         AppUser user = _mapper.Map<AppUser>(registerDto);
-        var result = await _userManager.CreateAsync(user, registerDto.Password);
+        IdentityResult result = await _userManager.CreateAsync(user, registerDto.Password);
         if (!result.Succeeded)
         {
             List<string> errors = new List<string>();
-            foreach (var error in result.Errors) { errors.Add(error.Description); }
+            foreach (IdentityError error in result.Errors) { errors.Add(error.Description); }
             return new ErrorDataResult<UserGetDto>(_mapper.Map<UserGetDto>(user), errors.ToArray());
         }
         await _userManager.AddClaimsAsync(user, new List<Claim>
@@ -38,17 +35,21 @@ public class AccountManager : IAccountService
         });
         await _userManager.AddToRoleAsync(user, "User");
         await _cartService.CreateAsync(new CartPostDto { UserId = user.Id });
-        var cartResult = await _cartService.GetCartByUserIdAsync(user.Id);
+        IDataResult<CartGetDto> cartResult = await _cartService.GetCartByUserIdAsync(user.Id);
         user.CartId = cartResult.Data.Id;
         await _userManager.UpdateAsync(user);
-        return new SuccessDataResult<UserGetDto>(_mapper.Map<UserGetDto>(user), "Successfully Registered");
+        UserGetDto userDto = _mapper.Map<UserGetDto>(user);
+        userDto.Roles = await _userManager.GetRolesAsync(user);
+        return new SuccessDataResult<UserGetDto>(userDto, "Successfully Registered");
     }
     public async Task<IDataResult<UserGetDto>> Login(LoginDto loginDto)
     {
         AppUser user = await _userManager.FindByEmailAsync(loginDto.Email);
         if (user is null) { return new ErrorDataResult<UserGetDto>(_mapper.Map<UserGetDto>(user), "User is not exist"); }
-		 await _signInManager.SignInAsync(user,false);
-		return new SuccessDataResult<UserGetDto>(_mapper.Map<UserGetDto>(user), "Login Succesful");
+        await _signInManager.SignInAsync(user, false);
+        UserGetDto userDto = _mapper.Map<UserGetDto>(user);
+        userDto.Roles = await _userManager.GetRolesAsync(user);
+        return new SuccessDataResult<UserGetDto>(userDto, "Login Succesful");
     }
     public async Task<IResult> SignOutAsync()
     {
@@ -78,7 +79,7 @@ public class AccountManager : IAccountService
         IQueryable<AppUser> query = _userManager.Users;
         if (includes is not null)
         {
-            foreach (var include in includes)
+            foreach (string include in includes)
             {
                 query = query.Include(include);
             }
@@ -90,7 +91,7 @@ public class AccountManager : IAccountService
         IQueryable<AppUser> query = _userManager.Users;
         if (includes is not null)
         {
-            foreach (var include in includes)
+            foreach (string include in includes)
             {
                 query = query.Include(include);
             }
