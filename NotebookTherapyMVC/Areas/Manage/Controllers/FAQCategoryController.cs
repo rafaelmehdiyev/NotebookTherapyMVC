@@ -1,7 +1,7 @@
 ﻿namespace NotebookTherapyMVC.Areas.Manage.Controllers;
 
 [Area("Manage")]
-[Authorize(Roles = "Admin")]
+//[Authorize(Roles = "Admin")]
 public class FAQCategoryController : Controller
 {
 	private readonly IFAQCategoryService _faqCategoryService;
@@ -22,7 +22,8 @@ public class FAQCategoryController : Controller
 	{
 		if (!ModelState.IsValid)
 		{
-			return View();
+			return PartialView("_faqCategoryCreatePartial", dto);
+
 		}
 		IResult result = await _faqCategoryService.CreateAsync(dto);
 		return RedirectToAction(nameof(Index));

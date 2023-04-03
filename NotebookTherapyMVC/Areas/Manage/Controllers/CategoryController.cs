@@ -1,7 +1,7 @@
 ﻿namespace NotebookTherapyMVC.Areas.Manage.Controllers;
 
 [Area("Manage")]
-[Authorize(Roles = "Admin")]
+//[Authorize(Roles = "Admin")]
 public class CategoryController : Controller
 {
     private readonly ICategoryService _categoryService;
@@ -22,9 +22,10 @@ public class CategoryController : Controller
 	{
         if (!ModelState.IsValid)
         {         
-            return View();
-        }
-        IResult result = await _categoryService.CreateAsync(dto);
+                return PartialView("_categoryCreatePartial",dto);
+
+		}
+		IResult result = await _categoryService.CreateAsync(dto);
 		return RedirectToAction(nameof(Index));
 	}
 

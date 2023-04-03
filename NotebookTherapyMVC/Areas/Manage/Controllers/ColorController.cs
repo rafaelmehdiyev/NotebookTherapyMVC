@@ -1,7 +1,7 @@
 ﻿namespace NotebookTherapyMVC.Areas.Manage.Controllers
 {
     [Area("Manage")]
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class ColorController : Controller
     {
         private readonly IColorService _colorService;
@@ -23,7 +23,7 @@
         {
             if (!ModelState.IsValid)
             {
-                return View();
+                return PartialView("_colorCreatePartial",dto);
             }
             IResult result = await _colorService.CreateAsync(dto);
             return RedirectToAction(nameof(Index));

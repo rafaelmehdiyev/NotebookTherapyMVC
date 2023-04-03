@@ -1,6 +1,6 @@
 ﻿namespace NotebookTherapyMVC.Areas.Manage.Controllers;
 [Area("Manage")]
-[Authorize(Roles = "Admin")]
+//[Authorize(Roles = "Admin")]
 public class RoleController : Controller
 {
     private readonly IRoleSevice _roleSevice;
@@ -23,7 +23,8 @@ public class RoleController : Controller
     {
         if (!ModelState.IsValid)
         {
-            return View();
+            return PartialView("_roleCreatePartial", dto);
+
         }
         IResult result = await _roleSevice.CreateAsync(dto);
         return RedirectToAction(nameof(Index));

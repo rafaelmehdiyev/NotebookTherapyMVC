@@ -1,14 +1,16 @@
 ﻿@model ColorPostDto
 <form asp-action="Create" asp-controller="Color" asp-area="Manage">
-	<div class="form-group row">
-		<label asp-for="Name" class="col-12 col-form-label">Color</label>
-		<div class="col-12">
-			<input asp-for="Name" style="width:100%!important" class="form-control here slug-title" type="text">
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-12">
-			<button name="submit" type="submit" class="btn btn-primary">Submit</button>
-		</div>
-	</div>
+    <div class="form-group row">
+        <label asp-for="Name" class="col-12 col-form-label">Color</label>
+        <div class="col-12">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.Name"></span>
+
+            <input asp-for="Name" style="width:100%!important" class="form-control here slug-title" type="text">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <button name="submit" type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
 </form>

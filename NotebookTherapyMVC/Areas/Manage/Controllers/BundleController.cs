@@ -1,7 +1,7 @@
 ﻿namespace NotebookTherapyMVC.Areas.Manage.Controllers
 {
     [Area("Manage")]
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class BundleController : Controller
     {
         private readonly IBundleService _bundleService;
@@ -23,7 +23,7 @@
         {
             if (!ModelState.IsValid)
             {
-                return View();
+                return PartialView("_bundleCreatePartial",dto);
             }
             IResult result = await _bundleService.CreateAsync(dto);
             return RedirectToAction(nameof(Index));

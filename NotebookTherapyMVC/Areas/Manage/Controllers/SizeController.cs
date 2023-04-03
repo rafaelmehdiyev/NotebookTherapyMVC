@@ -1,7 +1,7 @@
 ﻿namespace NotebookTherapyMVC.Areas.Manage.Controllers;
 
 [Area("Manage")]
-[Authorize(Roles = "Admin")]
+//[Authorize(Roles = "Admin")]
 public class SizeController : Controller
 {
 	private readonly ISizeService _sizeService;
@@ -22,7 +22,8 @@ public class SizeController : Controller
 	{
 		if (!ModelState.IsValid)
 		{
-			return View();
+			return PartialView("_sizeCreatePartial", dto);
+
 		}
 		IResult result = await _sizeService.CreateAsync(dto);
 		return RedirectToAction(nameof(Index));

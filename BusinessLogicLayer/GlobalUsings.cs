@@ -45,3 +45,4 @@ global using System.Security.Claims;
 global using System.Text;
 global using Token = BusinessLogicLayer.Utilities.Security.JWT;
 global using IResult = BusinessLogicLayer.Utilities.Results.IResult;
+global using System.Text.RegularExpressions;
