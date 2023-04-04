@@ -13,13 +13,12 @@ namespace BusinessLogicLayer.Utilities.Validations.FluentValidation
                .MinimumLength(2).
                 MaximumLength(255)
                 .WithMessage("Enter valid Bundle")
-            .Must(ValidName);
-                
+            .Must(ValidName);          
         }
         private bool ValidName(string name)
         {
             var nameRegex = "^[a-zA-Z]+$";
-            Regex regex = new Regex(nameRegex);
+            Regex regex = new(nameRegex);
             if (regex.IsMatch(name))
             {
                 return true;
