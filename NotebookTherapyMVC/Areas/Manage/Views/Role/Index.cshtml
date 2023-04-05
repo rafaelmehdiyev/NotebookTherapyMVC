@@ -4,23 +4,12 @@
 @model IDataResult<List<RoleGetDto>>
 <div class="breadcrumb-wrapper breadcrumb-wrapper-2 breadcrumb-contacts">
     <h1>Roles</h1>
-    <p class="breadcrumbs">
-        <span><a href="index.html">Home</a></span>
-        <span><i class="mdi mdi-chevron-right"></i></span>Roles
-    </p>
+	<p class="breadcrumbs">
+		<a class="btn btn-primary" asp-action="Create" asp-controller="Role">New Role</a>
+	</p>
 </div>
 <div class="row">
-    <div class="col-xl-4 col-lg-12">
-        <div class="ec-cat-list card card-default mb-24px">
-            <div class="card-body">
-                <div class="ec-cat-form">
-                    <h4>Add New Role</h4>
-                    <partial name="_roleCreatePartial" model="new RolePostDto()" />
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-8 col-lg-12">
+    <div class="col-xl-12 col-lg-12">
         <div class="ec-cat-list card card-default">
             <div class="card-body">
                 <div class="table-responsive">

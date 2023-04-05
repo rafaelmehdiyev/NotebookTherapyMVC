@@ -19,8 +19,13 @@ public class ColorPostDtoValidator : AbstractValidator<ColorPostDto>
         }
         private bool ValidName(string name)
         {
-            var nameRegex = "^[a-zA-Z]+$";
-            Regex regex = new Regex(nameRegex);
+            if (name is null)
+            {
+                return false;
+            }
+            var nameRegex = @"^[A-Z]+[a-zA-Z]*$|[A-Z]+[a-zA-Z]+[\s][A-Z]+[a-zA-Z]*$";
+            Regex regex = new(nameRegex);
+
             if (regex.IsMatch(name))
             {
                 return true;

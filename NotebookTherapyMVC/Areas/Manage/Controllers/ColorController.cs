@@ -18,12 +18,19 @@
             IDataResult<List<ColorGetDto>> result = await _colorService.GetAllAsync(true);
             return View(result);
         }
+
+
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+            return View();
+        }
         [HttpPost]
         public async Task<IActionResult> Create(ColorPostDto dto)
         {
             if (!ModelState.IsValid)
             {
-                return PartialView("_colorCreatePartial",dto);
+                return View(dto);
             }
             IResult result = await _colorService.CreateAsync(dto);
             return RedirectToAction(nameof(Index));

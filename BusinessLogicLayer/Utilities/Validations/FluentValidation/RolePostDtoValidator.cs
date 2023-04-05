@@ -9,7 +9,6 @@ namespace BusinessLogicLayer.Utilities.Validations.FluentValidation
                 .NotEmpty()
                 .WithMessage("Don't Enter Empty ")
             .NotNull()
-            .Must(ValidName)
              .WithMessage("Don't Enter Null ")
                .MinimumLength(2).
                 MaximumLength(255)
@@ -19,8 +18,13 @@ namespace BusinessLogicLayer.Utilities.Validations.FluentValidation
         }
         private bool ValidName(string name)
         {
-            var nameRegex = "^[a-zA-Z]+$";
-            Regex regex = new Regex(nameRegex);
+            if (name is null)
+            {
+                return false;
+            }
+            var nameRegex = @"^[A-Z]+[a-zA-Z]*$|[A-Z]+[a-zA-Z]+[\s][A-Z]+[a-zA-Z]*$";
+            Regex regex = new(nameRegex);
+
             if (regex.IsMatch(name))
             {
                 return true;

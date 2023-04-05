@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Manage/Views/Shared/_Layout.cshtml";
+}
+@model SizePostDto
+
+<div class="breadcrumb-wrapper d-flex align-items-center justify-content-between">
+    <div>
+        <h1>Add Size</h1>
+        <p class="breadcrumbs">
+            <span><a href="index.html">Home</a></span>
+            <span><i class="mdi mdi-chevron-right"></i></span>Sizes
+        </p>
+    </div>
+    <div>
+        <a asp-action="Index" asp-controller="Size" class="btn btn-primary">
+            Return to all Sizes
+        </a>
+    </div>
+</div>
+<div class="row justify-content-center">
+    <div class="col-6">
+        <div class="card card-default shadow">
+            <div class="card-header card-header-border-bottom">
+                <h2>Add Size</h2>
+            </div>
+            <div class="card-body">
+                <div class="row ec-vendor-uploads">
+                    <div class="col-lg-12">
+                        <div class="ec-vendor-upload-detail">
+                            <form class="row g-3" asp-action="Create" asp-controller="Size">
+                                <div class="col-md-12">
+                                    <label asp-for="Name" class="form-label">Size Name</label>
+                                    <input asp-for="Name" class="form-control">
+                                    <span class="text-danger" asp-validation-for="@Model.Name"></span>
+
+                                </div>
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

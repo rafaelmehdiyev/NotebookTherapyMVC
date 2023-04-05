@@ -5,29 +5,16 @@
 @model IDataResult<List<ColorGetDto>>
 <div class="breadcrumb-wrapper breadcrumb-wrapper-2 breadcrumb-contacts">
     <h1>Colors</h1>
-    <p class="breadcrumbs">
-        <span><a href="index.html">Home</a></span>
-        <span><i class="mdi mdi-chevron-right"></i></span>Color
-    </p>
+	<p class="breadcrumbs">
+		<a class="btn btn-primary" asp-action="Create" asp-controller="Color">New Color</a>
+	</p>
 </div>
 <div class="row">
-    <div class="col-xl-4 col-lg-12">
-        <div class="ec-cat-list card card-default mb-24px">
-            <div class="card-body">
-                <div class="ec-cat-form">
-                    <h4>Add New Color</h4>
-                    <partial name="_colorCreatePartial" model="new ColorPostDto()" />
-                    @*<span class="mt-2 text text-danger" asp-validation-for=""></span>*@
-
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-8 col-lg-12">
+    <div class="col-xl-12 col-lg-12">
         <div class="ec-cat-list card card-default">
             <div class="card-body">
                 <div class="table-responsive">
-                    <partial name="_colorCreatePartial" model="Model" />
+                    <partial name="_colorTablePartial" model="Model" />
                 </div>
             </div>
         </div>

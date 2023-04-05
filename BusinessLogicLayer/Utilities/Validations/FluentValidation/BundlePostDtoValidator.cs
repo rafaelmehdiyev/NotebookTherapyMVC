@@ -15,10 +15,16 @@ namespace BusinessLogicLayer.Utilities.Validations.FluentValidation
                 .WithMessage("Enter valid Bundle")
             .Must(ValidName);          
         }
+     
         private bool ValidName(string name)
         {
-            var nameRegex = "^[a-zA-Z]+$";
+            if (name is null)
+            {
+                return false;
+            }
+            var nameRegex = @"^[A-Z]+[a-zA-Z]*$|[A-Z]+[a-zA-Z]+[\s][A-Z]+[a-zA-Z]*$";
             Regex regex = new(nameRegex);
+            
             if (regex.IsMatch(name))
             {
                 return true;
