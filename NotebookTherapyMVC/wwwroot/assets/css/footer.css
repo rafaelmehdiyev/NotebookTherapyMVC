@@ -1,0 +1,79 @@
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+}
+footer{
+    background-color: #fafafa;
+}
+
+a{
+    text-decoration: none !important;
+}
+footer .icons i{
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid #fff;
+    border-radius: 50%;
+}
+h3{
+    color: #232323
+}
+ ul{
+    padding-left: 0% !important;
+ }
+ul li {
+    line-height: 2.5rem;
+}
+
+ul li a{
+    color: #969696 !important;
+    position: relative;
+    text-decoration: none;
+}
+
+
+ul li a::after{
+    content: "" ;
+    height: 1px;
+    width: 100%;
+    transform: scaleX(0);
+    background-color: #969696 ;
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    transform-origin: bottom right;
+    transition: transform 0.5s ease-out;
+
+}
+
+ul li a:hover::after{
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+input[type=email]{
+    outline: none;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #dbdbdb;
+    border-radius: 3px;
+}
+input[type=submit]{
+    width: 100%;
+    background-color: #e6acb9;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-weight: 600;
+    border-radius: 3px;
+
+}
+

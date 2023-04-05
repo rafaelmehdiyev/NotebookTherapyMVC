@@ -1,0 +1,94 @@
+@import url("core.css");
+
+.row {
+    --bs-gutter-x: 1rem !important;
+}
+
+.blog {
+    margin-top: 6rem;
+}
+
+.col-lg-8>div:first-child {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--color_blog);
+    margin-bottom: 2.5rem;
+}
+
+h1 {
+    font-size: 34px;
+    font-weight: 700;
+    text-align: center;
+}
+
+
+.post-content {
+    font-size: 18px;
+    line-height: 1.5;
+    color: var(--color_blog);
+    margin-bottom: 1rem;
+}
+
+a,
+a:active,
+a:hover {
+    color: #000 !important;
+}
+
+.social {
+    display: flex;
+}
+
+.social li {
+    padding: 10px;
+}
+
+.related {
+    margin-top: 9rem;
+    /*bax*/
+}
+
+h2 {
+    font-size: 40px;
+    font-weight: 700;
+    color: #000;
+}
+
+.related-post_img {
+    flex: 0 0 250px;
+}
+
+.related-post_img img {
+    border-radius: 7px;
+}
+
+.info {
+    font-size: 14px;
+}
+
+.info .by {
+    font-weight: 600;
+    color: var(--color_title_pr);
+}
+
+.info span {
+    font-weight: 400;
+    color: var(--color_blog);
+}
+
+.related-content h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--color_title_pr);
+}
+
+.desc{
+    font-size: 14px;
+    color: var(--color_blog);
+}
+
+.more{
+    color: var(--darkest_pink);
+}
+
