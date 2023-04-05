@@ -17,12 +17,21 @@ public class CategoryController : Controller
 		IDataResult<List<CategoryGetDto>> result = await _categoryService.GetAllAsync(true, Includes.CategoryIncludes);
 		return View(result);
 	}
+
+	[HttpGet]
+	public async Task<IActionResult> Create()
+	{
+
+		return View();
+
+	}
+
 	[HttpPost]
 	public async Task<IActionResult> Create(CategoryPostDto dto)
 	{
 		if (!ModelState.IsValid)
 		{
-			return PartialView("_categoryCreatePartial", dto);
+			return View(dto);
 		}
 		IResult result = await _categoryService.CreateAsync(dto);
 		return RedirectToAction(nameof(Index));

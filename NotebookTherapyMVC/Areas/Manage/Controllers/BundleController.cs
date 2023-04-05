@@ -18,12 +18,20 @@
             IDataResult<List<BundleGetDto>> result = await _bundleService.GetAllAsync(true);
             return View(result);
         }
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+
+            return View();
+
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create(BundlePostDto dto)
         {
             if (!ModelState.IsValid)
             {
-                return PartialView("_bundleCreatePartial",dto);
+                return View(dto);
             }
             IResult result = await _bundleService.CreateAsync(dto);
             return RedirectToAction(nameof(Index));
@@ -60,13 +68,13 @@
             await _bundleService.RecoverByIdAsync(id);
             return RedirectToAction(nameof(Index));
         }
-		public async Task<IActionResult> HardDelete(int id)
-		{
+        public async Task<IActionResult> HardDelete(int id)
+        {
             BundleGetDto result = (await _bundleService.GetByIdAsync(id)).Data;
-			if (result == null) { return RedirectToAction(nameof(Index)); }
-			await _bundleService.HardDeleteByIdAsync(id);
-			return RedirectToAction(nameof(Index));
-		}
-	}
+            if (result == null) { return RedirectToAction(nameof(Index)); }
+            await _bundleService.HardDeleteByIdAsync(id);
+            return RedirectToAction(nameof(Index));
+        }
+    }
 }
 

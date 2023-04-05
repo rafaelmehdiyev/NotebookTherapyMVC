@@ -17,8 +17,13 @@ public class CategoryPostDtoValidator : AbstractValidator<CategoryPostDto>
     }
     private bool ValidName(string name)
     {
-        string nameRegex = "^[a-zA-Z]+$";
+        if (name is null)
+        {
+            return false;
+        }
+        var nameRegex = @"^[A-Z]+[a-zA-Z]*$|[A-Z]+[a-zA-Z]+[\s][A-Z]+[a-zA-Z]*$";
         Regex regex = new(nameRegex);
+
         if (regex.IsMatch(name))
         {
             return true;

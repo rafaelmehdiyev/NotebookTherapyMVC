@@ -79,7 +79,7 @@ public class SizeManager : ISizeService
 	#region Delete Requests
 	public async Task<IResult> HardDeleteByIdAsync(int id)
     {
-        Size size = await _unitOfWork.SizeRepository.GetAsync(b => b.Id == id && !b.isDeleted);
+        Size size = await _unitOfWork.SizeRepository.GetAsync(b => b.Id == id && b.isDeleted);
         _unitOfWork.SizeRepository.Delete(size);
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)

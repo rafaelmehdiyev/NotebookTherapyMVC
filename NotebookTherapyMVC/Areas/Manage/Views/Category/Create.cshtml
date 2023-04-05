@@ -1,24 +1,27 @@
-﻿@{
+﻿
+@{
     ViewData["Title"] = "Category";
 }
+
 @model CategoryPostDto
+
 <div class="breadcrumb-wrapper d-flex align-items-center justify-content-between">
     <div>
         <h1>Add Category</h1>
         <p class="breadcrumbs">
             <span><a href="index.html">Home</a></span>
-            <span><i class="mdi mdi-chevron-right"></i></span>Categorys
+            <span><i class="mdi mdi-chevron-right"></i></span>Categories
         </p>
     </div>
     <div>
         <a asp-action="Index" asp-controller="Category" class="btn btn-primary">
-            Return to all Categorys
+            Return to all Categories
         </a>
     </div>
 </div>
-<div class="row">
-    <div class="col-12">
-        <div class="card card-default">
+<div class="row justify-content-center">
+    <div class="col-6">
+        <div class="card card-default shadow">
             <div class="card-header card-header-border-bottom">
                 <h2>Add Category</h2>
             </div>
@@ -26,18 +29,15 @@
                 <div class="row ec-vendor-uploads">
                     <div class="col-lg-12">
                         <div class="ec-vendor-upload-detail">
-                            <form asp-action="Create" asp-controller="Category" asp-area="Manage">
-                                <div class="form-group row">
-                                    <label asp-for="Name" class="col-12 col-form-label">Name</label>
-                                    <div class="col-12">
-                                        <input asp-for="Name" class="form-control here slug-title" type="text">
-                                        <span class="mt-2 text text-danger" asp-validation-for="@Model.Name"></span>
-                                    </div>
+                            <form class="row g-3" asp-action="Create" asp-controller="Category">
+                                <div class="col-md-12">
+                                    <label asp-for="Name" class="form-label">Category Name</label>
+                                    <input asp-for="Name" class="form-control">
+                                    <span class="text-danger" asp-validation-for="@Model.Name"></span>
+
                                 </div>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <button name="submit" type="submit" class="btn btn-primary">Submit</button>
-                                    </div>
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>
                             </form>
                         </div>

@@ -8,19 +8,23 @@ namespace BusinessLogicLayer.Utilities.Validations.FluentValidation
         {
             RuleFor(c => c.Name)
                 .NotEmpty()
-                .WithMessage("Don't Enter Empty ")
+               .WithMessage("Don't Enter Empty ")
             .NotNull()
              .WithMessage("Don't Enter Null ")
-               .MinimumLength(2).
-                MaximumLength(255)
+               .MaximumLength(255)
                 .WithMessage("Enter valid Size")
             .Must(ValidName);
 
         }
         private bool ValidName(string name)
         {
-            var nameRegex = "^[a-zA-Z]+$";
-            Regex regex = new Regex(nameRegex);
+            if (name is null)
+            {
+                return false;
+            }
+            var nameRegex = @"^[a-zA-Z0-9]*$";
+            Regex regex = new(nameRegex);
+
             if (regex.IsMatch(name))
             {
                 return true;

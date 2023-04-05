@@ -18,13 +18,19 @@ public class RoleController : Controller
         return View(result);
     }
 
+    [HttpGet]
+    public async Task<IActionResult> Create()
+    {
+        return View();
+    }
+
+
     [HttpPost]
     public async Task<IActionResult> Create(RolePostDto dto)
     {
         if (!ModelState.IsValid)
         {
-            return PartialView("_roleCreatePartial", dto);
-
+            return View(dto);
         }
         IResult result = await _roleSevice.CreateAsync(dto);
         return RedirectToAction(nameof(Index));
