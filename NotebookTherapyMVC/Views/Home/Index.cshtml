@@ -1,10 +1,598 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
+@section BeforeMediaLinks{
+    <link rel="stylesheet" href="~/assets/css/index.css">
+    <link rel="stylesheet" href="~/assets/css/trending.css">
+}
+<div class="containr">
+    <!-- Section: Sakura Collection First section start -->
+    <section class="sakura-collection">
+        <a href="#">
+            <img src="https://cdn.shopify.com/s/files/1/2026/1775/files/Launch_Banners-01_1_1.webp?v=1678892958"
+                 class="img-1" alt="collection">
+            <img src="https://cdn.shopify.com/s/files/1/2026/1775/files/Launch_Banners-02_1.webp?v=1678892961"
+                 class="img-2" alt="collection">
+        </a>
+        <div class="sakura-text">
+            <span class="text-center new-collection">new collection</span>
+            <span class="collection-name">Sakura Breeze Collection</span>
+            <span class="sakura-sub-text">
+                Inspired by serene Japanese streets and delicate cherry blossoms,
+                experience the
+                beauty of spring with our Sakura Breeze
+                Collection 🌸
+            </span>
+        </div>
+        <div class="trust-pilot-box d-flex justify-content-center">
+            <span class="trust-pilot-excellent">Excellent</span>
+            <span class="trust-pilot-stars">
+                <img src="https://cdn-3.convertexperiments.com/uf/10007410/10006755/1670177330stars.png"
+                     alt="">
+            </span>
+            <span class="trust-pilot-ratings">4.7/5</span>
+            <span class="trust-pilot-reviews">(1,564 Reviews)</span>
+            <span class="trust-pilot-log">
+                <img src="https://cdn-3.convertexperiments.com/uf/10007410/10006755/1670177367tp-logo.png"
+                     alt="">
+            </span>
+        </div>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-    <a asp-controller="Account" asp-action="Login">Login</a>
-    <a asp-controller="Account" asp-action="Register">Register</a>
+    </section>
+    <!-- Section: Sakura Collection First section end -->
+    <div class="line"></div>
+
+    <!-- Section: Product section start -->
+    <section class="products">
+        <ul class="tabs d-flex mb-2">
+            <li>All products</li>
+            <li>On Sale</li>
+        </ul>
+
+        <div class="mb-5">
+            <div class="cards active">
+                <div class="row">
+                    <div class="col-6 col-md-4 col-lg-3 gy-4">
+                        <div class="card-item  text-center">
+                            <a href="#">
+                                <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/moonflower12-1_300x.png?v=1592051819"
+                                     alt="product" class="top">
+                                <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/moonflower5_360x.jpg?v=1591867703"
+                                     alt="" class="bottom">
+                            </a>
+                            <a href="#">
+                                <span class="d-block mt-3 mb-2 product-name">
+                                    Tsuki 'Moonflower' Limited Edition
+                                    Luxury Bullet
+                                    Journal ☾
+                                </span>
+                            </a>
+                            <div class="price">
+                                <span class="old-price">$35.74 USD</span>
+                                <span>$28.98 USD</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-3 gy-4">
+                        <div class="card-item  text-center">
+                            <a href="#">
+                                <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/d1e57ac3375c0ca5181c91d343e7d747_300x.png?v=1572456405"
+                                     alt="product" class="top">
+                                <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/ezgif.com-webp-to-jpg_11_300x.jpg?v=1571452068"
+                                     alt="" class="bottom">
+                            </a>
+                            <a href="#">
+                                <span class="d-block mt-3 mb-2 product-name">
+                                    Cord Tote Bag
+                                </span>
+                            </a>
+                            <div class="price">from <span>$28.98 USD</span></div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-3 gy-4">
+                        <div class="card-item  text-center">
+                            <a href="#">
+                                <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/LETTERING-bllueel-08copy_8f1fd48c-1fdc-42a2-b5bd-eed8637da5c0_300x.jpg?v=1672662415"
+                                     alt="product" class="top">
+                                <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/0120_00763_360x.jpg?v=1672662415"
+                                     alt="" class="bottom">
+                            </a>
+                            <a href="#">
+                                <span class="d-block mt-3 mb-2 product-name">
+                                    Tsuki Bullet Journal Stencil Set ☾
+                                </span>
+                            </a>
+                            <div class="price">from <span>$28.98 USD</span></div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-3 gy-4">
+                        <div class="card-item  text-center">
+                            <a href="#">
+                                <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/product-image-538700474_300x.jpg?v=1637187594"
+                                     alt="product" class="top">
+                                <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/product-image-538700476_360x.jpg?v=1637187594"
+                                     alt="" class="bottom">
+                            </a>
+                            <a href="#">
+                                <span class="d-block mt-3 mb-2 product-name">
+                                    Tsuki Pop-Up Pencil Case ☾
+                                </span>
+                            </a>
+                            <div class="price">
+                                <span class="old-price">$35.74 USD</span>
+                                <span>$28.98 USD</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-3 gy-4">
+                        <div class="card-item  text-center">
+                            <a href="#">
+                                <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/gentlegiantnewcover_300x.jpg?v=1606977323"
+                                     alt="product" class="top">
+                                <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/1Bcopy_e6b5625b-ff02-44ca-9888-4dde17870784_360x.jpg?v=1649945875"
+                                     alt="" class="bottom">
+                            </a>
+                            <a href="#">
+                                <span class="d-block mt-3 mb-2 product-name">
+                                    Double Sided 'Mildliner' Style Highlighters - Set Of 12
+                                </span>
+                            </a>
+                            <div class="price">from <span>$28.98 USD</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="cards">
+                <div class="row">
+                    <div class="col-6 col-md-4 col-lg-3 gy-4">
+                        <div class="card-item  text-center">
+                            <a href="#">
+                                <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/moonflower12-1_300x.png?v=1592051819"
+                                     alt="product" class="top">
+                                <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/moonflower5_360x.jpg?v=1591867703"
+                                     alt="" class="bottom">
+                            </a>
+                            <a href="#">
+                                <span class="d-block mt-3 mb-2 product-name">
+                                    Tsuki 'Moonflower' Limited Edition
+                                    Luxury Bullet
+                                    Journal ☾
+                                </span>
+                            </a>
+                            <div class="price">
+                                <span class="old-price">$35.74 USD</span>
+                                <span>$28.98 USD</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-3 gy-4">
+                        <div class="card-item  text-center">
+                            <a href="#">
+                                <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/moonflower12-1_300x.png?v=1592051819"
+                                     alt="product" class="top">
+                                <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/moonflower5_360x.jpg?v=1591867703"
+                                     alt="" class="bottom">
+                            </a>
+                            <a href="#">
+                                <span class="d-block mt-3 mb-2 product-name">
+                                    Tsuki 'Moonflower' Limited Edition
+                                    Luxury Bullet
+                                    Journal ☾
+                                </span>
+                            </a>
+                            <div class="price">
+                                <span class="old-price">$35.74 USD</span>
+                                <span>$28.98 USD</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="#" id="loadMore" class="d-block text-center m-5 button">
+                <span>Show More</span>
+            </a>
+        </div>
+    </section>
+    <!-- Section: Product section end -->
+
+    <div class="widget-title text-center">
+        <h3 class="box-title">
+            <span class="title">
+                <span>
+                    Trending Now
+                </span>
+            </span>
+        </h3>
+    </div>
+
+    <!-- Section: Trending products section start -->
+    <section class="trending">
+        <div class="row">
+            <div class="col-6 col-md-4 col-lg-3 gy-4">
+                <div class="card-item  text-center">
+                    <a href="#">
+                        <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/moonflower12-1_300x.png?v=1592051819"
+                             alt="product" class="top">
+                        <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/moonflower5_360x.jpg?v=1591867703"
+                             alt="" class="bottom">
+                    </a>
+                    <a href="#">
+                        <span class="d-block mt-3 mb-2 product-name">
+                            Tsuki 'Moonflower' Limited Edition
+                            Luxury Bullet
+                            Journal ☾
+                        </span>
+                    </a>
+                    <div class="price">from <span>$28.98 USD</span></div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 gy-4">
+                <div class="card-item  text-center">
+                    <a href="#">
+                        <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/d1e57ac3375c0ca5181c91d343e7d747_300x.png?v=1572456405"
+                             alt="product" class="top">
+                        <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/ezgif.com-webp-to-jpg_11_300x.jpg?v=1571452068"
+                             alt="" class="bottom">
+                    </a>
+                    <a href="#">
+                        <span class="d-block mt-3 mb-2 product-name">
+                            Cord Tote Bag
+                        </span>
+                    </a>
+                    <div class="price">from <span>$28.98 USD</span></div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 gy-4">
+                <div class="card-item  text-center">
+                    <a href="#">
+                        <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/LETTERING-bllueel-08copy_8f1fd48c-1fdc-42a2-b5bd-eed8637da5c0_300x.jpg?v=1672662415"
+                             alt="product" class="top">
+                        <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/0120_00763_360x.jpg?v=1672662415"
+                             alt="" class="bottom">
+                    </a>
+                    <a href="#">
+                        <span class="d-block mt-3 mb-2 product-name">
+                            Tsuki Bullet Journal Stencil Set ☾
+                        </span>
+                    </a>
+                    <div class="price">from <span>$28.98 USD</span></div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 gy-4">
+                <div class="card-item  text-center">
+                    <a href="#">
+                        <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/product-image-538700474_300x.jpg?v=1637187594"
+                             alt="product" class="top">
+                        <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/product-image-538700476_360x.jpg?v=1637187594"
+                             alt="" class="bottom">
+                    </a>
+                    <a href="#">
+                        <span class="d-block mt-3 mb-2 product-name">
+                            Tsuki Pop-Up Pencil Case ☾
+                        </span>
+                    </a>
+                    <div class="price">from <span>$28.98 USD</span></div>
+                </div>
+            </div>
+
+            <div class="col-6 col-md-4 col-lg-3 gy-4">
+                <div class="card-item  text-center">
+                    <a href="#">
+                        <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/moonflower12-1_300x.png?v=1592051819"
+                             alt="product" class="top">
+                        <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/moonflower5_360x.jpg?v=1591867703"
+                             alt="" class="bottom">
+                    </a>
+                    <a href="#">
+                        <span class="d-block mt-3 mb-2 product-name">
+                            Tsuki 'Moonflower' Limited Edition
+                            Luxury Bullet
+                            Journal ☾
+                        </span>
+                    </a>
+                    <div class="price">from <span>$28.98 USD</span></div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 gy-4">
+                <div class="card-item  text-center">
+                    <a href="#">
+                        <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/d1e57ac3375c0ca5181c91d343e7d747_300x.png?v=1572456405"
+                             alt="product" class="top">
+                        <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/ezgif.com-webp-to-jpg_11_300x.jpg?v=1571452068"
+                             alt="" class="bottom">
+                    </a>
+                    <a href="#">
+                        <span class="d-block mt-3 mb-2 product-name">
+                            Cord Tote Bag
+                        </span>
+                    </a>
+                    <div class="price">from <span>$28.98 USD</span></div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 gy-4">
+                <div class="card-item  text-center">
+                    <a href="#">
+                        <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/LETTERING-bllueel-08copy_8f1fd48c-1fdc-42a2-b5bd-eed8637da5c0_300x.jpg?v=1672662415"
+                             alt="product" class="top">
+                        <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/0120_00763_360x.jpg?v=1672662415"
+                             alt="" class="bottom">
+                    </a>
+                    <a href="#">
+                        <span class="d-block mt-3 mb-2 product-name">
+                            Tsuki Bullet Journal Stencil Set ☾
+                        </span>
+                    </a>
+                    <div class="price">from <span>$28.98 USD</span></div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 gy-4">
+                <div class="card-item  text-center">
+                    <a href="#">
+                        <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/product-image-538700474_300x.jpg?v=1637187594"
+                             alt="product" class="top">
+                        <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/product-image-538700476_360x.jpg?v=1637187594"
+                             alt="" class="bottom">
+                    </a>
+                    <a href="#">
+                        <span class="d-block mt-3 mb-2 product-name">
+                            Tsuki Pop-Up Pencil Case ☾
+                        </span>
+                    </a>
+                    <div class="price">from <span>$28.98 USD</span></div>
+                </div>
+            </div>
+        </div>
+        <a href="trending.html" class="d-block text-center m-5 button">
+            <span>See More</span>
+        </a>
+    </section>
+    <!-- Section: Trending products section end -->
+
+    <div class="widget-title text-center">
+        <h3 class="box-title">
+            <span class="title">
+                <span>
+                    2023 Picks💗
+                </span>
+            </span>
+        </h3>
+    </div>
+
+    <!-- Section: Slider 2023 picks section start -->
+    <section class="slider">
+        <div class="slider-card">
+            <div class="slider-card-content">
+                <img src="assets/images/gel-pen.png" alt="" class="card-img">
+                <h1 class="slider-card-title">HP Spectre x360 15</h1>
+                <div class="slider-card-body">
+                    <div class="card-star">
+                        <span class="rating-value">4.5</span>
+                        <span class="star">&#9733;</span>
+                    </div>
+                    <p class="card-price">$650.99</p>
+                </div>
+                <div class="slider-card-footer">
+                    <a href="#">
+                        <button class="btn btn-pink">Learn More</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="slider-card">
+            <div class="slider-card-content">
+                <img src="assets/images/notebook_1.png" alt="" class="card-img">
+                <h1 class="slider-card-title">HP Spectre x360 15</h1>
+                <div class="slider-card-body">
+                    <div class="card-star">
+                        <span class="rating-value">4.5</span>
+                        <span class="star">&#9733;</span>
+                    </div>
+                    <p class="card-price">$650.99</p>
+                </div>
+                <div class="slider-card-footer">
+                    <a href="#">
+                        <button class="btn btn-pink">Learn More</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="slider-card">
+            <div class="slider-card-content">
+                <img src="assets/images/pencil.png" alt="" class="card-img">
+                <h1 class="slider-card-title">HP Spectre x360 15</h1>
+                <div class="slider-card-body">
+                    <div class="card-star">
+                        <span class="rating-value">4.5</span>
+                        <span class="star">&#9733;</span>
+                    </div>
+                    <p class="card-price">$650.99</p>
+                </div>
+                <div class="slider-card-footer">
+                    <a href="#">
+                        <button class="btn btn-pink">Learn More</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="slider-card">
+            <div class="slider-card-content">
+                <img src="assets/images/pencil_case.png" alt="" class="card-img">
+                <h1 class="slider-card-title">HP Spectre x360 15</h1>
+                <div class="slider-card-body">
+                    <div class="card-star">
+                        <span class="rating-value">4.5</span>
+                        <span class="star">&#9733;</span>
+                    </div>
+                    <p class="card-price">$650.99</p>
+                </div>
+                <div class="slider-card-footer">
+                    <a href="#">
+                        <button class="btn btn-pink">Learn More</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="slider-card">
+            <div class="slider-card-content">
+                <img src="assets/images/gel-pen.png" alt="" class="card-img">
+                <h1 class="slider-card-title">HP Spectre x360 15</h1>
+                <div class="slider-card-body">
+                    <div class="card-star">
+                        <span class="rating-value">4.5</span>
+                        <span class="star">&#9733;</span>
+                    </div>
+                    <p class="card-price">$650.99</p>
+                </div>
+                <div class="slider-card-footer">
+                    <a href="#">
+                        <button class="btn btn-pink">Learn More</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="slider-card">
+            <div class="slider-card-content">
+                <img src="assets/images/notebook_1.png" alt="" class="card-img">
+                <h1 class="slider-card-title">HP Spectre x360 15</h1>
+                <div class="slider-card-body">
+                    <div class="card-star">
+                        <span class="rating-value">4.5</span>
+                        <span class="star">&#9733;</span>
+                    </div>
+                    <p class="card-price">$650.99</p>
+                </div>
+                <div class="slider-card-footer">
+                    <a href="#">
+                        <button class="btn btn-pink">Learn More</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <span class="arrow left">&#129120;</span>
+        <span class="arrow right">&#129122;</span>
+    </section>
+    <!-- Section: Slider 2023 picks section end -->
+
+    <div class="blog widget-title text-center">
+        <h3 class="box-title">
+            <span class="title">
+                <span>
+                    BLOG POSTS 📝
+                </span>
+            </span>
+        </h3>
+    </div>
+
+    <!-- Section: Slider Posts section start -->
+    <section class="posts">
+        <div class="blogs">
+            <article class="blog-post">
+                <div class="blog-post_img">
+                    <img src="https://i.pinimg.com/564x/63/92/99/6392998dbe79690b8f5a0a79827e3a72.jpg" alt="">
+                </div>
+                <div class="blog-post_info">
+                    <div class="blog-post_date">
+                        <span>Tuesday</span>
+                        <span>2/14/2023</span>
+                    </div>
+                    <h2 class="blog-post_title">Monthly Phone Wallpaper</h2>
+                    <p>
+                        Monthly Phone Wallpaper ✨ New month, new phone wallpaper! 🌜✨ This March, we are bringing
+                        you
+                        the very special Japanese
+                        Sakura season perfect for spring time 🌸✨ Get extra organised and pair with...
+                    </p>
+                    <a href="#" class="blog-post_cta">Read More</a>
+                </div>
+            </article>
+            <article class="blog-post">
+                <div class="blog-post_img">
+                    <img src="https://i.pinimg.com/564x/a8/d9/35/a8d9353195fd89b2768179cd860edfab.jpg" alt="">
+                </div>
+                <div class="blog-post_info">
+                    <div class="blog-post_date">
+                        <span>Tuesday</span>
+                        <span>2/14/2023</span>
+                    </div>
+                    <h2 class="blog-post_title">Monthly Phone Wallpaper</h2>
+                    <p>
+                        Monthly Phone Wallpaper ✨ New month, new phone wallpaper! 🌜✨ This March, we are bringing
+                        you
+                        the very special Japanese
+                        Sakura season perfect for spring time 🌸✨ Get extra organised and pair with...
+                    </p>
+                    <a href="#" class="blog-post_cta">Read More</a>
+                </div>
+            </article>
+            <article class="blog-post">
+                <div class="blog-post_img">
+                    <img src="https://i.pinimg.com/750x/90/c5/68/90c5684bdf1178887b6147e4289c5ea8.jpg" alt="">
+                </div>
+                <div class="blog-post_info">
+                    <div class="blog-post_date">
+                        <span>Tuesday</span>
+                        <span>2/14/2023</span>
+                    </div>
+                    <h2 class="blog-post_title">Monthly Phone Wallpaper</h2>
+                    <p>
+                        Monthly Phone Wallpaper ✨ New month, new phone wallpaper! 🌜✨ This March, we are bringing
+                        you
+                        the very special Japanese
+                        Sakura season perfect for spring time 🌸✨ Get extra organised and pair with...
+                    </p>
+                    <a href="#" class="blog-post_cta">Read More</a>
+                </div>
+            </article>
+            <article class="blog-post">
+                <div class="blog-post_img">
+                    <img src="https://i.pinimg.com/750x/90/c5/68/90c5684bdf1178887b6147e4289c5ea8.jpg" alt="">
+                </div>
+                <div class="blog-post_info">
+                    <div class="blog-post_date">
+                        <span>Tuesday</span>
+                        <span>2/14/2023</span>
+                    </div>
+                    <h2 class="blog-post_title">Monthly Phone Wallpaper</h2>
+                    <p>
+                        Monthly Phone Wallpaper ✨ New month, new phone wallpaper! 🌜✨ This March, we are bringing
+                        you
+                        the very special Japanese
+                        Sakura season perfect for spring time 🌸✨ Get extra organised and pair with...
+                    </p>
+                    <a href="#" class="blog-post_cta">Read More</a>
+                </div>
+            </article>
+            <article class="blog-post">
+                <div class="blog-post_img">
+                    <img src="https://i.pinimg.com/750x/5b/f3/84/5bf384a078569783ea7aa29749f79d87.jpg" alt="">
+                </div>
+                <div class="blog-post_info">
+                    <div class="blog-post_date">
+                        <span>Tuesday</span>
+                        <span>2/14/2023</span>
+                    </div>
+                    <h2 class="blog-post_title">Monthly Phone Wallpaper</h2>
+                    <p>
+                        Monthly Phone Wallpaper ✨ New month, new phone wallpaper! 🌜✨ This March, we are bringing
+                        you
+                        the very special Japanese
+                        Sakura season perfect for spring time 🌸✨ Get extra organised and pair with...
+                    </p>
+                    <a href="#" class="blog-post_cta">Read More</a>
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+    <div class="d-flex justify-content-center mt-4">
+        <div class="nav prev"><i class="fa-solid fa-arrow-left"></i></div>
+        <div class="nav next"><i class="fa-solid fa-arrow-right"></i></div>
+    </div>
+    <!-- Section: Slider Posts section end -->
 </div>
+
+@section Scripts{
+    <script src="~/assets/js/index.js"></script>
+}

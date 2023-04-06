@@ -1,0 +1,56 @@
+﻿@{
+    ViewData["Title"] = "User";
+}
+@model List<UserGetDto>
+<table class="responsive-data-table table">
+    <thead>
+        <tr>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (UserGetDto user in Model)
+        {
+            <tr>
+                <td>@user.FirstName</td>
+                <td>@user.LastName</td>
+                <td>@user.UserName</td>
+                <td>@user.Email</td>
+                <td>
+                    @(
+                        @user.PhoneNumber != null
+                        ? user.PhoneNumber
+                        : "No Phone Number"
+                        )
+                </td>
+                <td>
+                    <div class="btn-group">
+                        <button asp-action="Get" asp-controller="User" asp-route-id="@user.Id" type="button" class="btn btn-outline-success">Info</button>
+                        <button type="button" class="btn btn-outline-success dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                            <span class="sr-only">Info</span>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a asp-action="Update" asp-controller="User" asp-route-id="@user.Id" class="dropdown-item">Edit</a>
+                            @{
+                                if (!user.Roles.Contains("Admin") && User.IsInRole("SuperAdmin"))
+                                {
+                                    <a asp-action="EvokeToAdmin" asp-controller="User" asp-route-id="@user.Id" class="dropdown-item">Make an Admin</a>
+                                }
+                                else
+                                {
+                                    <a asp-action="RevokeFromAdmin" asp-controller="User" asp-route-id="@user.Id" class="dropdown-item">Dissmiss as Admin</a>
+                                }
+                            }
+                        </div>
+
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

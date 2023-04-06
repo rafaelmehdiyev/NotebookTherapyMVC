@@ -4,9 +4,9 @@
 @model IDataResult<List<CategoryGetDto>>
 <div class="breadcrumb-wrapper breadcrumb-wrapper-2 breadcrumb-contacts">
     <h1>Main Category</h1>
-	<p class="breadcrumbs">
-		<a class="btn btn-primary" asp-action="Create" asp-controller="Category">New Category</a>
-	</p>
+    <p class="breadcrumbs">
+        <a class="btn btn-primary" asp-action="Create" asp-controller="Category">New Category</a>
+    </p>
 </div>
 <div class="row">
     <div class="col-xl-12 col-lg-12">
@@ -19,19 +19,3 @@
         </div>
     </div>
 </div>
-
-@section Scripts{
-    <script>
-        $(function () {
-            $('#createBtn').click(function () {
-                $.ajax({
-                    url: '/Category/Create',
-                    data: { id: "" },
-                    success: function (result) {
-                        console.log(result);
-                    }
-                });
-            });
-        });
-    </script>
-}
