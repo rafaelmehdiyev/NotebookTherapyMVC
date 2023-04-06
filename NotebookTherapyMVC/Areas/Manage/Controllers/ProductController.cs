@@ -114,7 +114,7 @@ public class ProductController : Controller
 		FavouritePostDto dto = new()
 		{
 			ProductId = id,
-			UserId = (await _authService.GetUser(User)).Data.Id
+			UserId = (await _authService.GetUserByClaims(User)).Data.Id
 		};
 		return await _favService.CreateAsync(dto);
 	}
@@ -135,13 +135,13 @@ public class ProductController : Controller
 	[HttpPost]
 	public async Task<IDataResult<CartItemGetDto>> AddItemToCart(int id)
 	{
-		return await _cartItemService.CreateAsync(id, (await _authService.GetUser(User)).Data);
+		return await _cartItemService.CreateAsync(id, (await _authService.GetUserByClaims(User)).Data);
 	}
 
 	[HttpPost]
 	public async Task<IDataResult<CartItemGetDto>> RemoveItemFromCart(int id, bool deleteAll = false)
 	{
-		return await _cartItemService.RemoveItemFromCartAsync(id, (await _authService.GetUser(User)).Data, deleteAll);
+		return await _cartItemService.RemoveItemFromCartAsync(id, (await _authService.GetUserByClaims(User)).Data, deleteAll);
 	}
 	#endregion
 

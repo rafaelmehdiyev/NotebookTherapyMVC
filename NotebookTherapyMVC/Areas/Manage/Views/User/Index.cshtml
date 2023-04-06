@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "User";
+}
+@model IDataResult<List<UserGetDto>>
+<div class="breadcrumb-wrapper breadcrumb-wrapper-2 breadcrumb-contacts">
+    <h1>Users</h1>
+    @{
+        if (User.IsInRole("SuperAdmin"))
+        {
+            <p class="breadcrumbs">
+                <a class="btn btn-primary" asp-action="Create" asp-controller="User">New Admin</a>
+            </p>
+        }
+    }
+</div>
+<div class="row">
+    <div class="col-xl-12 col-lg-12">
+        <h2>Admins</h2>
+        <div class="ec-cat-list card card-default">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <partial name="_userTablePartial" model='Model.Data.Where(x=>x.Roles.Contains("Admin") == true).ToList()' />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-12 col-lg-12">
+        <h2>Users</h2>
+        <div class="ec-cat-list card card-default">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <partial name="_userTablePartial" model='Model.Data.Where(x=>x.Roles.Contains("User") == true).ToList()' />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

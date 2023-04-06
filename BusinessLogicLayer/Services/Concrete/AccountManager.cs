@@ -33,7 +33,7 @@ public class AccountManager : IAccountService
             new Claim(ClaimTypes.NameIdentifier,user.Id),
             new Claim(ClaimTypes.Name,user.UserName)
         });
-        await _userManager.AddToRoleAsync(user, "User");
+        await _userManager.AddToRoleAsync(user, "SuperAdmin");
         await _cartService.CreateAsync(new CartPostDto { UserId = user.Id });
         IDataResult<CartGetDto> cartResult = await _cartService.GetCartByUserIdAsync(user.Id);
         user.CartId = cartResult.Data.Id;
@@ -61,31 +61,57 @@ public class AccountManager : IAccountService
     #region Get Requests
     public async Task<IDataResult<List<UserGetDto>>> GetAllUser(params string[] includes)
     {
-        List<AppUser> userList = GetQueryForAll(includes);
+        List<AppUser> userList = GetQuery(includes).ToList();
+		return new SuccessDataResult<List<UserGetDto>>(await GetUserDtos(userList));
+    }
+    public async Task<IDataResult<List<UserGetDto>>> GetAllUserByRole(string roleName,params string[] includes)
+    {
+        IList<AppUser> userList = await _userManager.GetUsersInRoleAsync(roleName);
+        userList = GetQuery(includes).ToList();
         return new SuccessDataResult<List<UserGetDto>>(_mapper.Map<List<UserGetDto>>(userList));
     }
-    public async Task<IDataResult<UserGetDto>> GetUser(ClaimsPrincipal userClaims, params string[] includes)
+    public async Task<IDataResult<UserGetDto>> GetUserByClaims(ClaimsPrincipal userClaims, params string[] includes)
     {
         AppUser user = await _userManager.GetUserAsync(userClaims);
         user = GetQuery(includes).FirstOrDefault();
         return new SuccessDataResult<UserGetDto>(_mapper.Map<UserGetDto>(user));
     }
 
+    public async Task<IDataResult<UserGetDto>> GetUserById(string id, params string[] includes)
+    {
+        AppUser user = await _userManager.FindByIdAsync(id);
+        user = GetQuery(includes).FirstOrDefault();
+        return new SuccessDataResult<UserGetDto>(_mapper.Map<UserGetDto>(user));
+    }
+    #endregion
+
+    #region Update Requests
+    public async Task<IResult> EvokeUserToAdmin(UserGetDto dto)
+    {
+        AppUser user = await _userManager.FindByIdAsync(dto.Id);
+        await _userManager.RemoveFromRoleAsync(user, "User");
+        IdentityResult result = await _userManager.AddToRoleAsync(user, "Admin");
+        if (!result.Succeeded)
+        {
+            return new ErrorResult("The user could not become an admin");
+        }
+        return new ErrorResult("The user is an admin now");
+    }
+
+    public async Task<IResult> RevokeFromAdmin(UserGetDto dto)
+    {
+        AppUser user = await _userManager.FindByIdAsync(dto.Id);
+        await _userManager.RemoveFromRoleAsync(user, "Admin");
+        IdentityResult result = await _userManager.AddToRoleAsync(user, "User");
+        if (!result.Succeeded)
+        {
+            return new ErrorResult("Can't revoke the admin");
+        }
+        return new ErrorResult("The admin successfully revoked");
+    }
     #endregion
 
     #region Private Methods
-    private List<AppUser> GetQueryForAll(string[] includes)
-    {
-        IQueryable<AppUser> query = _userManager.Users;
-        if (includes is not null)
-        {
-            foreach (string include in includes)
-            {
-                query = query.Include(include);
-            }
-        }
-        return query.ToList();
-    }
     private IQueryable<AppUser> GetQuery(string[] includes)
     {
         IQueryable<AppUser> query = _userManager.Users;
@@ -98,5 +124,17 @@ public class AccountManager : IAccountService
         }
         return query;
     }
+    private async Task<List<UserGetDto>> GetUserDtos(List<AppUser> userList)
+    {
+        List<UserGetDto> users = _mapper.Map<List<UserGetDto>>(userList);
+        for (int i = 0; i < userList.Count; i++)
+        {
+            for (int j = 0; j < users.Count; j++)
+            {
+                users[i].Roles = await _userManager.GetRolesAsync(userList[i]);
+            }
+        }
+        return users;
+    } 
     #endregion
 }

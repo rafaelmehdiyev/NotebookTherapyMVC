@@ -54,7 +54,7 @@
         [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> Profile()
         {
-            IDataResult<UserGetDto> result = await _accountService.GetUser(User, Includes.UserIncludes);
+            IDataResult<UserGetDto> result = await _accountService.GetUserByClaims(User, Includes.UserIncludes);
             return View(result);
         }
     }

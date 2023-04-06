@@ -53,7 +53,7 @@ public static class ServiceCollectionExtension
 		services.AddAuthorization();
 		services.AddDbContext<AppDbContext>(opt =>
 		{
-			opt.UseSqlServer(configuration.GetConnectionString("Default"));
+			opt.UseSqlServer(configuration.GetConnectionString("DefaultR"));
 		});
 		services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
 		services.AddAutoMapper(Assembly.GetExecutingAssembly());

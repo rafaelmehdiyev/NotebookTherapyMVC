@@ -2,18 +2,17 @@
     <nav>
         <div class="header_top" id="navbar">
             <div class="logo">
-                <a href="index.html">
-                    <img src="https://cdn.shopify.com/s/files/1/2026/1775/files/notebook-therapy_5c35a485-856a-4245-9bb4-ff74a75bbf44.png?v=1649853296"
-                         alt="">
+                <a asp-action="Index" asp-controller="Home">
+                    <img src="~/assets/images/logo.png" alt="">
                 </a>
             </div>
             <div class="icons">
-                <a href="#">
+                <a asp-action="" asp-controller="">
                     <i class="fa-regular fa-basket-shopping-simple fa-fade">
                     </i>
                     <span>Shopping Cart</span>
                 </a>
-                <a asp-action="Login" asp-controller="Account" class="ms-4">
+                <a asp-action="Profile" asp-controller="Account" class="ms-4">
                     <i class="fa-regular fa-user"></i>
                 </a>
             </div>
@@ -23,9 +22,8 @@
                 <i class="fa-regular fa-grid-2"></i>
             </div>
             <div class="logo">
-                <a href="index.html">
-                    <img src="https://cdn.shopify.com/s/files/1/2026/1775/files/notebook-therapy_5c35a485-856a-4245-9bb4-ff74a75bbf44.png?v=1649853296"
-                         alt="">
+                <a asp-action="Index" asp-controller="Home">
+                    <img src="~/assets/images/logo.png" alt="">
                 </a>
             </div>
             <div class="icons ">
@@ -33,7 +31,7 @@
                     <i class="fa-regular fa-basket-shopping-simple fa-fade">
                     </i>
                 </a>
-                <a href="#" class="ms-2">
+                <a asp-action="Profile" asp-controller="Account" class="ms-2">
                     <i class="fa-regular fa-user"></i>
                 </a>
             </div>
@@ -167,7 +165,7 @@
                 <i class="fa-regular fa-basket-shopping-simple fa-fade">
                 </i>
             </a>
-            <a href="#" class="ms-2">
+            <a asp-action="Profile" asp-controller="Account" class="ms-2">
                 <i class="fa-regular fa-user"></i>
             </a>
         </div>

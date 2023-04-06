@@ -1,6 +1,4 @@
-﻿@section Links{
-}
-<footer class="py-5">
+﻿<footer class="py-5">
     <div class="container">
         <div class="row">
             <div class="col-md-3 col-sm-6  col-12  d-flex gap-3 icons">
@@ -11,12 +9,12 @@
             <div class="col-md-3 col-sm-6 col-12">
                 <h3 class="fs-4 fw-bold">Info</h3>
                 <ul>
-                    <li><a href="blog.html">Blog</a></li>
-                    <li><a href="about.html">About Us</a></li>
+                    <li><a asp-action="Index" asp-controller="Blog">Blog</a></li>
+                    <li><a asp-action="About" asp-controller="Home">About Us</a></li>
                     <li><a href="">Sustainability</a></li>
                     <li><a href="">Shipping & Returns</a></li>
-                    <li><a href="">Common Questions</a></li>
-                    <li><a href="">Contact us</a></li>
+                    <li><a asp-action="Index" asp-controller="FAQ">Common Questions</a></li>
+                    <li><a asp-action="Contact" asp-controller="Home">Contact us</a></li>
                 </ul>
             </div>
             <div class="col-md-3 col-sm-6 col-12">
