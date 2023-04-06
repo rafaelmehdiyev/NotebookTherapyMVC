@@ -31,5 +31,12 @@ namespace BusinessLogicLayer.Utilities.Validations.FluentValidation
             }
             return false;
         }
+
+
     }
+
+
+
+
 }
+

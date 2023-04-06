@@ -30,4 +30,6 @@ public class CategoryPostDtoValidator : AbstractValidator<CategoryPostDto>
         }
         return false;
     }
+
+   
 }

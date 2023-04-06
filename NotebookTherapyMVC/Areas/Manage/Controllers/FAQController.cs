@@ -33,7 +33,7 @@ public class FAQController : Controller
         if (!ModelState.IsValid)
         {
             await GetFAQCategories();
-            return View();
+            return View(dto);
         }
         await _faqService.CreateAsync(dto);
         return RedirectToAction(nameof(Index));

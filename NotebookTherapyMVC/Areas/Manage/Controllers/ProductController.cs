@@ -52,7 +52,7 @@ public class ProductController : Controller
 	{
 		if (!ModelState.IsValid)
 		{
-			return View();
+			return View(dto);
 		}
 		await _productService.CreateAsync(dto);
 		return RedirectToAction(nameof(Index));
@@ -70,7 +70,7 @@ public class ProductController : Controller
 		if (!ModelState.IsValid)
 		{
 			await GetViewBags();
-			return View();
+			return View(dto);
 		}
 		await _productService.UpdateAsync(dto);
 		return RedirectToAction(nameof(Index));

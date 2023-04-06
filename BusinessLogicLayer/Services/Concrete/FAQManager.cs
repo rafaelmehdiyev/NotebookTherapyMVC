@@ -92,7 +92,7 @@ public class FAQManager : IFAQService
 	#region Delete Requests
 	public async Task<IResult> HardDeleteByIdAsync(int id)
     {
-        FAQ faq = await _unitOfWork.FAQRepository.GetAsync(b => b.Id == id && !b.isDeleted);
+        FAQ faq = await _unitOfWork.FAQRepository.GetAsync(b => b.Id == id && b.isDeleted);
         _unitOfWork.FAQRepository.Delete(faq);
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)

@@ -13,9 +13,9 @@ namespace BusinessLogicLayer.Utilities.Validations.FluentValidation
                .MinimumLength(2).
                 MaximumLength(255)
                 .WithMessage("Enter valid Bundle")
-            .Must(ValidName);          
+            .Must(ValidName);
         }
-     
+
         private bool ValidName(string name)
         {
             if (name is null)
@@ -24,7 +24,7 @@ namespace BusinessLogicLayer.Utilities.Validations.FluentValidation
             }
             var nameRegex = @"^[A-Z]+[a-zA-Z]*$|[A-Z]+[a-zA-Z]+[\s][A-Z]+[a-zA-Z]*$";
             Regex regex = new(nameRegex);
-            
+
             if (regex.IsMatch(name))
             {
                 return true;
