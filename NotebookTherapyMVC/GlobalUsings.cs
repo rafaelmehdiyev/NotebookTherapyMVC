@@ -10,6 +10,7 @@ global using Entities.DTOs.Category;
 global using Entities.DTOs.Color;
 global using Entities.DTOs.FAQ;
 global using Entities.DTOs.FAQCategory;
+global using Entities.Concrete;
 global using Entities.DTOs.Favourite;
 global using Entities.DTOs.Product;
 global using Entities.DTOs.ProductBundle;

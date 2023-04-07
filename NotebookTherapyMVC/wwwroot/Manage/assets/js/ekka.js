@@ -233,7 +233,7 @@ $(document).ready(function () {
     if (responsiveDataTable.length !== 0) {
         responsiveDataTable.DataTable({
             "aLengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
-            "pageLength": 5,
+            "pageLength": 10,
             "dom": '<"row justify-content-between top-information"lf>rt<"row justify-content-between bottom-information"ip><"clear">'
         });
     }
@@ -242,7 +242,7 @@ $(document).ready(function () {
     if (responsiveDataTable2.length !== 0) {
         responsiveDataTable2.DataTable({
             "aLengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
-            "pageLength": 5,
+            "pageLength": 10,
             "dom": '<"row justify-content-between top-information"lf>rt<"row justify-content-between bottom-information"ip><"clear">'
         });
     }

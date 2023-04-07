@@ -18,17 +18,16 @@ namespace BusinessLogicLayer.Utilities.Validations.FluentValidation
         }
         private bool ValidName(string name)
         {
-            if (name is null)
+            if (name is not null)
             {
-                return false;
-            }
-            var nameRegex = @"^[a-zA-Z0-9]*$";
-            Regex regex = new(nameRegex);
+                string nameRegex = @"^[a-zA-Z0-9\s()]*$";
+                Regex regex = new(nameRegex);
 
-            if (regex.IsMatch(name))
-            {
-                return true;
-            }
+                if (regex.IsMatch(name))
+                {
+                    return true;
+                }
+            }         
             return false;
         }
     }
