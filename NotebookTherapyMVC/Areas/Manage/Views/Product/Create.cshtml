@@ -150,7 +150,7 @@
                                     <img src="~/Manage/assets/img/icons/upload.svg" alt="">
                                     <input class="form-control" asp-for="formFiles" type="file" multiple>
                                 </div>
-                                    <span class="text-danger" asp-validation-for="formFiles"></span>
+                                    <span class="text-danger spanText" asp-validation-for="formFiles"></span>
 
                             </div>
                         </div>
@@ -161,13 +161,13 @@
                                 <div class="col-md-12">
                                     <label asp-for="Name" class="form-label">Product Name *</label>
                                     <input type="text" class="form-control slug-title" asp-for="Name">
-                                    <span class="text-danger" asp-validation-for="Name"></span>
+                                    <span class="text-danger spanText" asp-validation-for="Name"></span>
 
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label">Select Category *</label>
                                     <select asp-for="CategoryId" asp-items="ViewBag.Categories" class="form-select"></select>
-                                    <span class="text-danger" asp-validation-for="CategoryId"></span>
+                                    <span class="text-danger spanText" asp-validation-for="CategoryId"></span>
 
                                 </div>
                                 <div class="col-md-6">
@@ -175,31 +175,31 @@
                                     <select asp-for="ProductCollectionId" asp-items="ViewBag.Collections" class="form-select">
                                         <option value="">Select a collection</option>
                                     </select>
-                                    <span class="text-danger" asp-validation-for="ProductCollectionId"></span>
+                                    <span class="text-danger spanText" asp-validation-for="ProductCollectionId"></span>
 
                                 </div>
                                 <div class="col-md-12">
                                     <label asp-for="Description" class="form-label">Product Description *</label>
                                     <textarea class="form-control" asp-for="Description" rows="2"></textarea>
-                                    <span class="text-danger" asp-validation-for="Description"></span>
+                                    <span class="text-danger spanText" asp-validation-for="Description"></span>
 
                                 </div>
                                 <div class="col-md-4 mb-25">
                                     <label class="form-label">Colors</label>
                                     <select asp-for="ColorId" asp-items="ViewBag.Colors"></select>
-                                    <span class="text-danger" asp-validation-for="ColorId"></span>
+                                    <span class="text-danger spanText" asp-validation-for="ColorId"></span>
 
                                 </div>
                                 <div class="col-md-4 mb-25">
                                     <label class="form-label">Sizes</label>
                                     <select asp-for="SizeIds" asp-items="ViewBag.Sizes"></select>
-                                    <span class="text-danger" asp-validation-for="SizeIds"></span>
+                                    <span class="text-danger spanText" asp-validation-for="SizeIds"></span>
 
                                 </div>
                                 <div class="col-md-4 mb-25">
                                     <label class="form-label">Bundles</label>
                                     <select asp-for="BundlesIds" asp-items="ViewBag.Bundles"></select>
-                                    <span class="text-danger" asp-validation-for="BundlesIds"></span>
+                                    <span class="text-danger spanText" asp-validation-for="BundlesIds"></span>
 
                                 </div>
                                 <div class="col-md-6">
@@ -207,7 +207,7 @@
                                         Price<span> ( In USD )</span>
                                     </label>
                                     <input type="number" class="form-control" asp-for="Price" min="0">
-                                    <span class="text-danger" asp-validation-for="Price"></span>
+                                    <span class="text-danger spanText" asp-validation-for="Price"></span>
 
                                 </div>
                                 <div class="col-md-6">
