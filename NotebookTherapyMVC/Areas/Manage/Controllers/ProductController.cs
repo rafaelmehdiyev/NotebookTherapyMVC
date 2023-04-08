@@ -52,6 +52,7 @@ public class ProductController : Controller
 	{
 		if (!ModelState.IsValid)
 		{
+			await GetViewBags();
 			return View(dto);
 		}
 		await _productService.CreateAsync(dto);

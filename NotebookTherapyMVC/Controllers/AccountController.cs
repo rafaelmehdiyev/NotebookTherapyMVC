@@ -45,17 +45,22 @@
                 return RedirectToAction("Index", "Home");
             }
         }
-        [Authorize(Roles = "Admin,User")]
+        [Authorize(Roles = "SuperAdmin,Admin,User")]
         public async Task<IActionResult> Signout()
         {
             await _accountService.SignOutAsync();
             return RedirectToAction(nameof(Login));
         }
-        [Authorize(Roles = "Admin,User")]
+        [Authorize(Roles = "SuperAdmin,Admin,User")]
         public async Task<IActionResult> Profile()
         {
             IDataResult<UserGetDto> result = await _accountService.GetUserByClaims(User, Includes.UserIncludes);
             return View(result);
+        }
+        [Authorize(Roles = "SuperAdmin,Admin,User")]
+        public async Task<IActionResult> ShoppingCart()
+        {
+            return View();
         }
     }
 }

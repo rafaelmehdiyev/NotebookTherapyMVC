@@ -1,9 +1,9 @@
 ﻿
 namespace BusinessLogicLayer.Utilities.Validations.FluentValidation
 {
-    public class ProductCollectionPostDtoValidator : AbstractValidator<ProductCollectionPostDto>
+    public class ProductPostDtoValidator : AbstractValidator<ProductPostDto>
     {
-        public ProductCollectionPostDtoValidator()
+        public ProductPostDtoValidator()
         {
             RuleFor(c => c.Name)
                 .NotEmpty()
@@ -22,7 +22,8 @@ namespace BusinessLogicLayer.Utilities.Validations.FluentValidation
             {
                 return false;
             }
-            var nameRegex = @"^[A-Z]+[a-zA-Z]*$|[A-Z]+[a-zA-Z]+[\s][A-Z]+[a-zA-Z]*$";
+            //var nameRegex = @"^[A-Z]+[a-zA-Z]*$|[A-Z]+[a-zA-Z]+[\s][A-Z]+[a-zA-Z]*$";
+            string nameRegex = @"^[A-Z]+[a-zA-Z]$|[A-Z]+[a-zA-Z]+[\s][A-Z]+[a-zA-Z]|[A-Za-z0-9☾]+$";
             Regex regex = new(nameRegex);
 
             if (regex.IsMatch(name))
@@ -31,8 +32,9 @@ namespace BusinessLogicLayer.Utilities.Validations.FluentValidation
             }
             return false;
         }
-
-
     }
+
+
+
 }
 

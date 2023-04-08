@@ -1,0 +1,32 @@
+﻿@import url(core.css);
+
+.imgContainer img {
+    width: 100px;
+    height: 100px;
+}
+
+.subtitle {
+    color: #9f9f8e;
+    font-size: 14px;
+}
+
+.action {
+    width: 25px;
+    height: 30px;
+    border: none;
+}
+
+.cardContainer {
+    border: 1px dashed #dee2e6;
+}
+
+.bg-purple {
+    background-color: #de94a5;
+}
+
+@media(min-width : 765px) {
+    .imgContainer img {
+        width: 70px;
+        height: 70px;
+    }
+}

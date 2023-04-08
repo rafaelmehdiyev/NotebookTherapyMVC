@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="~/assets/css/index.css">
     <link rel="stylesheet" href="~/assets/css/trending.css">
 }
+@model IDataResult<List<ProductGetDto>>
 <div class="containr">
     <!-- Section: Sakura Collection First section start -->
     <section class="sakura-collection">
@@ -52,94 +53,26 @@
         <div class="mb-5">
             <div class="cards active">
                 <div class="row">
-                    <div class="col-6 col-md-4 col-lg-3 gy-4">
-                        <div class="card-item  text-center">
-                            <a href="#">
-                                <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/moonflower12-1_300x.png?v=1592051819"
+                    @foreach (ProductGetDto product in Model.Data)
+                    {
+                        <div class="col-6 col-md-4 col-lg-3 gy-4">
+                            <div class="card-item text-center">
+                                <a asp-action="Detail" asp-controller="Product" asp-route-id="@product.Id">
+                                    <img src="~/uploads/product/@(product.ProductImages.FirstOrDefault().ImagePath)"
                                      alt="product" class="top">
-                                <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/moonflower5_360x.jpg?v=1591867703"
+                                    <img src="~/uploads/product/@(product.ProductImages.Skip(1).Take(1).FirstOrDefault().ImagePath)"
                                      alt="" class="bottom">
-                            </a>
-                            <a href="#">
-                                <span class="d-block mt-3 mb-2 product-name">
-                                    Tsuki 'Moonflower' Limited Edition
-                                    Luxury Bullet
-                                    Journal ☾
-                                </span>
-                            </a>
-                            <div class="price">
-                                <span class="old-price">$35.74 USD</span>
-                                <span>$28.98 USD</span>
+                                </a>
+                                <a asp-action="Detail" asp-controller="Product" asp-route-id="@product.Id">
+                                    <span class="d-block mt-3 mb-2 product-name">@product.Name</span>
+                                </a>
+                                <div class="price">
+                                    <span class="old-price">$@product.LastPrice USD</span>
+                                    <span>$@product.Price USD</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-3 gy-4">
-                        <div class="card-item  text-center">
-                            <a href="#">
-                                <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/d1e57ac3375c0ca5181c91d343e7d747_300x.png?v=1572456405"
-                                     alt="product" class="top">
-                                <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/ezgif.com-webp-to-jpg_11_300x.jpg?v=1571452068"
-                                     alt="" class="bottom">
-                            </a>
-                            <a href="#">
-                                <span class="d-block mt-3 mb-2 product-name">
-                                    Cord Tote Bag
-                                </span>
-                            </a>
-                            <div class="price">from <span>$28.98 USD</span></div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-3 gy-4">
-                        <div class="card-item  text-center">
-                            <a href="#">
-                                <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/LETTERING-bllueel-08copy_8f1fd48c-1fdc-42a2-b5bd-eed8637da5c0_300x.jpg?v=1672662415"
-                                     alt="product" class="top">
-                                <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/0120_00763_360x.jpg?v=1672662415"
-                                     alt="" class="bottom">
-                            </a>
-                            <a href="#">
-                                <span class="d-block mt-3 mb-2 product-name">
-                                    Tsuki Bullet Journal Stencil Set ☾
-                                </span>
-                            </a>
-                            <div class="price">from <span>$28.98 USD</span></div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-3 gy-4">
-                        <div class="card-item  text-center">
-                            <a href="#">
-                                <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/product-image-538700474_300x.jpg?v=1637187594"
-                                     alt="product" class="top">
-                                <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/product-image-538700476_360x.jpg?v=1637187594"
-                                     alt="" class="bottom">
-                            </a>
-                            <a href="#">
-                                <span class="d-block mt-3 mb-2 product-name">
-                                    Tsuki Pop-Up Pencil Case ☾
-                                </span>
-                            </a>
-                            <div class="price">
-                                <span class="old-price">$35.74 USD</span>
-                                <span>$28.98 USD</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-3 gy-4">
-                        <div class="card-item  text-center">
-                            <a href="#">
-                                <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/gentlegiantnewcover_300x.jpg?v=1606977323"
-                                     alt="product" class="top">
-                                <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/1Bcopy_e6b5625b-ff02-44ca-9888-4dde17870784_360x.jpg?v=1649945875"
-                                     alt="" class="bottom">
-                            </a>
-                            <a href="#">
-                                <span class="d-block mt-3 mb-2 product-name">
-                                    Double Sided 'Mildliner' Style Highlighters - Set Of 12
-                                </span>
-                            </a>
-                            <div class="price">from <span>$28.98 USD</span></div>
-                        </div>
-                    </div>
+                    }
                 </div>
             </div>
             <div class="cards">
