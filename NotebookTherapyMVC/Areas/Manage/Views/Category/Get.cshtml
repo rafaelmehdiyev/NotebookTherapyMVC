@@ -1,0 +1,97 @@
+﻿@{
+    ViewData["Title"] = "Get";
+    Layout = "~/Areas/Manage/Views/Shared/_Layout.cshtml";
+}
+@model IDataResult<CategoryGetDto>
+
+<div class="row justify-content-center">
+    <div class="col-12 p-b-15 ">
+        <!-- Recent Order Table -->
+        <div class="card card-table-border-none card-default recent-orders" id="recent-orders">
+            <div class="card-header justify-content-between">
+                <h2>Single Category</h2>
+            </div>
+            <div class="card bg-white profile-content">
+                <div class="row ">
+                    <div class="col-lg-4 col-xl-3">
+                        <div class="profile-content-left profile-left-spacing">
+                            <div class="text-center widget-profile px-0 border-0">
+                                <div class="card-body">
+                                    <h3 class="py-2 text-dark">@Model.Data.Name</h3>
+
+                                    @if (@Model.Data.isDeleted)
+                                    {
+                                        <span class="badge badge-danger">Inactive</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-success">Active</span>
+                                    }
+
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-center">
+                                @if (!@Model.Data.isDeleted)
+                                {
+                                    <div class="text-center pb-4" id="actionBtn">
+
+                                        <h6 class="text-dark pb-2 fontIcon"><i class="fas fa-edit"></i></h6>
+                                        <a id="actionBtn" asp-action="Update" asp-controller="Category" asp-route-id="@Model.Data.Id" class="dropdown-item">Edit</a>
+                                    </div>
+
+                                    <div class="text-center pb-4" id="actionBtn">
+                                        <h6 class="text-dark pb-2 fontIcon"><i class="fas fa-trash"></i></h6>
+
+                                        <a id="actionBtn" asp-action="Delete" asp-controller="Category" asp-route-id="@Model.Data.Id" class="dropdown-item">Delete</a>
+                                    </div>
+
+
+
+                                }
+                                else
+                                {
+                                    <div class="text-center pb-4" id="actionBtn">
+
+                                        <h6 class="text-dark pb-2 fontIcon"><i class="fas fa-trash-restore-alt"></i></h6>
+                                        <a id="actionBtn" asp-action="Recover" asp-controller="Category" asp-route-id="@Model.Data.Id" class="dropdown-item">Recover</a>
+                                    </div>
+
+                                    <div class="text-center pb-4" id="actionBtn">
+                                        <h6 class="text-dark pb-2 fontIcon"><i class="fas fa-trash"></i></h6>
+                                        <a id="actionBtn" asp-action="HardDelete" asp-controller="Category" asp-route-id="@Model.Data.Id" class="dropdown-item">Permamently Delete</a>
+                                    </div>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-8 col-xl-9">
+                        <div class="profile-content-right profile-right-spacing py-5">
+                            <div class="tab-content px-3 px-xl-5" id="myTabContent">
+
+                                <div class="tab-pane fade show active" id="profile" role="tabpanel"
+                                     aria-labelledby="profile-tab">
+                                    <div class="tab-widget mt-5">
+                                        <div class="row">
+                                            <div class="col-xl-12">
+                                                <div class="table-responsive">
+                                                    @*<partial name="~/Manage/Views/Shared/_productTablePartial.cshtml" model="@Model.Data.Products" />*@
+                                                    @Html.RenderPartialAsync("~/Manage/Views/Shared/_productTablePartial.cshtml",@Model.Data.Products)
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

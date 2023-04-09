@@ -1,0 +1,29 @@
+﻿
+@model IDataResult<BlogGetDto>
+
+<div class="modal-content">
+    <div class="modal-header justify-content-end border-bottom-0">
+        <button type="button" class="btn-close-icon" data-bs-dismiss="modal"
+                aria-label="Close">
+            <i class="mdi mdi-close"></i>
+        </button>
+    </div>
+
+    <div class="modal-body pt-0">
+        <div class="row no-gutters">
+            <div class="col-md-6">
+                <h4 class="text-dark mb-1">Blog Title</h4>
+                    <p class="text-dark font-weight-medium pt-3 mb-2">@Model.Data.Title</p>
+
+
+            </div>
+
+            <div class="col-md-6">
+                <div class="contact-info px-4">
+                    <h4 class="text-dark mb-1">Blog Content</h4>
+                    <p class="text-dark font-weight-medium pt-3 mb-2">@Model.Data.Content</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -31,10 +31,14 @@
 								<div class="col-md-12">
 									<label asp-for="Title" class="form-label">Blog Title</label>
 									<input asp-for="Title" class="form-control">
+                                    <span class="spanText text-danger " asp-validation-for="@Model.Title"></span>
+
 								</div>
 								<div class="col-md-12">
 									<label asp-for="Content" class="form-label">Content</label>
 									<textarea asp-for="Content" class="form-control" rows="2"></textarea>
+                                    <span class="spanText text-danger " asp-validation-for="@Model.Content"></span>
+
 								</div>
 								<div class="col-md-12">
 									<button type="submit" class="btn btn-primary">Submit</button>

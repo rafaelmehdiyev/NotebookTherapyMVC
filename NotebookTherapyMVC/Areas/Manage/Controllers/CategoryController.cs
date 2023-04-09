@@ -12,6 +12,16 @@ public class CategoryController : Controller
 		_categoryService = categoryService;
 		_mapper = mapper;
 	}
+
+	[HttpGet]
+	public async Task<IActionResult> Get(int id)
+	{
+		
+		IDataResult<CategoryGetDto> result = await _categoryService.GetByIdAsync(id,Includes.CategoryIncludes);
+
+		return View(result);
+
+	}
 	public async Task<IActionResult> Index()
 	{
 		IDataResult<List<CategoryGetDto>> result = await _categoryService.GetAllAsync(true, Includes.CategoryIncludes);

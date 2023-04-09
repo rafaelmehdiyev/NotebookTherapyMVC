@@ -31,14 +31,20 @@
 								<div class="col-md-12">
 									<label class="form-label">Select Category</label>
 									<select asp-for="FAQCategoryId" asp-items="@ViewBag.FAQCategories" class="form-select"></select>
+                                    <span class="spanText text-danger " asp-validation-for="@Model.FAQCategoryId"></span>
+
 								</div>
 								<div class="col-md-12">
 									<label asp-for="Question" class="form-label">Question</label>
 									<textarea asp-for="Question" class="form-control" rows="2"></textarea>
+                                    <span class="spanText text-danger " asp-validation-for="@Model.Question"></span>
+
 								</div>
 								<div class="col-md-12">
 									<label asp-for="Answer" class="form-label">Answer</label>
 									<textarea asp-for="Answer" class="form-control" rows="2"></textarea>
+                                    <span class="spanText text-danger " asp-validation-for="@Model.Answer"></span>
+
 								</div>
 								<div class="col-md-12">
 									<button type="submit" class="btn btn-primary">Submit</button>

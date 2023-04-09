@@ -21,6 +21,8 @@
 							<label asp-for="Name" class="col-12 col-form-label">Name</label>
 							<div class="col-12">
 								<input asp-for="Name" class="form-control here slug-title" type="text">
+                                    <span class="spanText text-danger " asp-validation-for="@Model.Name"></span>
+
 							</div>
 						</div>
 						<div class="row">

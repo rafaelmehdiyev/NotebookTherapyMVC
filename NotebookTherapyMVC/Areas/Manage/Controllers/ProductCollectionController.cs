@@ -50,7 +50,7 @@ public class ProductCollectionController : Controller
     {
         if (!ModelState.IsValid)
         {
-            return View();
+            return View(dto);
         }
         await _productCollectionService.UpdateAsync(dto);
         return RedirectToAction("Index");

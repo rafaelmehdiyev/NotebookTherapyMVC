@@ -5,6 +5,10 @@
     {
       "library": "bootstrap@5.2.3",
       "destination": "wwwroot/Manage/assets/bootstrap/"
+    },
+    {
+      "library": "material-design-icons@4.0.0",
+      "destination": "wwwroot/Manage/assets/plugins/material-design-icons/"
     }
   ]
 }

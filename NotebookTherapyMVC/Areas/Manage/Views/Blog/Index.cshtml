@@ -1,22 +1,26 @@
 ﻿@{
-	ViewData["Title"] = "Blog";
+    ViewData["Title"] = "Blog";
 }
 @model IDataResult<List<BlogGetDto>>
 <div class="breadcrumb-wrapper breadcrumb-wrapper-2 breadcrumb-contacts">
-	<h1>Blogs</h1>
-	<p class="breadcrumbs">
-		<a class="btn btn-primary" asp-action="Create" asp-controller="Blog">New Blog</a>
-	</p>
+    <h1>Blogs</h1>
+    <p class="breadcrumbs">
+        <a class="btn btn-primary" asp-action="Create" asp-controller="Blog">New Blog</a>
+    </p>
 </div>
 <div class="row">
-	<div class="col-xl-12 col-lg-12">
-		<div class="ec-cat-list card card-default">
-			<div class="card-body">
-				<div class="table-responsive">
-					<partial name="_blogTablePartial" model="Model">
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="col-xl-12 col-lg-12">
+        <div class="ec-cat-list card card-default">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <partial name="_blogTablePartial" model="Model">
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<div class="modal fade" id="modal-contact" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 
+    </div>
+</div>

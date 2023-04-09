@@ -12,6 +12,16 @@ public class BlogController : Controller
         _mapper = mapper;
     }
 
+    [HttpGet]
+    public async Task<IActionResult> Get(int id)
+    {
+        IDataResult<BlogGetDto> result = await _blogService.GetByIdAsync(id);
+
+        return PartialView("_getBlogPartial", result);
+
+    }
+  
+
     public async Task<IActionResult> Index()
     {
         IDataResult<List<BlogGetDto>> result = await _blogService.GetAllAsync(true);

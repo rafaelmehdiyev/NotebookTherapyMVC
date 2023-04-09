@@ -41,6 +41,10 @@ static class Messages
 	{
 		return $"The {entity} could not be recovered.";
 	}
+	public static string EnterValid(string entity)
+	{
+		return $" Enter Valid {entity}.";
+	}
 	#endregion
 
 	#region Message Entity
