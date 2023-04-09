@@ -3,8 +3,9 @@
     <thead>
         <tr>
             <th>#</th>
+            <th>Thumbnail</th>
             <th>Title</th>
-            <th>Content</th>
+            <th>Short Des</th>
             <th>View Count</th>
             <th>Status</th>
             <th>Action</th>
@@ -16,8 +17,11 @@
         {
             <tr>
                 <td>@blog.Id</td>
+                <td>
+                    <img class="tbl-thumb" src="~/uploads/blog/@(blog.ImagePath)" alt="Blog Image" />
+                </td>
                 <td>@blog.Title</td>
-                <td>@blog.Content</td>
+                <td>@blog.ShortDescription</td>
                 <td>@blog.ViewCount</td>
                 <td>
                     @{

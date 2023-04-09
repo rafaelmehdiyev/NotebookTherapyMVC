@@ -110,7 +110,7 @@ public class ProductCollectionManager : IProductCollectionService
 	#endregion
 
 	#region Private Methods
-	private void AddImagesToCollection(ProductCollection collection, params Microsoft.AspNetCore.Http.IFormFile[] formFiles)
+	private void AddImagesToCollection(ProductCollection collection, params IFormFile[] formFiles)
 	{
 		collection.CollectionHeaderImage = formFiles[0].FileCreate(_env.WebRootPath, "uploads/productCollection");
 		collection.CollectionFooterImage = formFiles[1].FileCreate(_env.WebRootPath, "uploads/productCollection");
@@ -122,6 +122,5 @@ public class ProductCollectionManager : IProductCollectionService
 		File.Delete(Path.Combine(_env.WebRootPath, "uploads/productCollection", collection.CollectionItemBackgroundImage));
 		File.Delete(Path.Combine(_env.WebRootPath, "uploads/productCollection", collection.CollectionFooterImage));
 	}
-
 	#endregion
 }

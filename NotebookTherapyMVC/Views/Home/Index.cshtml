@@ -3,9 +3,9 @@
 }
 @section BeforeMediaLinks{
     <link rel="stylesheet" href="~/assets/css/index.css">
-    <link rel="stylesheet" href="~/assets/css/trending.css">
+    @*<link rel="stylesheet" href="~/assets/css/trending.css">*@
 }
-@model IDataResult<List<ProductGetDto>>
+@model HomeVM
 <div class="containr">
     <!-- Section: Sakura Collection First section start -->
     <section class="sakura-collection">
@@ -53,7 +53,7 @@
         <div class="mb-5">
             <div class="cards active">
                 <div class="row">
-                    @foreach (ProductGetDto product in Model.Data)
+                    @foreach (ProductGetDto product in Model.ProductsResult.Data)
                     {
                         <div class="col-6 col-md-4 col-lg-3 gy-4">
                             <div class="card-item text-center">
@@ -433,102 +433,25 @@
     <!-- Section: Slider Posts section start -->
     <section class="posts">
         <div class="blogs">
-            <article class="blog-post">
-                <div class="blog-post_img">
-                    <img src="https://i.pinimg.com/564x/63/92/99/6392998dbe79690b8f5a0a79827e3a72.jpg" alt="">
-                </div>
-                <div class="blog-post_info">
-                    <div class="blog-post_date">
-                        <span>Tuesday</span>
-                        <span>2/14/2023</span>
+            @foreach (BlogGetDto blog in Model.BlogsResult.Data)
+            {
+                <article class="blog-post">
+                    <div class="blog-post_img">
+                        <img src="~/uploads/blog/@(blog.ImagePath)" alt="">
                     </div>
-                    <h2 class="blog-post_title">Monthly Phone Wallpaper</h2>
-                    <p>
-                        Monthly Phone Wallpaper ✨ New month, new phone wallpaper! 🌜✨ This March, we are bringing
-                        you
-                        the very special Japanese
-                        Sakura season perfect for spring time 🌸✨ Get extra organised and pair with...
-                    </p>
-                    <a href="#" class="blog-post_cta">Read More</a>
-                </div>
-            </article>
-            <article class="blog-post">
-                <div class="blog-post_img">
-                    <img src="https://i.pinimg.com/564x/a8/d9/35/a8d9353195fd89b2768179cd860edfab.jpg" alt="">
-                </div>
-                <div class="blog-post_info">
-                    <div class="blog-post_date">
-                        <span>Tuesday</span>
-                        <span>2/14/2023</span>
+                    <div class="blog-post_info">
+                        <div class="blog-post_date">
+                            <span>@blog.CreatedDate.ToString("dddd")</span>
+                            <span>@blog.CreatedDate.ToString("M/d/yyyy")</span>
+                        </div>
+                        <h2 class="blog-post_title">Monthly Phone Wallpaper</h2>
+                        <p>
+                            @blog.ShortDescription
+                        </p>
+                        <a asp-action="Detail" asp-controller="Blog" asp-route-id="@blog.Id" class="blog-post_cta">Read More</a>
                     </div>
-                    <h2 class="blog-post_title">Monthly Phone Wallpaper</h2>
-                    <p>
-                        Monthly Phone Wallpaper ✨ New month, new phone wallpaper! 🌜✨ This March, we are bringing
-                        you
-                        the very special Japanese
-                        Sakura season perfect for spring time 🌸✨ Get extra organised and pair with...
-                    </p>
-                    <a href="#" class="blog-post_cta">Read More</a>
-                </div>
-            </article>
-            <article class="blog-post">
-                <div class="blog-post_img">
-                    <img src="https://i.pinimg.com/750x/90/c5/68/90c5684bdf1178887b6147e4289c5ea8.jpg" alt="">
-                </div>
-                <div class="blog-post_info">
-                    <div class="blog-post_date">
-                        <span>Tuesday</span>
-                        <span>2/14/2023</span>
-                    </div>
-                    <h2 class="blog-post_title">Monthly Phone Wallpaper</h2>
-                    <p>
-                        Monthly Phone Wallpaper ✨ New month, new phone wallpaper! 🌜✨ This March, we are bringing
-                        you
-                        the very special Japanese
-                        Sakura season perfect for spring time 🌸✨ Get extra organised and pair with...
-                    </p>
-                    <a href="#" class="blog-post_cta">Read More</a>
-                </div>
-            </article>
-            <article class="blog-post">
-                <div class="blog-post_img">
-                    <img src="https://i.pinimg.com/750x/90/c5/68/90c5684bdf1178887b6147e4289c5ea8.jpg" alt="">
-                </div>
-                <div class="blog-post_info">
-                    <div class="blog-post_date">
-                        <span>Tuesday</span>
-                        <span>2/14/2023</span>
-                    </div>
-                    <h2 class="blog-post_title">Monthly Phone Wallpaper</h2>
-                    <p>
-                        Monthly Phone Wallpaper ✨ New month, new phone wallpaper! 🌜✨ This March, we are bringing
-                        you
-                        the very special Japanese
-                        Sakura season perfect for spring time 🌸✨ Get extra organised and pair with...
-                    </p>
-                    <a href="#" class="blog-post_cta">Read More</a>
-                </div>
-            </article>
-            <article class="blog-post">
-                <div class="blog-post_img">
-                    <img src="https://i.pinimg.com/750x/5b/f3/84/5bf384a078569783ea7aa29749f79d87.jpg" alt="">
-                </div>
-                <div class="blog-post_info">
-                    <div class="blog-post_date">
-                        <span>Tuesday</span>
-                        <span>2/14/2023</span>
-                    </div>
-                    <h2 class="blog-post_title">Monthly Phone Wallpaper</h2>
-                    <p>
-                        Monthly Phone Wallpaper ✨ New month, new phone wallpaper! 🌜✨ This March, we are bringing
-                        you
-                        the very special Japanese
-                        Sakura season perfect for spring time 🌸✨ Get extra organised and pair with...
-                    </p>
-                    <a href="#" class="blog-post_cta">Read More</a>
-                </div>
-            </article>
-
+                </article>
+            }
         </div>
     </section>
 

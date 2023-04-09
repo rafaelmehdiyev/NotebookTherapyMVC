@@ -1,0 +1,26 @@
+﻿@model List<BlogGetDto>
+@foreach (BlogGetDto blog in Model)
+{
+    <div class="post-related d-md-flex mb-5">
+        <div class="related-post_img me-md-5">
+            <img src="~/uploads/blog/@(blog.ImagePath)" class="img-fluid me-md-5" alt="">
+        </div>
+        <div class="related-content">
+            <div class="info">
+                <p class="by my-3">
+                    Notebook Therapy
+                    <span>— @blog.CreatedDate.ToString("MMMM d,yyyy")</span>
+                </p>
+            </div>
+            <a asp-action="Detail" asp-controller="Blog" asp-route-id="@blog.Id">
+                <h3>@blog.Title</h3>
+            </a>
+            <p class="desc my-2">
+                @blog.ShortDescription
+            </p>
+            <a asp-action="Detail" asp-controller="Blog" asp-route-id="@blog.Id">
+                <p class="mt-3 more">See More</p>
+            </a>
+        </div>
+    </div>
+}

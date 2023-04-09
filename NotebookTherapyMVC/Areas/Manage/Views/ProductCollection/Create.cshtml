@@ -30,7 +30,6 @@
             <div class="card-header card-header-border-bottom">
                 <h2>Add Collection</h2>
             </div>
-
             <div class="card-body">
                 <form class="row ec-vendor-uploads" asp-controller="ProductCollection" asp-action="Create" enctype="multipart/form-data">
                     <div class="col-lg-8">
@@ -45,17 +44,14 @@
                                                 <label asp-for="CollectionHeaderImage">
                                                     <img src="~/Manage/assets/img/icons/edit.svg" class="svg_img header_svg" alt="edit">
                                                 </label>
-
                                             </div>
                                             <div class="thumb-preview ec-preview">
                                                 <div class="image-thumb-preview">
                                                     <img class="image-thumb-preview ec-image-preview" src="~/Manage/assets/img/products/vender-upload-thumb-preview.jpg" alt="edit">
                                                 </div>
                                             </div>
-
                                         </div>
-                                    <span class="text-danger  spanText" asp-validation-for="CollectionHeaderImage"></span>
-
+                                        <span class="text-danger  spanText" asp-validation-for="CollectionHeaderImage"></span>
                                     </div>
                                     <div class="thumb-upload">
                                         <h5 class="text-center">Footer Image</h5>
@@ -65,7 +61,6 @@
                                                 <label asp-for="CollectionFooterImage">
                                                     <img src="~/Manage/assets/img/icons/edit.svg" class="svg_img header_svg" alt="edit">
                                                 </label>
-
                                             </div>
                                             <div class="thumb-preview ec-preview">
                                                 <div class="image-thumb-preview">
@@ -73,8 +68,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    <span class="text-danger spanText" asp-validation-for="CollectionFooterImage"></span>
-
+                                        <span class="text-danger spanText" asp-validation-for="CollectionFooterImage"></span>
                                     </div>
                                     <div class="thumb-upload">
                                         <h5 class="text-center">Item Background Image</h5>
@@ -84,18 +78,14 @@
                                                 <label asp-for="CollectionItemBackgroundImage">
                                                     <img src="~/Manage/assets/img/icons/edit.svg" class="svg_img header_svg" alt="edit">
                                                 </label>
-
-
                                             </div>
-
                                             <div class="thumb-preview ec-preview">
                                                 <div class="image-thumb-preview">
                                                     <img class="image-thumb-preview ec-image-preview" src="~/Manage/assets/img/products/vender-upload-thumb-preview.jpg" alt="edit">
                                                 </div>
                                             </div>
                                         </div>
-                                    <span class="text-danger spanText" asp-validation-for="CollectionItemBackgroundImage"></span>
-
+                                        <span class="text-danger spanText" asp-validation-for="CollectionItemBackgroundImage"></span>
                                     </div>
                                 </div>
                             </div>
@@ -108,30 +98,26 @@
                                     <label asp-for="Name" class="form-label">Collection name</label>
                                     <input asp-for="Name" type="text" class="form-control">
                                     <span class="text-danger spanText" asp-validation-for="Name"></span>
-
                                 </div>
                                 <div class="col-md-4">
                                     <label asp-for="CollectionColor" class="col-12 col-form-label">Main Color</label>
                                     <div class="col-12">
                                         <input asp-for="CollectionColor" class="form-control p-0 here" type="color">
-                                    <span class="text-danger spanText" asp-validation-for="CollectionColor"></span>
-
+                                        <span class="text-danger spanText" asp-validation-for="CollectionColor"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <label asp-for="CollectionItemColor" class="col-12 col-form-label">Item Color</label>
                                     <div class="col-12">
                                         <input asp-for="CollectionItemColor" class="form-control p-0 here" type="color">
-                                    <span class="text-danger spanText" asp-validation-for="CollectionItemColor"></span>
-
+                                        <span class="text-danger spanText" asp-validation-for="CollectionItemColor"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <label asp-for="CollectionButtonColor" class="col-12 col-form-label">Button Color</label>
                                     <div class="col-12">
                                         <input asp-for="CollectionButtonColor" class="form-control p-0 here" type="color">
-                                    <span class="text-danger spanText" asp-validation-for="CollectionButtonColor"></span>
-
+                                        <span class="text-danger spanText" asp-validation-for="CollectionButtonColor"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mt-3">

@@ -131,6 +131,7 @@ window.onresize = function () {
         minusSlide = 1;
     }
 
+    widthOfBody = document.body.clientWidth
     slider.style.left = 0;
     counter = 0;
 

@@ -1,52 +1,81 @@
-﻿@{
-	ViewData["Title"] = "Blog";
+﻿@model BlogPostDto
+@{
+    ViewData["Title"] = "Blog";
 }
-@model BlogPostDto
+@section Links{
+    <link href="~/assets/libs/summernote/summernote-lite.css" rel="stylesheet" />
+}
+@section Scripts{
+    <script src="~/assets/libs/summernote/summernote-lite.js"></script>
+    <script>
+        $("#Content").summernote();
+    </script>
+}
 <div class="breadcrumb-wrapper d-flex align-items-center justify-content-between">
-	<div>
-		<h1>Add Blog</h1>
-		<p class="breadcrumbs">
-			<span><a href="index.html">Home</a></span>
-			<span><i class="mdi mdi-chevron-right"></i></span>Blogs
-		</p>
-	</div>
-	<div>
-		<a asp-action="Index" asp-controller="Blog" class="btn btn-primary">
-			Return to all Blogs
-		</a>
-	</div>
+    <div>
+        <h1>Add Blog</h1>
+        <p class="breadcrumbs">
+            <span><a href="index.html">Home</a></span>
+            <span><i class="mdi mdi-chevron-right"></i></span>Blogs
+        </p>
+    </div>
+    <div>
+        <a asp-action="Index" asp-controller="Blog" class="btn btn-primary">
+            Return to all Blogs
+        </a>
+    </div>
 </div>
 <div class="row">
-	<div class="col-12">
-		<div class="card card-default">
-			<div class="card-header card-header-border-bottom">
-				<h2>Add Blog</h2>
-			</div>
-			<div class="card-body">
-				<div class="row ec-vendor-uploads">
-					<div class="col-lg-12">
-						<div class="ec-vendor-upload-detail">
-							<form class="row g-3" asp-action="Create" asp-controller="Blog">
-								<div class="col-md-12">
-									<label asp-for="Title" class="form-label">Blog Title</label>
-									<input asp-for="Title" class="form-control">
+    <div class="col-12">
+        <div class="card card-default">
+            <div class="card-header card-header-border-bottom">
+                <h2>Add Blog</h2>
+            </div>
+            <div class="card-body">
+                <form class="row ec-vendor-uploads" asp-action="Create" asp-controller="Blog" enctype="multipart/form-data">
+                    <div class="col-lg-4">
+                        <div class="ec-vendor-img-upload">
+                            <div class="ec-vendor-main-img">
+                                <div class="avatar-upload">
+                                    <div class="avatar-edit">
+                                        <input type="file" asp-for="Image" class="ec-image-upload">
+                                        <label asp-for="Image"><img src="~/Manage/assets/img/icons/edit.svg" class="svg_img header_svg" alt="edit"></label>
+                                    </div>
+                                    <div class="avatar-preview ec-preview">
+                                        <div class="imagePreview ec-div-preview">
+                                            <img class="ec-image-preview" src="~/Manage/assets/img/products/vender-upload-preview.jpg" alt="edit">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="ec-vendor-upload-detail">
+                            <div class="row g-3">
+                                <div class="col-md-12">
+                                    <label asp-for="Title" class="form-label">Blog Title</label>
+                                    <input asp-for="Title" class="form-control">
                                     <span class="text-danger spanText" asp-validation-for="Title"></span>
-
-								</div>
-								<div class="col-md-12">
-									<label asp-for="Content" class="form-label">Content</label>
-									<textarea asp-for="Content" class="form-control" rows="2"></textarea>
+                                </div>
+                                <div class="col-md-12">
+                                    <label asp-for="ShortDescription" class="form-label">Short Description</label>
+                                    <textarea asp-for="ShortDescription" class="form-control" rows="2"></textarea>
+                                    <span class="text-danger spanText" asp-validation-for="ShortDescription"></span>
+                                </div>
+                                <div class="col-md-12">
+                                    <label asp-for="Content" class="form-label">Content</label>
+                                    <textarea asp-for="Content" class="form-control" rows="2"></textarea>
                                     <span class="text-danger spanText" asp-validation-for="Content"></span>
-
-								</div>
-								<div class="col-md-12">
-									<button type="submit" class="btn btn-primary">Submit</button>
-								</div>
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                                </div>
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
