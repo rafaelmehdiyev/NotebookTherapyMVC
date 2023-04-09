@@ -1,4 +1,4 @@
-﻿@model IDataResult<List<RoleGetDto>>
+﻿@model List<RoleGetDto>
 <table id="responsive-data-table" class="table">
     <thead>
         <tr>
@@ -9,22 +9,22 @@
         </tr>
     </thead>
     <tbody>
-        @for (int i = 0; i < Model.Data.Count; i++)
+        @for (int i = 0; i < Model.Count; i++)
         {
             <tr>
                 <td>@(i + 1)</td>
-                <td>@Model.Data[i].Name</td>
-                <td>@Model.Data[i].Users.Count</td>
+                <td>@Model[i].Name</td>
+                <td>@Model[i].Users.Count</td>
                 <td>
                     <div class="btn-group">
-                        <button asp-action="Get" asp-controller="Role" asp-route-id="@Model.Data[i].Id" type="button" class="btn btn-outline-success">Info</button>
+                        <button asp-action="Get" asp-controller="Role" asp-route-id="@Model[i].Id" type="button" class="btn btn-outline-success">Info</button>
                         @{
                             <button type="button" class="btn btn-outline-success dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
                                 <span class="sr-only">Info</span>
                             </button>
                             <div class="dropdown-menu">
-                                <a asp-action="Update" asp-controller="Role" asp-route-id="@Model.Data[i].Id" class="dropdown-item">Edit</a>
-                                <a asp-action="Delete" asp-controller="Role" asp-route-id="@Model.Data[i].Id" class="dropdown-item">Delete</a>
+                                <a asp-action="Update" asp-controller="Role" asp-route-id="@Model[i].Id" class="dropdown-item">Edit</a>
+                                <a asp-action="Delete" asp-controller="Role" asp-route-id="@Model[i].Id" class="dropdown-item">Delete</a>
                             </div>
                         }
                     </div>

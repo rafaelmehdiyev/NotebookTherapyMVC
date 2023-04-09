@@ -1,4 +1,4 @@
-﻿@model IDataResult<List<FAQCategoryGetDto>>
+﻿@model List<FAQCategoryGetDto>
 <table id="responsive-data-table" class="table">
     <thead>
         <tr>
@@ -10,7 +10,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (FAQCategoryGetDto faqCategory in Model.Data)
+        @foreach (FAQCategoryGetDto faqCategory in Model)
         {
             <tr>
                 <td>@faqCategory.Id</td>

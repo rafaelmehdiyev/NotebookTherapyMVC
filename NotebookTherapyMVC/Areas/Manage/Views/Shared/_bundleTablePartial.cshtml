@@ -1,4 +1,4 @@
-﻿@model IDataResult<List<SizeGetDto>>
+﻿@model List<BundleGetDto>
 <table id="responsive-data-table" class="table">
 	<thead>
 		<tr>
@@ -9,14 +9,14 @@
 		</tr>
 	</thead>
 	<tbody>
-		@foreach (SizeGetDto size in Model.Data)
+		@foreach (BundleGetDto bundle in Model)
 		{
 			<tr>
-				<td>@size.Id</td>
-				<td>@size.Name</td>
+				<td>@bundle.Id</td>
+				<td>@bundle.Name</td>
 				<td>
 					@{
-						if (size.isDeleted)
+						if (bundle.isDeleted)
 						{
 							@:<span class="badge badge-danger">Inactive</span>
 						}
@@ -28,23 +28,23 @@
 				</td>
 				<td>
 					<div class="btn-group">
-						<button asp-action="Get" asp-controller="Size" asp-route-id="@size.Id" type="button" class="btn btn-outline-success">Info</button>
+						<a asp-action="Get" asp-controller="Bundle" asp-route-id="@bundle.Id" type="button" class="btn btn-outline-success">Info</a>
 						@{
 							<button type="button" class="btn btn-outline-success dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
 								<span class="sr-only">Info</span>
 							</button>
-							if (!size.isDeleted)
+							if (!bundle.isDeleted)
 							{
 								<div class="dropdown-menu">
-									<a asp-action="Update" asp-controller="Size" asp-route-id="@size.Id" class="dropdown-item">Edit</a>
-									<a asp-action="Delete" asp-controller="Size" asp-route-id="@size.Id" class="dropdown-item">Delete</a>
+									<a asp-action="Update" asp-controller="Bundle" asp-route-id="@bundle.Id" class="dropdown-item">Edit</a>
+									<a asp-action="Delete" asp-controller="Bundle" asp-route-id="@bundle.Id" class="dropdown-item">Delete</a>
 								</div>
 							}
 							else
 							{
 								<div class="dropdown-menu">
-									<a asp-action="Recover" asp-controller="Size" asp-route-id="@size.Id" class="dropdown-item">Recover</a>
-									<a asp-action="HardDelete" asp-controller="Size" asp-route-id="@size.Id" class="dropdown-item">Permamently Delete</a>
+									<a asp-action="Recover" asp-controller="Bundle" asp-route-id="@bundle.Id" class="dropdown-item">Recover</a>
+									<a asp-action="HardDelete" asp-controller="Bundle" asp-route-id="@bundle.Id" class="dropdown-item">Permamently Delete</a>
 								</div>
 							}
 						}

@@ -13,27 +13,22 @@ public class CategoryController : Controller
 		_mapper = mapper;
 	}
 
-	[HttpGet]
-	public async Task<IActionResult> Get(int id)
-	{
-		
-		IDataResult<CategoryGetDto> result = await _categoryService.GetByIdAsync(id,Includes.CategoryIncludes);
-
-		return View(result);
-
-	}
 	public async Task<IActionResult> Index()
 	{
 		IDataResult<List<CategoryGetDto>> result = await _categoryService.GetAllAsync(true, Includes.CategoryIncludes);
 		return View(result);
 	}
+    [HttpGet]
+    public async Task<IActionResult> Get(int id)
+    {
+        IDataResult<CategoryGetDto> result = await _categoryService.GetByIdAsync(id, Includes.CategoryIncludes);
+        return View(result);
+    }
 
-	[HttpGet]
+    [HttpGet]
 	public async Task<IActionResult> Create()
 	{
-
 		return View();
-
 	}
 
 	[HttpPost]

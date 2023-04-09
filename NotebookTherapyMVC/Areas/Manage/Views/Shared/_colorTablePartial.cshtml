@@ -1,4 +1,4 @@
-﻿@model IDataResult<List<ColorGetDto>>
+﻿@model List<ColorGetDto>
 <table id="responsive-data-table" class="table">
     <thead>
         <tr>
@@ -10,7 +10,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (ColorGetDto color in Model.Data)
+        @foreach (ColorGetDto color in Model)
         {
             <tr>
                 <td>@color.Id</td>

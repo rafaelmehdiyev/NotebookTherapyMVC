@@ -1,4 +1,4 @@
-﻿@model IDataResult<List<ProductCollectionGetDto>>
+﻿@model List<ProductCollectionGetDto>
 <table id="responsive-data-table" class="table">
 	<thead>
 		<tr>
@@ -15,7 +15,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		@foreach (ProductCollectionGetDto collection in Model.Data)
+		@foreach (ProductCollectionGetDto collection in Model)
 		{
 			<tr>
 				<td>@collection.Id</td>
