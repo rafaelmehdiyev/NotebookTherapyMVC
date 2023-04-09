@@ -1,5 +1,19 @@
 @import url(core.css);
 
+body {
+    position: relative;
+}
+
+.overlay::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0, 0, 0, 0.3);
+    z-index: 999;
+    transition: 0.5s;
+}
+
 header {
     position: fixed;
     top: 0;
@@ -16,17 +30,17 @@ header {
     padding: 2rem 2rem 0 2rem;
 }
 
-header .icons i {
+.icons i {
     font-size: 22px;
     margin-right: 0.2rem;
 }
 
-header .icons span {
+.icons span {
     font-size: var(--font_size);
 }
 
-header .icons a:hover,
-header .icons a:active {
+.icons a:hover,
+.icons a:active {
     color: #000;
 }
 
@@ -42,6 +56,7 @@ header .icons a:active {
 }
 
 nav {
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -54,7 +69,7 @@ nav {
     transition: all 0.3s;
 }
 
-.navbar_responsive{
+.navbar_responsive {
     width: 100%;
     justify-content: space-between;
     padding: 0 2rem;
@@ -67,8 +82,8 @@ nav {
 }
 
 .toggle_menu,
-.close_menu{
-        cursor: pointer;
+.close_menu {
+    cursor: pointer;
 }
 
 .nav_list {
@@ -88,24 +103,24 @@ nav {
     color: #544756;
 }
 
-.nav_link::before {
-    content: '';
-    position: absolute;
-    width: 0%;
-    bottom: -20%;
-    height: 0.5px;
-    background-color: #db246d;
-    transition: 0.3s ease;
-}
+    .nav_link::before {
+        content: '';
+        position: absolute;
+        width: 0%;
+        bottom: -20%;
+        height: 0.5px;
+        background-color: #db246d;
+        transition: 0.3s ease;
+    }
 
-.nav_link:hover::before {
-    width: 100%;
-}
+    .nav_link:hover::before {
+        width: 100%;
+    }
 
-.nav_link:hover {
-    color: var(--darkest_pink);
-    /* color: #a92ec8; */
-}
+    .nav_link:hover {
+        color: var(--darkest_pink);
+        /* color: #a92ec8; */
+    }
 
 .dropdown_icon {
     font-size: 0.7rem;
@@ -157,9 +172,9 @@ nav {
     color: #000;
 }
 
-.megamenu_link a:hover {
-    color: var(--darker_pink);
-}
+    .megamenu_link a:hover {
+        color: var(--darker_pink);
+    }
 
 .megamenu_link p {
     font-size: 0.6875rem;
@@ -177,6 +192,95 @@ nav {
     transition: all 0.3s ease;
 }
 
-.overlap{
+.overlap {
     height: 8rem;
+}
+
+@media (max-width: 1200px) {
+    .logo img {
+        width: 170px;
+    }
+
+    nav {
+        height: 4rem;
+    }
+
+    #navbar {
+        display: none;
+    }
+
+    .navbar_responsive {
+        display: flex !important;
+    }
+
+    .overlap {
+        height: 4rem;
+    }
+
+    .megamenu {
+        flex-direction: column;
+        position: static;
+        box-shadow: none;
+        border-radius: 0;
+        height: 0;
+        max-width: 350px;
+        overflow: hidden;
+    }
+
+        .megamenu.open {
+            height: 100%;
+        }
+
+    .nav_list {
+        position: absolute;
+        z-index: 1001;
+        height: 100vh;
+        width: 100%;
+        left: -100%;
+        max-width: 350px;
+        top: 0;
+        background-color: #fff;
+        flex-direction: column;
+        overflow-x: hidden;
+        display: block;
+        transition: 1s;
+    }
+
+    .toggle_menu,
+    .close_menu {
+        display: block;
+    }
+
+        .toggle_menu i:hover {
+            color: #a92ec8;
+        }
+
+    .close_menu {
+        margin: 1rem 1rem 1rem auto;
+        background-color: #a92ec8;
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        text-align: center;
+    }
+
+        .close_menu:hover {
+            color: #632e70;
+        }
+
+        .close_menu i {
+            line-height: 32px;
+            color: #fff;
+            font-size: 22px;
+        }
+
+    .show_menu {
+        left: 0;
+    }
+}
+
+@media (max-width: 576px) {
+    .navbar_responsive {
+        padding: 0rem;
+    }
 }
