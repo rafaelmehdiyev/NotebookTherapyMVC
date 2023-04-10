@@ -76,6 +76,15 @@
     .blog h1 {
         font-size: 24px;
     }
+
+    .tabs-box .tab {
+        font-size: 0.8rem;
+        padding: 8px 20px;
+    }
+
+    .contact {
+        flex-direction: column;
+    }
 }
 
 @media (max-width: 576px) {
