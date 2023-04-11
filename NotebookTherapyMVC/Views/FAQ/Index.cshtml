@@ -7,21 +7,15 @@
 @section Scripts{
     <script src="~/assets/js/faq.js"></script>
 }
+@model IDataResult<List<FAQCategoryGetDto>>
 <section>
     <div class="wrapper">
         <div class="icon"><i id="left" class="fa-solid fa-angle-left"></i></div>
         <ul class="tabs tabs-box">
-            <li class="tab">Coding</li>
-            <li class="tab active">JavaScript</li>
-            <li class="tab">Podcasts</li>
-            <li class="tab">Databases</li>
-            <li class="tab">Web Development</li>
-            <li class="tab">Unboxing</li>
-            <li class="tab">History</li>
-            <li class="tab">Programming</li>
-            <li class="tab">Gadgets</li>
-            <li class="tab">Algorithms</li>
-            <li class="tab">Comedy</li>
+            @foreach (FAQCategoryGetDto category in Model.Data)
+            {
+                <li class="tab">@category.Name</li>
+            }
         </ul>
 
         <div class="icon"><i id="right" class="fa-solid fa-angle-right"></i></div>
@@ -29,354 +23,29 @@
 </section>
 
 <div class="containr">
-    <div class="cards active">
-        <div class="questions">
-            <div class="mb-3">
-                <button class="faq_accordion">
-                    <span class="accordion_heading">
-                        Do you ship to my country?
-                    </span>
-                </button>
-                <div class="panel">
-                    <div class="answer">
-                        <p> Yes. We proudly ship worldwide! 🌎 ✅ </p>
 
-                        <p>
-                            We’ve shipped cute stationery free to over 200+ countries and we love adding more to the
-                            list!
-                        </p>
-
-                        <p>Plus you get <u>free worldwide tracked shipping on all orders over $40</u></p>
-
-                        <p> See the next question for detailed shipping times.</p>
+    @for (int i = 0; i < Model.Data.Count; i++)
+    {
+        <div class="cards @(i==0 ? "active" : "")">
+            <div class="questions">
+                @foreach (FAQGetDto faq in Model.Data[i].FAQs.Where(f=>f.isAnswered && !f.isDeleted))
+                {
+                    <div class="mb-3">
+                        <button class="faq_accordion">
+                            <span class="accordion_heading">
+                                @faq.Question
+                            </span>
+                        </button>
+                        <div class="panel">
+                            <div class="answer">
+                                <p>@faq.Answer</p>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="mb-3">
-                <button class="faq_accordion">
-                    <span class="accordion_heading">
-                        How long does shipping take? When will I receive my order?
-                    </span>
-                </button>
-                <div class="panel">
-                    <div class="answer">
-                        <p> Yes. We proudly ship worldwide! 🌎 ✅ </p>
-
-                        <p>
-                            We’ve shipped cute stationery free to over 200+ countries and we love adding more to the
-                            list!
-                        </p>
-
-                        <p>Plus you get <u>free worldwide tracked shipping on all orders over $40</u></p>
-
-                        <p> See the next question for detailed shipping times.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="mb-3">
-                <button class="faq_accordion">
-                    <span class="accordion_heading">
-                        Do you ship to my country?
-                    </span>
-                </button>
-                <div class="panel">
-                    <div class="answer">
-                        <p> Yes. We proudly ship worldwide! 🌎 ✅ </p>
-
-                        <p>
-                            We’ve shipped cute stationery free to over 200+ countries and we love adding more to the
-                            list!
-                        </p>
-
-                        <p>Plus you get <u>free worldwide tracked shipping on all orders over $40</u></p>
-
-                        <p> See the next question for detailed shipping times.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="mb-3">
-                <button class="faq_accordion">
-                    <span class="accordion_heading">
-                        Do you ship to my country?
-                    </span>
-                </button>
-                <div class="panel">
-                    <div class="answer">
-                        <p> Yes. We proudly ship worldwide! 🌎 ✅ </p>
-
-                        <p>
-                            We’ve shipped cute stationery free to over 200+ countries and we love adding more to the
-                            list!
-                        </p>
-
-                        <p>Plus you get <u>free worldwide tracked shipping on all orders over $40</u></p>
-
-                        <p> See the next question for detailed shipping times.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="mb-3">
-                <button class="faq_accordion">
-                    <span class="accordion_heading">
-                        Do you ship to my country?
-                    </span>
-                </button>
-                <div class="panel">
-                    <div class="answer">
-                        <p> Yes. We proudly ship worldwide! 🌎 ✅ </p>
-
-                        <p>
-                            We’ve shipped cute stationery free to over 200+ countries and we love adding more to the
-                            list!
-                        </p>
-
-                        <p>Plus you get <u>free worldwide tracked shipping on all orders over $40</u></p>
-
-                        <p> See the next question for detailed shipping times.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="mb-3">
-                <button class="faq_accordion">
-                    <span class="accordion_heading">
-                        Do you ship to my country?
-                    </span>
-                </button>
-                <div class="panel">
-                    <div class="answer">
-                        <p> Yes. We proudly ship worldwide! 🌎 ✅ </p>
-
-                        <p>
-                            We’ve shipped cute stationery free to over 200+ countries and we love adding more to the
-                            list!
-                        </p>
-
-                        <p>Plus you get <u>free worldwide tracked shipping on all orders over $40</u></p>
-
-                        <p> See the next question for detailed shipping times.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="mb-3">
-                <button class="faq_accordion">
-                    <span class="accordion_heading">
-                        Do you ship to my country?
-                    </span>
-                </button>
-                <div class="panel">
-                    <div class="answer">
-                        <p> Yes. We proudly ship worldwide! 🌎 ✅ </p>
-
-                        <p>
-                            We’ve shipped cute stationery free to over 200+ countries and we love adding more to the
-                            list!
-                        </p>
-
-                        <p>Plus you get <u>free worldwide tracked shipping on all orders over $40</u></p>
-
-                        <p> See the next question for detailed shipping times.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="mb-3">
-                <button class="faq_accordion">
-                    <span class="accordion_heading">
-                        Do you ship to my country?
-                    </span>
-                </button>
-                <div class="panel">
-                    <div class="answer">
-                        <p> Yes. We proudly ship worldwide! 🌎 ✅ </p>
-
-                        <p>
-                            We’ve shipped cute stationery free to over 200+ countries and we love adding more to the
-                            list!
-                        </p>
-
-                        <p>Plus you get <u>free worldwide tracked shipping on all orders over $40</u></p>
-
-                        <p> See the next question for detailed shipping times.</p>
-                    </div>
-                </div>
+                }
             </div>
         </div>
-    </div>
-    <div class="cards">
-        <div class="questions">
-            <div class="mb-3">
-                <button class="faq_accordion">
-                    <span class="accordion_heading">
-                        Do you ship to my country?
-                    </span>
-                </button>
-                <div class="panel">
-                    <div class="answer">
-                        <p> Yes. We proudly ship worldwide! 🌎 ✅ </p>
-
-                        <p>
-                            We’ve shipped cute stationery free to over 200+ countries and we love adding more to the
-                            list!
-                        </p>
-
-                        <p>Plus you get <u>free worldwide tracked shipping on all orders over $40</u></p>
-
-                        <p> See the next question for detailed shipping times.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="mb-3">
-                <button class="faq_accordion">
-                    <span class="accordion_heading">
-                        Do you ship to my country?
-                    </span>
-                </button>
-                <div class="panel">
-                    <div class="answer">
-                        <p> Yes. We proudly ship worldwide! 🌎 ✅ </p>
-
-                        <p>
-                            We’ve shipped cute stationery free to over 200+ countries and we love adding more to the
-                            list!
-                        </p>
-
-                        <p>Plus you get <u>free worldwide tracked shipping on all orders over $40</u></p>
-
-                        <p> See the next question for detailed shipping times.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="mb-3">
-                <button class="faq_accordion">
-                    <span class="accordion_heading">
-                        Do you ship to my country?
-                    </span>
-                </button>
-                <div class="panel">
-                    <div class="answer">
-                        <p> Yes. We proudly ship worldwide! 🌎 ✅ </p>
-
-                        <p>
-                            We’ve shipped cute stationery free to over 200+ countries and we love adding more to the
-                            list!
-                        </p>
-
-                        <p>Plus you get <u>free worldwide tracked shipping on all orders over $40</u></p>
-
-                        <p> See the next question for detailed shipping times.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="mb-3">
-                <button class="faq_accordion">
-                    <span class="accordion_heading">
-                        Do you ship to my country?
-                    </span>
-                </button>
-                <div class="panel">
-                    <div class="answer">
-                        <p> Yes. We proudly ship worldwide! 🌎 ✅ </p>
-
-                        <p>
-                            We’ve shipped cute stationery free to over 200+ countries and we love adding more to the
-                            list!
-                        </p>
-
-                        <p>Plus you get <u>free worldwide tracked shipping on all orders over $40</u></p>
-
-                        <p> See the next question for detailed shipping times.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="cards">
-        <div class="questions">
-            <div class="mb-3">
-                <button class="faq_accordion">
-                    <span class="accordion_heading">
-                        Do you ship to my country?
-                    </span>
-                </button>
-                <div class="panel">
-                    <div class="answer">
-                        <p> Yes. We proudly ship worldwide! 🌎 ✅ </p>
-
-                        <p>
-                            We’ve shipped cute stationery free to over 200+ countries and we love adding more to the
-                            list!
-                        </p>
-
-                        <p>Plus you get <u>free worldwide tracked shipping on all orders over $40</u></p>
-
-                        <p> See the next question for detailed shipping times.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="mb-3">
-                <button class="faq_accordion">
-                    <span class="accordion_heading">
-                        Do you ship to my country?
-                    </span>
-                </button>
-                <div class="panel">
-                    <div class="answer">
-                        <p> Yes. We proudly ship worldwide! 🌎 ✅ </p>
-
-                        <p>
-                            We’ve shipped cute stationery free to over 200+ countries and we love adding more to the
-                            list!
-                        </p>
-
-                        <p>Plus you get <u>free worldwide tracked shipping on all orders over $40</u></p>
-
-                        <p> See the next question for detailed shipping times.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="mb-3">
-                <button class="faq_accordion">
-                    <span class="accordion_heading">
-                        Do you ship to my country?
-                    </span>
-                </button>
-                <div class="panel">
-                    <div class="answer">
-                        <p> Yes. We proudly ship worldwide! 🌎 ✅ </p>
-
-                        <p>
-                            We’ve shipped cute stationery free to over 200+ countries and we love adding more to the
-                            list!
-                        </p>
-
-                        <p>Plus you get <u>free worldwide tracked shipping on all orders over $40</u></p>
-
-                        <p> See the next question for detailed shipping times.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="mb-3">
-                <button class="faq_accordion">
-                    <span class="accordion_heading">
-                        Do you ship to my country?
-                    </span>
-                </button>
-                <div class="panel">
-                    <div class="answer">
-                        <p> Yes. We proudly ship worldwide! 🌎 ✅ </p>
-
-                        <p>
-                            We’ve shipped cute stationery free to over 200+ countries and we love adding more to the
-                            list!
-                        </p>
-
-                        <p>Plus you get <u>free worldwide tracked shipping on all orders over $40</u></p>
-
-                        <p> See the next question for detailed shipping times.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    }
 </div>
 <div class="containr">
     <div class="row">
