@@ -17,6 +17,7 @@ public class BlogController : Controller
     public async Task<IActionResult> Detail(int id)
     {
         IDataResult<BlogGetDto> result = await _blogService.GetByIdAsync(id);
+        await _blogService.IncreaseViewCount(id);
         return View(result);
     }
     public async Task<IActionResult> GetPaginate(int page,int size)

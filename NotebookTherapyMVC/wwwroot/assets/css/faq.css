@@ -1,0 +1,248 @@
+﻿@import url("root.css");
+@import url("core.css");
+
+p {
+    margin-bottom: 1rem !important;
+}
+
+.containr {
+    padding: 0 2rem;
+}
+
+section {
+    display: flex;
+    padding: 0 10px;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.wrapper {
+    padding: 35px;
+    position: relative;
+    overflow-x: hidden;
+    max-width: 1000px;
+    background: #fff;
+    border-radius: 13px;
+}
+
+    .wrapper .icon {
+        position: absolute;
+        top: 0;
+        height: 100%;
+        width: 120px;
+        display: flex;
+        align-items: center;
+    }
+
+.icon:first-child {
+    left: 0;
+    display: none;
+    background: linear-gradient(90deg, #fff 50%, transparent);
+}
+
+.icon:last-child {
+    right: 0;
+    justify-content: flex-end;
+    background: linear-gradient(-90deg, #fff 50%, transparent);
+}
+
+.icon i {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    text-align: center;
+    line-height: 50px;
+    border-radius: 50%;
+}
+
+    .icon i:hover {
+        background: #efedfb;
+    }
+
+.icon:first-child i {
+    margin-left: 15px;
+}
+
+.icon:last-child i {
+    margin-right: 15px;
+}
+
+.wrapper .tabs-box {
+    display: flex;
+    gap: 12px;
+    list-style: none;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+.tabs-box.dragging {
+    scroll-behavior: auto;
+    cursor: grab;
+}
+
+.tabs-box .tab {
+    cursor: pointer;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    background: #f5f4fd;
+    padding: 10px 22px;
+    border-radius: 30px;
+    border: 1px solid var(--pink_opaque);
+}
+
+    .tabs-box .tab:hover {
+        background: #efedfb;
+    }
+
+.tabs-box.dragging .tab {
+    user-select: none;
+    pointer-events: none;
+}
+
+.tabs-box .tab.active {
+    color: #fff;
+    background: #b5c0f7;
+    border-color: transparent;
+}
+
+.faq_accordion {
+    background-color: #fafafa;
+    color: #444;
+    cursor: pointer;
+    padding: 12px 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+}
+
+    .faq_accordion.active {
+        background-color: #b5c0f7;
+    }
+
+        .faq_accordion.active .accordion_heading {
+            color: white;
+        }
+
+.accordion_heading {
+    color: #323232;
+    font-weight: 500;
+    font-size: var(--font_size);
+}
+
+    .accordion_heading::before {
+        content: 'Question';
+        display: inline-block;
+        background-color: #b5c0f7;
+        color: #fff;
+        font-size: 11px;
+        font-weight: 500;
+        line-height: 1em;
+        padding: 4px 8px 3px;
+        min-width: 63px;
+        border-radius: 1px;
+        margin-right: 20px;
+        text-align: center;
+    }
+
+.faq_accordion::before {
+    content: 'Show';
+    color: #708090;
+    float: right;
+    margin-left: 5px;
+    font-size: 13px;
+}
+
+.faq_accordion.active::before {
+    content: 'Hide';
+    color: white;
+}
+
+.panel {
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
+
+.answer {
+    font-size: 12px;
+    color: #3c3c3c;
+    margin-top: 2rem;
+}
+
+    .answer::before {
+        content: 'Answer';
+        position: relative;
+        bottom: 10px;
+        background-color: #99d2b9;
+        color: #fff;
+        font-weight: 500;
+        font-size: 11px;
+        padding: 4px 8px 3px;
+        min-width: 63px;
+        border-radius: 1px;
+        margin-right: 20px;
+        text-align: center;
+    }
+
+.cards {
+    display: none;
+}
+
+    .cards.active {
+        display: block;
+        animation: fade 1s ease;
+    }
+
+.text {
+    font-size: 13px;
+    color: #3c3c3c;
+}
+
+    .text a {
+        color: var(--darkest_pink);
+    }
+
+        .text a:hover {
+            color: #3c3c3c;
+        }
+
+.button {
+    width: 200px;
+    padding: 0.4rem 0rem;
+    margin-left: 1rem;
+    text-align: center;
+    line-height: 22px;
+    border-radius: 20px;
+    font-weight: 600;
+    text-transform: capitalize;
+    font-size: 13px;
+    background-color: var(--darker_pink);
+    color: #fff;
+}
+
+    .button:hover,
+    .button:active {
+        background-color: var(--darker_pink);
+        color: #fff;
+        border: none;
+    }
+
+@keyframes fade {
+    from {
+        opacity: 0;
+        margin-top: 2.5rem;
+    }
+
+    to {
+        opacity: 1;
+        margin-top: 0rem;
+    }
+}
