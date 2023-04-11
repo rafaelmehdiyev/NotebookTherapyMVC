@@ -20,7 +20,7 @@ public class ProductCollectionController : Controller
     }
     public async Task<IActionResult> Get(int id)
     {
-        IDataResult<ProductCollectionGetDto> collection = await _productCollectionService.GetByIdAsync(id);
+        IDataResult<ProductCollectionGetDto> collection = await _productCollectionService.GetByIdAsync(id,Includes.ProductCollectionIncludes);
         return View(collection);
     }
     [HttpGet]

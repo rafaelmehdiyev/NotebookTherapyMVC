@@ -1,14 +1,18 @@
-﻿@{
+﻿  
+@{
     ViewData["Title"] = "Get";
+    Layout = "~/Areas/Manage/Views/Shared/_Layout.cshtml";
 }
-@model IDataResult<CategoryGetDto>
+
+
+@model IDataResult<FAQCategoryGetDto>
 
 <div class="row justify-content-center shadow">
     <div class="col-6 p-b-15 ">
         <!-- Recent Order Table -->
         <div class="card card-table-border-none card-default recent-orders" id="recent-orders">
             <div class="card-header justify-content-between">
-                <h2>Category Info</h2>
+                <h2>FAQCategory Info</h2>
             </div>
             @*<div class="card bg-white profile-content">*@
             <div class="row justify-content-center  ">
@@ -33,13 +37,13 @@
                                 <div class="text-center pb-4" id="actionBtn">
 
                                     <h6 class="text-dark pb-2 fontIcon"><i class="fas fa-edit"></i></h6>
-                                    <a id="actionBtn" asp-action="Update" asp-controller="Category" asp-route-id="@Model.Data.Id" class="dropdown-item">Edit</a>
+                                    <a id="actionBtn" asp-action="Update" asp-controller="FAQCategory" asp-route-id="@Model.Data.Id" class="dropdown-item">Edit</a>
                                 </div>
 
                                 <div class="text-center pb-4" id="actionBtn">
                                     <h6 class="text-dark pb-2 fontIcon"><i class="fas fa-trash"></i></h6>
 
-                                    <a id="actionBtn" asp-action="Delete" asp-controller="Category" asp-route-id="@Model.Data.Id" class="dropdown-item">Delete</a>
+                                    <a id="actionBtn" asp-action="Delete" asp-controller="FAQCategory" asp-route-id="@Model.Data.Id" class="dropdown-item">Delete</a>
                                 </div>
                             }
                             else
@@ -47,12 +51,12 @@
                                 <div class="text-center pb-4" id="actionBtn">
 
                                     <h6 class="text-dark pb-2 fontIcon"><i class="fas fa-trash-restore-alt"></i></h6>
-                                    <a id="actionBtn" asp-action="Recover" asp-controller="Category" asp-route-id="@Model.Data.Id" class="dropdown-item">Recover</a>
+                                    <a id="actionBtn" asp-action="Recover" asp-controller="FAQCategory" asp-route-id="@Model.Data.Id" class="dropdown-item">Recover</a>
                                 </div>
 
                                 <div class="text-center pb-4" id="actionBtn">
                                     <h6 class="text-dark pb-2 fontIcon"><i class="fas fa-trash"></i></h6>
-                                    <a id="actionBtn" asp-action="HardDelete" asp-controller="Category" asp-route-id="@Model.Data.Id" class="dropdown-item">Permamently Delete</a>
+                                    <a id="actionBtn" asp-action="HardDelete" asp-controller="FAQCategory" asp-route-id="@Model.Data.Id" class="dropdown-item">Permamently Delete</a>
                                 </div>
                             }
                         </div>
@@ -68,7 +72,7 @@
         <div class="card card-table-border-none card-default recent-orders shadow" id="recent-orders">
 
             <div class="card-header justify-content-between">
-                <h2>Category's Products</h2>
+                <h2>FAQCategorie's FAQS</h2>
             </div>
             <div class="row content-justify-center">
                 <div class="col-lg-12 col-xl-12">
@@ -80,7 +84,7 @@
                                     <div class="row">
                                         <div class="col-xl-12">
                                             <div class="table-responsive">
-                                                <partial name="_productTablePartial" model="Model.Data.Products" />
+                                                <partial name="_faqGetPartial" model="Model.Data.FAQs" />
                                             </div>
                                         </div>
                                     </div>
@@ -92,4 +96,6 @@
             </div>
         </div>
 </div>
+
+
 

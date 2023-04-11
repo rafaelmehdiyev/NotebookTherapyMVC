@@ -14,6 +14,13 @@
         }
 
 
+        [HttpGet]
+        public async Task<IActionResult> Get(int id)
+        {
+            IDataResult<BundleGetDto> result = await _bundleService.GetByIdAsync(id,Includes.BundleIncludes);
+            return View(result);
+        }
+
 
 
         public async Task<IActionResult> Index()

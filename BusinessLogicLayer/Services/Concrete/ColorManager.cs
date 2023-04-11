@@ -14,23 +14,23 @@ public class ColorManager : IColorService
 	#region Get Requests
 	public async Task<IDataResult<List<ColorGetDto>>> GetAllAsync(bool getDeleted, params string[] includes)
     {
-        List<Color> sizes = getDeleted
+        List<Color> colors = getDeleted
             ? await _unitOfWork.ColorRepository.GetAllAsync(includes: includes)
             : await _unitOfWork.ColorRepository.GetAllAsync(b => !b.isDeleted, includes);
-        if (sizes is null)
+        if (colors is null)
         {
             return new ErrorDataResult<List<ColorGetDto>>(Messages.NotFound(Messages.Color));
         }
-        return new SuccessDataResult<List<ColorGetDto>>(_mapper.Map<List<ColorGetDto>>(sizes));
+        return new SuccessDataResult<List<ColorGetDto>>(_mapper.Map<List<ColorGetDto>>(colors));
     }
     public async Task<IDataResult<ColorGetDto>> GetByIdAsync(int id, params string[] includes)
     {
-        Color size = await _unitOfWork.ColorRepository.GetAsync(b => b.Id == id, includes);
-        if (size is null)
+        Color color = await _unitOfWork.ColorRepository.GetAsync(b => b.Id == id, includes);
+        if (color is null)
         {
             return new ErrorDataResult<ColorGetDto>(Messages.NotFound(Messages.Color));
         }
-        return new SuccessDataResult<ColorGetDto>(_mapper.Map<ColorGetDto>(size));
+        return new SuccessDataResult<ColorGetDto>(_mapper.Map<ColorGetDto>(color));
     }
 
 	#endregion

@@ -71,16 +71,4 @@
     </tbody>
 </table>
 
-@*<script>
-    $(".table").on("click", "#infoBtn", function () {
-        var id = $("#blogId").val();
-        $.ajax({
-            url: "@Url.Action("Get", "Blog")",
-            data: { id: id },
-            success: function (data) {
-                $("#modal-contact.modal-dialog").html(data);
-                $("#modal-contact").modal("show");
-            }
-        });
-    });
-</script>*@
+

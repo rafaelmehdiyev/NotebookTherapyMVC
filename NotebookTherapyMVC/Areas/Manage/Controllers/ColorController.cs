@@ -18,6 +18,13 @@
             IDataResult<List<ColorGetDto>> result = await _colorService.GetAllAsync(true);
             return View(result);
         }
+        [HttpGet]
+        public async Task<IActionResult> Get(int id)
+        {
+            IDataResult<ColorGetDto> result = await _colorService.GetByIdAsync(id);
+            return View(result);
+        }
+
 
 
         [HttpGet]

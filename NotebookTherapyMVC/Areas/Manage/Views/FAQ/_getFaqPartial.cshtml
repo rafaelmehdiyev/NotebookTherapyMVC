@@ -1,0 +1,64 @@
+﻿@model IDataResult<FAQGetDto>
+<table class="responsive-data-table table">
+	<thead>
+		<tr>
+			<th>#</th>
+			<th>Question</th>
+			<th>Answer</th>
+			<th>Category</th>
+			<th>Status</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+
+			<tr>
+				<td>@Model.Data.Id</td>
+				<td>@Model.Data.Question</td>
+				<td>@Model.Data.Answer</td>
+				<td>@(
+                        @Model.Data.FAQCategory is not null
+						? @Model.Data.FAQCategory.Name
+                        : "No Category"
+                        )
+				</td>
+				<td>
+					@{
+						if (@Model.Data.isDeleted)
+						{
+							@:<span class="badge badge-danger">Inactive</span>
+						}
+						else
+						{
+							@:<span class="badge badge-success">Active</span>
+						}
+					}
+				</td>
+				<td>
+					<div class="btn-group">
+						<button asp-action="Get" asp-controller="FAQ" asp-route-id="@Model.Data.Id" type="button" class="btn btn-outline-success">Info</button>
+						@{
+							<button type="button" class="btn btn-outline-success dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+								<span class="sr-only">Info</span>
+							</button>
+							if (!@Model.Data.isDeleted)
+							{
+								<div class="dropdown-menu">
+									<a asp-action="Update" asp-controller="FAQ" asp-route-id="@Model.Data.Id" class="dropdown-item">Edit Answer</a>
+									<a asp-action="Delete" asp-controller="FAQ" asp-route-id="@Model.Data.Id" class="dropdown-item">Delete</a>
+								</div>
+							}
+							else
+							{
+								<div class="dropdown-menu">
+									<a asp-action="Recover" asp-controller="FAQ" asp-route-id="@Model.Data.Id" class="dropdown-item">Recover</a>
+									<a asp-action="HardDelete" asp-controller="FAQ" asp-route-id="@Model.Data.Id" class="dropdown-item">Permamently Delete</a>
+								</div>
+							}
+						}
+					</div>
+				</td>
+			</tr>
+		
+	</tbody>
+</table>

@@ -17,6 +17,13 @@ public class FAQCategoryController : Controller
         IDataResult<List<FAQCategoryGetDto>> result = await _faqCategoryService.GetAllAsync(true, Includes.FAQCategoryIncludes);
         return View(result);
     }
+    [HttpGet]
+    public async Task<IActionResult> Get(int id)
+    {
+        IDataResult<FAQCategoryGetDto> result = await _faqCategoryService.GetByIdAsync(id,Includes.FAQCategoryIncludes);
+        return View(result);
+    }
+
 
     [HttpGet]
     public async Task<IActionResult> Create()

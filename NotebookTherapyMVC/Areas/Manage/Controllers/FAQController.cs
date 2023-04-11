@@ -14,6 +14,13 @@ public class FAQController : Controller
         _faqCategoryService = faqCategoryService;
     }
 
+    [HttpGet]
+    public async Task<IActionResult> Get(int id)
+    {
+        IDataResult<FAQGetDto> result = await _faqService.GetByIdAsync(id);
+        return PartialView("_getFaqPartial", result);
+    }
+
     public async Task<IActionResult> Index()
     {
         IDataResult<List<FAQGetDto>> result = await _faqService.GetAllAsync(true, Includes.FAQIncludes);
