@@ -5,300 +5,174 @@
 
 
 @model IDataResult<ProductCollectionGetDto>
-<div class="card-header justify-content-between">
-    <h2>Category Info</h2>
-</div>
 
 <div class="row">
     <div class="col-12">
         <div class="card card-default">
             <div class="card-header card-header-border-bottom">
-                <h2>Product Detail</h2>
+                <h2>Product Collection Detail</h2>
             </div>
-            <div class="card-body product-detail">
-                <div class="row">
-                    <div class="col-xl-4 col-lg-6">
-                        <div class="row">
-                            <div class="single-pro-img">
-                                <div class="single-product-scroll">
-                                    <div class="single-product-cover">
-                                        <div class="single-slide zoom-image-hover">
-                                            <img class="img-responsive"
-                                                 src="assets/img/products/pd_1.jpg" alt="">
-                                        </div>
-                                        <div class="single-slide zoom-image-hover">
-                                            <img class="img-responsive"
-                                                 src="assets/img/products/pd_2.jpg" alt="">
-                                        </div>
-                                        <div class="single-slide zoom-image-hover">
-                                            <img class="img-responsive"
-                                                 src="assets/img/products/pd_3.jpg" alt="">
-                                        </div>
-                                        <div class="single-slide zoom-image-hover">
-                                            <img class="img-responsive"
-                                                 src="assets/img/products/pd_4.jpg" alt="">
-                                        </div>
-                                        <div class="single-slide zoom-image-hover">
-                                            <img class="img-responsive"
-                                                 src="assets/img/products/pd_5.jpg" alt="">
+
+            <div class="card-body">
+                <form class="row ec-vendor-uploads">
+                    <div class="col-lg-8">
+                        <div class="ec-vendor-img-upload">
+                            <div class="ec-vendor-main-img">
+                                <div class="thumb-upload-set colo-md-12">
+                                    <div class="thumb-upload">
+                                        <h5 class="text-center">Header Image</h5>
+                                        <div class="position-relative">
+                                            <div class="thumb-preview ec-preview  justify-content-center d-flex">
+                                                <div class="image-thumb-preview">
+                                                    <img src="~/uploads/productCollection/@Model.Data.CollectionHeaderImage" class="svg_img header_svg">
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
-                                    <div class="single-nav-thumb">
-                                        <div class="single-slide">
-                                            <img class="img-responsive"
-                                                 src="assets/img/products/pd_1.jpg" alt="">
+                                    <div class="thumb-upload">
+                                        <h5 class="text-center">Footer Image</h5>
+                                        <div class="position-relative">
+                                            <div class="thumb-preview ec-preview  justify-content-center d-flex">
+                                                <div class="image-thumb-preview">
+                                                    <img src="~/uploads/productCollection/@Model.Data.CollectionFooterImage" class="svg_img header_svg">
+                                                </div>
+                                            </div>
+
                                         </div>
-                                        <div class="single-slide">
-                                            <img class="img-responsive"
-                                                 src="assets/img/products/pd_2.jpg" alt="">
-                                        </div>
-                                        <div class="single-slide">
-                                            <img class="img-responsive"
-                                                 src="assets/img/products/pd_3.jpg" alt="">
-                                        </div>
-                                        <div class="single-slide">
-                                            <img class="img-responsive"
-                                                 src="assets/img/products/pd_4.jpg" alt="">
-                                        </div>
-                                        <div class="single-slide">
-                                            <img class="img-responsive"
-                                                 src="assets/img/products/pd_5.jpg" alt="">
+                                    </div>
+                                    <div class="thumb-upload">
+                                        <h5 class="text-center">Item Background Image</h5>
+                                        <div class="position-relative">
+                                            <div class="thumb-preview ec-preview  justify-content-center d-flex">
+                                                <div class="image-thumb-preview">
+                                                    <img src="~/uploads/productCollection/@Model.Data.CollectionItemBackgroundImage" class="svg_img header_svg">
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-5 col-lg-6">
-                        <div class="row product-overview">
-                            <div class="col-12">
-                                <h5 class="product-title">@Model.Data.Name</h5>
-                                <div class="ec-ofr">
-                                    <h6>Available offers</h6>
-                                    <ul>
+                    <div class="col-lg-4">
+                        <div class="ec-vendor-upload-detail">
+                            <div class="row g-3">
+                                <div class="col-md-12 d-flex">
+                                    <h4 class="py-2 text-dark">@Model.Data.Name</h4>
+                                    <div class="col-md-12 ml-2 ">
+                                        @if (@Model.Data.isDeleted)
+                                        {
+                                            <span class="badge badge-danger">Inactive</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-success">Active</span>
+                                        }
+                                    </div>
 
-                                        <b>CollectionColor </b>
-                                        <li class="color">
-                                            <span style="background-color:@Model.Data.CollectionColor"></span>
 
-
-                                        </li>
-                                        <li>
-                                            <b>CollectionItemColor </b>
-                                        <li class="color">
-                                            <span style="background-color:@Model.Data.CollectionItemColor"></span>
-                                        </li>
-
-                                        <li>
-                                            <b>CollectionButtonColor </b>
-                                        <li class="color">
-                                            <span style="background-color:@Model.Data.CollectionButtonColor"></span>
-                                        </li>
-
-                                    </ul>
                                 </div>
-                                <ul class="product-color">
-                                    <li class="color">
-                                        <span style="background-color:#90cdf7;"></span>
-                                    </li>
-                                    <li class="color">
-                                        <span style="background-color:#ff3b66;"></span>
-                                    </li>
-                                    <li class="color">
-                                        <span style="background-color:#ffc476;"></span>
-                                    </li>
-                                    <li class="color">
-                                        <span style="background-color:#1af0ba;"></span>
-                                    </li>
-                                    <li class="color">
-                                        <span style="background-color:#f887d6;"></span>
-                                    </li>
-                                </ul>
+                                <div class="col-md-4 justify-content-center">
+                                    <label asp-for="@Model.Data.CollectionColor" class="col-12 col-form-label">Main Color</label>
+                                    <div class="col-12">
+                                        <input asp-for="@Model.Data.CollectionColor" class="form-control p-0 here" type="color" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label asp-for="@Model.Data.CollectionItemColor" class="col-12 col-form-label">Item Color</label>
+                                    <div class="col-12">
+                                        <input asp-for="@Model.Data.CollectionItemColor" class="form-control p-0 here" type="color" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label asp-for="@Model.Data.CollectionButtonColor" class="col-12 col-form-label">Button Color</label>
+                                    <div class="col-12">
+                                        <input asp-for="@Model.Data.CollectionButtonColor" class="form-control p-0 here" type="color" disabled>
+                                    </div>
+                                </div>
 
-                                <div class="product-stock">
-                                    <div class="stock">
-                                        <p class="title">Available</p>
-                                        <p class="text">180</p>
-                                    </div>
-                                    <div class="stock">
-                                        <p class="title">Pending</p>
-                                        <p class="text">50</p>
-                                    </div>
-                                    <div class="stock">
-                                        <p class="title">InOrder</p>
-                                        <p class="text">20</p>
-                                    </div>
+                                <div class="row mt-3">
+                                    @if (!@Model.Data.isDeleted)
+                                    {
+
+                                        <div class="col-xl-4">
+                                            <div class="media widget-media p-3 bg-white border">
+                                                <div class="icon d-flex justify-content-center rounded-circle bg-primary" style="padding:inherit;">
+                                                    <i class="fas fa-edit text-white fontIcon "></i>
+
+                                                </div>
+
+                                                <div class="media-body align-self-center">
+                                                    <a asp-action="Update" asp-controller="ProductCollection" asp-route-id="@Model.Data.Id" class="dropdown-item">Edit</a>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xl-4 d-flex">
+                                            <div class="media widget-media p-3 bg-white border">
+                                                <div class="icon d-flex justify-content-center  rounded-circle bg-warning mr-3" style="padding:inherit;">
+                                                    <i class="fas fa-trash text-white "></i>
+                                                </div>
+
+                                                <div class="media-body align-self-center">
+                                                    <a asp-action="Delete" asp-controller="ProductCollection" asp-route-id="@Model.Data.Id" class="dropdown-item">Delete</a>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    }
+                                    else
+                                    {
+
+                                        <div class="col-xl-4 d-flex">
+                                            <div class="media widget-media p-3 bg-white border">
+                                                <div class="icon d-flex justify-content-center rounded-circle bg-primary" style="padding:inherit;">
+                                                    <i class="fas fa-trash-restore-alt text-white fontIcon "></i>
+
+                                                </div>
+
+                                                <div class="media-body align-self-center">
+                                                    <a asp-action="Recover" asp-controller="ProductCollection" asp-route-id="@Model.Data.Id" class="dropdown-item">Recover</a>
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xl-4 d-flex">
+                                            <div class="media widget-media p-3 bg-white border">
+                                                <div class="icon d-flex justify-content-center rounded-circle  bg-warning mr-3" style="padding:inherit;">
+                                                    <i class="fas fa-trash text-white "></i>
+                                                </div>
+
+                                                <div class="media-body align-self-center">
+                                                    <a asp-action="HardDelete" asp-controller="ProductCollection" asp-route-id="@Model.Data.Id" class="dropdown-item">Permamently Delete</a>
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                </div>
-
+                </form>
             </div>
         </div>
     </div>
 </div>
-<div class="row justify-content-center shadow">
-    <div class="col-6 p-b-15 ">
-        <div class="card card-table-border-none card-default recent-orders" id="recent-orders">
-            <div class="card-header justify-content-between">
-                <h2>Product Collection Info</h2>
-            </div>
-            <div class="row ">
-                <div class="col-lg-12 col-xl-4">
-                    <div class="profile-content-left profile-left-spacing">
-                        <div class="text-center widget-profile px-0 border-0">
-                            <div class="card-body">
-                                <h3 class="py-2 text-dark">@Model.Data.Name</h3>
-                                @if (@Model.Data.isDeleted)
-                                {
-                                    <span class="badge badge-danger">Inactive</span>
-                                }
-                                else
-                                {
-                                    <span class="badge badge-success">Active</span>
-                                }
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-center">
-                            @if (!@Model.Data.isDeleted)
-                            {
-                                <div class="text-center pb-4" id="actionBtn">
-
-                                    <h6 class="text-dark pb-2 fontIcon"><i class="fas fa-edit"></i></h6>
-                                    <a id="actionBtn" asp-action="Update" asp-controller="Category" asp-route-id="@Model.Data.Id" class="dropdown-item">Edit</a>
-                                </div>
-
-                                <div class="text-center pb-4" id="actionBtn">
-                                    <h6 class="text-dark pb-2 fontIcon"><i class="fas fa-trash"></i></h6>
-
-                                    <a id="actionBtn" asp-action="Delete" asp-controller="Category" asp-route-id="@Model.Data.Id" class="dropdown-item">Delete</a>
-                                </div>
-                            }
-                            else
-                            {
-                                <div class="text-center pb-4" id="actionBtn">
-
-                                    <h6 class="text-dark pb-2 fontIcon"><i class="fas fa-trash-restore-alt"></i></h6>
-                                    <a id="actionBtn" asp-action="Recover" asp-controller="Category" asp-route-id="@Model.Data.Id" class="dropdown-item">Recover</a>
-                                </div>
-
-                                <div class="text-center pb-4" id="actionBtn">
-                                    <h6 class="text-dark pb-2 fontIcon"><i class="fas fa-trash"></i></h6>
-                                    <a id="actionBtn" asp-action="HardDelete" asp-controller="Category" asp-route-id="@Model.Data.Id" class="dropdown-item">Permamently Delete</a>
-                                </div>
-                            }
-                        </div>
-                    </div>
-                </div>
-
-
-            </div>
-            <div class="card card-table-border-none card-default recent-orders shadow" id="recent-orders">
-
-                <div class="card-header justify-content-between">
-                    <h2>Category's Products</h2>
-                </div>
-                <div class="row content-justify-center">
-                    <div class="col-lg-12 col-xl-12">
-                        <div class="profile-content-right profile-right-spacing py-5">
-                            <div class="tab-content px-3 px-xl-5" id="myTabContent">
-                                <div class="tab-pane fade show active" id="profile" role="tabpanel"
-                                     aria-labelledby="profile-tab">
-                                    <div class="tab-widget mt-5">
-                                        <div class="row">
-                                            <div class="col-xl-12">
-                                                <div class="table-responsive">
-                                                    <partial name="_productTablePartial" model="Model.Data.Products" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <table id="responsive-data-table" class="table">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Title</th>
-                    <th>CollectionHeaderImage</th>
-                    <th>CollectionItemBackgroundImage</th>
-                    <th>CollectionFooterImage</th>
-                    <th>CollectionColor</th>
-                    <th>CollectionItemColor</th>
-                    <th>CollectionButtonColor</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>@Model.Data.Id</td>
-                    <td>@Model.Data.Name</td>
-                    <td class="text-center">
-                        <img class="img-fluid" style="max-height:100px" src="~/uploads/productCollection/@(@Model.Data.CollectionHeaderImage)" alt="Header">
-                    </td>
-                    <td class="text-center">
-                        <img class="img-fluid" style="max-height:100px" src="~/uploads/productCollection/@(Model.Data.CollectionItemBackgroundImage)" alt="Item">
-                    </td>
-                    <td class="text-center">
-                        <img class="img-fluid" style="max-height:100px" src="~/uploads/productCollection/@(Model.Data.CollectionFooterImage)" alt="Footer">
-                    </td>
-                    <td style="background-color:@Model.Data.CollectionColor"></td>
-                    <td style="background-color:@Model.Data.CollectionItemColor"></td>
-                    <td style="background-color:@Model.Data.CollectionButtonColor"></td>
-                    <td>
-                        @{
-                            if (@Model.Data.isDeleted)
-                            {
-                                @:<span class="badge badge-danger">Inactive</span>
-                            }
-                            else
-                            {
-                                @:<span class="badge badge-success">Active</span>
-                            }
-                        }
-                    </td>
-                    <td>
-                        <div class="btn-group">
-                            <button asp-action="Get" asp-controller="ProductCollection" asp-route-id="@Model.Data.Id" type="button" class="btn btn-outline-success">Info</button>
-                            @{
-                                <button type="button" class="btn btn-outline-success dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
-                                    <span class="sr-only">Info</span>
-                                </button>
-                                if (!@Model.Data.isDeleted)
-                                {
-                                    <div class="dropdown-menu">
-                                        <a asp-action="Update" asp-controller="ProductCollection" asp-route-id="@Model.Data.Id" class="dropdown-item">Edit</a>
-                                        <a asp-action="Delete" asp-controller="ProductCollection" asp-route-id="@Model.Data.Id" class="dropdown-item">Delete</a>
-                                    </div>
-                                }
-                                else
-                                {
-                                    <div class="dropdown-menu">
-                                        <a asp-action="Recover" asp-controller="ProductCollection" asp-route-id="@Model.Data.Id" class="dropdown-item">Recover</a>
-                                        <a asp-action="HardDelete" asp-controller="ProductCollection" asp-route-id="@Model.Data.Id" class="dropdown-item">Permamently Delete</a>
-                                    </div>
-                                }
-                            }
-                        </div>
-                    </td>
-                </tr>
-
-            </tbody>
-        </table>
-
+<div class="row justify-content-center mt-5">
+    <div class="col-12 p-b-15 ">
 
         <div class="card card-table-border-none card-default recent-orders shadow" id="recent-orders">
 
             <div class="card-header justify-content-between">
-                <h2>FAQCategorie's FAQS</h2>
+                <h2>ProductCollection's Products</h2>
             </div>
             <div class="row content-justify-center">
                 <div class="col-lg-12 col-xl-12">
@@ -322,6 +196,7 @@
             </div>
         </div>
     </div>
+</div>
 
 
 

@@ -19,4 +19,32 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="modal-contact" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content px-4">
+            <div class="modal-header border-bottom-0">
+                <h5>Role Details</h5>
+                <button type="button" class="btn-close-icon justify-content-end" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="mdi mdi-close"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script>
+        $(".table").on("click", "#infoBtn", function () {
+            var id = $(this).data('id');
+            $.ajax({
+                url: "@Url.Action("Get", "Role")",
+                data: { id: id },
+                success: function (data) {
+                    $("#modal-contact .modal-dialog .modal-body").html(data);
+                }
+            });
+        });
+    </script>
+}
 

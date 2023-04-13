@@ -46,6 +46,7 @@ public class RoleManager : IRoleSevice
     public async Task<IDataResult<RoleGetDto>> GetByIdAsync(string id)
     {
         IdentityRole role = await _roleManager.FindByIdAsync(id);
+        
         if (role is null)
         {
             return new ErrorDataResult<RoleGetDto>(Messages.NotFound(Messages.Category));

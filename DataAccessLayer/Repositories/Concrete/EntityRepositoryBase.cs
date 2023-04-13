@@ -1,6 +1,4 @@
-﻿using DataAccessLayer.Repositories.Abstract;
-
-namespace DataAccessLayer.Repositories.Concrete
+﻿namespace DataAccessLayer.Repositories.Concrete
 {
     public class EntityRepositoryBase<TEntity,TContext> : IEntityRepository<TEntity> 
         where TEntity : class,ITable, new()

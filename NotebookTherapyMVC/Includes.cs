@@ -13,4 +13,5 @@ public static class Includes
     public static readonly string[] CartItemIncludes = { "Product.ProductImages" };
     public static readonly string[] FAQCategoryIncludes = { "FAQs" };
     public static readonly string[] FAQIncludes = { "FAQCategory" };
+    public static readonly string[] RoleIncludes = { "Users" };
 }

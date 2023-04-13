@@ -12,11 +12,22 @@ public class RoleController : Controller
         _mapper = mapper;
     }
 
+
+
     public async Task<IActionResult> Index()
     {
         IDataResult<List<RoleGetDto>> result = await _roleSevice.GetAllAsync();
         return View(result);
     }
+
+    [HttpGet]
+    public async Task<IActionResult> Get(string id)
+    {
+        IDataResult<RoleGetDto> result = await _roleSevice.GetByIdAsync(id);
+        return PartialView("_getRolePartial", result);
+    }
+
+
 
     [HttpGet]
     public async Task<IActionResult> Create()
