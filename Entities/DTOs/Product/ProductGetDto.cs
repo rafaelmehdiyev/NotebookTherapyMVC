@@ -11,8 +11,9 @@ public class ProductGetDto : IDto
     public decimal TotalRating { get; set; }
     public bool isSale { get; set; }
 	public bool isDeleted { get; set; }
-	//Relations
-	public CategoryGetDto Category { get; set; }
+    public DateTime CreatedDate { get; set; }
+    //Relations
+    public CategoryGetDto Category { get; set; }
     public ProductCollectionGetDto? ProductCollection { get; set; }
     public ColorGetDto? Color { get; set; }
     public List<ProductImage> ProductImages { get; set; }

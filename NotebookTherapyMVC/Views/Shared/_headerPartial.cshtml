@@ -1,4 +1,5 @@
-﻿<header>
+﻿@inject ICategoryService _categoryService
+<header>
     <nav id="nav">
         <div class="header_top" id="navbar">
             <div class="logo">
@@ -12,7 +13,7 @@
                     </i>
                     <span>Shopping Cart</span>
                 </a>
-                <a asp-action="Profile" asp-controller="Account" class="ms-4">
+                <a asp-action="@(User.Identity.IsAuthenticated ? "Profile" : "Login")" asp-controller="Account" class="ms-2">
                     <i class="fa-regular fa-user"></i>
                 </a>
             </div>
@@ -31,7 +32,7 @@
                     <i class="fa-regular fa-basket-shopping-simple fa-fade">
                     </i>
                 </a>
-                <a asp-action="Profile" asp-controller="Account" class="ms-2">
+                <a asp-action="@(User.Identity.IsAuthenticated ? "Profile" : "Login")" asp-controller="Account" class="ms-2">
                     <i class="fa-regular fa-user"></i>
                 </a>
             </div>
@@ -40,8 +41,27 @@
             <div class="close_menu" id="close-menu">
                 <i class="fa-regular fa-xmark"></i>
             </div>
-            <li class="nav_item">
-                <a href="#" class="nav_link">All categories</a>
+            <li class="nav_item drop_down">
+                <div href="#" class="nav_link dropdown_link cursor-pointer d-inline">
+                    All Categories
+                    <i class="fa-solid fa-chevron-down dropdown_icon"></i>
+                </div>
+                <div class="megamenu">
+                    <ul class="content">
+                        @if ((await _categoryService.GetAllAsync(false)).Success)
+                        {
+                            List<CategoryGetDto> categories = (await _categoryService.GetAllAsync(false)).Data;
+                            @foreach (CategoryGetDto category in categories)
+                            {
+                                <li class="megamenu_item">
+                                    <div class="megamenu_link">
+                                        <a asp-controller="Product" asp-action="Index" asp-route-id="@category.Id">@category.Name</a>
+                                    </div>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
             </li>
             <li class="nav_item">
                 <a href="trending.html" class="nav_link">Trending</a>
@@ -165,7 +185,7 @@
                 <i class="fa-regular fa-basket-shopping-simple fa-fade">
                 </i>
             </a>
-            <a asp-action="Profile" asp-controller="Account" class="ms-2">
+            <a asp-action="@(User.Identity.IsAuthenticated ? "Profile" : "Login")" asp-controller="Account" class="ms-2">
                 <i class="fa-regular fa-user"></i>
             </a>
         </div>

@@ -1,0 +1,476 @@
+﻿@{
+    ViewData["Title"] = "All Products";
+}
+@section AfterMediaLinks{
+    <link rel="stylesheet" href="~/assets/css/productList.css" />
+}
+@section Scripts{
+    <script src="~/assets/js/productList.js"></script>
+}
+<div class="container mt-5">
+    <div class="row justify-content-end">
+        <div class="col-md-3   hiddenSidebar">
+            <ul class="categories">
+                <li class="d-flex justify-content-between p-2 border flex-column">
+                    <div class="d-flex  justify-content-between">
+                        <span>On sale</span>
+                        <button class="btn">
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <div class="hidden mt-2">
+                        <div class="check">
+                            <input type="checkbox" id="check">
+                            <label for="check">Green</label>
+                        </div>
+                        <div class="check">
+                            <input type="checkbox" id="check">
+                            <label for="check">Red</label>
+                        </div>
+                        <div class="check">
+                            <input type="checkbox" id="check">
+                            <label for="check">Blue</label>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="d-flex justify-content-between p-2 border flex-column">
+                    <div class="d-flex  justify-content-between">
+                        <span>Category</span>
+                        <button class="btn">
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <div class="hidden mt-2">
+                        <div class="check">
+                            <input type="checkbox" id="check">
+                            <label for="check">Green</label>
+                        </div>
+                        <div class="check">
+                            <input type="checkbox" id="check">
+                            <label for="check">Red</label>
+                        </div>
+                        <div class="check">
+                            <input type="checkbox" id="check">
+                            <label for="check">Blue</label>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="p-2">
+                    <div class="d-flex justify-content-between">
+                        <span>Size</span>
+                        <button class="btn">
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <div class="hidden mt-2">
+                        <div class="check">
+                            <input type="checkbox" id="xs">
+                            <label for="xs">XS</label>
+                        </div>
+                        <div class="check">
+                            <input type="checkbox" id="s">
+                            <label for="s">S</label>
+                        </div>
+                        <div class="check">
+                            <input type="checkbox" id="m">
+                            <label for="m">M</label>
+                        </div>
+                        <div class="check">
+                            <input type="checkbox" id="l">
+                            <label for="l">L</label>
+                        </div>
+                        <div class="check">
+                            <input type="checkbox" id="xl">
+                            <label for="xl">XL</label>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="d-flex justify-content-between p-2 border flex-column">
+                    <div class="d-flex  justify-content-between">
+                        <span>Color</span>
+                        <button class="btn">
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <div class="hidden mt-2">
+                        <div class="check">
+                            <input type="checkbox" id="check">
+                            <label for="check">Green</label>
+                        </div>
+                        <div class="check">
+                            <input type="checkbox" id="check">
+                            <label for="check">Red</label>
+                        </div>
+                        <div class="check">
+                            <input type="checkbox" id="check">
+                            <label for="check">Blue</label>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="d-flex justify-content-between p-2 border flex-column">
+                    <div class="d-flex  justify-content-between">
+                        <span>Bundle</span>
+                        <button class="btn">
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <div class="hidden mt-2">
+                        <div class="check">
+                            <input type="checkbox" id="check">
+                            <label for="check">Green</label>
+                        </div>
+                        <div class="check">
+                            <input type="checkbox" id="check">
+                            <label for="check">Red</label>
+                        </div>
+                        <div class="check">
+                            <input type="checkbox" id="check">
+                            <label for="check">Blue</label>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="d-flex justify-content-between p-2 border flex-column">
+                    <div class="d-flex  justify-content-between">
+                        <span>Rating</span>
+                        <button class="btn">
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <div class="hidden mt-2">
+                        <div class="check">
+                            <input type="checkbox" id="check">
+                            <label for="check">Green</label>
+                        </div>
+                        <div class="check">
+                            <input type="checkbox" id="check">
+                            <label for="check">Red</label>
+                        </div>
+                        <div class="check">
+                            <input type="checkbox" id="check">
+                            <label for="check">Blue</label>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="filter mt-5">
+                <p class="priceFilter">Price filter</p>
+                <input type="range">
+                <div class="d-flex justify-content-between align-items-center">
+                    <p class="price"> Price : <span class="priceFilter">0 $ - 100 $</span></p>
+                    <button class="button">Filter</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3  sidebar">
+            <ul class="categories">
+                <li class="d-flex justify-content-between p-2 border flex-column">
+                    <div class="d-flex  justify-content-between">
+                        <span>On sale</span>
+                        <button class="btn">
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <div class="hidden mt-2">
+                        <div class="check">
+                            <input type="checkbox" id="check">
+                            <label for="check">Green</label>
+                        </div>
+                        <div class="check">
+                            <input type="checkbox" id="check">
+                            <label for="check">Red</label>
+                        </div>
+                        <div class="check">
+                            <input type="checkbox" id="check">
+                            <label for="check">Blue</label>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="d-flex justify-content-between p-2 border flex-column">
+                    <div class="d-flex  justify-content-between">
+                        <span>Category</span>
+                        <button class="btn">
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <div class="hidden mt-2">
+                        <div class="check">
+                            <input type="checkbox" id="check">
+                            <label for="check">Green</label>
+                        </div>
+                        <div class="check">
+                            <input type="checkbox" id="check">
+                            <label for="check">Red</label>
+                        </div>
+                        <div class="check">
+                            <input type="checkbox" id="check">
+                            <label for="check">Blue</label>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="p-2">
+                    <div class="d-flex justify-content-between">
+                        <span>Size</span>
+                        <button class="btn">
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <div class="hidden mt-2">
+                        <div class="check">
+                            <input type="checkbox" id="xs">
+                            <label for="xs">XS</label>
+                        </div>
+                        <div class="check">
+                            <input type="checkbox" id="s">
+                            <label for="s">S</label>
+                        </div>
+                        <div class="check">
+                            <input type="checkbox" id="m">
+                            <label for="m">M</label>
+                        </div>
+                        <div class="check">
+                            <input type="checkbox" id="l">
+                            <label for="l">L</label>
+                        </div>
+                        <div class="check">
+                            <input type="checkbox" id="xl">
+                            <label for="xl">XL</label>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="d-flex justify-content-between p-2 border flex-column">
+                    <div class="d-flex  justify-content-between">
+                        <span>Color</span>
+                        <button class="btn">
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <div class="hidden mt-2">
+                        <div class="check">
+                            <input type="checkbox" id="check">
+                            <label for="check">Green</label>
+                        </div>
+                        <div class="check">
+                            <input type="checkbox" id="check">
+                            <label for="check">Red</label>
+                        </div>
+                        <div class="check">
+                            <input type="checkbox" id="check">
+                            <label for="check">Blue</label>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="d-flex justify-content-between p-2 border flex-column">
+                    <div class="d-flex  justify-content-between">
+                        <span>Bundle</span>
+                        <button class="btn">
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <div class="hidden mt-2">
+                        <div class="check">
+                            <input type="checkbox" id="check">
+                            <label for="check">Green</label>
+                        </div>
+                        <div class="check">
+                            <input type="checkbox" id="check">
+                            <label for="check">Red</label>
+                        </div>
+                        <div class="check">
+                            <input type="checkbox" id="check">
+                            <label for="check">Blue</label>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="d-flex justify-content-between p-2 border flex-column">
+                    <div class="d-flex  justify-content-between">
+                        <span>Rating</span>
+                        <button class="btn">
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <div class="hidden mt-2">
+                        <div class="check">
+                            <input type="checkbox" id="check">
+                            <label for="check">Green</label>
+                        </div>
+                        <div class="check">
+                            <input type="checkbox" id="check">
+                            <label for="check">Red</label>
+                        </div>
+                        <div class="check">
+                            <input type="checkbox" id="check">
+                            <label for="check">Blue</label>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="filter mt-5">
+                <p class="priceFilter">Price filter</p>
+                <input type="range">
+                <div class="d-flex justify-content-between align-items-center">
+                    <p class="price"> Price : <span class="priceFilter">0 $ - 100 $</span></p>
+                    <button class="button">Filter</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="row mb-4 d-flex justify-content-between align-items-center">
+                <div class="col-md-8">
+                    <h3> "Dress 100,000+ results are listed for the search "</h3>
+                </div>
+                <div class="col-md-4 d-flex justify-content-end ">
+                    <select class="form-select me-2" aria-label="Default select example">
+                        <option selected>Open this select menu</option>
+                        <option value="1">The lowest price</option>
+                        <option value="2">The highest price</option>
+                        <option value="3">The newests</option>
+                        <option value="3">Best sellers</option>
+                        <option value="3">Most liked</option>
+                    </select>
+                    <button id="filterBtn">Filter <i class="fa-solid fa-filter"></i></button>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-lg-4">
+                    <div class="Card d-flex flex-column align-content-center">
+                        <div class="img-container">
+                        </div>
+                        <button class="favori">
+                            <i class="fa-solid fa-heart"></i>
+                        </button>
+                        <div class="p-2">
+                            <a href=""><p class="title">Tsuki 'Pastel Edition' Bullet Journal ☾</p></a>
+                            <p class="productPrice">234 $</p>
+                            <div class="d-flex justify-content-around">
+                                <button class="button-hover-addcart "><span>Details</span><i class="fa-solid fa-circle-info"></i></i></button>
+                                <button class="basket">
+                                    <i class="fa-solid fa-cart-shopping"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="Card d-flex flex-column align-content-center">
+                        <div class="img-container">
+                        </div>
+                        <button class="favori">
+                            <i class="fa-solid fa-heart"></i>
+                        </button>
+                        <div class="p-2">
+                            <a href=""><p class="title">Tsuki 'Pastel Edition' Bullet Journal ☾</p></a>
+                            <p class="productPrice">234 $</p>
+                            <div class="d-flex justify-content-around">
+                                <button class="button-hover-addcart "><span>Details</span><i class="fa-solid fa-circle-info"></i></i></button>
+                                <button class="basket">
+                                    <i class="fa-solid fa-cart-shopping"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="Card d-flex flex-column align-content-center">
+                        <div class="img-container">
+                        </div>
+                        <button class="favori">
+                            <i class="fa-solid fa-heart"></i>
+                        </button>
+                        <div class="p-2">
+                            <a href=""><p class="title">Tsuki 'Pastel Edition' Bullet Journal ☾</p></a>
+                            <p class="productPrice">234 $</p>
+                            <div class="d-flex justify-content-around">
+                                <button class="button-hover-addcart "><span>Details</span><i class="fa-solid fa-circle-info"></i></i></button>
+                                <button class="basket">
+                                    <i class="fa-solid fa-cart-shopping"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="Card d-flex flex-column align-content-center">
+                        <div class="img-container">
+                        </div>
+                        <button class="favori">
+                            <i class="fa-solid fa-heart"></i>
+                        </button>
+                        <div class="p-2">
+                            <a href=""><p class="title">Tsuki 'Pastel Edition' Bullet Journal ☾</p></a>
+                            <p class="productPrice">234 $</p>
+                            <div class="d-flex justify-content-around">
+                                <button class="button-hover-addcart "><span>Details</span><i class="fa-solid fa-circle-info"></i></i></button>
+                                <button class="basket">
+                                    <i class="fa-solid fa-cart-shopping"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="Card d-flex flex-column align-content-center">
+                        <div class="img-container">
+                        </div>
+                        <button class="favori">
+                            <i class="fa-solid fa-heart"></i>
+                        </button>
+                        <div class="p-2">
+                            <a href=""><p class="title">Tsuki 'Pastel Edition' Bullet Journal ☾</p></a>
+                            <p class="productPrice">234 $</p>
+                            <div class="d-flex justify-content-around">
+                                <button class="button-hover-addcart "><span>Details</span><i class="fa-solid fa-circle-info"></i></i></button>
+                                <button class="basket">
+                                    <i class="fa-solid fa-cart-shopping"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="Card d-flex flex-column align-content-center">
+                        <div class="img-container">
+                        </div>
+                        <button class="favori">
+                            <i class="fa-solid fa-heart"></i>
+                        </button>
+                        <div class="p-2">
+                            <a href=""><p class="title">Tsuki 'Pastel Edition' Bullet Journal ☾</p></a>
+                            <p class="productPrice">234 $</p>
+                            <div class="d-flex justify-content-around">
+                                <button class="button-hover-addcart "><span>Details</span><i class="fa-solid fa-circle-info"></i></i></button>
+                                <button class="basket">
+                                    <i class="fa-solid fa-cart-shopping"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -60,7 +60,36 @@
                                 <a asp-action="Detail" asp-controller="Product" asp-route-id="@product.Id">
                                     <img src="~/uploads/product/@(product.ProductImages.FirstOrDefault().ImagePath)"
                                      alt="product" class="top">
-                                    @*<img src="~/uploads/product/@(product.ProductImages.Skip(1).Take(1).FirstOrDefault().ImagePath)"*@
+                                    <img src="~/uploads/product/@(product.ProductImages.Skip(1).Take(1).FirstOrDefault().ImagePath)"
+                                     alt="" class="bottom">
+                                </a>
+                                <a asp-action="Detail" asp-controller="Product" asp-route-id="@product.Id">
+                                    <span class="d-block mt-3 mb-2 product-name">@product.Name</span>
+                                </a>
+                                <div class="price">
+                                    @{
+                                        if (product.isSale)
+                                        {
+                                            <span class="old-price">$@product.LastPrice USD</span>
+                                        }
+                                    }
+                                    <span>$@product.Price USD</span>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="cards">
+                <div class="row">
+                    @foreach (ProductGetDto product in Model.ProductsResult.Data.Where(p=>p.isSale))
+                    {
+                        <div class="col-6 col-md-4 col-lg-3 gy-4">
+                            <div class="card-item text-center">
+                                <a asp-action="Detail" asp-controller="Product" asp-route-id="@product.Id">
+                                    <img src="~/uploads/product/@(product.ProductImages.FirstOrDefault().ImagePath)"
+                                     alt="product" class="top">
+                                    <img src="~/uploads/product/@(product.ProductImages.Skip(1).Take(1).FirstOrDefault().ImagePath)"
                                      alt="" class="bottom">
                                 </a>
                                 <a asp-action="Detail" asp-controller="Product" asp-route-id="@product.Id">
@@ -73,52 +102,6 @@
                             </div>
                         </div>
                     }
-                </div>
-            </div>
-            <div class="cards">
-                <div class="row">
-                    <div class="col-6 col-md-4 col-lg-3 gy-4">
-                        <div class="card-item  text-center">
-                            <a href="#">
-                                <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/moonflower12-1_300x.png?v=1592051819"
-                                     alt="product" class="top">
-                                <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/moonflower5_360x.jpg?v=1591867703"
-                                     alt="" class="bottom">
-                            </a>
-                            <a href="#">
-                                <span class="d-block mt-3 mb-2 product-name">
-                                    Tsuki 'Moonflower' Limited Edition
-                                    Luxury Bullet
-                                    Journal ☾
-                                </span>
-                            </a>
-                            <div class="price">
-                                <span class="old-price">$35.74 USD</span>
-                                <span>$28.98 USD</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-3 gy-4">
-                        <div class="card-item  text-center">
-                            <a href="#">
-                                <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/moonflower12-1_300x.png?v=1592051819"
-                                     alt="product" class="top">
-                                <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/moonflower5_360x.jpg?v=1591867703"
-                                     alt="" class="bottom">
-                            </a>
-                            <a href="#">
-                                <span class="d-block mt-3 mb-2 product-name">
-                                    Tsuki 'Moonflower' Limited Edition
-                                    Luxury Bullet
-                                    Journal ☾
-                                </span>
-                            </a>
-                            <div class="price">
-                                <span class="old-price">$35.74 USD</span>
-                                <span>$28.98 USD</span>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
             <a href="#" id="loadMore" class="d-block text-center my-5 button">
@@ -141,139 +124,31 @@
     <!-- Section: Trending products section start -->
     <section class="trending">
         <div class="row">
-            <div class="col-6 col-md-4 col-lg-3 gy-4">
-                <div class="card-item  text-center">
-                    <a href="#">
-                        <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/moonflower12-1_300x.png?v=1592051819"
+            @foreach (ProductGetDto product in Model.ProductsResult.Data.Where(p => (DateTime.Now - p.CreatedDate).TotalDays <= 14))
+            {
+                <div class="col-6 col-md-4 col-lg-3 gy-4">
+                    <div class="card-item text-center">
+                        <a asp-action="Detail" asp-controller="Product" asp-route-id="@product.Id">
+                            <img src="~/uploads/product/@(product.ProductImages.FirstOrDefault().ImagePath)"
                              alt="product" class="top">
-                        <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/moonflower5_360x.jpg?v=1591867703"
+                            <img src="~/uploads/product/@(product.ProductImages.Skip(1).Take(1).FirstOrDefault().ImagePath)"
                              alt="" class="bottom">
-                    </a>
-                    <a href="#">
-                        <span class="d-block mt-3 mb-2 product-name">
-                            Tsuki 'Moonflower' Limited Edition
-                            Luxury Bullet
-                            Journal ☾
-                        </span>
-                    </a>
-                    <div class="price">from <span>$28.98 USD</span></div>
+                        </a>
+                        <a asp-action="Detail" asp-controller="Product" asp-route-id="@product.Id">
+                            <span class="d-block mt-3 mb-2 product-name">@product.Name</span>
+                        </a>
+                        <div class="price">
+                            @{
+                                if (product.isSale)
+                                {
+                                    <span class="old-price">$@product.LastPrice USD</span>
+                                }
+                            }
+                            <span>$@product.Price USD</span>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="col-6 col-md-4 col-lg-3 gy-4">
-                <div class="card-item  text-center">
-                    <a href="#">
-                        <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/d1e57ac3375c0ca5181c91d343e7d747_300x.png?v=1572456405"
-                             alt="product" class="top">
-                        <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/ezgif.com-webp-to-jpg_11_300x.jpg?v=1571452068"
-                             alt="" class="bottom">
-                    </a>
-                    <a href="#">
-                        <span class="d-block mt-3 mb-2 product-name">
-                            Cord Tote Bag
-                        </span>
-                    </a>
-                    <div class="price">from <span>$28.98 USD</span></div>
-                </div>
-            </div>
-            <div class="col-6 col-md-4 col-lg-3 gy-4">
-                <div class="card-item  text-center">
-                    <a href="#">
-                        <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/LETTERING-bllueel-08copy_8f1fd48c-1fdc-42a2-b5bd-eed8637da5c0_300x.jpg?v=1672662415"
-                             alt="product" class="top">
-                        <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/0120_00763_360x.jpg?v=1672662415"
-                             alt="" class="bottom">
-                    </a>
-                    <a href="#">
-                        <span class="d-block mt-3 mb-2 product-name">
-                            Tsuki Bullet Journal Stencil Set ☾
-                        </span>
-                    </a>
-                    <div class="price">from <span>$28.98 USD</span></div>
-                </div>
-            </div>
-            <div class="col-6 col-md-4 col-lg-3 gy-4">
-                <div class="card-item  text-center">
-                    <a href="#">
-                        <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/product-image-538700474_300x.jpg?v=1637187594"
-                             alt="product" class="top">
-                        <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/product-image-538700476_360x.jpg?v=1637187594"
-                             alt="" class="bottom">
-                    </a>
-                    <a href="#">
-                        <span class="d-block mt-3 mb-2 product-name">
-                            Tsuki Pop-Up Pencil Case ☾
-                        </span>
-                    </a>
-                    <div class="price">from <span>$28.98 USD</span></div>
-                </div>
-            </div>
-
-            <div class="col-6 col-md-4 col-lg-3 gy-4">
-                <div class="card-item  text-center">
-                    <a href="#">
-                        <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/moonflower12-1_300x.png?v=1592051819"
-                             alt="product" class="top">
-                        <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/moonflower5_360x.jpg?v=1591867703"
-                             alt="" class="bottom">
-                    </a>
-                    <a href="#">
-                        <span class="d-block mt-3 mb-2 product-name">
-                            Tsuki 'Moonflower' Limited Edition
-                            Luxury Bullet
-                            Journal ☾
-                        </span>
-                    </a>
-                    <div class="price">from <span>$28.98 USD</span></div>
-                </div>
-            </div>
-            <div class="col-6 col-md-4 col-lg-3 gy-4">
-                <div class="card-item  text-center">
-                    <a href="#">
-                        <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/d1e57ac3375c0ca5181c91d343e7d747_300x.png?v=1572456405"
-                             alt="product" class="top">
-                        <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/ezgif.com-webp-to-jpg_11_300x.jpg?v=1571452068"
-                             alt="" class="bottom">
-                    </a>
-                    <a href="#">
-                        <span class="d-block mt-3 mb-2 product-name">
-                            Cord Tote Bag
-                        </span>
-                    </a>
-                    <div class="price">from <span>$28.98 USD</span></div>
-                </div>
-            </div>
-            <div class="col-6 col-md-4 col-lg-3 gy-4">
-                <div class="card-item  text-center">
-                    <a href="#">
-                        <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/LETTERING-bllueel-08copy_8f1fd48c-1fdc-42a2-b5bd-eed8637da5c0_300x.jpg?v=1672662415"
-                             alt="product" class="top">
-                        <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/0120_00763_360x.jpg?v=1672662415"
-                             alt="" class="bottom">
-                    </a>
-                    <a href="#">
-                        <span class="d-block mt-3 mb-2 product-name">
-                            Tsuki Bullet Journal Stencil Set ☾
-                        </span>
-                    </a>
-                    <div class="price">from <span>$28.98 USD</span></div>
-                </div>
-            </div>
-            <div class="col-6 col-md-4 col-lg-3 gy-4">
-                <div class="card-item  text-center">
-                    <a href="#">
-                        <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/product-image-538700474_300x.jpg?v=1637187594"
-                             alt="product" class="top">
-                        <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/product-image-538700476_360x.jpg?v=1637187594"
-                             alt="" class="bottom">
-                    </a>
-                    <a href="#">
-                        <span class="d-block mt-3 mb-2 product-name">
-                            Tsuki Pop-Up Pencil Case ☾
-                        </span>
-                    </a>
-                    <div class="price">from <span>$28.98 USD</span></div>
-                </div>
-            </div>
+            }           
         </div>
         <a href="trending.html" class="d-block text-center my-5 button">
             <span>See More</span>
@@ -294,126 +169,29 @@
     <!-- Section: Slider 2023 picks section start -->
     <section class="slider_picks position-relative">
         <div class="row flex-nowrap slider">
-            <div class="col-xl-3 col-lg-4 col-sm-6 content_width">
-                <div class="slider-card">
-                    <div class="slider-card-content">
-                        <img src="assets/images/gel-pen.png" alt="" class="card-img">
-                        <h1 class="slider-card-title">HP Spectre x360 15</h1>
-                        <div class="slider-card-body">
-                            <div class="card-star">
-                                <span class="rating-value">4.5</span>
-                                <span class="star">&#9733;</span>
+            @foreach (ProductGetDto product in Model.ProductsResult.Data.Where(p => p.CreatedDate.Year == 2023))
+            {
+                <div class="col-xl-3 col-lg-4 col-sm-6 content_width">
+                    <div class="slider-card">
+                        <div class="slider-card-content">
+                            <img src="~/uploads/product/@(product.ProductImages.FirstOrDefault().ImagePath)" alt="" class="card-img">
+                            <h1 class="slider-card-title">@product.Name</h1>
+                            <div class="slider-card-body">
+                                <div class="card-star">
+                                    <span class="rating-value">@product.TotalRating</span>
+                                    <span class="star">&#9733;</span>
+                                </div>
+                                <p class="card-price">@product.Price</p>
                             </div>
-                            <p class="card-price">$650.99</p>
-                        </div>
-                        <div class="slider-card-footer">
-                            <a href="#">
-                                <button class="btn btn-pink">Learn More</button>
-                            </a>
+                            <div class="slider-card-footer">
+                                <a asp-action="Detail" asp-controller="Product" asp-route-id="@product.Id">
+                                    <button class="btn btn-pink">Learn More</button>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-xl-3 col-lg-4 col-sm-6 content_width">
-                <div class="slider-card">
-                    <div class="slider-card-content">
-                        <img src="assets/images/notebook_1.png" alt="" class="card-img">
-                        <h1 class="slider-card-title">HP Spectre x360 15</h1>
-                        <div class="slider-card-body">
-                            <div class="card-star">
-                                <span class="rating-value">4.5</span>
-                                <span class="star">&#9733;</span>
-                            </div>
-                            <p class="card-price">$650.99</p>
-                        </div>
-                        <div class="slider-card-footer">
-                            <a href="#">
-                                <button class="btn btn-pink">Learn More</button>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-4 col-sm-6 content_width">
-                <div class="slider-card">
-                    <div class="slider-card-content">
-                        <img src="assets/images/pencil.png" alt="" class="card-img">
-                        <h1 class="slider-card-title">HP Spectre x360 15</h1>
-                        <div class="slider-card-body">
-                            <div class="card-star">
-                                <span class="rating-value">4.5</span>
-                                <span class="star">&#9733;</span>
-                            </div>
-                            <p class="card-price">$650.99</p>
-                        </div>
-                        <div class="slider-card-footer">
-                            <a href="#">
-                                <button class="btn btn-pink">Learn More</button>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-4 col-sm-6 content_width">
-                <div class="slider-card">
-                    <div class="slider-card-content">
-                        <img src="assets/images/pencil_case.png" alt="" class="card-img">
-                        <h1 class="slider-card-title">HP Spectre x360 15</h1>
-                        <div class="slider-card-body">
-                            <div class="card-star">
-                                <span class="rating-value">4.5</span>
-                                <span class="star">&#9733;</span>
-                            </div>
-                            <p class="card-price">$650.99</p>
-                        </div>
-                        <div class="slider-card-footer">
-                            <a href="#">
-                                <button class="btn btn-pink">Learn More</button>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-4 col-sm-6 content_width">
-                <div class="slider-card">
-                    <div class="slider-card-content">
-                        <img src="assets/images/gel-pen.png" alt="" class="card-img">
-                        <h1 class="slider-card-title">HP Spectre x360 15</h1>
-                        <div class="slider-card-body">
-                            <div class="card-star">
-                                <span class="rating-value">4.5</span>
-                                <span class="star">&#9733;</span>
-                            </div>
-                            <p class="card-price">$650.99</p>
-                        </div>
-                        <div class="slider-card-footer">
-                            <a href="#">
-                                <button class="btn btn-pink">Learn More</button>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-4 col-sm-6 content_width">
-                <div class="slider-card">
-                    <div class="slider-card-content">
-                        <img src="assets/images/notebook_1.png" alt="" class="card-img">
-                        <h1 class="slider-card-title">HP Spectre x360 15</h1>
-                        <div class="slider-card-body">
-                            <div class="card-star">
-                                <span class="rating-value">4.5</span>
-                                <span class="star">&#9733;</span>
-                            </div>
-                            <p class="card-price">$650.99</p>
-                        </div>
-                        <div class="slider-card-footer">
-                            <a href="#">
-                                <button class="btn btn-pink">Learn More</button>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            }
         </div>
         <span class="arrow left">&#129120;</span>
         <span class="arrow right">&#129122;</span>

@@ -4,6 +4,9 @@
     <link rel="stylesheet" href="~/assets/libs/splide/dist/css/splide.min.css" />
     <link rel="stylesheet" href="~/assets/libs/splide/dist/css/themes/splide-skyblue.min.css" />
 }
+@section AfterMediaLinks{
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.css" rel="stylesheet">
+}
 @model IDataResult<ProductGetDto>
 <div class="container mt-5">
     <!-- section1 -->
@@ -89,7 +92,7 @@
                 </div>
                 <!-- submit -->
                 <div class="submit my-4">
-                    <button class="w-100 py-3 rounded-pill fw-bold text-white "> ADD TO CART @Model.Data.Price ₼</button>
+                    <button class="w-100 py-3 rounded-pill fw-bold text-white add-to-cart" data-id="@Model.Data.Id"> ADD TO CART @Model.Data.Price ₼</button>
                 </div>
                 <div class="product-info">
                     <!-- tabs -->
@@ -104,28 +107,28 @@
                             <div class="wrapper active">
                                 @Model.Data.Description
                                 @*<p>
-                                    Designed by our team in Tokyo, the brand new <span class="fw-bolder">
-                                        Tsuki 'Pastel Edition' Soft
-                                        Cover Bullet Journals
-                                    </span> are the perfect release to see you through all seasons of the year
-                                    ☾
+                                Designed by our team in Tokyo, the brand new <span class="fw-bolder">
+                                Tsuki 'Pastel Edition' Soft
+                                Cover Bullet Journals
+                                </span> are the perfect release to see you through all seasons of the year
+                                ☾
                                 </p>
                                 <p class="my-3">
-                                    A popular addition to our Tsuki dot grid notebooks series, each bujo has a beautiful
-                                    vegan leather soft cover, is filled with our signature ultra-thick 160 GSM paper + has an adorable
-                                    gold foil moon design. Perfect for planning, doodling, painting + more! Available in 5 cute pastel
-                                    colours and a new + exclusive limited edition run midnight black cover.
+                                A popular addition to our Tsuki dot grid notebooks series, each bujo has a beautiful
+                                vegan leather soft cover, is filled with our signature ultra-thick 160 GSM paper + has an adorable
+                                gold foil moon design. Perfect for planning, doodling, painting + more! Available in 5 cute pastel
+                                colours and a new + exclusive limited edition run midnight black cover.
                                 </p>
                                 <p class="my-4">
-                                    Choose your favourite colour, or mix + match to pair with other items across our
-                                    <span class="text-purple">Tsuki Collection!</span>
+                                Choose your favourite colour, or mix + match to pair with other items across our
+                                <span class="text-purple">Tsuki Collection!</span>
                                 </p>
                                 <ul class="">
-                                    <li>160 GSM ultra-thick bright white paper - no bleeding or ghosting</li>
-                                    <li>5mm distance light grey dot grid - perfect for bujo photography</li>
-                                    <li>Hand crafted vegan soft cover - high quality, flexible, durable and sustainable</li>
-                                    <li>2 bookmark ribbons - easily swap between your 'go to' pages</li>
-                                    <li>Original tsuki size (135mm x 195mm), 128 luxury pages</li>
+                                <li>160 GSM ultra-thick bright white paper - no bleeding or ghosting</li>
+                                <li>5mm distance light grey dot grid - perfect for bujo photography</li>
+                                <li>Hand crafted vegan soft cover - high quality, flexible, durable and sustainable</li>
+                                <li>2 bookmark ribbons - easily swap between your 'go to' pages</li>
+                                <li>Original tsuki size (135mm x 195mm), 128 luxury pages</li>
                                 </ul>*@
                             </div>
 
@@ -320,4 +323,60 @@
 @section Scripts{
     <script type="text/javascript" src="~/assets/libs/splide/dist/js/splide.min.js"></script>
     <script src="~/assets/js/productDetail.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
+    <script>
+        function AddToFav(e) {
+            var addId = e.getAttribute('data-id');
+            $.ajax({
+                url: '/Product/AddToFavourite',
+                method: 'POST',
+                data: { id: addId },
+                success: function (result) {
+                    if (result.success) {
+                        $(".add-to-fav[data-id='" + addId + "']").replaceWith(`<a onclick="RemoveFromFav(this)" class="btn btn-outline-success remove-from-fav" data-id="${result.data.id}" data-product-id=${addId}">Remove From Favourite</a>`);
+                    }
+                }
+            });
+        }
+        function RemoveFromFav(e) {
+            var removeId = e.getAttribute('data-id');
+            var productId = e.getAttribute('data-product-id');
+            $.ajax({
+                url: '/Product/RemoveFromFavourite',
+                method: 'POST',
+                data: { id: removeId },
+                success: function (result) {
+                    if (result.success) {
+                        console.log(productId);
+                        $(".remove-from-fav[data-id='" + removeId + "']").replaceWith(`<a class="btn btn-success add-to-fav" onclick="AddToFav(this)" data-id="${productId}">Add to Favourite</a>`);
+                    }
+                }
+            });
+        }
+
+        $(function () {
+            $('.add-to-cart').click(function () {
+                var id = $(this).data('id');
+                $.ajax({
+                    url: '/Product/AddItemToCart',
+                    method: 'POST',
+                    data: { id: id },
+                    success: function (result) {
+                        Swal.fire({
+                            position: 'top',
+                            title: result.message,
+                            background: '#28a745',
+                            customClass: {
+                                title: 'text-white',
+                                content: 'text-white',
+                                popup: 'bg-success'
+                            },
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    }
+                });
+            });          
+        });
+    </script>
 }

@@ -1,66 +1,74 @@
-﻿namespace NotebookTherapyMVC.Controllers
-{ 
-    [AllowAnonymous]
-    public class AccountController : Controller
+﻿namespace NotebookTherapyMVC.Controllers;
+
+public class AccountController : Controller
+{
+    private readonly IAccountService _accountService;
+    private readonly ICartService _cartService;
+
+    public AccountController(IAccountService accountService, ICartService cartService)
     {
-        private readonly IAccountService _accountService;
+        _accountService = accountService;
+        _cartService = cartService;
+    }
 
-        public AccountController(IAccountService accountService)
+    [HttpGet]
+    public async Task<IActionResult> Register()
+    {
+        return View();
+    }
+    [HttpPost]
+    public async Task<IActionResult> Register(RegisterDto registerDto)
+    {
+        IDataResult<UserGetDto> result = await _accountService.Register(registerDto);
+        if (!result.Success)
         {
-            _accountService = accountService;
+            return BadRequest(result);
         }
+        return RedirectToAction(nameof(Login));
+    }
+    [HttpGet]
+    public async Task<IActionResult> Login()
+    {
+        return View();
+    }
 
-        [HttpGet]
-        public async Task<IActionResult> Register()
+    [HttpPost]
+    public async Task<IActionResult> Login(LoginDto loginDto)
+    {
+        IDataResult<UserGetDto> result = await _accountService.Login(loginDto);
+        if (!result.Success) { return View(result); }
+        if (result.Data.Roles.Contains("Admin"))
         {
-            return View();
+            return RedirectToAction("Index", "Product", new { area = "Manage" });
         }
-        [HttpPost]
-        public async Task<IActionResult> Register(RegisterDto registerDto)
+        else
         {
-            IDataResult<UserGetDto> result = await _accountService.Register(registerDto);
-            if (!result.Success)
-            {
-                return BadRequest(result);
-            }
-            return RedirectToAction(nameof(Login));
+            return RedirectToAction("Index", "Home");
         }
-        [HttpGet]
-        public async Task<IActionResult> Login()
-        {
-            return View();
-        }
+    }
+    [Authorize(Roles = "SuperAdmin,Admin,User")]
+    public async Task<IActionResult> Signout()
+    {
+        await _accountService.SignOutAsync();
+        return RedirectToAction(nameof(Login));
+    }
+    [Authorize(Roles = "SuperAdmin,Admin,User")]
+    public async Task<IActionResult> Profile()
+    {
+        IDataResult<UserGetDto> result = await _accountService.GetUserByClaims(User, Includes.UserIncludes);
+        return View(result);
+    }
 
-        [HttpPost]
-        public async Task<IActionResult> Login(LoginDto loginDto)
-        {
-            IDataResult<UserGetDto> result = await _accountService.Login(loginDto);
-            if (!result.Success) { return View(result); }
-            if (result.Data.Roles.Contains("Admin"))
-            {
-                return RedirectToAction("Index", "Product", new { area = "Manage" });
-            }
-            else
-            {
-                return RedirectToAction("Index", "Home");
-            }
-        }
-        [Authorize(Roles = "SuperAdmin,Admin,User")]
-        public async Task<IActionResult> Signout()
-        {
-            await _accountService.SignOutAsync();
-            return RedirectToAction(nameof(Login));
-        }
-        [Authorize(Roles = "SuperAdmin,Admin,User")]
-        public async Task<IActionResult> Profile()
-        {
-            IDataResult<UserGetDto> result = await _accountService.GetUserByClaims(User, Includes.UserIncludes);
-            return View(result);
-        }
-        [Authorize(Roles = "SuperAdmin,Admin,User")]
-        public async Task<IActionResult> ShoppingCart()
-        {
-            return View();
-        }
+    [Authorize(Roles = "SuperAdmin,Admin,User")]
+    public async Task<IActionResult> ShoppingCart()
+    {
+        IDataResult<UserGetDto> userResult = await _accountService.GetUserByClaims(User, Includes.UserIncludes);
+        IDataResult<CartGetDto> cartResult = await _cartService.GetByIdAsync(userResult.Data.Cart.Id,Includes.CartIncludes);
+        return View(cartResult);
+    }
+    public async Task<IActionResult> LoadCartItems(int id)
+    {
+        IDataResult<CartGetDto> cartResult = await _cartService.GetByIdAsync(id, Includes.CartIncludes);
+        return PartialView("_cartItemPartial", cartResult.Data.CartItems.Where(c=>!c.isDeleted).ToList());
     }
 }

@@ -1,0 +1,37 @@
+﻿@model List<CartItemGetDto>
+@foreach (CartItemGetDto cartItem in Model)
+{
+    <div class="row d-flex align-items-center cardContainer p-3">
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-3 imgContainer">
+                    <img src="~/uploads/product/@(cartItem.Product.ProductImages.FirstOrDefault().ImagePath)" alt="">
+                </div>
+                <div class="col-md-9">
+                    <p>
+                        @cartItem.Product.Name
+                    </p>
+                    <span class="subtitle"> Original (168 pages) </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 ">
+            <div class="row d-flex align-items-center">
+                <div class="col-3">
+                    <p>$@cartItem.Product.Price</p>
+                </div>
+                <div class="col-4 d-flex align-items-center gap-3">
+                    <button class="action remove-from-cart"  data-id="@cartItem.Product.Id"><span>-</span></button>
+                    <p class="mb-0">@cartItem.Quantity</p>
+                    <button class="action add-to-cart"  data-id="@cartItem.Product.Id"><span>+</span></button>
+                </div>
+                <div class="col-3">
+                    <p>$@cartItem.TotalPrice</p>
+                </div>
+                <div class="col-2 d-flex justify-content-center">
+                    <span class="fs-5 remove-all-from-cart cursor-pointer" data-id="@cartItem.Product.Id"><i class="fa-solid fa-x"></i></span>
+                </div>
+            </div>
+        </div>
+    </div>
+}

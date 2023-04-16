@@ -19,6 +19,7 @@ global using Entities.DTOs.ProductSize;
 global using Entities.DTOs.Review;
 global using Entities.DTOs.Role;
 global using Entities.DTOs.Size;
+global using Entities.DTOs.Cart;
 global using Microsoft.AspNetCore.Authorization;
 global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.AspNetCore.Mvc.Rendering;

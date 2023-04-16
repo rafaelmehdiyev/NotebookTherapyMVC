@@ -6,9 +6,9 @@ const navMenu = document.getElementById("nav-menu"),
     body = document.getElementById("body"),
     nav = document.getElementById("nav");
 
-dropDown.addEventListener("click", () => {
-    megaMenu.classList.toggle("open");
-});
+$(".drop_down").click(function () {
+    $(this).find(".megamenu").toggleClass("open")
+})
 
 toggleMenu.addEventListener("click", () => {
     navMenu.classList.toggle("show_menu");

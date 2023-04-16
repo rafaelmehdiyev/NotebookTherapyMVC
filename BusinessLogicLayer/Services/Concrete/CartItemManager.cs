@@ -45,21 +45,23 @@ public class CartItemManager : ICartItemService
     #endregion
 
     #region Post Request
-    public async Task<IDataResult<CartItemGetDto>> CreateAsync(int productId, UserGetDto user)
+    public async Task<IDataResult<CartItemGetDto>> CreateAsync(ProductGetDto dto, UserGetDto user)
     {
-        CartItem cartItem = await _unitOfWork.CartItemRepository.GetAsync(c=>c.ProductId== productId && c.Cart.UserId == user.Id && !c.isDeleted);
+        CartItem cartItem = await _unitOfWork.CartItemRepository.GetAsync(c=>c.ProductId== dto.Id && c.Cart.UserId == user.Id && !c.isDeleted);
         if (cartItem is null)
         {
             cartItem = new()
             {
-                ProductId = productId,
-                CartId = user.Cart.Id
+                ProductId = dto.Id,
+                CartId = user.Cart.Id,
+                TotalPrice = dto.Price
             };
             await _unitOfWork.CartItemRepository.CreateAsync(cartItem);
         }
         else
         {
             cartItem.Quantity++;
+            cartItem.TotalPrice += dto.Price;
             _unitOfWork.CartItemRepository.Update(cartItem);
         }
         int result = await _unitOfWork.SaveAsync();
@@ -73,19 +75,21 @@ public class CartItemManager : ICartItemService
     #endregion
 
     #region Update Requests
-    public async Task<IDataResult<CartItemGetDto>> RemoveItemFromCartAsync(int productId, UserGetDto user,bool deleteAll = false)
+    public async Task<IDataResult<CartItemGetDto>> RemoveItemFromCartAsync(ProductGetDto dto, UserGetDto user,bool deleteAll = false)
     {
-        CartItem cartItem = await _unitOfWork.CartItemRepository.GetAsync(c => c.ProductId == productId && c.Cart.UserId == user.Id && !c.isDeleted);
+        CartItem cartItem = await _unitOfWork.CartItemRepository.GetAsync(c => c.ProductId == dto.Id && c.Cart.UserId == user.Id && !c.isDeleted);
         if(cartItem is null) return new ErrorDataResult<CartItemGetDto>(message: Messages.NotFound(Messages.CartItem));
         if (deleteAll)
         {
             cartItem.isDeleted = true;
             cartItem.Quantity = 0;
+            cartItem.TotalPrice = 0;
         }
         else
         {
             cartItem.isDeleted = cartItem.Quantity == 1 ? true : false;
             cartItem.Quantity--;
+            cartItem.TotalPrice-=dto.Price;
         }
         _unitOfWork.CartItemRepository.Update(cartItem);
         int result = await _unitOfWork.SaveAsync();

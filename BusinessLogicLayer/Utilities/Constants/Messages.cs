@@ -4,7 +4,7 @@ static class Messages
 	#region Success Messages
 	public static string Created(string entity)
 	{
-		return $"The {entity} could not be created";
+		return $"The {entity} has been created";
 	}
 	public static string Updated(string entity)
 	{

@@ -1,6 +1,10 @@
-﻿@section BeforeMediaLinks{
+﻿@{
+    ViewData["Title"] = "My Cart";
+}
+@section BeforeMediaLinks{
     <link href="~/assets/css/shoppingCart.css" rel="stylesheet" />
 }
+@model IDataResult<CartGetDto>
 <div class="container">
     <h1 class="text-center fs-4 py-5">My Cart</h1>
     <div class="row">
@@ -25,171 +29,8 @@
                     </div>
                 </div>
             </div>
-
-            <div class="row d-flex align-items-center cardContainer p-3">
-                <div class="col-md-6">
-                    <div class="row">
-                        <div class="col-md-3 imgContainer">
-                            <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/moonflower5_360x.jpg?v=1591867703" alt="">
-                        </div>
-                        <div class="col-md-9">
-                            <p>
-                                Tsuki 'Moonflower' Limited Edition Luxury Bullet Journal ☾
-                            </p>
-                            <span class="subtitle"> Original (168 pages) </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 ">
-                    <div class="row d-flex align-items-center">
-                        <div class="col-3">
-                            <p>$28.98 USD</p>
-                        </div>
-                        <div class="col-3 d-flex align-items-center gap-3  pb-3">
-                            <button class="action"><span>-</span></button>
-                            <p class="mb-0">1</p>
-                            <button class="action"><span>+</span></button>
-                        </div>
-                        <div class="col-3">
-                            <p>$28.98 USD</p>
-                        </div>
-                        <div class="col-3 pb-3 d-flex justify-content-center">
-                            <span class="fs-5"><i class="fa-solid fa-x"></i></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row d-flex align-items-center cardContainer p-3">
-                <div class="col-md-6">
-                    <div class="row">
-                        <div class="col-md-3 imgContainer">
-                            <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/moonflower5_360x.jpg?v=1591867703" alt="">
-                        </div>
-                        <div class="col-md-9">
-                            <p>
-                                Tsuki 'Moonflower' Limited Edition Luxury Bullet Journal ☾
-                            </p>
-                            <span class="subtitle"> Original (168 pages) </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 ">
-                    <div class="row d-flex align-items-center">
-                        <div class="col-3">
-                            <p>$28.98 USD</p>
-                        </div>
-                        <div class="col-3 d-flex align-items-center gap-3  pb-3">
-                            <button class="action"><span>-</span></button>
-                            <p class="mb-0">1</p>
-                            <button class="action"><span>+</span></button>
-                        </div>
-                        <div class="col-3">
-                            <p>$28.98 USD</p>
-                        </div>
-                        <div class="col-3 pb-3 d-flex justify-content-center">
-                            <span class="fs-5"><i class="fa-solid fa-x"></i></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row d-flex align-items-center cardContainer p-3">
-                <div class="col-md-6">
-                    <div class="row">
-                        <div class="col-md-3 imgContainer">
-                            <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/moonflower5_360x.jpg?v=1591867703" alt="">
-                        </div>
-                        <div class="col-md-9">
-                            <p>
-                                Tsuki 'Moonflower' Limited Edition Luxury Bullet Journal ☾
-                            </p>
-                            <span class="subtitle"> Original (168 pages) </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 ">
-                    <div class="row d-flex align-items-center">
-                        <div class="col-3">
-                            <p>$28.98 USD</p>
-                        </div>
-                        <div class="col-3 d-flex align-items-center gap-3  pb-3">
-                            <button class="action"><span>-</span></button>
-                            <p class="mb-0">1</p>
-                            <button class="action"><span>+</span></button>
-                        </div>
-                        <div class="col-3">
-                            <p>$28.98 USD</p>
-                        </div>
-                        <div class="col-3 pb-3 d-flex justify-content-center">
-                            <span class="fs-5"><i class="fa-solid fa-x"></i></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row d-flex align-items-center cardContainer p-3">
-                <div class="col-md-6">
-                    <div class="row">
-                        <div class="col-md-3 imgContainer">
-                            <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/moonflower5_360x.jpg?v=1591867703" alt="">
-                        </div>
-                        <div class="col-md-9">
-                            <p>
-                                Tsuki 'Moonflower' Limited Edition Luxury Bullet Journal ☾
-                            </p>
-                            <span class="subtitle"> Original (168 pages) </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 ">
-                    <div class="row d-flex align-items-center">
-                        <div class="col-3">
-                            <p>$28.98 USD</p>
-                        </div>
-                        <div class="col-3 d-flex align-items-center gap-3  pb-3">
-                            <button class="action"><span>-</span></button>
-                            <p class="mb-0">1</p>
-                            <button class="action"><span>+</span></button>
-                        </div>
-                        <div class="col-3">
-                            <p>$28.98 USD</p>
-                        </div>
-                        <div class="col-3 pb-3 d-flex justify-content-center">
-                            <span class="fs-5"><i class="fa-solid fa-x"></i></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row d-flex align-items-center cardContainer p-3">
-                <div class="col-md-6">
-                    <div class="row">
-                        <div class="col-md-3 imgContainer">
-                            <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/moonflower5_360x.jpg?v=1591867703" alt="">
-                        </div>
-                        <div class="col-md-9">
-                            <p>
-                                Tsuki 'Moonflower' Limited Edition Luxury Bullet Journal ☾
-                            </p>
-                            <span class="subtitle"> Original (168 pages) </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 ">
-                    <div class="row d-flex align-items-center">
-                        <div class="col-3">
-                            <p>$28.98 USD</p>
-                        </div>
-                        <div class="col-3 d-flex align-items-center gap-3  pb-3">
-                            <button class="action"><span>-</span></button>
-                            <p class="mb-0">1</p>
-                            <button class="action"><span>+</span></button>
-                        </div>
-                        <div class="col-3">
-                            <p>$28.98 USD</p>
-                        </div>
-                        <div class="col-3 pb-3 d-flex justify-content-center">
-                            <span class="fs-5"><i class="fa-solid fa-x"></i></span>
-                        </div>
-                    </div>
-                </div>
+            <div id="cartItems">
+                <partial name="_cartItemPartial" model="Model.Data.CartItems.Where(c=>!c.isDeleted).ToList()" />
             </div>
         </div>
         <div class="col-lg-3 mt-2 ps-md-5 col-md-12">
@@ -205,3 +46,43 @@
         </div>
     </div>
 </div>
+
+@section Scripts{
+    <script>
+        $(function () {
+            $(document).on('click', '.add-to-cart', function () {
+                var id = $(this).data('id');
+                $.ajax({
+                    url: '/Product/AddItemToCart',
+                    method: 'POST',
+                    data: { id: id },
+                    success: function (result) {
+                        $("#cartItems").load('@Url.Action("LoadCartItems", "Account", new { id = Model.Data.Id })')
+                    }
+                });
+            });
+            $(document).on('click', '.remove-from-cart', function () {
+                var id = $(this).data('id');
+                $.ajax({
+                    url: '/Product/RemoveItemFromCart',
+                    method: 'POST',
+                    data: { id: id },
+                    success: function (result) {
+                        $("#cartItems").load('@Url.Action("LoadCartItems", "Account", new { id = Model.Data.Id })')
+                    }
+                });
+            });
+            $(document).on('click', '.remove-all-from-cart', function () {
+                var id = $(this).data('id');
+                $.ajax({
+                    url: '/Product/RemoveItemFromCart',
+                    method: 'POST',
+                    data: { id: id, deleteAll: true },
+                    success: function (result) {
+                        $("#cartItems").load('@Url.Action("LoadCartItems", "Account", new { id = Model.Data.Id })')
+                    }
+                });
+            });
+        });
+    </script>
+}

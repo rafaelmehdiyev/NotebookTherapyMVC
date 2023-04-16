@@ -108,43 +108,43 @@ public class ProductController : Controller
         await _productService.HardDeleteByIdAsync(result.Data.Id);
         return RedirectToAction(nameof(Index));
     }
-    #region Other Actions
-    [HttpPost]
-	public async Task<IDataResult<FavouriteGetDto>> AddToFavourite(int id)
-	{
-		FavouritePostDto dto = new()
-		{
-			ProductId = id,
-			UserId = (await _authService.GetUserByClaims(User)).Data.Id
-		};
-		return await _favService.CreateAsync(dto);
-	}
+ //   #region Other Actions
+ //   [HttpPost]
+	//public async Task<IDataResult<FavouriteGetDto>> AddToFavourite(int id)
+	//{
+	//	FavouritePostDto dto = new()
+	//	{
+	//		ProductId = id,
+	//		UserId = (await _authService.GetUserByClaims(User)).Data.Id
+	//	};
+	//	return await _favService.CreateAsync(dto);
+	//}
 
-	[HttpPost]
-	public async Task<IResult> RemoveFromFavourite(int id)
-	{
-		return await _favService.HardDeleteByIdAsync(id);
-	}
+	//[HttpPost]
+	//public async Task<IResult> RemoveFromFavourite(int id)
+	//{
+	//	return await _favService.HardDeleteByIdAsync(id);
+	//}
 
-	[HttpPost]
-	public async Task<IActionResult> WriteComment(ReviewPostDto dto)
-	{
-		await _reviewService.CreateAsync(dto);
-		return RedirectToAction("Get", "Product", new { id = dto.ProductId });
-	}
+	//[HttpPost]
+	//public async Task<IActionResult> WriteComment(ReviewPostDto dto)
+	//{
+	//	await _reviewService.CreateAsync(dto);
+	//	return RedirectToAction("Get", "Product", new { id = dto.ProductId });
+	//}
 
-	[HttpPost]
-	public async Task<IDataResult<CartItemGetDto>> AddItemToCart(int id)
-	{
-		return await _cartItemService.CreateAsync(id, (await _authService.GetUserByClaims(User)).Data);
-	}
+	//[HttpPost]
+	//public async Task<IDataResult<CartItemGetDto>> AddItemToCart(int id)
+	//{
+	//	return await _cartItemService.CreateAsync(id, (await _authService.GetUserByClaims(User)).Data);
+	//}
 
-	[HttpPost]
-	public async Task<IDataResult<CartItemGetDto>> RemoveItemFromCart(int id, bool deleteAll = false)
-	{
-		return await _cartItemService.RemoveItemFromCartAsync(id, (await _authService.GetUserByClaims(User)).Data, deleteAll);
-	}
-	#endregion
+	//[HttpPost]
+	//public async Task<IDataResult<CartItemGetDto>> RemoveItemFromCart(int id, bool deleteAll = false)
+	//{
+	//	return await _cartItemService.RemoveItemFromCartAsync(id, (await _authService.GetUserByClaims(User)).Data, deleteAll);
+	//}
+	//#endregion
 
 	#region Private Methods
 	private async Task GetViewBags()
