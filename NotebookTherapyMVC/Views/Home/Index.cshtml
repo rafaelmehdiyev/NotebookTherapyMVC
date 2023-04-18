@@ -3,7 +3,6 @@
 }
 @section BeforeMediaLinks{
     <link rel="stylesheet" href="~/assets/css/index.css">
-    @*<link rel="stylesheet" href="~/assets/css/trending.css">*@
 }
 @model HomeVM
 <div class="containr">
@@ -82,7 +81,7 @@
             </div>
             <div class="cards">
                 <div class="row">
-                    @foreach (ProductGetDto product in Model.ProductsResult.Data.Where(p=>p.isSale))
+                    @foreach (ProductGetDto product in Model.ProductsResult.Data.Where(p => p.isSale))
                     {
                         <div class="col-6 col-md-4 col-lg-3 gy-4">
                             <div class="card-item text-center">
@@ -148,7 +147,7 @@
                         </div>
                     </div>
                 </div>
-            }           
+            }
         </div>
         <a href="trending.html" class="d-block text-center my-5 button">
             <span>See More</span>
@@ -193,8 +192,14 @@
                 </div>
             }
         </div>
-        <span class="arrow left">&#129120;</span>
-        <span class="arrow right">&#129122;</span>
+        @{
+            if (Model.ProductsResult.Data.Count > 4)
+            {
+                <span class="arrow left">&#129120;</span>
+                <span class="arrow right">&#129122;</span>
+            }
+        }
+
     </section>
     <!-- Section: Slider 2023 picks section end -->
 

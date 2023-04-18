@@ -1,0 +1,7 @@
+﻿@model ReviewPostDto
+<form asp-action="WriteComment" asp-controller="Product">
+    <input type="hidden" asp-for="ProductId" />
+    <select asp-items="Html.GetEnumSelectList<Rating>()" asp-for="Rating"></select>
+    <textarea class="w-100" asp-for="Comment"></textarea>
+    <button type="submit">Make a review</button>
+</form>

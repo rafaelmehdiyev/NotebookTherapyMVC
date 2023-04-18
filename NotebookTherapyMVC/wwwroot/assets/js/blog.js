@@ -1,5 +1,5 @@
-﻿const prev = document.querySelector(".fa-arrow-left"),
-    next = document.querySelector(".fa-arrow-right"),
+﻿const prev = document.querySelector(".nav.prev"),
+    next = document.querySelector(".nav.next"),
     cards = document.querySelectorAll(".slider_card"),
     slider = document.querySelector(".slides");
 

@@ -40,27 +40,12 @@
             <div class="product-title">
                 <p class="fs-4 fw-bold"> Tsuki 'Pastel Edition' Bullet Journal ☾ </p>
                 <!-- Stars -->
-                <div class="stars my-2">
+                <div class="stars my-2 d-flex gap-2 align-items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-star-fill"
                          viewBox="0 0 16 16">
                         <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
                     </svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-star-fill"
-                         viewBox="0 0 16 16">
-                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                    </svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-star-fill"
-                         viewBox="0 0 16 16">
-                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                    </svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-star-fill"
-                         viewBox="0 0 16 16">
-                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                    </svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-star-fill"
-                         viewBox="0 0 16 16">
-                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                    </svg>
+                    <h4 class="mb-0">@Model.Data.TotalRating.ToString("0.0")</h4>
                 </div>
                 <p><span class="fw-bold">Color :</span> @Model.Data.Color.Name</p>
                 <!-- images -->
@@ -93,6 +78,26 @@
                 <!-- submit -->
                 <div class="submit my-4">
                     <button class="w-100 py-3 rounded-pill fw-bold text-white add-to-cart" data-id="@Model.Data.Id"> ADD TO CART @Model.Data.Price ₼</button>
+                    @{
+                        if (Model.Data.Favourites.Count != 0)
+                        {
+                            foreach (FavouriteGetDto fav in Model.Data.Favourites)
+                            {
+                                if (fav.Product.Id != Model.Data.Id)
+                                {
+                                    <button class="px-3 rounded-circle fw-bold text-white add-to-fav" onclick="AddToFav(this)" data-id="@Model.Data.Id"><i class="fa-regular fa-heart"></i></button>
+                                }
+                                else
+                                {
+                                    <button class="px-3 rounded-circle fw-bold text-white remove-from-fav" onclick="RemoveFromFav(this)" data-id="@fav.Id" data-product-id="@Model.Data.Id"><i class="fa-solid fa-heart"></i></button>
+                                }
+                            }
+                        }
+                        else
+                        {
+                            <button class="px-3 rounded-circle fw-bold text-white add-to-fav" onclick="AddToFav(this)" data-id="@Model.Data.Id"><i class="fa-regular fa-heart"></i></button>
+                        }
+                    }
                 </div>
                 <div class="product-info">
                     <!-- tabs -->
@@ -201,29 +206,29 @@
         </div>
     </div>
     <!-- section 2 -->
-    <div class="row">
+    <div class="row my-2">
         <div class="col-md-6">
-            <div class="stars my-2 d-flex gap-2 align-items-baseline">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-star-fill"
-                     viewBox="0 0 16 16">
-                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+            <div class="stars my-2 d-flex gap-2 align-items-center">
+                @*<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-star-fill"
+                viewBox="0 0 16 16">
+                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
                 </svg>
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-star-fill"
-                     viewBox="0 0 16 16">
-                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                viewBox="0 0 16 16">
+                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
                 </svg>
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-star-fill"
-                     viewBox="0 0 16 16">
-                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                viewBox="0 0 16 16">
+                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
                 </svg>
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-star-fill"
-                     viewBox="0 0 16 16">
-                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                viewBox="0 0 16 16">
+                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
                 </svg>
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-star-fill"
-                     viewBox="0 0 16 16">
-                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                </svg>
+                viewBox="0 0 16 16">
+                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                </svg>*@
                 <h4>@Model.Data.Reviews.Count Reviews</h4>
             </div>
         </div>
@@ -232,39 +237,26 @@
                 Write a review
             </button>
         </div>
+        <partial name="_writeReviewPartial" model="new ReviewPostDto{ProductId=Model.Data.Id}" />
     </div>
     <div class="row mt-3">
-        <div class="col-12 border p-3 komments d-flex gap-5 mb-3">
-            <img src="https://images.loox.io/uploads/2022/11/16/Vkmdr2rTSa.jpg" alt="">
-            <div class="title">
-                <p class="fw-bold">Maxakia</p>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quos, dicta!</p>
+        @foreach (ReviewGetDto review in Model.Data.Reviews)
+        {
+            <div class="col-12 border p-3 komments d-flex gap-5 mb-3">
+                <div class="title">
+                    <p class="fw-bold">@review.User.UserName</p>
+                    <p>@review.Comment</p>
+                </div>
+                <div class="stars d-flex gap-2 align-items-center ms-auto">
+                    @for (int i = 1; i <= (int)review.Rating; i++)
+                    {
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                        </svg>
+                    }
+                </div>
             </div>
-        </div>
-
-        <div class="col-12 border p-4 komments d-flex gap-5 mb-3">
-            <img src="https://images.loox.io/uploads/2021/4/12/N1d0YEpSc.jpg" alt="">
-            <div class="title">
-                <p class="fw-bold">Belle</p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam officia consequatur at. Laborum, molestias aspernatur possimus sint tempore officia assumenda.</p>
-            </div>
-        </div>
-
-        <div class="col-12 border p-4 komments d-flex gap-5 mb-3">
-            <img src="https://images.loox.io/uploads/2020/7/30/Nkz5OtMnlt.jpg" alt="">
-            <div class="title">
-                <p class="fw-bold">Lj</p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit suscipit totam quam reiciendis!</p>
-            </div>
-        </div>
-
-        <div class="col-12 border p-4 komments d-flex gap-5 mb-3">
-            <img src="https://images.loox.io/uploads/2020/4/6/NyXB_smwu.jpg" alt="">
-            <div class="title">
-                <p class="fw-bold">Andy</p>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sed, sunt magni. Sint dolor totam laborum voluptatem illo adipisci fuga provident.</p>
-            </div>
-        </div>
+        }
     </div>
 
     <!-- section 3 -->
@@ -333,7 +325,13 @@
                 data: { id: addId },
                 success: function (result) {
                     if (result.success) {
-                        $(".add-to-fav[data-id='" + addId + "']").replaceWith(`<a onclick="RemoveFromFav(this)" class="btn btn-outline-success remove-from-fav" data-id="${result.data.id}" data-product-id=${addId}">Remove From Favourite</a>`);
+                        $(".add-to-fav[data-id='" + addId + "']").replaceWith(`<button onclick="RemoveFromFav(this)" class="px-3 rounded-circle fw-bold text-white remove-from-fav" data-id="${result.data.id}" data-product-id=${addId}"><i class="fa-solid fa-heart"></i></button>`);
+                        console.log(result)
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    if (jqXHR.status === 401) {
+                        window.location.href = '/Account/Login';
                     }
                 }
             });
@@ -348,7 +346,12 @@
                 success: function (result) {
                     if (result.success) {
                         console.log(productId);
-                        $(".remove-from-fav[data-id='" + removeId + "']").replaceWith(`<a class="btn btn-success add-to-fav" onclick="AddToFav(this)" data-id="${productId}">Add to Favourite</a>`);
+                        $(".remove-from-fav[data-id='" + removeId + "']").replaceWith(`<button class="px-3 rounded-circle fw-bold text-white add-to-fav" onclick="AddToFav(this)" data-id="${productId}"><i class="fa-regular fa-heart"></i></button>`);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    if (jqXHR.status === 401) {
+                        window.location.href = '/Account/Login';
                     }
                 }
             });
@@ -374,9 +377,14 @@
                             showConfirmButton: false,
                             timer: 1500
                         })
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        if (jqXHR.status === 401) {
+                            window.location.href = '/Account/Login';
+                        }
                     }
                 });
-            });          
+            });
         });
     </script>
 }

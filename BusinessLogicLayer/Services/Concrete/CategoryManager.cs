@@ -103,5 +103,3 @@ public class CategoryManager : ICategoryService
     }
 	#endregion
 }
-
-
