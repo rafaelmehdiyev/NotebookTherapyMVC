@@ -71,4 +71,9 @@ public class AccountController : Controller
         IDataResult<CartGetDto> cartResult = await _cartService.GetByIdAsync(id, Includes.CartIncludes);
         return PartialView("_cartItemPartial", cartResult.Data.CartItems.Where(c=>!c.isDeleted).ToList());
     }
+    public async Task<IActionResult> CartItemTotalPricePartial(int id)
+    {
+        IDataResult<CartGetDto> cartResult = await _cartService.GetByIdAsync(id, Includes.CartIncludes);
+        return PartialView("_cartItemTotalPricePartial", cartResult);
+    }
 }

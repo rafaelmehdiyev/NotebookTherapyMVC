@@ -1,4 +1,6 @@
-﻿namespace BusinessLogicLayer.Services.Concrete;
+﻿using Entities.Abstract;
+
+namespace BusinessLogicLayer.Services.Concrete;
 
 public class ReviewManager : IReviewService
 {
@@ -41,6 +43,7 @@ public class ReviewManager : IReviewService
         Review review = _mapper.Map<Review>(dto);
         await _unitOfWork.ReviewRepository.CreateAsync(review);
         int result = await _unitOfWork.SaveAsync();
+        await UpdateProductTotalRatingAsync(dto.ProductId);
         if (result is 0)
         {
             return new ErrorResult(Messages.NotCreated(Messages.Review));
@@ -105,4 +108,11 @@ public class ReviewManager : IReviewService
 
 	#endregion
 
+    private async Task UpdateProductTotalRatingAsync(int id)
+    {
+        Product product = await _unitOfWork.ProductRepository.GetAsync(p => p.Id == id, "ProductImages","Reviews");
+        product.TotalRating = product.Reviews is not null ? (decimal)product.Reviews.Average(r => (int)r.Rating) : 0;
+        _unitOfWork.ProductRepository.Update(product);
+        await _unitOfWork.SaveAsync();
+    }
 }

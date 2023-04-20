@@ -3,7 +3,6 @@
 public class Cart : ITable
 {
     public int Id { get; set; }
-    public decimal TotalPrice { get; set; }
     public bool isDeleted { get; set; }
     public DateTime CreatedDate { get; set; }
 

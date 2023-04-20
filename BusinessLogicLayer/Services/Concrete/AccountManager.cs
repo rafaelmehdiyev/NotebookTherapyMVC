@@ -7,7 +7,9 @@ public class AccountManager : IAccountService
     private readonly ICartService _cartService;
     private readonly IMapper _mapper;
 
-    public AccountManager(UserManager<AppUser> userManager, IMapper mapper, SignInManager<AppUser> signInManager, ICartService cartService)
+    public AccountManager(UserManager<AppUser> userManager,
+        IMapper mapper, SignInManager<AppUser> signInManager,
+        ICartService cartService)
     {
         _userManager = userManager;
         _mapper = mapper;
@@ -39,7 +41,7 @@ public class AccountManager : IAccountService
         user.CartId = cartResult.Data.Id;
         await _userManager.UpdateAsync(user);
         UserGetDto userDto = _mapper.Map<UserGetDto>(user);
-        userDto.Roles = await _userManager.GetRolesAsync(user);
+        userDto.Roles = (List<string>)await _userManager.GetRolesAsync(user);
         return new SuccessDataResult<UserGetDto>(userDto, "Successfully Registered");
     }
     public async Task<IDataResult<UserGetDto>> Login(LoginDto loginDto)
@@ -48,7 +50,7 @@ public class AccountManager : IAccountService
         if (user is null) { return new ErrorDataResult<UserGetDto>(_mapper.Map<UserGetDto>(user), "User is not exist"); }
         await _signInManager.SignInAsync(user, false);
         UserGetDto userDto = _mapper.Map<UserGetDto>(user);
-        userDto.Roles = await _userManager.GetRolesAsync(user);
+        userDto.Roles = (List<string>)await _userManager.GetRolesAsync(user);
         return new SuccessDataResult<UserGetDto>(userDto, "Login Succesful");
     }
     public async Task<IResult> SignOutAsync()
@@ -72,16 +74,15 @@ public class AccountManager : IAccountService
     }
     public async Task<IDataResult<UserGetDto>> GetUserByClaims(ClaimsPrincipal userClaims, params string[] includes)
     {
+        List<AppUser> userList = GetQuery(includes).ToList();
         AppUser user = await _userManager.GetUserAsync(userClaims);
-        user = GetQuery(includes).FirstOrDefault();
-        return new SuccessDataResult<UserGetDto>(_mapper.Map<UserGetDto>(user));
+        return new SuccessDataResult<UserGetDto>(_mapper.Map<UserGetDto>(userList.Where(u=>u.Id == user.Id).FirstOrDefault()));
     }
 
     public async Task<IDataResult<UserGetDto>> GetUserById(string id, params string[] includes)
     {
-        AppUser user = await _userManager.FindByIdAsync(id);
-        user = GetQuery(includes).FirstOrDefault();
-        return new SuccessDataResult<UserGetDto>(_mapper.Map<UserGetDto>(user));
+        List<AppUser> userList = GetQuery(includes).ToList();
+        return new SuccessDataResult<UserGetDto>(_mapper.Map<UserGetDto>(userList.Where(u=>u.Id == id).FirstOrDefault()));
     }
     #endregion
 
@@ -131,7 +132,7 @@ public class AccountManager : IAccountService
         {
             for (int j = 0; j < users.Count; j++)
             {
-                users[i].Roles = await _userManager.GetRolesAsync(userList[i]);
+                users[i].Roles = (List<string>)await _userManager.GetRolesAsync(userList[i]);
             }
         }
         return users;
