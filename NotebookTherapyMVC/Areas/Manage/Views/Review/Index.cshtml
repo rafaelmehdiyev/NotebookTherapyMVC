@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Manage/Views/Shared/_Layout.cshtml";
+}
+@model IDataResult<List<ReviewGetDto>>
+
+<div class="ec-content-wrapper">
+    <div class="content">
+        <div class="breadcrumb-wrapper breadcrumb-wrapper-2 d-flex align-items-center justify-content-between">
+            <h1>Review</h1>
+            <p class="breadcrumbs">
+                <span><a href="index.html">Home</a></span>
+                <span><i class="mdi mdi-chevron-right"></i></span>Reviews
+            </p>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-default">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <partial name="_ratingTablePartial" model="Model.Data" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
