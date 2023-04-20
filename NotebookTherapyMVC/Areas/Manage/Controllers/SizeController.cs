@@ -17,11 +17,22 @@ public class SizeController : Controller
         IDataResult<List<SizeGetDto>> result = await _sizeService.GetAllAsync(true);
         return View(result);
     }
+
+    [HttpGet]
+    public async Task<IActionResult> Get(int id)
+    {
+        IDataResult<SizeGetDto> result = await _sizeService.GetByIdAsync(id,Includes.SizeIncludes);
+        return View(result);
+    }
+
     [HttpGet]
     public async Task<IActionResult> Create()
     {
         return View();
     }
+
+
+
 
     [HttpPost]
     public async Task<IActionResult> Create(SizePostDto dto)

@@ -17,6 +17,7 @@ public class BlogController : Controller
         IDataResult<List<BlogGetDto>> result = await _blogService.GetAllAsync(true);
         return View(result);
     }
+    
     [HttpGet]
     public async Task<IActionResult> Get(int id)
     {
