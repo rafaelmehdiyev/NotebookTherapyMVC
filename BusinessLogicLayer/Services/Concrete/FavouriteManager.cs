@@ -53,7 +53,7 @@ public class FavouriteManager : IFavouriteService
         {
             return new ErrorDataResult<FavouriteGetDto>(Messages.NotCreated(Messages.Favourite));
         }
-        return new SuccessDataResult<FavouriteGetDto>(_mapper.Map<FavouriteGetDto>(favourite), Messages.Created(Messages.Favourite));
+        return new SuccessDataResult<FavouriteGetDto>(_mapper.Map<FavouriteGetDto>(favourite),"Product Added to Favourites");
     }
     #endregion
 

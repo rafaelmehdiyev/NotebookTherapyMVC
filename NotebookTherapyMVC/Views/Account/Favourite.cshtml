@@ -60,8 +60,8 @@
                                     <i class="fa-solid fa-cart-shopping"></i>
                                 </a>
                                 <button class="favbtn vertical-center">
-                                    <i class="fa-solid fa-heart fav show"></i>
-                                    <i class="fa-regular fa-heart fav"></i>
+                                    <i class="fa-regular fa-heart fav" onclick="AddToFav(this)" data-id="@fav.Product.Id"></i>
+                                    <i class="fa-solid fa-heart fav show" onclick="RemoveFromFav(this)" data-id="@fav.Id" data-product-id="@fav.Product.Id"></i>
                                 </button>
                             </div>
                         </div>

@@ -26,7 +26,7 @@ function RemoveFromFav(e) {
         data: { id: removeId },
         success: function (result) {
             if (result.success) {
-                console.log(productId);
+                console.log(result);
                 $(".remove-from-fav[data-id='" + removeId + "']").replaceWith(`<button class="px-3 rounded-circle fw-bold text-white add-to-fav" onclick="AddToFav(this)" data-id="${productId}"><i class="fa-regular fa-heart"></i></button>`);
             }
         },

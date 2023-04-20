@@ -8,6 +8,9 @@
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.css" rel="stylesheet">
 }
 @model IDataResult<ProductGetDto>
+@{
+    ViewData["Title"] = Model.Data.Name;
+}
 <div class="container mt-5">
     <!-- section1 -->
     <div class="row">

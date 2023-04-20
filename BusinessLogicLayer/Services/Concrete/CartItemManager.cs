@@ -69,7 +69,7 @@ public class CartItemManager : ICartItemService
         {
             return new ErrorDataResult<CartItemGetDto>(_mapper.Map<CartItemGetDto>(cartItem),Messages.NotCreated(Messages.CartItem));
         }
-        return new SuccessDataResult<CartItemGetDto>(_mapper.Map<CartItemGetDto>(cartItem),Messages.Created(Messages.CartItem));
+        return new SuccessDataResult<CartItemGetDto>(_mapper.Map<CartItemGetDto>(cartItem),"Product added to cart");
     }
 
     #endregion
@@ -97,7 +97,7 @@ public class CartItemManager : ICartItemService
         {
             return new ErrorDataResult<CartItemGetDto>(_mapper.Map<CartItemGetDto>(cartItem), Messages.NotUpdated(Messages.CartItem));
         }
-        return new SuccessDataResult<CartItemGetDto>(_mapper.Map<CartItemGetDto>(cartItem), Messages.Updated(Messages.CartItem));
+        return new SuccessDataResult<CartItemGetDto>(_mapper.Map<CartItemGetDto>(cartItem), "Product Removed from Cart");
     }
 
     #endregion

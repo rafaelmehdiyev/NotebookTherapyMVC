@@ -47,13 +47,13 @@
                     <i class="fa-solid fa-chevron-down dropdown_icon"></i>
                 </div>
                 <div class="megamenu">
-                    <ul class="content">
+                    <ul class="content flex-xl-row">
                         @if ((await _categoryService.GetAllAsync(false)).Success)
                         {
                             List<CategoryGetDto> categories = (await _categoryService.GetAllAsync(false)).Data;
                             @foreach (CategoryGetDto category in categories)
                             {
-                                <li class="megamenu_item">
+                                <li class="megamenu_item px-xl-3">
                                     <div class="megamenu_link">
                                         <a asp-controller="Product" asp-action="Index" asp-route-id="@category.Id">@category.Name</a>
                                     </div>

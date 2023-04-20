@@ -24,5 +24,5 @@ filterBtn.addEventListener("click", () => {
 let slider = document.querySelector(".range")
 let value = document.getElementById("value")
 slider.oninput = function () {
-    value.innerHTML = ` Price : <span class="priceFilter"> 0 $ - ${this.value}$</span></p>`
+    value.innerHTML = `<span class="priceFilter"> 0 $ - ${this.value}$</span></p>`
 }
