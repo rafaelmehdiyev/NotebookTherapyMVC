@@ -1,0 +1,145 @@
+﻿@import url(core.css);
+
+.imgContainer img {
+    width: 100px;
+    height: 100px;
+}
+
+.subtitle {
+    color: #9f9f8e;
+    font-size: 14px;
+}
+
+.action {
+    width: 25px;
+    height: 30px;
+    border: none;
+}
+
+.cardContainer {
+    border: 1px dashed #dee2e6;
+}
+
+.bg-purple {
+    background-color: #de94a5;
+}
+
+.title, .subtitle, .price {
+    cursor: pointer;
+}
+
+    .title:hover, .price:hover {
+        transition: 0.5s;
+        color: #de94a5;
+    }
+
+.btns {
+    gap: 1rem;
+}
+
+
+.button-hover-addcart {
+    border: 2px solid #767676;
+    background: transparent;
+    color: #767676;
+    text-transform: uppercase;
+    overflow: hidden;
+    letter-spacing: 0.07rem;
+    transition: all 0.2s ease-in-out;
+    position: relative;
+    padding: 10px;
+    width: 190px;
+    font-size: 17px;
+}
+
+    .button-hover-addcart span {
+        transition: all 0.2s ease-in-out;
+    }
+
+    .button-hover-addcart .fa-solid {
+        position: absolute;
+        font-size: 1.2rem;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
+        color: #de94a5;
+        right: -30px;
+        transition: 0.4s right cubic-bezier(0.38, 0.6, 0.48, 1);
+    }
+
+    .button-hover-addcart:hover {
+        border-color: #de94a5;
+        background: transparent;
+        transition: border-color 0.2s;
+    }
+
+        .button-hover-addcart:hover span {
+            margin-right: 20px;
+            color: #de94a5;
+        }
+
+        .button-hover-addcart:hover .fa-solid {
+            right: 12px;
+        }
+
+.basket {
+    min-width: 50px;
+    height: 50px;
+    background-color: white;
+    border: 1px solid #de94a5;
+    color: #de94a5;
+    transition: 0.5s all ease;
+}
+
+    .basket:hover {
+        background-color: #de94a5;
+        color: white;
+    }
+
+    .basket i {
+        font-size: 20px;
+    }
+
+.fav {
+    color: #de94a5;
+    font-size: 18px;
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    display:block;
+}
+
+.favbtn {
+    min-width: 50px;
+    height: 50px;
+    border: 0;
+    background: none;
+    position: relative !important;
+    top: 0;
+    border: 1px solid #de94a5;
+    border-radius:50%;
+}
+
+.show {
+    opacity: 1;
+    z-index:2;
+}
+
+
+@media(min-width : 765px) {
+    .imgContainer img {
+        width: 70px;
+        height: 70px;
+    }
+}
+
+@media(max-width : 768px) {
+    .header {
+        display: none;
+    }
+
+    .favbtn {
+        top: -160px !important;
+    }
+}

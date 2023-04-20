@@ -1,0 +1,75 @@
+﻿@{
+    ViewData["Title"] = "Favourites";
+}
+@section AfterMediaLinks{
+    <link rel="stylesheet" href="~/assets/css/favourite.css" />
+}
+@section Scripts{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
+    <script src="~/assets/js/favourite.js"></script>
+    <script src="~/assets/js/favfunctions.js"></script>
+    <script src="~/assets/js/cartfunctions.js"></script>
+}
+@model IDataResult<List<FavouriteGetDto>>
+<div class="container pb-4">
+    <h1 class="text-center fs-4 py-5">Favourite</h1>
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <div class="row header">
+                <div class="col-lg-7 col-md-6">
+                    <p class="fw-bold">Item</p>
+                </div>
+                <div class="col-lg-5 col-md-6">
+                    <div class="row">
+                        <div class="col-3">
+                            <p class="fw-bold">Price</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @foreach (FavouriteGetDto fav in Model.Data)
+            {
+                <div class="row d-flex align-items-center cardContainer p-3">
+                    <div class="col-lg-7 col-md-6">
+                        <div class="row">
+                            <div class="col-lg-2 col-md-3 imgContainer">
+                                <img src="~/uploads/product/@(fav.Product.ProductImages.FirstOrDefault().ImagePath)" alt="">
+                            </div>
+                            <div class="col-lg-10 col-md-9">
+                                <p class="title mt-2">
+                                    @fav.Product.Name
+                                </p>
+                                <span class="subtitle"> Original (168 pages) </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 col-md-6">
+                        <div class="row vertical-center">
+                            <div class="col-2">
+                                <p class="price">$@fav.Product.Price</p>
+                            </div>
+                            <div class="col-6">
+                                <div class="d-flex justify-content-center btns align-items-center">
+                                    <a asp-action="Detail" asp-controller="Product" asp-route-id="@fav.Product.Id" class="button-hover-addcart text-center">
+                                        <span>Details</span><i class="fa-solid fa-circle-info"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-4 vertical-center">
+                                <a class="basket rounded-circle add-to-cart me-2 vertical-center" data-id="@fav.Product.Id">
+                                    <i class="fa-solid fa-cart-shopping"></i>
+                                </a>
+                                <button class="favbtn vertical-center">
+                                    <i class="fa-solid fa-heart fav show"></i>
+                                    <i class="fa-regular fa-heart fav"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            }
+        </div>
+    </div>
+</div>
+

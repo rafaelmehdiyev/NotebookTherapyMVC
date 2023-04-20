@@ -21,6 +21,17 @@ public class FavouriteManager : IFavouriteService
         }
         return new SuccessDataResult<List<FavouriteGetDto>>(_mapper.Map<List<FavouriteGetDto>>(favourites));
     }
+
+    public async Task<IDataResult<List<FavouriteGetDto>>> GetAllByUserIdAsync(string id,params string[] includes)
+    {
+        List<Favourite> favourites = await _unitOfWork.FavouriteRepository.GetAllAsync(f=>f.UserId == id,includes: includes);
+        if (favourites is null)
+        {
+            return new ErrorDataResult<List<FavouriteGetDto>>(Messages.NotFound(Messages.Favourite));
+        }
+        return new SuccessDataResult<List<FavouriteGetDto>>(_mapper.Map<List<FavouriteGetDto>>(favourites));
+    }
+
     public async Task<IDataResult<FavouriteGetDto>> GetByIdAsync(int id, params string[] includes)
     {
         Favourite favourite = await _unitOfWork.FavouriteRepository.GetAsync(b => b.Id == id, includes);

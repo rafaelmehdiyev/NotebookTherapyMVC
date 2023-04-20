@@ -3,6 +3,7 @@ public interface IFavouriteService
 {
     #region Get Requests
     Task<IDataResult<List<FavouriteGetDto>>> GetAllAsync(params string[] includes);
+    Task<IDataResult<List<FavouriteGetDto>>> GetAllByUserIdAsync(string id,params string[] includes);
     Task<IDataResult<FavouriteGetDto>> GetByIdAsync(int id, params string[] includes);
     #endregion
 

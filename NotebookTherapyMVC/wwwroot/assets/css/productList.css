@@ -1,4 +1,5 @@
 ﻿@import url(core.css);
+
 * {
     margin: 0%;
     padding: 0;
@@ -90,7 +91,7 @@ body {
 
 .img-container {
     width: 100%;
-    height: 320px;
+    height: 259px;
     background-size: 100%;
     transition: 0.5s all ease;
     background-repeat: no-repeat;
@@ -114,10 +115,16 @@ body {
             color: #de94a5;
         }
 
+.general {
+    position: relative;
+}
+
 .sidebar {
-    position: fixed;
-    left: 41px;
-    height: 650px;
+    position: sticky;
+    width: 100%;
+    top: 0;
+    left: 20px;
+    height: 550px;
     overflow-y: scroll;
 }
 
@@ -125,8 +132,12 @@ body {
     display: none;
 }
 
+.btns {
+    gap: 1rem;
+}
+
 .block {
-    display: block;
+    display: block !important;
 }
 
 button {
@@ -361,19 +372,12 @@ input[type=range] {
             right: 12px;
         }
 
-.hiddenSidebar {
-    background-color: white;
-    height: 600px;
-    overflow-y: scroll;
-    display: none;
-}
-
 .block {
-    display: block;
+    display: block
 }
 
 
-@media(max-width : 768px) {
+@media(max-width : 992px) {
     .sidebar {
         display: none;
     }

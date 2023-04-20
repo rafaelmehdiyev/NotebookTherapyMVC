@@ -263,128 +263,26 @@
     <section class="mt-5">
         <h4 class="text-center fw-bold">You might like</h4>
         <!-- carousel -->
-        <div class="caruselContainer">
-            <button class="btn left">
-                <i class="fa-solid fa-chevron-left"></i>
-            </button>
-            <div class="slider row ">
-                <div class="col-md-3 img-container">
-                    <a href="#">
-                        <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/3_e83ec3a5-9e2c-4eb9-9db6-9dabd1977b62_400x400.jpg?v=1646738373" alt="">
-                        <p class="text-center py-3">Lorem ipsum dolor sit, anhs</p>
-                    </a>
-                </div>
-                <div class="col-md-3 img-container">
-                    <a href="#">
-                        <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/LETTERING-bllueel-08copy_8f1fd48c-1fdc-42a2-b5bd-eed8637da5c0_400x400.jpg?v=1672662415" alt="">
-                        <p class="text-center py-3">Lorem ipsum dolor sit, anhs</p>
-                    </a>
-                </div>
-                <div class="col-md-3 img-container">
-                    <a href="#">
-                        <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/01-tsuki_sakura-notebook-carousel_400x400.jpg?v=1679235672" alt="">
-                        <p class="text-center py-3">Lorem ipsum dolor sit, anhs</p>
-                    </a>
-                </div>
-                <div class="col-md-3 img-container">
-                    <a href="#">
-                        <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/5U7A6678copy_400x400.jpg?v=1668777293" alt="">
-                        <p class="text-center py-3">Lorem ipsum dolor sit, anhs</p>
-                    </a>
-                </div>
-                <div class="col-md-3 img-container">
-                    <a href="#">
-                        <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/d1e57ac3375c0ca5181c91d343e7d747_400x400.png?v=1572456405" alt="">
-                        <p class="text-center py-3">Lorem ipsum dolor sit, anhs</p>
-                    </a>
-                </div>
-                <div class="col-md-3 img-container">
-                    <a href="#">
-                        <img src="https://cdn.shopify.com/s/files/1/2026/1775/products/product-image-538700474_400x400.jpg?v=1648814069" alt="">
-                        <p class="text-center py-3">Lorem ipsum dolor sit, anhs</p>
-                    </a>
-                </div>
-            </div>
-            <button class="btn right">
-                <i class="fa-solid fa-chevron-right"></i>
-            </button>
+        <div id="caruselContainer" class="caruselContainer">
         </div>
     </section>
 </div>
 
 @section Scripts{
     <script type="text/javascript" src="~/assets/libs/splide/dist/js/splide.min.js"></script>
-    <script src="~/assets/js/productDetail.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
+    <script src="~/assets/js/cartfunctions.js"></script>
+    <script src="~/assets/js/favfunctions.js"></script>
     <script>
-        function AddToFav(e) {
-            var addId = e.getAttribute('data-id');
+        $(document).ready(function () {
             $.ajax({
-                url: '/Product/AddToFavourite',
-                method: 'POST',
-                data: { id: addId },
+                url: "@Url.Action("GetRelated", "Product")",
                 success: function (result) {
-                    if (result.success) {
-                        $(".add-to-fav[data-id='" + addId + "']").replaceWith(`<button onclick="RemoveFromFav(this)" class="px-3 rounded-circle fw-bold text-white remove-from-fav" data-id="${result.data.id}" data-product-id=${addId}"><i class="fa-solid fa-heart"></i></button>`);
-                        console.log(result)
-                    }
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    if (jqXHR.status === 401) {
-                        window.location.href = '/Account/Login';
-                    }
+                    $("#caruselContainer").html(result);
                 }
-            });
-        }
-        function RemoveFromFav(e) {
-            var removeId = e.getAttribute('data-id');
-            var productId = e.getAttribute('data-product-id');
-            $.ajax({
-                url: '/Product/RemoveFromFavourite',
-                method: 'POST',
-                data: { id: removeId },
-                success: function (result) {
-                    if (result.success) {
-                        console.log(productId);
-                        $(".remove-from-fav[data-id='" + removeId + "']").replaceWith(`<button class="px-3 rounded-circle fw-bold text-white add-to-fav" onclick="AddToFav(this)" data-id="${productId}"><i class="fa-regular fa-heart"></i></button>`);
-                    }
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    if (jqXHR.status === 401) {
-                        window.location.href = '/Account/Login';
-                    }
-                }
-            });
-        }
-
-        $(function () {
-            $('.add-to-cart').click(function () {
-                var id = $(this).data('id');
-                $.ajax({
-                    url: '/Product/AddItemToCart',
-                    method: 'POST',
-                    data: { id: id },
-                    success: function (result) {
-                        Swal.fire({
-                            position: 'top',
-                            title: result.message,
-                            background: '#28a745',
-                            customClass: {
-                                title: 'text-white',
-                                content: 'text-white',
-                                popup: 'bg-success'
-                            },
-                            showConfirmButton: false,
-                            timer: 1500
-                        })
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        if (jqXHR.status === 401) {
-                            window.location.href = '/Account/Login';
-                        }
-                    }
-                });
             });
         });
     </script>
+    <script src="~/assets/js/productDetail.js"></script>
+
 }

@@ -1,13 +1,12 @@
-﻿let btns = document.querySelectorAll(".btn")
+﻿// accardion
+let btns = document.querySelectorAll(".categories li")
 let hiddens = document.querySelectorAll(".hidden")
-console.log(hiddens);
 
 btns.forEach((btn, btnIndex) => {
     btn.addEventListener("click", () => {
         hiddens.forEach((hidden, hiddenIndex) => {
             if (btnIndex === hiddenIndex) {
                 hidden.classList.toggle("block")
-
             }
         })
     })
@@ -15,7 +14,15 @@ btns.forEach((btn, btnIndex) => {
 
 // Click filter
 const filterBtn = document.querySelector("#filterBtn")
-const hiddenSidebar = document.querySelector(".hiddenSidebar")
+const sidebar = document.querySelector(".sidebar")
 filterBtn.addEventListener("click", () => {
-    hiddenSidebar.classList.toggle("block")
+    sidebar.classList.toggle("block")
 })
+
+// Input range
+
+let slider = document.querySelector(".range")
+let value = document.getElementById("value")
+slider.oninput = function () {
+    value.innerHTML = ` Price : <span class="priceFilter"> 0 $ - ${this.value}$</span></p>`
+}

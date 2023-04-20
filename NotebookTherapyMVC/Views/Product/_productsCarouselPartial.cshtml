@@ -1,0 +1,18 @@
+﻿@model List<ProductGetDto>
+<button class="btn left">
+    <i class="fa-solid fa-chevron-left"></i>
+</button>
+<div class="slider row ">
+    @foreach (ProductGetDto product in Model)
+    {
+        <div class="col-md-3 img-container">
+            <a asp-action="Detail" asp-controller="Product" asp-route-id="@product.Id">
+                <img src="~/uploads/product/@(product.ProductImages.FirstOrDefault().ImagePath)" alt="">
+                <p class="text-center py-3">@product.Name</p>
+            </a>
+        </div>
+    }
+</div>
+<button class="btn right">
+    <i class="fa-solid fa-chevron-right"></i>
+</button>

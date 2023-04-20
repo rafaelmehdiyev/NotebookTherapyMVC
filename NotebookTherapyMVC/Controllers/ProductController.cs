@@ -1,4 +1,6 @@
-﻿namespace NotebookTherapyMVC.Controllers;
+﻿using BusinessLogicLayer.Services.Abstract;
+
+namespace NotebookTherapyMVC.Controllers;
 
 public class ProductController : Controller
 {
@@ -36,6 +38,13 @@ public class ProductController : Controller
     {
         IDataResult<ProductGetDto> result = await _productService.GetByIdAsync(id, Includes.ProductIncludes);
         return View(result);
+    }
+
+    public async Task<IActionResult> GetRelated()
+    {
+        IDataResult<List<ProductGetDto>> result = await _productService.GetAllAsync(false,"ProductImages");
+        List<ProductGetDto> related = result.Data.OrderBy(x => Guid.NewGuid()).Take(3).ToList();
+        return PartialView("_productsCarouselPartial", related);
     }
 
     #region Other Actions

@@ -12,41 +12,53 @@ tabs.forEach((tab, index) => {
         })
         tabContents[index].classList.add("active")
         tabs[index].classList.add("active")
-
     })
 })
 
 
-// carousel2
-let back = document.querySelector(".left")
-let next = document.querySelector(".right")
-let slider = document.querySelector(".slider")
-let slides = document.querySelectorAll(".img-container")
+// Bottom Carousel
+let slides = $(".img-container")
 let counter = 0
 
-back.addEventListener("click", () => {
+$(document).on('click', '.left', function () {
     counter--;
-    carousel()
-})
+    slides = $(".img-container")
+    window.matchMedia("(max-width: 768px)").matches ? carouselMobile() : carouselDesktop()
+});
 
-next.addEventListener("click", () => {
+$(document).on('click', '.right', function () {
     counter++;
-    carousel()
-})
+    slides = $(".img-container")
+    window.matchMedia("(max-width: 768px)").matches ? carouselMobile() : carouselDesktop()
+});
 
-function carousel() {
-    if (counter === slides.length - 4)
+function carouselDesktop() {
+    if (counter > slides.length - 4) {
         counter = 0;
-
+    }
     if (counter < 0) {
         counter = slides.length - 4;
     }
-    slider.style.left = `${-counter * 350}px`
-
+    $(".slider").css('left', `${-counter * slides[0].offsetWidth}px`);
 }
 
-// carousel 1 
+function carouselMobile() {
+    if (counter > slides.length - 1) {
+        counter = 0;
+    }
+    if (counter < 0) {
+        counter = slides.length - 1;
+    }
+    $(".slider").css('left', `${-counter * slides[0].offsetWidth}px`);
+}
 
+window.onresize = function () {
+    counter = 0;
+    widthOfBody = document.body.clientWidth
+    $(".slider").css('left', `0px`);
+};
+
+// Main Carousel 
 var splide = new Splide("#main-slider", {
     width: 700,
     height: 600,
@@ -69,15 +81,12 @@ function initThumbnail(thumbnail, index) {
 
 splide.on("mounted move", function () {
     var thumbnail = thumbnails[splide.index];
-
     if (thumbnail) {
         if (current) {
             current.classList.remove("is-active");
         }
-
         thumbnail.classList.add("is-active");
         current = thumbnail;
     }
 });
-
 splide.mount();
