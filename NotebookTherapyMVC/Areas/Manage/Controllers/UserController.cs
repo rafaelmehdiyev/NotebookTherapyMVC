@@ -9,6 +9,13 @@ public class UserController : Controller
         _accountService = accountService;
     }
 
+
+    [HttpGet]
+    public async Task<IActionResult> Get(string id)
+    {
+        IDataResult<UserGetDto> result = await _accountService.GetUserById(id);
+        return View(result);
+    } 
     public async Task<IActionResult> Index()
     {
         IDataResult<List<UserGetDto>> users = await _accountService.GetAllUser();

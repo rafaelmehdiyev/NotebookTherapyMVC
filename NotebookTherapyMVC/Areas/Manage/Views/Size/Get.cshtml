@@ -1,0 +1,107 @@
+﻿
+@{
+    ViewData["Title"] = "Get";
+    Layout = "~/Areas/Manage/Views/Shared/_Layout.cshtml";
+}
+
+@model IDataResult<SizeGetDto>
+
+<div class="row justify-content-center shadow">
+    <div class="col-6 p-b-15 ">
+        <!-- Recent Order Table -->
+        <div class="card card-table-border-none card-default recent-orders" id="recent-orders">
+            <div class="card-header justify-content-between">
+                <h2>Size Info</h2>
+            </div>
+            @*<div class="card bg-white profile-content">*@
+            <div class="row justify-content-center  ">
+                <div class="col-lg-6 col-xl-4">
+                    <div class="profile-content-left profile-left-spacing">
+                        <div class="text-center widget-profile px-0 border-0">
+                            <div class="card-body">
+                                <h3 class="py-2 text-dark">@Model.Data.Name</h3>
+                                @if (@Model.Data.isDeleted)
+                                {
+                                    <span class="badge badge-danger">Inactive</span>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-success">Active</span>
+                                }
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            @if (!@Model.Data.isDeleted)
+                            {
+                                <div class="text-center pb-4" id="actionBtn">
+
+                                    <h6 class="text-dark pb-2 fontIcon"><i class="fas fa-edit"></i></h6>
+                                    <a id="actionBtn" asp-action="Update" asp-controller="Size" asp-route-id="@Model.Data.Id" class="dropdown-item">Edit</a>
+                                </div>
+
+                                <div class="text-center pb-4" id="actionBtn">
+                                    <h6 class="text-dark pb-2 fontIcon"><i class="fas fa-trash"></i></h6>
+
+                                    <a id="actionBtn" asp-action="Delete" asp-controller="Size" asp-route-id="@Model.Data.Id" class="dropdown-item">Delete</a>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="text-center pb-4" id="actionBtn">
+
+                                    <h6 class="text-dark pb-2 fontIcon"><i class="fas fa-trash-restore-alt"></i></h6>
+                                    <a id="actionBtn" asp-action="Recover" asp-controller="Size" asp-route-id="@Model.Data.Id" class="dropdown-item">Recover</a>
+                                </div>
+
+                                <div class="text-center pb-4" id="actionBtn">
+                                    <h6 class="text-dark pb-2 fontIcon"><i class="fas fa-trash"></i></h6>
+                                    <a id="actionBtn" asp-action="HardDelete" asp-controller="Size" asp-route-id="@Model.Data.Id" class="dropdown-item">Permamently Delete</a>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+              
+            </div>
+
+        </div>
+    </div>
+
+        <div class="card card-table-border-none card-default recent-orders shadow" id="recent-orders">
+
+            <div class="card-header justify-content-between">
+                <h2>Bundle's Products</h2>
+            </div>
+            <div class="row content-justify-center">
+                <div class="col-lg-12 col-xl-12">
+                    <div class="profile-content-right profile-right-spacing py-5">
+                        <div class="tab-content px-3 px-xl-5" id="myTabContent">
+                            <div class="tab-pane fade show active" id="profile" role="tabpanel"
+                                 aria-labelledby="profile-tab">
+                                <div class="tab-widget mt-5">
+                                    <div class="row">
+                                        <div class="col-xl-12">
+                                            <div class="table-responsive">
+                                                    @{
+                                                List<ProductGetDto> products = new();
+                                                foreach (ProductSizeGetDto pSize in Model.Data.ProductSizes)
+                                                {
+                                                    products.Add(pSize.Product);
+                                                }
+                                            }
+                                            <partial name="_productTablePartial" model="products" />
+                                           
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+
