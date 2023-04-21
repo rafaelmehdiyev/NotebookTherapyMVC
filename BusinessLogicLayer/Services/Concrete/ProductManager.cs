@@ -22,7 +22,7 @@ public class ProductManager : IProductService
         {
             return new ErrorDataResult<List<ProductGetDto>>(Messages.NotFound(Messages.Product));
         }
-        return new SuccessDataResult<List<ProductGetDto>>(_mapper.Map<List<ProductGetDto>>(products));
+        return new SuccessDataResult<List<ProductGetDto>>(_mapper.Map<List<ProductGetDto>>(products.OrderByDescending(p=>p.CreatedDate).ToList()));
     }
     public async Task<IDataResult<ProductGetDto>> GetByIdAsync(int id, params string[] includes)
     {

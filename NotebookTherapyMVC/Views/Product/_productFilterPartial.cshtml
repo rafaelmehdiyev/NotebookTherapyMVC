@@ -1,0 +1,116 @@
+﻿@inject ICategoryService _categoryService;
+@inject ISizeService _sizeService;
+@inject IColorService _colorService;
+@inject IBundleService _bundleService;
+
+<div class="sidebar pe-2">
+    <ul class="categories">
+        <li class="border p-2">
+            <input type="checkbox" name="onSale" id="onSale">
+            <span>On sale</span>
+        </li>
+
+        <li class="border p-2">
+            <div class="d-flex">
+                <span>Category</span>
+                <button class="btn ms-auto">
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+            </div>
+            <div class="hidden mt-2">
+                @foreach (CategoryGetDto category in (await _categoryService.GetAllAsync(false)).Data)
+                {
+                    <div class="check">
+                        <input type="checkbox" name="categories" id="category-@category.Id" value="@category.Id">
+                        <label for="category-@category.Id">@category.Name</label>
+                    </div>
+                }
+            </div>
+        </li>
+
+        <li class="border p-2">
+            <div class="d-flex">
+                <span>Size</span>
+                <button class="btn ms-auto">
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+            </div>
+            <div class="hidden mt-2">
+                @foreach (SizeGetDto size in (await _sizeService.GetAllAsync(false)).Data)
+                {
+                    <div class="check">
+                        <input type="checkbox" name="sizes" id="size-@size.Id" value="@size.Id">
+                        <label for="size-@size.Id">@size.Name</label>
+                    </div>
+                }
+            </div>
+        </li>
+
+        <li class="border p-2">
+            <div class="d-flex">
+                <span>Color</span>
+                <button class="btn ms-auto">
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+            </div>
+            <div class="hidden mt-2">
+                @foreach (ColorGetDto color in (await _colorService.GetAllAsync(false)).Data)
+                {
+                    <div class="check">
+                        <input type="checkbox" name="colors" id="color-@color.Id" value="@color.Id">
+                        <label for="color-@color.Id">@color.Name</label>
+                    </div>
+                }
+            </div>
+        </li>
+
+        <li class="border p-2">
+            <div class="d-flex">
+                <span>Bundle</span>
+                <button class="btn ms-auto">
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+            </div>
+            <div class="hidden mt-2">
+                @foreach (BundleGetDto bundle in (await _bundleService.GetAllAsync(false)).Data)
+                {
+                    <div class="check">
+                        <input type="checkbox" name="bundles" id="bundle-@bundle.Id" value="@bundle.Id">
+                        <label for="bundle-@bundle.Id">@bundle.Name</label>
+                    </div>
+                }
+            </div>
+        </li>
+
+        <li class="border p-2">
+            <div class="d-flex">
+                <span>Rating</span>
+                <button class="btn ms-auto">
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+            </div>
+            <div class="hidden mt-2">
+                <div class="check">
+                    <input type="checkbox" id="check">
+                    <label for="check">Green</label>
+                </div>
+                <div class="check">
+                    <input type="checkbox" id="check">
+                    <label for="check">Red</label>
+                </div>
+                <div class="check">
+                    <input type="checkbox" id="check">
+                    <label for="check">Blue</label>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <div class="filter mt-5">
+        <p class="priceFilter">Price filter</p>
+        <input type="range" min="5" max="1000" value="1000" step="1" class="range" id="priceRange">
+        <div class="d-flex flex-column flex-wrap ">
+            <p class="price" id="value"><span class="priceFilter"> 0 $ - 1000 $ </span></p></p>
+            <button class="button my-4">Reset Filter</button>
+        </div>
+    </div>
+</div>

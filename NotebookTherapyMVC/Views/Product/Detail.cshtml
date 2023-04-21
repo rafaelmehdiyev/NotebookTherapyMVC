@@ -86,7 +86,7 @@
                         {
                             foreach (FavouriteGetDto fav in Model.Data.Favourites)
                             {
-                                if (fav.Product.Id != Model.Data.Id)
+                                if (fav.User.Id != User.FindFirstValue(ClaimTypes.NameIdentifier))
                                 {
                                     <button class="px-3 rounded-circle fw-bold text-white add-to-fav" onclick="AddToFav(this)" data-id="@Model.Data.Id"><i class="fa-regular fa-heart"></i></button>
                                 }

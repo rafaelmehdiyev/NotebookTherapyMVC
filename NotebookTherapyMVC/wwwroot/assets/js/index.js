@@ -38,16 +38,18 @@ if (window.matchMedia("(min-width: 1200px)").matches) {
     minusSlide = 1;
 }
 
-left_arrow.addEventListener("click", () => {
-    counter_slider--;
-    slider_function();
-});
+if (left_arrow!=null && right_arrow!=null) {
+    left_arrow.addEventListener("click", () => {
+        counter_slider--;
+        slider_function();
+    });
 
-right_arrow.addEventListener("click", () => {
-    counter_slider++;
-    slider_function();
-    console.log(counter);
-});
+    right_arrow.addEventListener("click", () => {
+        counter_slider++;
+        slider_function();
+        console.log(counter);
+    });
+}
 
 function slider_function() {
     if (counter_slider >= slider_cards.length - minusSlide) {

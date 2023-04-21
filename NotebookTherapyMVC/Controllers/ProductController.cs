@@ -1,6 +1,4 @@
-﻿using BusinessLogicLayer.Services.Abstract;
-
-namespace NotebookTherapyMVC.Controllers;
+﻿namespace NotebookTherapyMVC.Controllers;
 
 public class ProductController : Controller
 {
@@ -30,9 +28,15 @@ public class ProductController : Controller
         _cartItemService = cartItemService;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index(int? categoryId,bool? isTrending,bool? onSale)
     {
-        return View();
+        FilterProductVM filter = categoryId is not null ? new FilterProductVM((int)categoryId)
+                                : (isTrending is not null && onSale is not null) ? new FilterProductVM((bool)onSale, (bool)isTrending)
+                                : isTrending is not null ? new FilterProductVM(isTrending: (bool)isTrending)
+                                : onSale is not null ? new FilterProductVM(onSale: (bool)onSale)
+                                : new FilterProductVM();
+        List<ProductGetDto> filteredProducts = await GetFilteredProducts(filter);
+        return View(filteredProducts);
     }
     public async Task<IActionResult> Detail(int id)
     {
@@ -42,9 +46,62 @@ public class ProductController : Controller
 
     public async Task<IActionResult> GetRelated()
     {
-        IDataResult<List<ProductGetDto>> result = await _productService.GetAllAsync(false,"ProductImages");
-        List<ProductGetDto> related = result.Data.OrderBy(x => Guid.NewGuid()).Take(3).ToList();
+        IDataResult<List<ProductGetDto>> result = await _productService.GetAllAsync(false, "ProductImages");
+        List<ProductGetDto> related = result.Data.OrderBy(x => Guid.NewGuid()).ToList();
         return PartialView("_productsCarouselPartial", related);
+    }
+
+    public async Task<IActionResult> GetProductsPartialAsync(FilterProductVM filter)
+    {
+        List<ProductGetDto> filteredProducts = await GetFilteredProducts(filter);
+        return PartialView("_productListPartial", filteredProducts);
+    }
+
+    private async Task<List<ProductGetDto>> GetFilteredProducts(FilterProductVM filter)
+    {
+        List<ProductGetDto> products = (await _productService.GetAllAsync(false, Includes.ProductIncludes)).Data;
+        //Checking Product is on sale or not
+        products = products.Where(p => p.isSale == filter.onSale).ToList();
+        //Price Range Filter
+        products = products.Where(p => p.Price <= filter.priceRange).ToList();
+        if (new[] { filter.categoryIds, filter.colorIds, filter.bundleIds, filter.sizeIds }.Any(a => a != null && a.Length >= 0))
+        {
+            if (filter.categoryIds is not null)
+            {
+                products = products.Where(p => filter.categoryIds.Contains(p.Category.Id)).ToList();
+            }
+            if (filter.colorIds is not null)
+            {
+                products = products.Where(p => filter.colorIds.Contains(p.Color.Id)).ToList();
+            }
+            if (filter.sizeIds is not null)
+            {
+                products = products.Where(p => p.ProductSizes.Any(ps => filter.sizeIds.Contains(ps.Size.Id))).ToList();
+            }
+            if (filter.bundleIds is not null)
+            {
+                products = products.Where(p => p.ProductBundles.Any(ps => filter.bundleIds.Contains(ps.Bundle.Id))).ToList();
+            }
+        }
+        //Order Products
+        products = filter.orderFilter switch
+        {
+            //Most Relevant
+            0 => products,
+            //Trending
+            //1=>products.OrderByDescending(p=>p.ViewCount).ToList(),
+            //The Lowest Price
+            2 => products.OrderBy(p => p.Price).ToList(),
+            //The Highest Price
+            3 => products.OrderByDescending(p => p.Price).ToList(),
+            //The Newest
+            4 => products.OrderByDescending(p => p.CreatedDate).ToList(),
+            //Bestsellers
+            //5 => products.OrderBy().ToList(),
+            //Most Liked
+            6=>products.OrderByDescending(p=>p.TotalRating).ToList(),
+        };
+        return products;
     }
 
     #region Other Actions
@@ -75,7 +132,7 @@ public class ProductController : Controller
     {
         dto.UserId = (await _accountService.GetUserByClaims(User)).Data.Id;
         IResult result = await _reviewService.CreateAsync(dto);
-        return RedirectToAction("Detail", "Product", new {id=dto.ProductId});
+        return RedirectToAction("Detail", "Product", new { id = dto.ProductId });
     }
 
     [HttpPost]
@@ -83,7 +140,7 @@ public class ProductController : Controller
     public async Task<IDataResult<CartItemGetDto>> AddItemToCart(int id)
     {
         ProductGetDto productDto = (await _productService.GetByIdAsync(id)).Data;
-        var result = await _cartItemService.CreateAsync(productDto, (await _accountService.GetUserByClaims(User,Includes.UserIncludes)).Data);
+        var result = await _cartItemService.CreateAsync(productDto, (await _accountService.GetUserByClaims(User, Includes.UserIncludes)).Data);
         return result;
     }
 
