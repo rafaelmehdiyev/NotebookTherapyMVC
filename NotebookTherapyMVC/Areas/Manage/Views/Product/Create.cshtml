@@ -148,10 +148,9 @@
                             <div class="card-body">
                                 <div class="input-upload text-center">
                                     <img src="~/Manage/assets/img/icons/upload.svg" alt="">
-                                    <input class="form-control" asp-for="formFiles" type="file" multiple>
+                                    <input class="form-control" name="formFiles" asp-for="formFiles" type="file" multiple required>
                                 </div>
-                                    <span class="text-danger spanText">The Image is required.</span>
-
+                                @Html.ValidationMessage("formFiles","Images are required",new{@class="text-danger spanText"})
                             </div>
                         </div>
                     </div>

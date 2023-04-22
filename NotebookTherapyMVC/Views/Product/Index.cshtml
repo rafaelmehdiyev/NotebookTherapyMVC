@@ -2,6 +2,7 @@
     ViewData["Title"] = "All Products";
 }
 @section AfterMediaLinks{
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.css" rel="stylesheet">
     <link rel="stylesheet" href="~/assets/css/productList.css" />
 }
 @model List<ProductGetDto>
@@ -35,6 +36,7 @@
     </div>
 </div>
 @section Scripts{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
     <script src="~/assets/js/favfunctions.js"></script>
     <script src="~/assets/js/cartfunctions.js"></script>
     <script src="~/assets/js/productList.js"></script>

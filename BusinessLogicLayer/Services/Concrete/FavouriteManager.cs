@@ -53,16 +53,18 @@ public class FavouriteManager : IFavouriteService
         {
             return new ErrorDataResult<FavouriteGetDto>(Messages.NotCreated(Messages.Favourite));
         }
-        return new SuccessDataResult<FavouriteGetDto>(_mapper.Map<FavouriteGetDto>(favourite),"Product Added to Favourites");
+        FavouriteGetDto getDto = _mapper.Map<FavouriteGetDto>(favourite);
+        getDto.ProductId = favourite.ProductId;
+        return new SuccessDataResult<FavouriteGetDto>(getDto, "Product Added to Favourites");
     }
     #endregion
 
     #region Update Requests
     public async Task<IResult> UpdateAsync(FavouriteUpdateDto dto)
     {
-        Favourite blog = await _unitOfWork.FavouriteRepository.GetAsync(b => b.Id == dto.Id);
-        blog = _mapper.Map<Favourite>(dto);
-        _unitOfWork.FavouriteRepository.Update(blog);
+        Favourite favourite = await _unitOfWork.FavouriteRepository.GetAsync(b => b.Id == dto.Id);
+        favourite = _mapper.Map<Favourite>(dto);
+        _unitOfWork.FavouriteRepository.Update(favourite);
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
