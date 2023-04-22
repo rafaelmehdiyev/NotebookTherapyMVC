@@ -1,6 +1,5 @@
 ﻿@{
     ViewData["Title"] = "Index";
-    Layout = "~/Areas/Manage/Views/Shared/_Layout.cshtml";
 }
 @model IDataResult<List<ReviewGetDto>>
 
@@ -26,3 +25,18 @@
         </div>
     </div>
 </div>
+
+@section Scripts{
+    <script>
+        $(".table").on("click", "#ModalCenter", function () {
+            var id = $(this).data('id');
+            $.ajax({
+                url: "@Url.Action("Get", "Review")",
+                data: { id: id },
+                success: function (data) {
+                    $("#ModalCenter .modal-dialog .modal-body").html(data);
+                }
+            });
+        });
+    </script>
+}

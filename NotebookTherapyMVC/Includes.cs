@@ -1,5 +1,6 @@
 ﻿namespace NotebookTherapyMVC;
 
+
 public static class Includes
 {
     public static readonly string[] UserIncludes = {
@@ -7,9 +8,11 @@ public static class Includes
         "Favourites.Product",
         "Shippings",
         "Sales",
-        "Reviews"
+        "Reviews",
+        "Reviews.Product",
+        
     };
-    public static readonly string[] SizeIncludes = { 
+    public static readonly string[] SizeIncludes = {
         "ProductSizes",
         "ProductSizes.Product.ProductImages",
         "ProductSizes.Product.ProductCollection",
@@ -26,60 +29,51 @@ public static class Includes
         "Products.Favourites.User",
         "Products.Color"
     };
-    public static readonly string[] ProductCollectionIncludes = { 
-        "Products" , 
-        "Products.ProductImages", 
-        "Products.ProductSizes.Size", 
-        "Products.ProductBundles.Bundle", 
-        "Products.Favourites.User", 
+    public static readonly string[] ProductCollectionIncludes = {
+        "Products" ,
+        "Products.ProductImages",
+        "Products.ProductSizes.Size",
+        "Products.ProductBundles.Bundle",
+        "Products.Favourites.User",
         "Products.Color"
     };
-    public static readonly string[] ColorIncludes = { 
-        "Products", 
-        "Products.ProductImages", 
-        "Products.ProductCollection", 
-        "Products.ProductSizes.Size", 
-        "Products.ProductBundles.Bundle", 
-        "Products.Favourites.User", 
-        "Products.Color" 
+    public static readonly string[] ColorIncludes = {
+        "Products",
+        "Products.ProductImages",
+        "Products.ProductCollection",
+        "Products.ProductSizes.Size",
+        "Products.ProductBundles.Bundle",
+        "Products.Favourites.User",
+        "Products.Color"
     };
-    public static readonly string[] BundleIncludes = { 
+    public static readonly string[] BundleIncludes = {
         "ProductBundles",
-        "ProductBundles.Product", 
-        "ProductBundles.Product.ProductImages", 
-        "ProductBundles.Product.ProductCollection", 
-        "ProductBundles.Product.ProductSizes.Size", 
-        "ProductBundles.Product.Favourites.User", 
-        "ProductBundles.Product.Color" 
+        "ProductBundles.Product",
+        "ProductBundles.Product.ProductImages",
+        "ProductBundles.Product.ProductCollection",
+        "ProductBundles.Product.ProductSizes.Size",
+        "ProductBundles.Product.Favourites.User",
+        "ProductBundles.Product.Color"
     };
-    public static readonly string[] ProductIncludes = { 
-        "ProductImages", 
-        "Category", 
-        "ProductCollection", 
-        "ProductSizes.Size", 
-        "ProductBundles.Bundle", 
+    public static readonly string[] ProductIncludes = {
+        "ProductImages",
+        "Category",
+        "ProductCollection",
+        "ProductSizes.Size",
+        "ProductBundles.Bundle",
         "Favourites.User",
         "Color",
-        "Reviews.User" 
+        "Reviews.User"
     };
     public static readonly string[] FavouriteIncludes = {
         "Product.ProductImages",
         "User"
     };
     public static readonly string[] CartIncludes = {
-        "CartItems.Product.ProductImages", 
+        "CartItems.Product.ProductImages",
         "User"
     };
-    public static readonly string[] UserIncludes = { "Cart", "Favourites.Product", "Shippings", "Sales", "Reviews" };
-    public static readonly string[] ShippingIncludes = { "User" };
-    public static readonly string[] CategoryIncludes = { "Products", "Products.ProductImages", "Products.ProductCollection", "Products.ProductSizes.Size", "Products.ProductBundles.Bundle", "Products.Favourites.User", "Products.Color" };
-    public static readonly string[] ProductCollectionIncludes = { "Products" , "Products.ProductImages", "Products.ProductSizes.Size", "Products.ProductBundles.Bundle", "Products.Favourites.User", "Products.Color"};
-    public static readonly string[] ColorIncludes = { "Products", "Products.ProductImages", "Products.ProductCollection", "Products.ProductSizes.Size", "Products.ProductBundles.Bundle", "Products.Favourites.User", "Products.Color" };
-    public static readonly string[] SizeIncludes = { "ProductSizes", "ProductSizes.Product.ProductImages", "ProductSizes.Product.ProductCollection", "ProductSizes.Product.ProductBundles.Bundle", "ProductSizes.Product.Favourites.User", "ProductSizes.Product.Color" };
-    public static readonly string[] BundleIncludes = { "ProductBundles","ProductBundles.Product", "ProductBundles.Product.ProductImages", "ProductBundles.Product.ProductCollection", "ProductBundles.Product.ProductSizes.Size", "ProductBundles.Product.Favourites.User", "ProductBundles.Product.Color" };
-    public static readonly string[] ProductIncludes = { "ProductImages", "Category", "ProductCollection", "ProductSizes.Size", "ProductBundles.Bundle", "Favourites.User","Color","Reviews.User" };
-    public static readonly string[] CartIncludes = { "CartItems.Product.ProductImages", "User" };
-    public static readonly string[] ReviewIncludes = { "Product.ProductImages","User" };
+    public static readonly string[] ReviewIncludes = { "Product.ProductImages", "User" };
     public static readonly string[] CartItemIncludes = { "Product.ProductImages" };
     public static readonly string[] FAQCategoryIncludes = { "FAQs" };
     public static readonly string[] FAQIncludes = { "FAQCategory" };

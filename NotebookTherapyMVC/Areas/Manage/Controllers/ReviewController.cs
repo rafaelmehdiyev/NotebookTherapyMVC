@@ -21,8 +21,8 @@ namespace NotebookTherapyMVC.Areas.Manage.Controllers
 		[HttpGet]
 		public async Task<IActionResult> Get(int id)
 		{
-			IDataResult<ReviewGetDto> result = await _reviewService.GetByIdAsync(id);
-			return View(result);
+			IDataResult<ReviewGetDto> result = await _reviewService.GetByIdAsync(id,Includes.ReviewIncludes);
+			return PartialView("_getReviewPartial", result);
 		}
 
 	
