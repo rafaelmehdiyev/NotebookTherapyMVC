@@ -1,5 +1,5 @@
 ﻿// accardion
-let btns = document.querySelectorAll(".categories li")
+let btns = document.querySelectorAll(".categories li .d-flex")
 let hiddens = document.querySelectorAll(".hidden")
 
 btns.forEach((btn, btnIndex) => {

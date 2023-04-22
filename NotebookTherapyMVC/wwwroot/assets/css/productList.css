@@ -96,7 +96,7 @@ body {
     transition: 0.5s all ease;
     background-repeat: no-repeat;
     background-position: center;
-    background-image: url(https://cdn.shopify.com/s/files/1/2026/1775/products/01-tsuki_sakura_set-caousel_7aeb4cee-62fd-4609-adac-3ce1cc6729f1_360x.jpg?v=1677514027);
+    background-image: url('../../uploads/product/686d5b70-3c85-4979-a4e9-0b51c7ab43e7Screenshot 2023-04-04 161914.png');
 }
 
     .img-container:hover {
@@ -124,7 +124,7 @@ body {
     width: 100%;
     top: 0;
     left: 20px;
-    height: 550px;
+    height: 610px;
     overflow-y: scroll;
 }
 
@@ -168,10 +168,12 @@ button {
     top: 28px;
     right: -50px;
     transition: 1s all ease;
+    border: 1px solid #de94a5
 }
 
     .favori i, .basket i {
         font-size: 20px;
+        color: #de94a5
     }
 
 .basket {
@@ -188,8 +190,11 @@ button {
 
     .basket:hover {
         background-color: #de94a5;
-        color: white;
     }
+
+        .basket:hover i {
+            color: white;
+        }
 
 .priceFilter {
     font-size: 23px;
@@ -314,7 +319,6 @@ input[type=range] {
     padding: 10px;
     border-radius: 30px;
     border: 0;
-    width: 100px;
     font-size: 19px;
     color: #de94a5;
     border: 1px solid #de94a5;

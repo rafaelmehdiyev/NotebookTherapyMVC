@@ -15,6 +15,7 @@ global using Entities.DTOs.FAQCategory;
 global using Entities.DTOs.Favourite;
 global using Entities.DTOs.Product;
 global using Entities.DTOs.ProductBundle;
+global using System.Security.Claims;
 global using Entities.DTOs.ProductCollection;
 global using Entities.DTOs.ProductSize;
 global using Entities.DTOs.Review;

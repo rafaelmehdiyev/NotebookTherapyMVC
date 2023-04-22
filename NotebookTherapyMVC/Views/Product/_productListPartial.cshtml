@@ -1,0 +1,47 @@
+﻿@model List<ProductGetDto>
+
+@foreach (ProductGetDto product in Model)
+{
+    <div class="col-md-6 col-lg-4">
+        <div class="Card d-flex flex-column align-content-center">
+            <div class="img-container" style="background-image:url(/uploads/product/@Url.Content(product.ProductImages.FirstOrDefault().ImagePath))"></div>
+            @{
+                if (product.Favourites.Count != 0)
+                {
+                    foreach (FavouriteGetDto fav in product.Favourites)
+                    {
+                        if (fav.User.Id != User.FindFirstValue(ClaimTypes.NameIdentifier))
+                        {
+                            <button class="favori add-to-fav" onclick="AddToFav(this)" data-id="@product.Id">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+                        }
+                        else
+                        {
+                            <button class="favori remove-from-fav" onclick="RemoveFromFav(this)" data-id="@fav.Id" data-product-id="@product.Id">
+                                <i class="fa-solid fa-heart"></i>
+                            </button>
+                        }
+                    }
+                }
+                else
+                {
+                    <button class="favori add-to-fav" onclick="AddToFav(this)" data-id="@product.Id">
+                        <i class="fa-regular fa-heart"></i>
+                    </button>
+                }
+            }
+            <div class="p-2">
+                <a href=""><p class="title">@product.Name</p></a>
+                <p class="productPrice my-2">@product.Price $</p>
+                <div class="d-flex justify-content-center btns">
+                    <button class="button-hover-addcart "><span>Details</span><i class="fa-solid fa-circle-info"></i></button>
+                    <button class="basket">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

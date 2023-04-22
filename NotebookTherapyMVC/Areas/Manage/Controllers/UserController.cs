@@ -9,7 +9,6 @@ public class UserController : Controller
         _accountService = accountService;
     }
 
-
     [HttpGet]
     public async Task<IActionResult> Get(string id)
     {
