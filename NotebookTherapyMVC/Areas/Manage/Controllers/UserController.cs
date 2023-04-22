@@ -12,7 +12,7 @@ public class UserController : Controller
     [HttpGet]
     public async Task<IActionResult> Get(string id)
     {
-        IDataResult<UserGetDto> result = await _accountService.GetUserById(id);
+        IDataResult<UserGetDto> result = await _accountService.GetUserById(id,Includes.UserIncludes);
         return View(result);
     } 
     public async Task<IActionResult> Index()
