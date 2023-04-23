@@ -1,4 +1,5 @@
-﻿namespace BusinessLogicLayer.Services.Concrete;
+﻿using System;
+namespace BusinessLogicLayer.Services.Concrete;
 
 public class ProductManager : IProductService
 {
@@ -53,7 +54,7 @@ public class ProductManager : IProductService
     #region Update Requests
     public async Task<IResult> UpdateAsync(ProductUpdateDto dto)
     {
-        Product product = await _unitOfWork.ProductRepository.GetAsync(b => b.Id == dto.Id && !b.isDeleted, "ProductImages", "ProductSizes.Size", "ProductBundles.Bundle");
+        Product product = await _unitOfWork.ProductRepository.GetAsync(b => b.Id == dto.Id && !b.isDeleted, "ProductImages", "ProductSizes.Size", "ProductBundles.Bundle","Reviews");
         if (product.ProductSizes.ToList().Count != 0)
         {
             foreach (ProductSize size in product.ProductSizes.ToList())
@@ -82,6 +83,7 @@ public class ProductManager : IProductService
                 product.ProductImages.Remove(image);
             }
         }
+        dto.TotalRating = product.Reviews is not null ? (decimal)product.Reviews.Average(r => (int)r.Rating) : 0;
         product = _mapper.Map<Product>(dto);
         product.isSale = product.DiscountPercent > 0 ? true : false;
         FillProduct(product, dto.formFiles, dto.SizeIds, dto.BundlesIds);

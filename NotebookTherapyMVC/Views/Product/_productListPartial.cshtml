@@ -15,6 +15,7 @@
                             <button class="favori add-to-fav" onclick="AddToFav(this)" data-id="@product.Id">
                                 <i class="fa-regular fa-heart"></i>
                             </button>
+
                         }
                         else
                         {
@@ -32,11 +33,13 @@
                 }
             }
             <div class="p-2">
-                <a href=""><p class="title">@product.Name</p></a>
+                <a asp-action="Detail" asp-controller="Product" asp-route-id="@product.Id"><p class="title">@product.Name</p></a>
                 <p class="productPrice my-2">@product.Price $</p>
                 <div class="d-flex justify-content-center btns">
-                    <button class="button-hover-addcart "><span>Details</span><i class="fa-solid fa-circle-info"></i></button>
-                    <button class="basket">
+                    <a class="button-hover-addcart text-center" asp-action="Detail" asp-controller="Product" asp-route-id="@product.Id">
+                        <span>Details</span><i class="fa-solid fa-circle-info"></i>
+                    </a>
+                    <button class="basket add-to-cart" data-id="@product.Id">
                         <i class="fa-solid fa-cart-shopping"></i>
                     </button>
                 </div>

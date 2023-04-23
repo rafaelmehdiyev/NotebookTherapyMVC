@@ -9,6 +9,18 @@
     {
       "library": "material-design-icons@4.0.0",
       "destination": "wwwroot/Manage/assets/plugins/material-design-icons/"
+    },
+    {
+      "library": "jquery-validation-unobtrusive@4.0.0",
+      "destination": "wwwroot/Manage/assets/plugins/jquery-validation-unobtrusive/"
+    },
+    {
+      "library": "jquery-validate@1.19.5",
+      "destination": "wwwroot/Manage/assets/plugins/jquery-validate/",
+      "files": [
+        "jquery.validate.min.js",
+        "jquery.validate.js"
+      ]
     }
   ]
 }
