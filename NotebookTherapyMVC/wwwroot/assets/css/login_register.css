@@ -1,0 +1,212 @@
+﻿@import url('root.css');
+
+html {
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: var(--darkest_pink);
+}
+
+    a:hover {
+        text-decoration: underline;
+        color: var(--darkest_pink);
+    }
+
+.btn-pink {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: var(--darkest_pink);
+    --bs-btn-border-color: var(--darkest_pink);
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #ce4857;
+    --bs-btn-hover-border-color: #fb4466;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #ca0a5d;
+    --bs-btn-active-border-color: rgb(238, 51, 160);
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: var(--darkest_pink);
+    --bs-btn-disabled-border-color: var(--darkest_pink);
+}
+
+.col-lg-4 {
+    padding-right: 0.75rem;
+    padding-left: 0.75rem;
+}
+
+body {
+    overflow-x: hidden;
+    padding-right: 0 !important;
+    background-color: #191c24;
+    color: var(--color_title_pr);
+}
+
+.container-scroller {
+    display: flex;
+    position: relative;
+    overflow: hidden;
+}
+
+.page-body-wrapper.full-page-wrapper {
+    width: 100%;
+    min-height: 100vh;
+}
+
+.page-body-wrapper {
+    min-height: 100vh;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    padding-left: 0;
+    padding-right: 0;
+    transition: all 0.25s ease;
+    width: calc(100% - 244px);
+}
+
+.auth.login-bg {
+    background: url("../images/Login_bg.jpg");
+    background-size: cover;
+}
+
+.content-wrapper {
+    background: #000000;
+    padding: 1.875rem 1.75rem;
+    width: 100%;
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+}
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: white;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+}
+
+    .card .card-body {
+        padding: 1.75rem 1.5625rem;
+    }
+
+.card-body {
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1.25rem;
+}
+
+.card .card-title {
+    color: var(--color_title_pr);
+    margin-bottom: 1.125rem;
+    text-transform: capitalize;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+    .form-group label {
+        font-size: 0.875rem;
+        line-height: 1;
+        vertical-align: top;
+    }
+
+.form-control {
+    border: 1px solid #fff;
+    height: calc(2.25rem + 2px);
+    font-weight: normal;
+    font-size: 0.875rem;
+    padding: 0.625rem 0.6875rem;
+    background-color: var(--pink_opaque);
+    border-radius: 2px;
+    color: #ffffff;
+    box-shadow: none;
+}
+
+    .form-control:focus {
+        border: 1px solid rgba(164, 83, 71, 0.5);
+        background-color: var(--pink);
+    }
+
+    input,
+    .form-control:focus {
+        outline: none;
+        outline-width: 0;
+        outline-color: transparent;
+        box-shadow: none;
+        outline-style: none;
+        caret-color: #6c7293;
+    }
+
+.form-check {
+    min-height: 18px;
+    padding-left: 1.25rem;
+}
+
+.form-check {
+    position: relative;
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-left: 0;
+}
+
+    .form-check .form-check-label {
+        display: block;
+        font-size: 0.875rem;
+        line-height: 1.5;
+        color: #6c7293;
+    }
+
+    .form-check .form-check-input {
+        margin-left: 0;
+        margin-right: .5em;
+    }
+
+.form-check-input:focus {
+    box-shadow: none !important;
+}
+
+.auth .forgot-pass {
+    font-size: 0.875rem;
+    text-align: right;
+}
+
+.auth button.enter-btn {
+    height: 45px;
+    margin-bottom: 28px;
+    width: 100%;
+    border-radius: 0.1875rem;
+}
+
+.auth button {
+    font-size: 0.875rem;
+}
+
+.auth .sign-up {
+    font-size: 0.875rem;
+    text-align: center;
+    margin-bottom: 0;
+}
+
+    .auth .sign-up a {
+        color: var(--darkest_pink);
+    }
+
+.auth .terms {
+    font-size: 0.875rem;
+    text-align: center;
+    margin-top: 23px;
+    margin-bottom: 0;
+}
+
+    .auth .terms a {
+        text-decoration: underline;
+        caret-shape: auto;
+    }
