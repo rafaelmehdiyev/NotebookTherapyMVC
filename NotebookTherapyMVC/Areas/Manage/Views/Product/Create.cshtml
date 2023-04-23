@@ -150,7 +150,7 @@
                                     <img src="~/Manage/assets/img/icons/upload.svg" alt="">
                                     <input class="form-control" asp-for="formFiles" type="file" multiple>
                                 </div>
-                                    <span class="text-danger spanText">The Image is required.</span>
+                                    <span class="text-danger spanText" asp-validation-for="formFiles"></span>
 
                             </div>
                         </div>

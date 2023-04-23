@@ -21,7 +21,7 @@
         [HttpGet]
         public async Task<IActionResult> Get(int id)
         {
-            IDataResult<ColorGetDto> result = await _colorService.GetByIdAsync(id);
+            IDataResult<ColorGetDto> result = await _colorService.GetByIdAsync(id,Includes.ColorIncludes);
             return View(result);
         }
 

@@ -41,7 +41,7 @@ public static class Includes
         "Products.ProductSizes.Size", 
         "Products.ProductBundles.Bundle", 
         "Products.Favourites.User", 
-        "Products.Color" 
+         
     };
     public static readonly string[] BundleIncludes = { 
         "ProductBundles",

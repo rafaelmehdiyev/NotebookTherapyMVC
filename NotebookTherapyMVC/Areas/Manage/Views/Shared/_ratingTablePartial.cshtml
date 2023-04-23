@@ -9,6 +9,7 @@
             <th>Ratings</th>
             <th>Date</th>
             <th>Action</th>
+            <th>View</th>
         </tr>
     </thead>
 
@@ -33,7 +34,7 @@
                 <td>@review.CreatedDate</td>
                 <td>
                     <div class="btn-group">
-                        <a asp-action="Get" asp-controller="Review" asp-route-id="@review.Id" type="button" class="btn btn-outline-success">Info</a>
+                        <button asp-action="Get" asp-controller="Review" asp-route-id="@review.Id" type="button" class="btn btn-outline-success">Info</button>
                         @{
                             <button type="button" class="btn btn-outline-success dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
                                 <span class="sr-only">Info</span>
@@ -53,6 +54,11 @@
                             }
                         }
                     </div>
+                </td>
+                <td>
+                    <a href="javascript:0" data-bs-toggle="modal" data-bs-target="#modal-contact" class="view-detail" id="infoBtn" data-id="@review.Id">
+                        <i class="mdi mdi-eye-plus-outline"></i>
+                    </a>
                 </td>
             </tr>
         }

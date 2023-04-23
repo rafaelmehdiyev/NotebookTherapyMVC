@@ -1,70 +1,72 @@
 ﻿@model List<FAQGetDto>
 <table class="responsive-data-table table">
-	<thead>
-		<tr>
-			<th>#</th>
-			<th>Question</th>
-			<th>Answer</th>
-			<th>Category</th>
-			<th>Status</th>
-			<th>Action</th>
-		</tr>
-	</thead>
-	<tbody>
-		@foreach (FAQGetDto faq in Model)
-		{
-			<tr>
-				<td>@faq.Id</td>
-				<td>@faq.Question</td>
-				<td>@faq.Answer</td>
-				<td>@(
-                        faq.FAQCategory is not null
-						? faq.FAQCategory.Name
-                        : "No Category"
-                        )
-				</td>
-				<td>
-					@{
-						if (faq.isDeleted)
-						{
-							@:<span class="badge badge-danger">Inactive</span>
-						}
-						else
-						{
-							@:<span class="badge badge-success">Active</span>
-						}
-					}
-				</td>
-				<td>
-					<div class="btn-group">
-						<a asp-action="Get" asp-controller="FAQ" asp-route-id="@faq.Id" type="button" class="btn btn-outline-success">Info</a>
-						@{
-							<button type="button" class="btn btn-outline-success dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
-								<span class="sr-only">Info</span>
-							</button>
-							if (!faq.isDeleted)
-							{
-								<div class="dropdown-menu">
-									<a asp-action="Update" asp-controller="FAQ" asp-route-id="@faq.Id" class="dropdown-item">Edit Answer</a>
-									<a asp-action="Delete" asp-controller="FAQ" asp-route-id="@faq.Id" class="dropdown-item">Delete</a>
-								</div>
-							}
-							else
-							{
-								<div class="dropdown-menu">
-									<a asp-action="Recover" asp-controller="FAQ" asp-route-id="@faq.Id" class="dropdown-item">Recover</a>
-									<a asp-action="HardDelete" asp-controller="FAQ" asp-route-id="@faq.Id" class="dropdown-item">Permamently Delete</a>
-								</div>
-							}
-						}
-					</div>
-				</td>
-				          <td>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Question</th>
+            <th>Answer</th>
+            <th>Category</th>
+            <th>Status</th>
+            <th>Action</th>
+            <th>View</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (FAQGetDto faq in Model)
+        {
+            <tr>
+                <td>@faq.Id</td>
+                <td>@faq.Question</td>
+                <td>@faq.Answer</td>
+                <td>
+                    @(
+                faq.FAQCategory is not null
+                ? faq.FAQCategory.Name
+                : "No Category"
+                )
+                </td>
+                <td>
+                    @{
+                        if (faq.isDeleted)
+                        {
+                            @:<span class="badge badge-danger">Inactive</span>
+                        }
+                        else
+                        {
+                            @:<span class="badge badge-success">Active</span>
+                        }
+                    }
+                </td>
+                <td>
+                    <div class="btn-group">
+                        <button asp-action="Get" asp-controller="FAQ" asp-route-id="@faq.Id" type="button" class="btn btn-outline-success">Info</button>
+                        @{
+                            <button type="button" class="btn btn-outline-success dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                                <span class="sr-only">Info</span>
+                            </button>
+                            if (!faq.isDeleted)
+                            {
+                                <div class="dropdown-menu">
+                                    <a asp-action="Update" asp-controller="FAQ" asp-route-id="@faq.Id" class="dropdown-item">Edit Answer</a>
+                                    <a asp-action="Delete" asp-controller="FAQ" asp-route-id="@faq.Id" class="dropdown-item">Delete</a>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="dropdown-menu">
+                                    <a asp-action="Recover" asp-controller="FAQ" asp-route-id="@faq.Id" class="dropdown-item">Recover</a>
+                                    <a asp-action="HardDelete" asp-controller="FAQ" asp-route-id="@faq.Id" class="dropdown-item">Permamently Delete</a>
+                                </div>
+                            }
+                        }
+                    </div>
+                </td>
+                <td>
                     <a href="javascript:0" data-bs-toggle="modal" data-bs-target="#modal-contact" class="view-detail" id="infoBtn" data-id="@faq.Id">
                         <i class="mdi mdi-eye-plus-outline"></i>
                     </a>
                 </td>
-			</tr>
-		}
-	</tbody>
+            </tr>
+        }
+    </tbody>
 </table>

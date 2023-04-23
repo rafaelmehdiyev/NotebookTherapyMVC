@@ -37,8 +37,8 @@ public class ProductController : Controller
 	}
 	public async Task<IActionResult> Get(int id)
 	{
-        IDataResult<ProductGetDto> product = await _productService.GetByIdAsync(id, Includes.ProductIncludes);
-		return View(product);
+		IDataResult<ProductGetDto> result = await _productService.GetByIdAsync(id,Includes.ProductIncludes);
+		return PartialView("_getProductPartial", result);
 	}
 	[HttpGet]
 	public async Task<IActionResult> Create()

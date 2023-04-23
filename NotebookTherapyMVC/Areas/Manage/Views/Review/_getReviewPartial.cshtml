@@ -1,78 +1,63 @@
 ﻿@model IDataResult<ReviewGetDto>
 
 
-<div class="modal fade modal-backdrop" id="ModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="ModalCenterTitle">Review Details</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card card-default">
 
-                            <div class="card-body product-detail">
-                                <div class="row">
-                                    <div class="col-xl-4 col-lg-6">
-                                        <div class="row">
-                                            <div class="single-pro-img">
-                                                <div class="single-product-scroll">
-                                                  @*  <div class="single-product-cover">
-                                                        @foreach (ProductImage image in Model.Data.Product.ProductImages)
-                                                        {
-                                                            <div class="single-slide zoom-image-hover">
-                                                                <img class="img-responsive"
-                                                                 src="~/uploads/product/@(image.ImagePath)" alt="">
-                                                            </div>
-                                                        }
-                                                    </div>*@
-                                                </div>
+<div class="row">
+    <div class="col-12">
+        <div class="card card-default">
+
+            <div class="card-body product-detail">
+                <div class="row justify-content-center">
+                    <div class="col-xl-6 col-lg-6">
+                        <div class="row">
+                            <div class="single-pro-img">
+                                <div class="single-product-scroll">
+                                    <div class="single-product-cover">
+                                        @foreach (ProductImage image in Model.Data.Product.ProductImages)
+                                        {
+                                            <div class="single-slide zoom-image-hover">
+                                                <img class="img-responsive"
+                                                 src="~/uploads/product/@(image.ImagePath)" alt="">
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-5 col-lg-6">
-                                        <div class="row product-overview">
-                                            <div class="col-12">
-                                                <h5 class="product-title">@Model.Data.Product.Name</h5>
-                                                <p class="product-desc">
-                                                    @Model.Data.Comment
-                                                </p>
-                                                <p class="product-price">Time of writing: @Model.Data.CreatedDate</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-3 col-lg-12 u-card">
-                                        <div class="card card-default seller-card">
-                                            <div class="card-body text-center">
-                                                <a href="javascript:0" class="text-secondary d-inline-block">
-                                                    <h5 class="text-dark">"Model.Data.User.Name</h5>
-                                                    <ul class="list-unstyled">
-                                                        <li class="d-flex mb-1">
-                                                            <i class="mdi mdi-email mr-1"></i>
-                                                            <span>@Model.Data.User.Email</span>
-                                                        </li>
-                                                        <li class="d-flex">
-                                                            <i class="mdi mdi-whatsapp mr-1"></i>
-                                                            <span>@Model.Data.User.PhoneNumber</span>
-                                                        </li>
-                                                    </ul>
-                                                </a>
-                                            </div>
-                                        </div>
+                                        }
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="col-xl-6 col-lg-6 mt-4">
+                        <div class="row product-overview">
+                            <div class="col-12">
+                                <h5 class="product-title">@Model.Data.Product.Name</h5>
+                                <p class="product-desc">
+                                    @Model.Data.Comment
+                                </p>
+                                <p class="product-price">Time of writing: @Model.Data.CreatedDate</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6">
+                        <div class="card card-default seller-card">
+                            <div class="card-body text-center">
+                                <a href="javascript:0" class="text-secondary d-inline-block">
+                                    <h5 class="text-dark">@Model.Data.User.UserName</h5>
+                                    <ul class="list-unstyled">
+                                        <li class="d-flex mb-1">
+                                            <i class="mdi mdi-email mr-1"></i>
+                                            <span>@Model.Data.User.Email</span>
+                                        </li>
+                                        <li class="d-flex">
+                                            <i class="mdi mdi-whatsapp mr-1"></i>
+                                            <span>@Model.Data.User.PhoneNumber</span>
+                                        </li>
+                                    </ul>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
 </div>
+
