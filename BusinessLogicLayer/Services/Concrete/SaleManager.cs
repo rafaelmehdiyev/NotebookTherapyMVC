@@ -11,8 +11,8 @@ public class SaleManager : ISaleService
         _mapper = mapper;
     }
 
-	#region Get Requests
-	public async Task<IDataResult<List<SaleGetDto>>> GetAllAsync(bool getDeleted, params string[] includes)
+    #region Get Requests
+    public async Task<IDataResult<List<SaleGetDto>>> GetAllAsync(bool getDeleted, params string[] includes)
     {
         List<Sale> sales = getDeleted
             ? await _unitOfWork.SaleRepository.GetAllAsync(includes: includes)
@@ -33,24 +33,24 @@ public class SaleManager : ISaleService
         return new SuccessDataResult<SaleGetDto>(_mapper.Map<SaleGetDto>(sale));
     }
 
-	#endregion
+    #endregion
 
-	#region Post Requests
-    public async Task<IResult> CreateAsync(SalePostDto dto)
+    #region Post Requests
+    public async Task<IDataResult<SaleGetDto>> CreateAsync(SalePostDto dto)
     {
         Sale sale = _mapper.Map<Sale>(dto);
         await _unitOfWork.SaleRepository.CreateAsync(sale);
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorResult(Messages.NotCreated(Messages.Sale));
+            return new ErrorDataResult<SaleGetDto>(Messages.NotCreated(Messages.Sale));
         }
-        return new SuccessResult(Messages.Created(Messages.Sale));
+        return new SuccessDataResult<SaleGetDto>(_mapper.Map<SaleGetDto>(sale), Messages.Created(Messages.Sale));
     }
 
-	#endregion
+    #endregion
 
-	#region Update Requests
+    #region Update Requests
     public async Task<IResult> UpdateAsync(SaleUpdateDto dto)
     {
         Sale sale = await _unitOfWork.SaleRepository.GetAsync(b => b.Id == dto.Id && !b.isDeleted);
@@ -63,23 +63,23 @@ public class SaleManager : ISaleService
         }
         return new SuccessResult(Messages.Updated(Messages.Sale));
     }
-	public async Task<IResult> RecoverByIdAsync(int id)
-	{
-		Sale sale = await _unitOfWork.SaleRepository.GetAsync(b => b.Id == id && b.isDeleted);
-		sale.isDeleted = false;
-		_unitOfWork.SaleRepository.Update(sale);
-		int result = await _unitOfWork.SaveAsync();
-		if (result is 0)
-		{
-			return new ErrorResult(Messages.NotRecovered(Messages.Sale));
-		}
-		return new SuccessResult(Messages.Recovered(Messages.Sale));
-	}
+    public async Task<IResult> RecoverByIdAsync(int id)
+    {
+        Sale sale = await _unitOfWork.SaleRepository.GetAsync(b => b.Id == id && b.isDeleted);
+        sale.isDeleted = false;
+        _unitOfWork.SaleRepository.Update(sale);
+        int result = await _unitOfWork.SaveAsync();
+        if (result is 0)
+        {
+            return new ErrorResult(Messages.NotRecovered(Messages.Sale));
+        }
+        return new SuccessResult(Messages.Recovered(Messages.Sale));
+    }
 
-	#endregion
+    #endregion
 
-	#region Delete Requests
-	public async Task<IResult> HardDeleteByIdAsync(int id)
+    #region Delete Requests
+    public async Task<IResult> HardDeleteByIdAsync(int id)
     {
         Sale sale = await _unitOfWork.SaleRepository.GetAsync(b => b.Id == id && !b.isDeleted);
         _unitOfWork.SaleRepository.Delete(sale);
@@ -102,6 +102,5 @@ public class SaleManager : ISaleService
         }
         return new SuccessResult(Messages.Deleted(Messages.Sale));
     }
-
-	#endregion
+    #endregion
 }

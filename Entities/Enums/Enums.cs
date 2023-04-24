@@ -1,21 +1,11 @@
 ﻿namespace Entities.Enums;
 
-public enum Color
+public enum SaleStatus
 {
-    None = 0,
-    Black,
-    Blue,
-    Brown,
-    Green,
-    Grey,
-    Orange,
-    Pink,
-    Purple,
-    Red,
-    White,
-    Yellow
+    Pending = 1,
+    Cancelled = 2,
+    Completed = 3
 }
-
 public enum Rating
 {
     Poor = 1,

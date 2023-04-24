@@ -9,6 +9,7 @@ public class Sale : ITable
     public int Id { get; set; }
     public string SaleId { get; set; }
     public decimal TotalPrice { get; set; }
+    public SaleStatus SaleStatus { get; set; }
     public bool isDeleted { get; set; }
     public DateTime CreatedDate { get; set; }
 

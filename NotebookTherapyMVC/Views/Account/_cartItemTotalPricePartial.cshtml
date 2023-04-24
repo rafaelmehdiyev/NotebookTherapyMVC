@@ -1,17 +1,10 @@
 ﻿@model IDataResult<CartGetDto>
-@{
-    decimal TotalPrice = 0;
-    foreach (CartItemGetDto cartItem in Model.Data.CartItems)
-    {
-        TotalPrice += cartItem.TotalPrice;
-    }
-}
 <p class="pb-2 border-bottom-1 fs-6 border-bottom border-dark">Order Summary</p>
 
 <div class="d-flex justify-content-between align-items-center py-3 border-bottom border-top">
     <p class="fw-bold p-0 m-0">Total:</p>
-    <p class="fw-bold p-0 m-0" id="total-price">$@TotalPrice</p>
+    <p class="fw-bold p-0 m-0" id="total-price">$@Model.Data.TotalPrice</p>
 </div>
 <button class="bg-purple border-0 rounded-pill w-100 p-3 mt-3">
-    <a href="#" class="text-decoration-none text-light fw-bold ">PROCEED TO CHECKOUT</a>
+    <a asp-controller="Account" asp-action="Charge" class="text-decoration-none text-light fw-bold">PROCEED TO CHECKOUT</a>
 </button>

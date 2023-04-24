@@ -11,11 +11,13 @@ public class ProductController : Controller
     private readonly IAccountService _accountService;
     private readonly IReviewService _reviewService;
     private readonly ICartItemService _cartItemService;
+    private readonly ICartService _cartService;
+    private readonly IMapper _mapper;
 
     public ProductController(IProductService productService, ICategoryService categoryService,
         ISizeService sizeService, IBundleService bundleService,
         IProductCollectionService productCollectionService, IFavouriteService favService,
-        IAccountService accountService, IReviewService reviewService, ICartItemService cartItemService)
+        IAccountService accountService, IReviewService reviewService, ICartItemService cartItemService, ICartService cartService, IMapper mapper)
     {
         _productService = productService;
         _categoryService = categoryService;
@@ -26,18 +28,10 @@ public class ProductController : Controller
         _accountService = accountService;
         _reviewService = reviewService;
         _cartItemService = cartItemService;
+        _cartService = cartService;
+        _mapper = mapper;
     }
 
-    public async Task<IActionResult> Index(int? categoryId,bool? isTrending,bool? onSale)
-    {
-        FilterProductVM filter = categoryId is not null ? new FilterProductVM((int)categoryId)
-                                : (isTrending is not null && onSale is not null) ? new FilterProductVM((bool)onSale, (bool)isTrending)
-                                : isTrending is not null ? new FilterProductVM(isTrending: (bool)isTrending)
-                                : onSale is not null ? new FilterProductVM(onSale: (bool)onSale)
-                                : new FilterProductVM();
-        List<ProductGetDto> filteredProducts = await GetFilteredProducts(filter);
-        return View(filteredProducts);
-    }
     public async Task<IActionResult> Detail(int id)
     {
         IDataResult<ProductGetDto> result = await _productService.GetByIdAsync(id, Includes.ProductIncludes);
@@ -51,12 +45,25 @@ public class ProductController : Controller
         return PartialView("_productsCarouselPartial", related);
     }
 
+    #region Filters
+    public async Task<IActionResult> Index(int? categoryId, bool? isTrending, bool? onSale)
+    {
+        FilterProductVM filter = categoryId is not null ? new FilterProductVM((int)categoryId)
+                                : (isTrending is not null && onSale is not null) ? new FilterProductVM((bool)onSale, (bool)isTrending)
+                                : isTrending is not null ? new FilterProductVM(isTrending: (bool)isTrending)
+                                : onSale is not null ? new FilterProductVM(onSale: (bool)onSale)
+                                : new FilterProductVM();
+        List<ProductGetDto> filteredProducts = await GetFilteredProducts(filter);
+        return View(filteredProducts);
+    }
+
     public async Task<IActionResult> GetProductsPartialAsync(FilterProductVM filter)
     {
         List<ProductGetDto> filteredProducts = await GetFilteredProducts(filter);
         return PartialView("_productListPartial", filteredProducts);
     }
 
+    #region Private Methods
     private async Task<List<ProductGetDto>> GetFilteredProducts(FilterProductVM filter)
     {
         List<ProductGetDto> products = (await _productService.GetAllAsync(false, Includes.ProductIncludes)).Data;
@@ -99,12 +106,16 @@ public class ProductController : Controller
             //Bestsellers
             //5 => products.OrderBy().ToList(),
             //Most Liked
-            6=>products.OrderByDescending(p=>p.TotalRating).ToList(),
+            6 => products.OrderByDescending(p => p.TotalRating).ToList(),
         };
         return products;
     }
 
-    #region Other Actions
+    #endregion
+
+    #endregion
+
+    #region Favourite
     [HttpPost]
     [Authorize(Roles = "SuperAdmin,Admin,User")]
     public async Task<IDataResult<FavouriteGetDto>> AddToFavourite(int id)
@@ -125,6 +136,38 @@ public class ProductController : Controller
         var result = await _favService.HardDeleteByIdAsync(id);
         return result;
     }
+    #endregion
+
+    #region Shopping Cart
+
+    [HttpPost]
+    [Authorize(Roles = "SuperAdmin,Admin,User")]
+    public async Task<IDataResult<CartItemGetDto>> AddItemToCart(int id)
+    {
+        ProductGetDto productDto = (await _productService.GetByIdAsync(id)).Data;
+        UserGetDto user = (await _accountService.GetUserByClaims(User, Includes.UserIncludes)).Data;
+        IDataResult<CartItemGetDto> result = await _cartItemService.CreateAsync(productDto, user);
+        CartUpdateDto cartDto = _mapper.Map<CartUpdateDto>(user.Cart);
+        cartDto.TotalPrice += productDto.Price;
+        IResult cartResult = await _cartService.UpdateAsync(cartDto);
+        return result;
+    }
+
+    [HttpPost]
+    [Authorize(Roles = "SuperAdmin,Admin,User")]
+    public async Task<IDataResult<CartItemGetDto>> RemoveItemFromCart(int id, bool deleteAll = false)
+    {
+        ProductGetDto productDto = (await _productService.GetByIdAsync(id)).Data;
+        UserGetDto user = (await _accountService.GetUserByClaims(User, Includes.UserIncludes)).Data;
+        IDataResult<CartItemGetDto> result = await _cartItemService.RemoveItemFromCartAsync(productDto, user, deleteAll);
+        CartUpdateDto cartDto = _mapper.Map<CartUpdateDto>(user.Cart);
+        if (deleteAll) { cartDto.TotalPrice = 0; }
+        else { cartDto.TotalPrice -= productDto.Price; }
+        IResult cartResult = await _cartService.UpdateAsync(cartDto);
+        return result;
+    }
+
+    #endregion
 
     [HttpPost]
     [Authorize(Roles = "SuperAdmin,Admin,User")]
@@ -134,23 +177,4 @@ public class ProductController : Controller
         IResult result = await _reviewService.CreateAsync(dto);
         return RedirectToAction("Detail", "Product", new { id = dto.ProductId });
     }
-
-    [HttpPost]
-    [Authorize(Roles = "SuperAdmin,Admin,User")]
-    public async Task<IDataResult<CartItemGetDto>> AddItemToCart(int id)
-    {
-        ProductGetDto productDto = (await _productService.GetByIdAsync(id)).Data;
-        var result = await _cartItemService.CreateAsync(productDto, (await _accountService.GetUserByClaims(User, Includes.UserIncludes)).Data);
-        return result;
-    }
-
-    [HttpPost]
-    [Authorize(Roles = "SuperAdmin,Admin,User")]
-    public async Task<IDataResult<CartItemGetDto>> RemoveItemFromCart(int id, bool deleteAll = false)
-    {
-        ProductGetDto productDto = (await _productService.GetByIdAsync(id)).Data;
-        var result = await _cartItemService.RemoveItemFromCartAsync(productDto, (await _accountService.GetUserByClaims(User, Includes.UserIncludes)).Data, deleteAll);
-        return result;
-    }
-    #endregion
 }

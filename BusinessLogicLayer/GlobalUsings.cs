@@ -12,6 +12,7 @@ global using Entities.Abstract;
 global using Entities.Concrete;
 global using Entities.DTOs.Auth;
 global using Entities.DTOs.Blog;
+global using Braintree;
 global using Entities.DTOs.Bundle;
 global using Entities.DTOs.Cart;
 global using Entities.DTOs.CartItem;

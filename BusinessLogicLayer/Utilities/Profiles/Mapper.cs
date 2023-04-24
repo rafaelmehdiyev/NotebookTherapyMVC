@@ -28,20 +28,6 @@ public class Mapper : Profile
             .ForMember(x => x.CreatedDate, opt => opt.MapFrom(src => DateTime.UtcNow));
         CreateMap<ColorGetDto, ColorUpdateDto>();
 
-        //Cart
-        CreateMap<Cart, CartGetDto>();
-        CreateMap<CartPostDto, Cart>();
-        CreateMap<CartUpdateDto, Cart>()
-            .ForMember(x => x.CreatedDate, opt => opt.MapFrom(src => DateTime.UtcNow));
-        CreateMap<CartGetDto, CartUpdateDto>();
-
-        //CartItem
-        CreateMap<CartItem, CartItemGetDto>();
-        CreateMap<CartItemPostDto, CartItem>();
-        CreateMap<CartItemUpdateDto, CartItem>()
-            .ForMember(x => x.CreatedDate, opt => opt.MapFrom(src => DateTime.UtcNow));
-        CreateMap<CartItemGetDto, CartItemUpdateDto>();
-
         //Category
         CreateMap<Category, CategoryGetDto>();
         CreateMap<CategoryPostDto, Category>();
@@ -125,6 +111,20 @@ public class Mapper : Profile
             .ForMember(x => x.CreatedDate, opt => opt.MapFrom(src => DateTime.UtcNow));
         CreateMap<ShippingGetDto, ShippingUpdateDto>();
 
+        //Cart
+        CreateMap<Cart, CartGetDto>();
+        CreateMap<CartPostDto, Cart>();
+        CreateMap<CartUpdateDto, Cart>()
+            .ForMember(x => x.CreatedDate, opt => opt.MapFrom(src => DateTime.UtcNow));
+        CreateMap<CartGetDto, CartUpdateDto>();
+
+        //CartItem
+        CreateMap<CartItem, CartItemGetDto>();
+        CreateMap<CartItemPostDto, CartItem>();
+        CreateMap<CartItemUpdateDto, CartItem>()
+            .ForMember(x => x.CreatedDate, opt => opt.MapFrom(src => DateTime.UtcNow));
+        CreateMap<CartItemGetDto, CartItemUpdateDto>();
+
         //Sale
         CreateMap<Sale, SaleGetDto>();
         CreateMap<SalePostDto, Sale>();
@@ -138,5 +138,10 @@ public class Mapper : Profile
         CreateMap<SaleItemUpdateDto, SaleItem>()
             .ForMember(x => x.CreatedDate, opt => opt.MapFrom(src => DateTime.UtcNow));
         CreateMap<SaleItemGetDto, SaleItemUpdateDto>();
+
+        //Cart -> Sale
+        CreateMap<CartGetDto, SalePostDto>();
+        CreateMap<CartItemGetDto, SaleItemPostDto>()
+            .ForMember(x => x.ProductId, opt => opt.MapFrom(src => src.Product.Id));
     }
 }

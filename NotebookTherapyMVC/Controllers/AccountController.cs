@@ -1,19 +1,127 @@
-﻿using System.Drawing;
-
-namespace NotebookTherapyMVC.Controllers;
+﻿namespace NotebookTherapyMVC.Controllers;
 
 public class AccountController : Controller
 {
     private readonly IAccountService _accountService;
     private readonly ICartService _cartService;
+    private readonly ISaleService _saleService;
+    private readonly ISaleItemService _saleItemService;
     private readonly IFavouriteService _favService;
+    private readonly IBraintreeService _brainTreeService;
+    private readonly IProductService _productService;
+    private readonly IMapper _mapper;
 
-    public AccountController(IAccountService accountService, ICartService cartService, IFavouriteService favService)
+    public AccountController(IAccountService accountService, ICartService cartService, IFavouriteService favService, IBraintreeService brainTreeService, IProductService productService, IMapper mapperService, ISaleService saleService, ISaleItemService saleItemService)
     {
         _accountService = accountService;
         _cartService = cartService;
         _favService = favService;
+        _brainTreeService = brainTreeService;
+        _productService = productService;
+        _mapper = mapperService;
+        _saleService = saleService;
+        _saleItemService = saleItemService;
     }
+
+    #region Sale(Checkout_Middleware,Checkout,Purchase)
+    public async Task<IActionResult> Charge()
+    {
+        Tuple<CartGetDto, SaleGetDto> saleInfo = await ReadySaleAsync();
+        await ReadySaleItemsAsync(saleInfo.Item1, saleInfo.Item2);
+        var gateway = _brainTreeService.GetGateway();
+        var clientToken = gateway.ClientToken.Generate();
+        ViewBag.ClientToken = clientToken;
+        IDataResult<SaleGetDto> sale = await _saleService.GetByIdAsync(saleInfo.Item2.Id, Includes.SaleIncludes);
+        return View(sale.Data);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> PurchaseAsync(SaleGetDto sale)
+    {
+        SaleGetDto model = (await _saleService.GetByIdAsync(sale.Id, Includes.SaleIncludes)).Data;
+        IDataResult<UserGetDto> userResult = await _accountService.GetUserByClaims(User, Includes.UserIncludes);
+        var gateway = _brainTreeService.GetGateway();
+        var request = new TransactionRequest
+        {
+            Amount = model.TotalPrice,
+            PaymentMethodNonce = sale.Nonce,
+            Options = new TransactionOptionsRequest
+            {
+                SubmitForSettlement = true
+            },
+            Customer = new CustomerRequest
+            {
+                FirstName = userResult.Data.FirstName,
+                LastName = userResult.Data.LastName,
+                Email = userResult.Data.Email,
+                CustomerId = userResult.Data.Id
+            },
+            LineItems = GetTransactionItems(model.SaleItems)
+        };
+
+        Result<Transaction> result = gateway.Transaction.Sale(request);
+        SaleUpdateDto saleUpdate = _mapper.Map<SaleUpdateDto>(model);
+        saleUpdate.UserId = userResult.Data.Id;
+        if (result.IsSuccess())
+        {
+            saleUpdate.SaleStatus = SaleStatus.Completed;
+            await _saleService.UpdateAsync(saleUpdate);
+            return View("Success");
+        }
+        else
+        {
+            saleUpdate.SaleStatus = SaleStatus.Cancelled;
+            await _saleService.UpdateAsync(saleUpdate);
+            return RedirectToAction("Index", "Home");
+        }
+    }
+
+    #region Private Methods
+    private async Task<Tuple<CartGetDto, SaleGetDto>> ReadySaleAsync()
+    {
+        UserGetDto currentUser = (await _accountService.GetUserByClaims(User)).Data;
+        CartGetDto cartDto = (await _cartService.GetCartByUserIdAsync(currentUser.Id, Includes.CartIncludes)).Data;
+        SalePostDto postDto = _mapper.Map<SalePostDto>(cartDto);
+        postDto.UserId = currentUser.Id;
+        postDto.SaleStatus = SaleStatus.Pending;
+        SaleGetDto saleDto = (await _saleService.CreateAsync(postDto)).Data;
+        return new Tuple<CartGetDto, SaleGetDto>(cartDto, saleDto);
+    }
+    private async Task ReadySaleItemsAsync(CartGetDto cartDto, SaleGetDto saleDto)
+    {
+        List<SaleItemPostDto> saleItems = _mapper.Map<List<SaleItemPostDto>>(cartDto.CartItems.Where(x => !x.isDeleted).ToList());
+        saleItems.ForEach(s => s.SaleId = saleDto.Id);
+
+        foreach (SaleItemPostDto saleItem in saleItems)
+        {
+            await _saleItemService.CreateAsync(saleItem);
+        }
+    }
+
+    private TransactionLineItemRequest[] GetTransactionItems(List<SaleItemGetDto> saleItems)
+    {
+        TransactionLineItemRequest[] lineItems = new TransactionLineItemRequest[0];
+        foreach (SaleItemGetDto saleItem in saleItems)
+        {
+            TransactionLineItemRequest lineItem = new TransactionLineItemRequest
+            {
+                Name = saleItem.Product.Name.Substring(0, 34),
+                Quantity = saleItem.Quantity,
+                UnitAmount = saleItem.Product.Price,
+                TotalAmount = saleItem.TotalPrice,
+                LineItemKind = TransactionLineItemKind.DEBIT
+            };
+            Array.Resize(ref lineItems, lineItems.Length + 1);
+            lineItems[lineItems.Length - 1] = lineItem;
+        }
+        return lineItems;
+    }
+    #endregion
+
+    #endregion
+
+
+    #region Auth(Login,Register,Profile,SignOut)
 
     [HttpGet]
     public async Task<IActionResult> Register()
@@ -62,6 +170,7 @@ public class AccountController : Controller
         IDataResult<UserGetDto> result = await _accountService.GetUserByClaims(User, Includes.UserIncludes);
         return View(result);
     }
+    #endregion
 
     #region Shopping Cart
     [Authorize(Roles = "SuperAdmin,Admin,User")]
@@ -88,7 +197,7 @@ public class AccountController : Controller
     public async Task<IActionResult> Favourite()
     {
         IDataResult<UserGetDto> userResult = await _accountService.GetUserByClaims(User, Includes.UserIncludes);
-        IDataResult<List<FavouriteGetDto>> favResult = await _favService.GetAllByUserIdAsync(userResult.Data.Id,Includes.FavouriteIncludes);
+        IDataResult<List<FavouriteGetDto>> favResult = await _favService.GetAllByUserIdAsync(userResult.Data.Id, Includes.FavouriteIncludes);
         return View(favResult);
     }
     #endregion
