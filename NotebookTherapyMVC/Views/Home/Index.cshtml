@@ -59,7 +59,7 @@
                                 <a asp-action="Detail" asp-controller="Product" asp-route-id="@product.Id">
                                     <img src="~/uploads/product/@(product.ProductImages.FirstOrDefault().ImagePath)"
                                      alt="product" class="top">
-                                    @*<img src="~/uploads/product/@(product.ProductImages.Skip(1).Take(1).FirstOrDefault().ImagePath)" alt="" class="bottom">*@
+                                    <img src="~/uploads/product/@(product.ProductImages.Skip(1).Take(1).FirstOrDefault().ImagePath)" alt="" class="bottom">
                                 </a>
                                 <a asp-action="Detail" asp-controller="Product" asp-route-id="@product.Id">
                                     <span class="d-block mt-3 mb-2 product-name">@product.Name</span>
@@ -87,7 +87,7 @@
                                 <a asp-action="Detail" asp-controller="Product" asp-route-id="@product.Id">
                                     <img src="~/uploads/product/@(product.ProductImages.FirstOrDefault().ImagePath)"
                                      alt="product" class="top">
-                                    @*<img src="~/uploads/product/@(product.ProductImages.Skip(1).Take(1).FirstOrDefault().ImagePath)"*@
+                                    <img src="~/uploads/product/@(product.ProductImages.Skip(1).Take(1).FirstOrDefault().ImagePath)"
                                      alt="" class="bottom">
                                 </a>
                                 <a asp-action="Detail" asp-controller="Product" asp-route-id="@product.Id">
@@ -129,7 +129,7 @@
                         <a asp-action="Detail" asp-controller="Product" asp-route-id="@product.Id">
                             <img src="~/uploads/product/@(product.ProductImages.FirstOrDefault().ImagePath)"
                              alt="product" class="top">
-                            @*<img src="~/uploads/product/@(product.ProductImages.Skip(1).Take(1).FirstOrDefault().ImagePath)" alt="" class="bottom">*@
+                            <img src="~/uploads/product/@(product.ProductImages.Skip(1).Take(1).FirstOrDefault().ImagePath)" alt="" class="bottom">
                         </a>
                         <a asp-action="Detail" asp-controller="Product" asp-route-id="@product.Id">
                             <span class="d-block mt-3 mb-2 product-name">@product.Name</span>

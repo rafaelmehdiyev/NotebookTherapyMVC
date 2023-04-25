@@ -18,6 +18,7 @@ public class ProductGetDto : IDto
     public ColorGetDto? Color { get; set; }
     public List<ProductImage> ProductImages { get; set; }
     public List<CartItemGetDto> CartItems { get; set; }
+    public List<SaleItemGetDto> SaleItems { get; set; }
     public List<ReviewGetDto> Reviews { get; set; }
     public List<ProductSizeGetDto> ProductSizes { get; set; }
     public List<ProductBundleGetDto> ProductBundles { get; set; }

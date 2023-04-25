@@ -28,8 +28,8 @@ public class AccountController : Controller
     {
         Tuple<CartGetDto, SaleGetDto> saleInfo = await ReadySaleAsync();
         await ReadySaleItemsAsync(saleInfo.Item1, saleInfo.Item2);
-        var gateway = _brainTreeService.GetGateway();
-        var clientToken = gateway.ClientToken.Generate();
+        IBraintreeGateway gateway = _brainTreeService.GetGateway();
+        string clientToken = gateway.ClientToken.Generate();
         ViewBag.ClientToken = clientToken;
         IDataResult<SaleGetDto> sale = await _saleService.GetByIdAsync(saleInfo.Item2.Id, Includes.SaleIncludes);
         return View(sale.Data);
@@ -40,8 +40,8 @@ public class AccountController : Controller
     {
         SaleGetDto model = (await _saleService.GetByIdAsync(sale.Id, Includes.SaleIncludes)).Data;
         IDataResult<UserGetDto> userResult = await _accountService.GetUserByClaims(User, Includes.UserIncludes);
-        var gateway = _brainTreeService.GetGateway();
-        var request = new TransactionRequest
+        IBraintreeGateway gateway = _brainTreeService.GetGateway();
+        TransactionRequest request = new TransactionRequest
         {
             Amount = model.TotalPrice,
             PaymentMethodNonce = sale.Nonce,
@@ -103,9 +103,12 @@ public class AccountController : Controller
         TransactionLineItemRequest[] lineItems = new TransactionLineItemRequest[0];
         foreach (SaleItemGetDto saleItem in saleItems)
         {
-            TransactionLineItemRequest lineItem = new TransactionLineItemRequest
+            string name = saleItem.Product.Name.Length > 34
+                ? saleItem.Product.Name.Substring(0, 34)
+                : saleItem.Product.Name;
+            TransactionLineItemRequest lineItem = new()
             {
-                Name = saleItem.Product.Name.Substring(0, 34),
+                Name = name,
                 Quantity = saleItem.Quantity,
                 UnitAmount = saleItem.Product.Price,
                 TotalAmount = saleItem.TotalPrice,
@@ -151,7 +154,7 @@ public class AccountController : Controller
         if (!result.Success) { return View(result); }
         if (result.Data.Roles.Contains("Admin"))
         {
-            return RedirectToAction("Index", "Product", new { area = "Manage" });
+            return RedirectToAction("Index", "Home", new { area = "Manage" });
         }
         else
         {

@@ -21,6 +21,7 @@ global using Entities.DTOs.ProductSize;
 global using Entities.DTOs.Review;
 global using Entities.DTOs.Role;
 global using Entities.DTOs.Sale;
+global using NotebookTherapyMVC.Areas.Manage.Models;
 global using Entities.DTOs.SaleItem;
 global using Entities.DTOs.Size;
 global using Entities.Enums;

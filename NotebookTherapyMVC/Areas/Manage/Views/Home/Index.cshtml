@@ -1,39 +1,36 @@
-﻿@using Entities.DTOs.SaleItem
-@using x=NotebookTherapyMVC.Areas.Manage.Models;
-
-@{
+﻿@{
     ViewData["Title"] = "Index";
 }
-@model x.HomeVM
+@model ManageHomeVM
 <!-- Top Statistics -->
 <div class="row">
-    <div class="col-xl-6 col-sm-6 p-b-15 lbl-card">
+    <div class="col-xl-4 col-sm-6 p-b-15 lbl-card">
         <div class="card card-mini dash-card card-1">
             <div class="card-body">
-                <h2 class="mb-1">@Model.UsersResult.Data.Count()</h2>
-                <p>Daily Signups</p>
+                <h2 class="mb-1">@Model.UsersResult.Count()</h2>
+                <p>Total Customers</p>
                 <span class="mdi mdi-account-arrow-left"></span>
             </div>
         </div>
     </div>
-    <div class="col-xl-6 col-sm-6 p-b-15 lbl-card">
+    <div class="col-xl-4 col-sm-6 p-b-15 lbl-card">
         <div class="card card-mini dash-card card-3">
             <div class="card-body">
-                <h2 class="mb-1">@Model.SaleItemsResult.Data.Count()</h2>
+                <h2 class="mb-1">@Model.SalesResult.Where(x=>x.CreatedDate.Date == DateTime.Today).ToList().Count</h2>
                 <p>Daily Order</p>
                 <span class="mdi mdi-package-variant"></span>
             </div>
         </div>
     </div>
-    @*			<div class="col-xl-3 col-sm-6 p-b-15 lbl-card">
+    <div class="col-xl-4 col-sm-6 p-b-15 lbl-card">
         <div class="card card-mini dash-card card-4">
-        <div class="card-body">
-        <h2 class="mb-1">$98,503</h2>
-        <p>Daily Revenue</p>
-        <span class="mdi mdi-currency-usd"></span>
+            <div class="card-body">
+                <h2 class="mb-1">+$@Model.SalesResult.Where(x=>x.CreatedDate.Date == DateTime.Today).Sum(x=>x.TotalPrice)</h2>
+                <p>Daily Revenue</p>
+                <span class="mdi mdi-currency-usd"></span>
+            </div>
         </div>
-        </div>
-        </div>*@
+    </div>
 </div>
 
 <div class="row">
@@ -47,61 +44,82 @@
                 </div>
             </div>
             <div class="card-body pt-0 pb-5">
-                <table class="table card-table table-responsive table-responsive-large"
+                <table class="table card-table table-responsive table-responsive-large table-striped"
                        style="width:100%">
                     <thead>
                         <tr>
                             <th>Order ID</th>
-                            <th>Product Name</th>
-                            <th class="d-none d-lg-table-cell">User Name</th>
-
-                            <th class="d-none d-lg-table-cell">Order Quantity</th>
+                            <th class="d-none d-lg-table-cell">Customer</th>
                             <th class="d-none d-lg-table-cell">Order Cost</th>
                             <th>Status</th>
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody @foreach (SaleItemGetDto saleItem in Model.SaleItemsResult.Data)
-                           {
-											<tr>
-												<td>@saleItem.SaleId</td>
-												<td>
-													<a class="text-dark" href="#">@saleItem.Product.Name</a>
-												</td>
-												<td class="d-none d-lg-table-cell">@saleItem.Sale.User.UserName</td>
-												<td class="d-none d-lg-table-cell">@saleItem.Quantity</td>
-												<td class="d-none d-lg-table-cell">@saleItem.TotalPrice</td>
-												<td>
-													<span class="badge badge-success">Completed</span>
-												</td>
-												<td class="text-right">
-													<div class="dropdown show d-inline-block widget-dropdown">
-														<a class="dropdown-toggle icon-burger-mini" href="#"
-															role="button" id="dropdown-recent-order1"
-															data-bs-toggle="dropdown" aria-haspopup="true"
-															aria-expanded="false" data-display="static"></a>
-														<ul class="dropdown-menu dropdown-menu-right">
-															<li class="dropdown-item">
-																<a href="#">View</a>
-															</li>
-															<li class="dropdown-item">
-																<a href="#">Remove</a>
-															</li>
-														</ul>
-													</div>
-												</td>
-											</tr>
-										}
-
-
-										</tbody>
+                    <tbody>
+                        @foreach (SaleGetDto sale in Model.SalesResult)
+                        {
+                            <tr>
+                                <td>@sale.SaleId</td>
+                                <td>@sale.User.FirstName @sale.User.LastName</td>
+                                <td>@sale.TotalPrice</td>
+                                <td>
+                                    <span class="badge @((int)sale.SaleStatus == 1 ? "badge-warning" : (int)sale.SaleStatus == 2  ? "badge-danger" : "badge-success")">@sale.SaleStatus</span>
+                                </td>
+                                <td class="text-right">
+                                    <div class="dropdown show d-inline-block widget-dropdown">
+                                        <a class="dropdown-toggle icon-burger-mini" href="#"
+                                       role="button" id="dropdown-recent-order1"
+                                       data-bs-toggle="dropdown" aria-haspopup="true"
+                                       aria-expanded="false" data-display="static"></a>
+                                        <ul class="dropdown-menu dropdown-menu-right">
+                                            <li class="dropdown-item">
+                                                <a href="#">View</a>
+                                            </li>
+                                            <li class="dropdown-item">
+                                                <a href="#">Remove</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="5">
+                                    <table class="table mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>Thumbnail</th>
+                                                <th>Product Name</th>
+                                                <th>Product Cost</th>
+                                                <th>Order Quantity</th>
+                                                <th>Order Cost</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (SaleItemGetDto saleItem in sale.SaleItems)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        <img class="tbl-thumb" src="/uploads/product/@(saleItem.Product.ProductImages.FirstOrDefault().ImagePath)" alt="Product Image">
+                                                    </td>
+                                                    <td><a class="text-dark" href="#">@saleItem.Product.Name</a></td>
+                                                    <td>$@saleItem.Product.Price</td>
+                                                    <td>@saleItem.Quantity</td>
+                                                    <td>$@saleItem.TotalPrice</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
 <div class="row">
-    <div class="col-xl-6">
+    <div class="col-xl-4">
         <!-- New Customers -->
         <div class="card ec-cust-card card-table-border-none card-default">
             <div class="card-header justify-content-between ">
@@ -115,14 +133,12 @@
             <div class="card-body pt-0 pb-15px">
                 <table class="table ">
                     <tbody>
-                        @foreach (UserGetDto user in Model.UsersResult.Data)
+                        @foreach (UserGetDto user in Model.UsersResult)
                         {
                             <tr>
                                 <td>
                                     <div class="media">
-                                  
-                                            <span class="mdi mdi-account-card-outline"></span>
-                                        
+                                        <span class="mdi mdi-account-card-outline"></span>
                                         <div class="media-body align-self-center">
                                             <a href="profile.html">
                                                 <h6 class="mt-0 text-dark font-weight-medium">@user.UserName</h6>
@@ -134,16 +150,51 @@
                                 <td>@user.Sales.Count Order</td>
                                 @*<td class="text-dark d-none d-md-block">@user.</td>*@
                             </tr>
-
                         }
-
-
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-
+    <div class="col-xl-8">
+        <!-- New Customers -->
+        <div class="card ec-cust-card card-table-border-none card-default">
+            <div class="card-header justify-content-between ">
+                <h2>New Customers</h2>
+                <div>
+                    <button class="text-black-50 mr-2 font-size-20">
+                        <i class="mdi mdi-cached"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body pt-0 pb-15px">
+                <table class="table ">
+                    <tbody>
+                        @foreach (UserGetDto user in Model.UsersResult)
+                        {
+                            <tr>
+                                <td>
+                                    <div class="media">
+                                        <span class="mdi mdi-account-card-outline"></span>
+                                        <div class="media-body align-self-center">
+                                            <a href="profile.html">
+                                                <h6 class="mt-0 text-dark font-weight-medium">@user.UserName</h6>
+                                            </a>
+                                            <small>@user.Email</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>@user.Sales.Count Order</td>
+                                @*<td class="text-dark d-none d-md-block">@user.</td>*@
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<row>
     <div class="col-xl-6">
         <!-- Top Products -->
         <div class="card card-default ec-card-top-prod">
@@ -156,33 +207,31 @@
                 </div>
             </div>
             <div class="card-body mt-10px mb-10px py-0">
-                @foreach (ProductGetDto product in Model.ProductsResult.Data)
+                @foreach (ProductGetDto product in Model.ProductsResult.OrderByDescending(x=>x.SaleItems.Sum(x=>x.Quantity)))
                 {
                     <div class="row media d-flex pt-15px pb-15px">
-
-                        <div class="col-lg-3 col-md-3 col-2 media-image align-self-center rounded">
+                        <div class="col-lg-2 col-md-3 col-2 media-image align-self-center rounded">
                             <a href="#"><img src="~/uploads/product/@product.ProductImages.FirstOrDefault().ImagePath" alt="product image"></a>
                         </div>
                         <div class="col-lg-9 col-md-9 col-10 media-body align-self-center ec-pos">
                             <a href="#">
                                 <h6 class="mb-10px text-dark font-weight-medium">@product.Name</h6>
                             </a>
-                            @*<p class="float-md-right sale"><span class="mr-2">@product.</span>Sales</p>*@
-                            <p class="d-none d-md-block">
-@product.Description
-                            </p>
+                            <p class="float-md-right sale"><span class="mr-2">@product.SaleItems.Where(s=>s.ProductId == product.Id).Sum(x=>x.Quantity)</span>Sales</p>
                             <p class="mb-0 ec-price">
-                                <span class="text-dark">$@product.LastPrice</span>
-                                <del>$@product.Price</del>
+                                @if(product.isSale && product.Price != product.LastPrice){
+                                    <span class="text-dark">$@product.LastPrice</span>
+                                    <del>$@product.Price</del>
+                                }
+                                else
+                                {
+                                    <span class="text-dark">$@product.Price</span>
+                                }
                             </p>
                         </div>
                     </div>
                 }
-
-
             </div>
         </div>
     </div>
-</div>
-                </div> <!-- End Content -->
-            </div> <!-- End Content Wrapper -->
+</row>

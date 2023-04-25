@@ -8,6 +8,7 @@ public class SaleGetDto : IDto
     public SaleStatus SaleStatus { get; set; }
     public bool isDeleted { get; set; }
     public string Nonce { get; set; }
+    public DateTime CreatedDate { get; set; }
     //Relations
     public List<SaleItemGetDto> SaleItems { get; set; }
     public AppUser User { get; set; }

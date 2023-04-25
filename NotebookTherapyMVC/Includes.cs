@@ -60,7 +60,8 @@ public static class Includes
         "ProductBundles.Bundle",
         "Favourites.User",
         "Color",
-        "Reviews.User"
+        "Reviews.User",
+        "SaleItems"
     };
     public static readonly string[] FavouriteIncludes = {
         "Product.ProductImages",
@@ -78,7 +79,8 @@ public static class Includes
         "User"
     };
     public static readonly string[] SaleItemIncludes = {
-        "Product.ProductImages"
+        "Product.ProductImages",
+        "Sale.User"
     };
     public static readonly string[] ReviewIncludes = {
         "Product.ProductImages",
