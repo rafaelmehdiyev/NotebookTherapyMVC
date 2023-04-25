@@ -1,0 +1,69 @@
+﻿@{
+    ViewData["Title"] = "Contact";
+}
+@section BeforeMediaLinks{
+    <link href="~/assets/css/contact.css" rel="stylesheet" />
+}
+@model FAQPostDto
+
+<div class="containr">
+    <div class="row">
+        <div class="col-12 mb-4">
+            <h1 class="contact_heading">Drop us a line</h1>
+            <div class="line"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-lg-5 col-xl-6">
+            <div class="qa">
+                <p class="question">Got a question?</p>
+                <p class="answer">
+                    Check our
+                    <a asp-controller="FAQ" asp-action="Index">FAQ page</a>
+                    for an instant answer.
+                </p>
+            </div>
+            <div class="qa">
+                <p class="question">Looking for your order?</p>
+                <p class="answer">
+                    Check your status by clicking the 'View Order' button on your confirmation email.
+                </p>
+            </div>
+
+            <div>
+                <p>For all other enquiries, fill out the contact form below.</p>
+                <p>US customers may also use: +994 55 959 55 33</p>
+            </div>
+            <p class="my-5">
+                <strong>
+                    Note - Normal response time is 99 - 100 days. Please be patient, we answer all questions as
+                    quickly as possible.
+                </strong>
+            </p>
+        </div>
+        <div class="col-md-6 col-lg-7 col-xl-6 form-contact">
+            <form method="post" asp-action="CreateFAQ" asp-controller="Home" id="contact_form">
+                <div class="form-group">
+                    <label for="contactFormName">
+                        <span>
+                            Category
+                        </span>
+                    </label>
+                    <select asp-for="FAQCategoryId" asp-items="@ViewBag.FAQCategories"></select>
+                </div>
+
+                <div class="form-group">
+                    <label for="contactFormMessage">
+                        <span>
+                            Your Question
+                        </span>
+                        <em>*</em>
+                    </label>
+                    <textarea asp-for="Question" rows="8" id="contactFormMessage" placeholder="Please leave your comment here" spellcheck="false" data-ms-editor="true"></textarea>
+                </div>
+
+                <input type="submit" class="btn" value="Ask Question">              
+            </form>
+        </div>
+    </div>
+</div>

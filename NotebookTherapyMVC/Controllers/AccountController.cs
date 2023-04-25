@@ -23,7 +23,7 @@ public class AccountController : Controller
         _saleItemService = saleItemService;
     }
 
-    #region Sale(Checkout_Middleware,Checkout,Purchase)
+    #region Sale(Checkout_Middleware,Checkout,Purchase,Order Confirmed)
     public async Task<IActionResult> Charge()
     {
         Tuple<CartGetDto, SaleGetDto> saleInfo = await ReadySaleAsync();
@@ -66,14 +66,24 @@ public class AccountController : Controller
         {
             saleUpdate.SaleStatus = SaleStatus.Completed;
             await _saleService.UpdateAsync(saleUpdate);
-            return View("Success");
+            return RedirectToAction("OrderSuccess");
         }
         else
         {
             saleUpdate.SaleStatus = SaleStatus.Cancelled;
             await _saleService.UpdateAsync(saleUpdate);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("OrderFailed");
         }
+    }
+
+    public IActionResult OrderSuccess()
+    {       
+        return View();
+    }
+
+    public IActionResult OrderFailed()
+    {
+        return View();
     }
 
     #region Private Methods

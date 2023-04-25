@@ -16,7 +16,7 @@
     <div class="col-xl-4 col-sm-6 p-b-15 lbl-card">
         <div class="card card-mini dash-card card-3">
             <div class="card-body">
-                <h2 class="mb-1">@Model.SalesResult.Where(x=>x.CreatedDate.Date == DateTime.Today).ToList().Count</h2>
+                <h2 class="mb-1">@Model.SalesResult.Where(x=>x.CreatedDate.Date == DateTime.UtcNow.Date).ToList().Count</h2>
                 <p>Daily Order</p>
                 <span class="mdi mdi-package-variant"></span>
             </div>
@@ -25,7 +25,7 @@
     <div class="col-xl-4 col-sm-6 p-b-15 lbl-card">
         <div class="card card-mini dash-card card-4">
             <div class="card-body">
-                <h2 class="mb-1">+$@Model.SalesResult.Where(x=>x.CreatedDate.Date == DateTime.Today).Sum(x=>x.TotalPrice)</h2>
+                <h2 class="mb-1">+$@Model.SalesResult.Where(x=>x.CreatedDate.Date == DateTime.UtcNow.Date).Sum(x=>x.TotalPrice)</h2>
                 <p>Daily Revenue</p>
                 <span class="mdi mdi-currency-usd"></span>
             </div>
@@ -56,7 +56,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (SaleGetDto sale in Model.SalesResult)
+                        @foreach (SaleGetDto sale in Model.SalesResult.OrderByDescending(x=>x.Id).Take(7).ToList())
                         {
                             <tr>
                                 <td>@sale.SaleId</td>

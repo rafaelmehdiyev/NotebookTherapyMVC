@@ -1,0 +1,76 @@
+﻿@import url('core.css');
+
+body {
+    color: var(--color_title_pr);
+    min-height: 100vh;
+}
+
+.container {
+    padding-top: 1.5rem;
+}
+
+.confetti {
+    width: 60%;
+}
+
+h1 {
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+    font-size: 3rem;
+}
+
+p {
+    color: var(--color_compare_price);
+}
+
+.nav_back {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 3rem auto;
+    min-width: 300px;
+    padding: .8rem 0;
+    border: 2px solid var(--darkest_pink);
+    border-radius: 30px;
+    background-color: #fff;
+}
+
+.fa-compass {
+    color: var(--darkest_pink);
+    font-size: 30px;
+}
+
+a,
+a:hover,
+a:active {
+    color: var(--darkest_pink);
+}
+
+@media (max-width: 768px) {
+    .confetti {
+        width: 50%;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .confetti {
+        width: 60%;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .nav_back {
+        min-width: 200px;
+        padding: 0.6rem 0;
+    }
+
+    a {
+        font-size: 13px;
+    }
+}

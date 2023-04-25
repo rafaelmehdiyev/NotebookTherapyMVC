@@ -1,0 +1,98 @@
+﻿@import url('core.css');
+
+body {
+    font-size: 13px;
+    color: var(--color_title_pr);
+}
+
+.containr {
+    padding: 0 2rem;
+    margin-bottom: 80px;
+}
+
+.contact_heading {
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 700;
+    margin: 40px 0;
+}
+
+.line {
+    margin: auto;
+    width: 40px;
+    height: 2px;
+    background-color: var(--color_title_pr);
+}
+
+.qa {
+    margin-bottom: 37px;
+}
+
+    .qa .question {
+        font-weight: bolder;
+    }
+
+    .qa a {
+        font-weight: bolder;
+        color: var(--darker_pink);
+        transition: .3s ease;
+    }
+
+        .qa a:hover {
+            color: var(--color_title_pr);
+        }
+
+p {
+    margin: 0 0 13px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+    .form-group label {
+        font-weight: 500;
+        margin-bottom: 9px;
+    }
+
+label em {
+    color: #f1152f;
+    font-weight: 500;
+    font-style: normal;
+    margin-left: 3px;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="tel"],
+textarea {
+    height: initial;
+    padding: 7px 12px 5px;
+    border: 1px solid #cbcbcb;
+    color: #3c3c3c;
+    border-radius: 0;
+    width: 100%;
+    max-width: 380px;
+    display: block;
+    outline: none
+}
+
+.btn {
+    min-width: 205px;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 30px;
+    background-color: var(--darker_pink);
+    padding: 9px !important;
+    text-transform: capitalize;
+    transition: .3s ease;
+}
+
+    .btn:hover {
+        border: 1px solid var(--darker_pink);
+        background-color: #fff;
+        color: var(--darker_pink);
+    }

@@ -10,6 +10,10 @@
     .blog-post:not(:first-child) {
         margin-left: 4rem;
     }
+
+    .our_story_main .our_story .our_story_img img {
+        max-width: 550px;
+    }
 }
 
 @media (max-width: 1200px) {
@@ -85,6 +89,41 @@
     .contact {
         flex-direction: column;
     }
+
+    .new_about-us_page_main {
+        position: relative;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+
+    .our_story_main .our_story .our_story_content h2 {
+        padding: 0 0 20px 0;
+        font-size: 1.5rem;
+    }
+
+    .our_story_main .our_story .our_story_img {
+        max-width: 440px;
+        margin: 30px auto;
+        width: 100%;
+    }
+
+        .our_story_main .our_story .our_story_img img {
+            max-width: 550px;
+            width: 100%;
+        }
+
+    .our_story_main .our_story {
+        display: inline-block;
+        height: 100%;
+        overflow: hidden;
+    }
+
+        .our_story_main .our_story .our_story_content {
+            width: 100%;
+            text-align: center;
+            padding: 0 0;
+        }
 }
 
 @media (max-width: 576px) {
