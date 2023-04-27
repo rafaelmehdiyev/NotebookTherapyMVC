@@ -92,10 +92,7 @@ public class Mapper : Profile
         CreateMap<ProductCollectionPostDto, ProductCollection>();
         CreateMap<ProductCollectionUpdateDto, ProductCollection>()
             .ForMember(x => x.CreatedDate, opt => opt.MapFrom(src => DateTime.UtcNow));
-        CreateMap<ProductCollectionGetDto, ProductCollectionUpdateDto>()
-            .ForMember(x => x.CollectionHeaderImage, opt => opt.Ignore())
-            .ForMember(x => x.CollectionFooterImage, opt => opt.Ignore())
-            .ForMember(x => x.CollectionItemBackgroundImage, opt => opt.Ignore());
+        CreateMap<ProductCollectionGetDto, ProductCollectionUpdateDto>();
 
         //Review
         CreateMap<Review, ReviewGetDto>();

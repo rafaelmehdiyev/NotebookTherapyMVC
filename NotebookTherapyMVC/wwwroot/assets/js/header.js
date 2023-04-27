@@ -29,15 +29,15 @@ function scrollFunction() {
     if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
         document.getElementById("navbar").style.display = "none";
         document.querySelector("nav").style.height = "4rem";
-        document.querySelector(".megamenu").style.top = "4rem";
-        document.querySelector(".icons_scroll").style.display = "block";
-        document.querySelector(".icons_scroll").style.top = "1.5rem";
+        $(".megamenu").css('top','4rem')
+        $(".icons_scroll").css('display','block')
+        $(".icons_scroll").css('top', '1.5rem')
     } else {
         document.getElementById("navbar").style.display = "flex";
         document.querySelector("nav").style.height = "8rem";
-        document.querySelector(".megamenu").style.top = "8rem";
-        document.querySelector(".icons_scroll").style.display = "none";
-        document.querySelector(".icons_scroll").style.top = "5rem";
+        $(".megamenu").css('top', '8rem')
+        $(".icons_scroll").css('display', 'none')
+        $(".icons_scroll").css('top', '5rem')
     }
 }
 
@@ -51,14 +51,14 @@ window.addEventListener("resize", function () {
     if (window.matchMedia("(max-width: 1200px)").matches) {
         document.getElementById("navbar").style.display = "none";
         document.querySelector("nav").style.height = "4rem";
-        document.querySelector(".megamenu").style.top = "4rem";
-        document.querySelector(".icons_scroll").style.display = "none";
-        document.querySelector(".icons_scroll").style.top = "1.5rem";
+        $(".megamenu").css('top', '4rem')
+        $(".icons_scroll").css('display', 'none')
+        $(".icons_scroll").css('top', '1.5rem')
     } else {
         document.getElementById("navbar").style.display = "flex";
         document.querySelector("nav").style.height = "8rem";
-        document.querySelector(".megamenu").style.top = "8rem";
-        document.querySelector(".icons_scroll").style.display = "none";
-        document.querySelector(".icons_scroll").style.top = "5rem";
+        $(".megamenu").css('top', '8rem')
+        $(".icons_scroll").css('display', 'none')
+        $(".icons_scroll").css('top', '5rem')
     }
 });

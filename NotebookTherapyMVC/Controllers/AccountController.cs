@@ -9,9 +9,10 @@ public class AccountController : Controller
     private readonly IFavouriteService _favService;
     private readonly IBraintreeService _brainTreeService;
     private readonly IProductService _productService;
+    private readonly IShippingService _shippingService;
     private readonly IMapper _mapper;
 
-    public AccountController(IAccountService accountService, ICartService cartService, IFavouriteService favService, IBraintreeService brainTreeService, IProductService productService, IMapper mapperService, ISaleService saleService, ISaleItemService saleItemService)
+    public AccountController(IAccountService accountService, ICartService cartService, IFavouriteService favService, IBraintreeService brainTreeService, IProductService productService, IMapper mapperService, ISaleService saleService, ISaleItemService saleItemService, IShippingService shippingService)
     {
         _accountService = accountService;
         _cartService = cartService;
@@ -21,30 +22,37 @@ public class AccountController : Controller
         _mapper = mapperService;
         _saleService = saleService;
         _saleItemService = saleItemService;
+        _shippingService = shippingService;
     }
 
-    #region Sale(Checkout_Middleware,Checkout,Purchase,Order Confirmed)
-    public async Task<IActionResult> Charge()
+    #region Sale(Shipping,Charge,Purchase,Order Confirmed,Order Failed,Order Pending)
+
+    public async Task<IActionResult> Address(int saleId)
+    {        
+        IDataResult<SaleGetDto> sale = await _saleService.GetByIdAsync(saleId, Includes.SaleIncludes);
+        return View(sale);
+    }
+    [HttpPost]
+    public async Task<IActionResult> Charge(ShippingSaleVM shippingSale)
     {
-        Tuple<CartGetDto, SaleGetDto> saleInfo = await ReadySaleAsync();
-        await ReadySaleItemsAsync(saleInfo.Item1, saleInfo.Item2);
+        ShippingGetDto shipping = await CreateShipping(shippingSale.shippingDto);
         IBraintreeGateway gateway = _brainTreeService.GetGateway();
         string clientToken = gateway.ClientToken.Generate();
         ViewBag.ClientToken = clientToken;
-        IDataResult<SaleGetDto> sale = await _saleService.GetByIdAsync(saleInfo.Item2.Id, Includes.SaleIncludes);
-        return View(sale.Data);
+        IDataResult<SaleGetDto> sale = await _saleService.GetByIdAsync((int)shippingSale.SaleId, Includes.SaleIncludes);
+        return View(new ShippingSaleVM { Sale = sale.Data,shipping = shipping });
     }
 
     [HttpPost]
-    public async Task<IActionResult> PurchaseAsync(SaleGetDto sale)
+    public async Task<IActionResult> PurchaseAsync(ShippingSaleVM shippingSale)
     {
-        SaleGetDto model = (await _saleService.GetByIdAsync(sale.Id, Includes.SaleIncludes)).Data;
+        SaleGetDto model = (await _saleService.GetByIdAsync((int)shippingSale.SaleId, Includes.SaleIncludes)).Data;
         IDataResult<UserGetDto> userResult = await _accountService.GetUserByClaims(User, Includes.UserIncludes);
         IBraintreeGateway gateway = _brainTreeService.GetGateway();
         TransactionRequest request = new TransactionRequest
         {
             Amount = model.TotalPrice,
-            PaymentMethodNonce = sale.Nonce,
+            PaymentMethodNonce = shippingSale.Sale.Nonce,
             Options = new TransactionOptionsRequest
             {
                 SubmitForSettlement = true
@@ -76,6 +84,13 @@ public class AccountController : Controller
         }
     }
 
+    public async Task<IActionResult> OrderPending()
+    {
+        Tuple<CartGetDto, SaleGetDto> saleInfo = await ReadySaleAsync();
+        await ReadySaleItemsAsync(saleInfo.Item1, saleInfo.Item2);
+        return View(saleInfo.Item2.Id);
+    }
+
     public IActionResult OrderSuccess()
     {       
         return View();
@@ -87,6 +102,14 @@ public class AccountController : Controller
     }
 
     #region Private Methods
+
+    private async Task<ShippingGetDto> CreateShipping(ShippingPostDto dto)
+    {
+        UserGetDto currentUser = (await _accountService.GetUserByClaims(User)).Data; 
+        dto.UserId = currentUser.Id;
+        return (await _shippingService.CreateAsync(dto)).Data;
+    }
+
     private async Task<Tuple<CartGetDto, SaleGetDto>> ReadySaleAsync()
     {
         UserGetDto currentUser = (await _accountService.GetUserByClaims(User)).Data;
@@ -132,7 +155,6 @@ public class AccountController : Controller
     #endregion
 
     #endregion
-
 
     #region Auth(Login,Register,Profile,SignOut)
 

@@ -1,0 +1,16 @@
+﻿@import url(./address.css);
+
+.change:hover {
+    color: #de94a5;
+    text-decoration: underline;
+}
+
+.free {
+    height: 300px;
+}
+
+@media(max-width : 375px) {
+    .change {
+        margin-left: -10px;
+    }
+}

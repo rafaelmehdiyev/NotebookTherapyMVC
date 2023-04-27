@@ -4,14 +4,6 @@
 @model IDataResult<List<UserGetDto>>
 <div class="breadcrumb-wrapper breadcrumb-wrapper-2 breadcrumb-contacts">
     <h1>Users</h1>
-    @{
-        if (User.IsInRole("SuperAdmin"))
-        {
-            <p class="breadcrumbs">
-                <a class="btn btn-primary" asp-action="Create" asp-controller="User">New Admin</a>
-            </p>
-        }
-    }
 </div>
 <div class="row">
     <div class="col-xl-12 col-lg-12">

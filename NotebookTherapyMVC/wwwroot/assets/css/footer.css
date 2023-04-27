@@ -23,17 +23,17 @@ footer .icons i{
     border: 1px solid #fff;
     border-radius: 50%;
 }
-h3{
+footer h3{
     color: #232323
 }
- ul{
+footer  ul{
     padding-left: 0% !important;
  }
-ul li {
+footer ul li {
     line-height: 2.5rem;
 }
 
-ul li a{
+footer ul li a{
     color: #969696 !important;
     position: relative;
     text-decoration: none;

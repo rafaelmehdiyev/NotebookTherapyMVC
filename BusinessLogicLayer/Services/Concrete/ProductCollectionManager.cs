@@ -40,7 +40,6 @@ public class ProductCollectionManager : IProductCollectionService
 	public async Task<IResult> CreateAsync(ProductCollectionPostDto dto)
 	{
 		ProductCollection productCollection = _mapper.Map<ProductCollection>(dto);
-		AddImagesToCollection(productCollection, dto.CollectionHeaderImage, dto.CollectionFooterImage, dto.CollectionItemBackgroundImage);
 		await _unitOfWork.ProductCollectionRepository.CreateAsync(productCollection);
 		int result = await _unitOfWork.SaveAsync();
 		if (result is 0)
@@ -56,9 +55,7 @@ public class ProductCollectionManager : IProductCollectionService
 	public async Task<IResult> UpdateAsync(ProductCollectionUpdateDto dto)
 	{
 		ProductCollection productCollection = await _unitOfWork.ProductCollectionRepository.GetAsync(b => b.Id == dto.Id && !b.isDeleted);
-		DeleteImagesFromCollection(productCollection);
 		productCollection = _mapper.Map<ProductCollection>(dto);
-		AddImagesToCollection(productCollection, dto.CollectionHeaderImage, dto.CollectionFooterImage, dto.CollectionItemBackgroundImage);
 		_unitOfWork.ProductCollectionRepository.Update(productCollection);
 		int result = await _unitOfWork.SaveAsync();
 		if (result is 0)
@@ -85,7 +82,7 @@ public class ProductCollectionManager : IProductCollectionService
 	#region Delete Requests
 	public async Task<IResult> HardDeleteByIdAsync(int id)
 	{
-		ProductCollection productCollection = await _unitOfWork.ProductCollectionRepository.GetAsync(b => b.Id == id && !b.isDeleted);
+		ProductCollection productCollection = await _unitOfWork.ProductCollectionRepository.GetAsync(b => b.Id == id && b.isDeleted);
 		_unitOfWork.ProductCollectionRepository.Delete(productCollection);
 		int result = await _unitOfWork.SaveAsync();
 		if (result is 0)
@@ -107,20 +104,5 @@ public class ProductCollectionManager : IProductCollectionService
 		return new SuccessResult(Messages.Deleted(Messages.ProductCollection));
 	}
 
-	#endregion
-
-	#region Private Methods
-	private void AddImagesToCollection(ProductCollection collection, params IFormFile[] formFiles)
-	{
-		collection.CollectionHeaderImage = formFiles[0].FileCreate(_env.WebRootPath, "uploads/productCollection");
-		collection.CollectionFooterImage = formFiles[1].FileCreate(_env.WebRootPath, "uploads/productCollection");
-		collection.CollectionItemBackgroundImage = formFiles[2].FileCreate(_env.WebRootPath, "uploads/productCollection");
-	}
-	private void DeleteImagesFromCollection(ProductCollection collection)
-	{
-		File.Delete(Path.Combine(_env.WebRootPath, "uploads/productCollection", collection.CollectionHeaderImage));
-		File.Delete(Path.Combine(_env.WebRootPath, "uploads/productCollection", collection.CollectionItemBackgroundImage));
-		File.Delete(Path.Combine(_env.WebRootPath, "uploads/productCollection", collection.CollectionFooterImage));
-	}
 	#endregion
 }

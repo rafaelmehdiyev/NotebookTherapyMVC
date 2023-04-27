@@ -32,74 +32,25 @@
             </div>
             <div class="card-body">
                 <form class="row ec-vendor-uploads" asp-controller="ProductCollection" asp-action="Create" enctype="multipart/form-data">
-                    <div class="col-lg-8">
-                        <div class="ec-vendor-img-upload">
-                            <div class="ec-vendor-main-img">
-                                <div class="thumb-upload-set colo-md-12">
-                                    <div class="thumb-upload">
-                                        <h5 class="text-center">Header Image</h5>
-                                        <div class="position-relative">
-                                            <div class="thumb-edit">
-                                                <input type="file" asp-for="CollectionHeaderImage" class="ec-image-upload" accept=".png, .jpg, .jpeg">
-                                                <label asp-for="CollectionHeaderImage">
-                                                    <img src="~/Manage/assets/img/icons/edit.svg" class="svg_img header_svg" alt="edit">
-                                                </label>
-                                            </div>
-                                            <div class="thumb-preview ec-preview">
-                                                <div class="image-thumb-preview">
-                                                    <img class="image-thumb-preview ec-image-preview" src="~/Manage/assets/img/products/vender-upload-thumb-preview.jpg" alt="edit">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <span class="text-danger  spanText" asp-validation-for="CollectionHeaderImage"></span>
-                                    </div>
-                                    <div class="thumb-upload">
-                                        <h5 class="text-center">Footer Image</h5>
-                                        <div class="position-relative">
-                                            <div class="thumb-edit">
-                                                <input type="file" asp-for="CollectionFooterImage" class="ec-image-upload" accept=".png, .jpg, .jpeg">
-                                                <label asp-for="CollectionFooterImage">
-                                                    <img src="~/Manage/assets/img/icons/edit.svg" class="svg_img header_svg" alt="edit">
-                                                </label>
-                                            </div>
-                                            <div class="thumb-preview ec-preview">
-                                                <div class="image-thumb-preview">
-                                                    <img class="image-thumb-preview ec-image-preview" src="~/Manage/assets/img/products/vender-upload-thumb-preview.jpg" alt="edit">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <span class="text-danger spanText" asp-validation-for="CollectionFooterImage"></span>
-                                    </div>
-                                    <div class="thumb-upload">
-                                        <h5 class="text-center">Item Background Image</h5>
-                                        <div class="position-relative">
-                                            <div class="thumb-edit">
-                                                <input type="file" asp-for="CollectionItemBackgroundImage" class="ec-image-upload" accept=".png, .jpg, .jpeg">
-                                                <label asp-for="CollectionItemBackgroundImage">
-                                                    <img src="~/Manage/assets/img/icons/edit.svg" class="svg_img header_svg" alt="edit">
-                                                </label>
-                                            </div>
-                                            <div class="thumb-preview ec-preview">
-                                                <div class="image-thumb-preview">
-                                                    <img class="image-thumb-preview ec-image-preview" src="~/Manage/assets/img/products/vender-upload-thumb-preview.jpg" alt="edit">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <span class="text-danger spanText" asp-validation-for="CollectionItemBackgroundImage"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                         <div class="ec-vendor-upload-detail">
                             <div class="row g-3">
                                 <div class="col-md-12">
-                                    <label asp-for="Name" class="form-label">Collection name</label>
+                                    <label asp-for="Name" class="form-label">Collection Name</label>
                                     <input asp-for="Name" type="text" class="form-control">
                                     <span class="text-danger spanText" asp-validation-for="Name"></span>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-12">
+                                    <label asp-for="Description" class="form-label">Collection Description</label>
+                                    <input asp-for="Description" type="text" class="form-control">
+                                    <span class="text-danger spanText" asp-validation-for="Description"></span>
+                                </div>
+                                <div class="col-md-12">
+                                    <label asp-for="CollectionIcon" class="form-label">Collection Icon</label>
+                                    <input asp-for="CollectionIcon" type="text" class="form-control">
+                                    <span class="text-danger spanText" asp-validation-for="CollectionIcon"></span>
+                                </div>
+                               @* <div class="col-md-4">
                                     <label asp-for="CollectionColor" class="col-12 col-form-label">Main Color</label>
                                     <div class="col-12">
                                         <input asp-for="CollectionColor" class="form-control p-0 here" type="color">
@@ -119,7 +70,7 @@
                                         <input asp-for="CollectionButtonColor" class="form-control p-0 here" type="color">
                                         <span class="text-danger spanText" asp-validation-for="CollectionButtonColor"></span>
                                     </div>
-                                </div>
+                                </div>*@
                                 <div class="col-md-12 mt-3">
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>

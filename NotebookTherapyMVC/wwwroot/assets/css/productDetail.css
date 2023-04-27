@@ -2,11 +2,11 @@
 
 h1 {
     /* color: var(--red); */
-    font-family: var(--Poppins);
+    font-family: var(--poppins);
 }
 
 .purple {
-    color: var(--nigar-purple);
+    color: #de94a5;
 }
 
 .product-title svg {
@@ -24,19 +24,19 @@ h1 {
 }
 
 .submit button {
-    border: 1px solid var(--nigar-purple);
-    background-color: var(--nigar-purple);
+    border: 1px solid #de94a5;
+    background-color: #de94a5;
     transition: 0.5s;
     letter-spacing: 0.1cm;
 }
 
     .submit button:hover {
         background-color: white;
-        color: var(--nigar-purple) !important;
+        color: #de94a5 !important;
     }
 
 .text-purple {
-    color: var(--nigar-purple);
+    color: #de94a5;
 }
 
 ul li {
@@ -50,7 +50,7 @@ ul li {
 
 .thumbnails {
     display: flex;
-    /*justify-content: space-between;*/
+    justify-content: space-between;
     gap: 1rem;
     margin-top: 1rem;
 }
@@ -65,14 +65,14 @@ ul li {
     opacity: 0.3;
 }
 
-.thumbnail.is-active {
-    opacity: 1;
-}
+    .thumbnail.is-active {
+        opacity: 1;
+    }
 
-.thumbnail img {
-    width: 100%;
-    height: auto;
-}
+    .thumbnail img {
+        width: 100%;
+        height: auto;
+    }
 
 .splide__arrow svg {
     fill: black !important;
@@ -196,5 +196,27 @@ p:hover {
     flex-wrap: nowrap !important;
     position: relative;
     left: 0;
-    transition: all 1s ease-out;
 }
+
+.favbtn {
+    width: 50px;
+    border: 0;
+    background: none;
+    position: relative !important;
+    top: 0;
+}
+
+.fav {
+    color: #de94a5;
+    padding: 13px;
+    border: 1px solid #dbdbdb;
+    border-radius: 50%;
+    font-size: 18px;
+    position: absolute;
+    display: none !important;
+}
+
+.show {
+    display: block !important;
+}
+    

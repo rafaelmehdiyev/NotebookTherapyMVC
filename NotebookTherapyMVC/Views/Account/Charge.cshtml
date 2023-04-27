@@ -1,57 +1,93 @@
-﻿@model SaleGetDto
+﻿@model ShippingSaleVM
 
 @{
-    ViewData["Title"] = "Purchase";
+    Layout = null;
 }
 
-<div class="wrapper">
-    <div class="checkout container">
-        <form id="payment-form" method="post" asp-controller="Account" asp-action="Purchase">
-            <input type="hidden" asp-for="Id" />
-            @Html.DisplayFor(n => n.SaleId)
-            @foreach (SaleItemGetDto saleItems in Model.SaleItems)
-            {
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title" asp-for="@saleItems.Product.Name">@saleItems.Product.Name</h5>
-                        <p class="card-title" asp-for="@saleItems.Quantity">Quantity : @saleItems.Quantity</p>
-                        <p class="card-text"><small class="text-muted">Price: @saleItems.Product.Price</small></p>
-                        <p class="card-text"><small class="text-muted">Total: @saleItems.TotalPrice</small></p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase - Notebook Thearpy</title>
+    <!-- === Bootstrap CSS v5.2.3 === -->
+    <link rel="stylesheet" href="~/assets/libs/bootstrap-5.2.3-dist/css/bootstrap.min.css">
+    <!-- ==== Font Awesome Pro === -->
+    <link rel="stylesheet" href="~/Manage/assets/plugins/font-awesome/css/all.min.css">
+    <!-- ==== Custom Css === -->
+    <link rel="stylesheet" href="~/assets/css/charge.css">
+</head>
+<body>
+    <div class="container p-0">
+        <div class="row">
+            <div class="col-lg-7 col-12 ">
+                <div class="container" style="margin-top: 50px;">
+                    <img src="~/assets/images/logo.png" class="img-fluid d-block m-auto pb-5" style="width:280px" />
+                    <div class="px-sm-5">
+                        <div class="row border p-2">
+                            <div class="col-2">
+                                <p>Ship to</p>
+                            </div>
+                            <div class="col-8">
+                                <p>@Model.shipping.Address,@Model.shipping.Apartment,@Model.shipping.PostalCode,@Model.shipping.City,@Model.shipping.Country</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form id="payment-form" method="post" asp-controller="Account" asp-action="Purchase">
+                                    @Html.HiddenFor(n => n.SaleId)
+                                    <section>
+                                        <div class="bt-drop-in-wrapper">
+                                            <div id="bt-dropin"></div>
+                                        </div>
+                                    </section>
+                                    @Html.HiddenFor(n => n.Sale.Nonce, new { @id = "nonce" })
+                                    <hr />
+                                    <button class="btn bg-purple p-lg-3 text-white fw-bolder  mb-5" type="submit"><span>Confirm payment - $@Model.Sale.TotalPrice</span></button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="row r mt-3">
+                            <div class="col-6 returnToCart">
+                                <i class="fa-solid fa-chevron-left text-purple"></i>
+                                <a href="./checkout.html" class="text-decoration-none text-purple">Return to information</a>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
-            }
-            <section>
-                <div class="bt-drop-in-wrapper">
-                    <div id="bt-dropin"></div>
+            </div>
+            <div class="col-lg-5 col-12 bg-gray">
+                <div class="container right py-5">
+                    <partial name="_saleItemListPartial" model="Model.Sale">
                 </div>
-            </section>
-            @Html.HiddenFor(n => n.Nonce, new { @id = "nonce" })
-            <hr />
-            <button class="btn btn-success" type="submit"><span>Confirm payment - $@Model.TotalPrice</span></button>
-        </form>
+            </div>
+        </div>
     </div>
-</div>
+    <script src="~/assets/libs/bootstrap-5.2.3-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://js.braintreegateway.com/web/dropin/1.22.0/js/dropin.min.js"></script>
+    <script>
+        var client_token = "@ViewBag.ClientToken";
+        var form = document.querySelector('#payment-form');
 
-<script src="https://js.braintreegateway.com/web/dropin/1.22.0/js/dropin.min.js"></script>
-<script>
-    var client_token = "@ViewBag.ClientToken";
-    var form = document.querySelector('#payment-form');
+        braintree.dropin.create({
+            authorization: client_token,
+            container: '#bt-dropin'
+        }, function (createErr, instance) {
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
 
-    braintree.dropin.create({
-        authorization: client_token,
-        container: '#bt-dropin'
-    }, function (createErr, instance) {
-        form.addEventListener('submit', function (event) {
-            event.preventDefault();
-
-            instance.requestPaymentMethod(function (err, payload) {
-                if (err) {
-                    return;
-                }
-                console.log(payload)
-                document.querySelector('#nonce').value = payload.nonce;
-                form.submit();
+                instance.requestPaymentMethod(function (err, payload) {
+                    if (err) {
+                        return;
+                    }
+                    console.log(payload)
+                    document.querySelector('#nonce').value = payload.nonce;
+                    form.submit();
+                });
             });
         });
-    });
-</script>
+    </script>
+</body>
+</html>

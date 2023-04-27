@@ -1,4 +1,6 @@
-﻿namespace BusinessLogicLayer.Services.Concrete;
+﻿using System.Collections.Generic;
+
+namespace BusinessLogicLayer.Services.Concrete;
 
 public class AccountManager : IAccountService
 {
@@ -48,7 +50,7 @@ public class AccountManager : IAccountService
     {
         AppUser user = await _userManager.FindByEmailAsync(loginDto.Email);
         if (user is null) { return new ErrorDataResult<UserGetDto>(_mapper.Map<UserGetDto>(user), "User is not exist"); }
-        await _signInManager.SignInAsync(user, false);
+        await _signInManager.PasswordSignInAsync(user,loginDto.Password, false,false);
         UserGetDto userDto = _mapper.Map<UserGetDto>(user);
         userDto.Roles = (List<string>)await _userManager.GetRolesAsync(user);
         return new SuccessDataResult<UserGetDto>(userDto, "Login Succesful");
@@ -82,7 +84,9 @@ public class AccountManager : IAccountService
     public async Task<IDataResult<UserGetDto>> GetUserById(string id, params string[] includes)
     {
         List<AppUser> userList = GetQuery(includes).ToList();
-        return new SuccessDataResult<UserGetDto>(_mapper.Map<UserGetDto>(userList.Where(u=>u.Id == id).FirstOrDefault()));
+        List<UserGetDto> userDtos = _mapper.Map<List<UserGetDto>>(userList);
+        userDtos =  await GetUserDtos(userList);
+        return new SuccessDataResult<UserGetDto>(userDtos.Where(u => u.Id == id).FirstOrDefault());
     }
     #endregion
 

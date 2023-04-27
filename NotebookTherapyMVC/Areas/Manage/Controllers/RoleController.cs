@@ -1,6 +1,6 @@
 ﻿namespace NotebookTherapyMVC.Areas.Manage.Controllers;
 [Area("Manage")]
-[Authorize(Roles = "Admin")]
+[Authorize(Roles = "Admin,SuperAdmin")]
 public class RoleController : Controller
 {
     private readonly IRoleSevice _roleSevice;

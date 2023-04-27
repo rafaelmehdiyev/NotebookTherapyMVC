@@ -84,7 +84,7 @@ public class ReviewManager : IReviewService
 	#region Delete Requests
 	public async Task<IResult> HardDeleteByIdAsync(int id)
     {
-        Review review = await _unitOfWork.ReviewRepository.GetAsync(b => b.Id == id && !b.isDeleted);
+        Review review = await _unitOfWork.ReviewRepository.GetAsync(b => b.Id == id && b.isDeleted);
         _unitOfWork.ReviewRepository.Delete(review);
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)

@@ -1,6 +1,4 @@
-﻿
-namespace BusinessLogicLayer.Utilities.Validations.FluentValidation.UpdateDtoValidators;
-
+﻿namespace BusinessLogicLayer.Utilities.Validations.FluentValidation.UpdateDtoValidators;
 public class ProductCollectionUpdateDtoValidator : AbstractValidator<ProductCollectionUpdateDto>
 {
     public ProductCollectionUpdateDtoValidator()
@@ -32,8 +30,3 @@ public class ProductCollectionUpdateDtoValidator : AbstractValidator<ProductColl
         return false;
     }
 }
-
-
-    
-
-

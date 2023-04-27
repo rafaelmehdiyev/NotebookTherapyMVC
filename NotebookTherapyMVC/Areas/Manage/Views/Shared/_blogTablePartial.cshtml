@@ -37,26 +37,16 @@
                 </td>
                 <td>
                     <div class="btn-group">
-                        <button asp-action="Get" asp-controller="Blog" asp-route-id="@blog.Id" type="button" class="btn btn-outline-success">Info</button>
                         @{
-                            <button type="button" class="btn btn-outline-success dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
-                                <span class="sr-only">Info</span>
-
-                            </button>
-
                             if (!blog.isDeleted)
                             {
-                                <div class="dropdown-menu">
-                                    <a asp-action="Update" asp-controller="Blog" asp-route-id="@blog.Id" class="dropdown-item">Edit</a>
-                                    <a asp-action="Delete" asp-controller="Blog" asp-route-id="@blog.Id" class="dropdown-item">Delete</a>
-                                </div>
+                                <a asp-action="Update" asp-controller="Blog" asp-route-id="@blog.Id" class="btn btn-outline-warning">Edit</a>
+                                <a asp-action="Delete" asp-controller="Blog" asp-route-id="@blog.Id" class="btn btn-outline-danger">Delete</a>
                             }
                             else
                             {
-                                <div class="dropdown-menu">
-                                    <a asp-action="Recover" asp-controller="Blog" asp-route-id="@blog.Id" class="dropdown-item">Recover</a>
-                                    <a asp-action="HardDelete" asp-controller="Blog" asp-route-id="@blog.Id" class="dropdown-item">Permamently Delete</a>
-                                </div>
+                                <a asp-action="Recover" asp-controller="Blog" asp-route-id="@blog.Id" class="btn btn-outline-info">Recover</a>
+                                <a asp-action="HardDelete" asp-controller="Blog" asp-route-id="@blog.Id" class="btn btn-outline-danger">Permamently Delete</a>
                             }
                         }
                     </div>

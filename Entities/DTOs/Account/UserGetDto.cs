@@ -5,6 +5,7 @@ public class UserGetDto : IDto
     public UserGetDto()
     {
         Roles = new();
+        Reviews = new();
     }
     public string Id { get; set; }
     public string FirstName { get; set; }

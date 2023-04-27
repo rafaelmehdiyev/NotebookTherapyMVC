@@ -1,5 +1,6 @@
 ﻿function AddToFav(e) {
     var productId = e.getAttribute('data-id');
+    console.log($(e).siblings(".remove-from-fav"))
     $.ajax({
         url: '/Product/AddToFavourite',
         method: 'POST',
@@ -7,10 +8,9 @@
         success: function (result) {
             if (result.success) {
                 console.log(result)
-                $(".remove-from-fav").attr("data-id", result.data.id)
-                $(".remove-from-fav").attr("data-product-id", productId)
-                $(".remove-from-fav").css("pointer-events", "auto")
-                $(".add-to-fav").css("pointer-events", "none")
+                $(e).siblings(".remove-from-fav").attr("data-id", result.data.id)
+                $(e).siblings(".remove-from-fav").attr("data-product-id", productId)
+                $(e).siblings(".remove-from-fav").css("pointer-events", "auto")
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -30,9 +30,9 @@ function RemoveFromFav(e) {
         success: function (result) {
             if (result.success) {
                 console.log(result);
-                $(".add-to-fav").attr("data-id", productId)
-                $(".remove-from-fav").css("pointer-events", "none")
-                $(".add-to-fav").css("pointer-events", "auto")
+                $(e).siblings(".add-to-fav").attr("data-id", productId)
+                /*$(".remove-from-fav").css("pointer-events", "none")*/
+                $(e).siblings(".add-to-fav").css("pointer-events", "auto")
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {

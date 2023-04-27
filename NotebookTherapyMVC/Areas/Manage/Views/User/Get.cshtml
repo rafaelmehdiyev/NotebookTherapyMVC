@@ -21,14 +21,13 @@
                     <div class="card-body">
                         <h4 class="py-2 text-dark">@Model.Data.FirstName @Model.Data.LastName</h4>
                         <p>@Model.Data.Email</p>
-
                         @if (Model.Data.Roles.Contains("User") == true && User.IsInRole("SuperAdmin"))
                         {
-                            <a class="btn btn-primary my-3" asp-action="EvokeToAdmin" asp-controller="User">Evoke</a>
+                            <a class="btn btn-primary my-3" asp-action="EvokeToAdmin" asp-controller="User" asp-route-id="@Model.Data.Id">Evoke</a>
                         }
                         else
                         {
-                            <a class="btn btn-primary my-3" asp-action="RevokeFromAdmin" asp-controller="User">Revoke</a>
+                            <a class="btn btn-primary my-3" asp-action="RevokeFromAdmin" asp-controller="User" asp-route-id="@Model.Data.Id">Revoke</a>
                         }
                     </div>
                 </div>
@@ -57,7 +56,7 @@
                     <p class="text-dark font-weight-medium pt-24px mb-2">Email address</p>
                     <p>@Model.Data.Email</p>
                     <p class="text-dark font-weight-medium pt-24px mb-2">Phone Number</p>
-                    <p>@Model.Data.PhoneNumber</p>
+                    <p>@(Model.Data.PhoneNumber is null ? "No Number" : Model.Data.PhoneNumber)</p>
                 </div>
             </div>
         </div>
@@ -119,8 +118,8 @@
                                         </div>
 
                                         <div class="media-body align-self-center">
-                                            <h4 class="text-primary mb-2">@Model.Data.Shippings.Count()</h4>
-                                            <p>Shippings</p>
+                                            <h4 class="text-primary mb-2">@Model.Data.Reviews.Count()</h4>
+                                            <p>Reviews</p>
                                         </div>
                                     </div>
                                 </div>
@@ -138,7 +137,6 @@
                                                     <i class="mdi mdi-cached"></i>
                                                 </button>
                                             </div>
-
                                         </div>
                                         <div class="card-body compact-notifications" data-simplebar
                                              style="height: 434px;">
@@ -146,7 +144,7 @@
                                             {
                                                 <div class="media py-3 align-items-center justify-content-between">
                                                     <div class="d-flex rounded-circle align-items-center justify-content-center mr-3 media-icon iconbox-45 bg-success text-white">
-                                                        <i class="mdi mdi-email-outline font-size-20"></i>
+                                                        <i class="fas fa-comment font-size-20"></i>
                                                     </div>
                                                     <div class="media-body pr-3">
                                                         <a class="mt-0 mb-1 font-size-15 text-dark"
@@ -154,7 +152,7 @@
                                                         <p>@review.Comment</p>
                                                     </div>
                                                     <span class=" font-size-12 d-inline-block">
-                                                        <i class="mdi mdi-clock-outline"></i>@review.CreatedDate AM
+                                                        <i class="mdi mdi-clock-outline"></i>@review.CreatedDate
                                                     </span>
                                                 </div>
                                             }

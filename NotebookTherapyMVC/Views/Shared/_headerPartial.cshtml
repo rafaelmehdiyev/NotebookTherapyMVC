@@ -1,4 +1,5 @@
-﻿@inject ICategoryService _categoryService
+﻿@inject ICategoryService _categoryService;
+@inject IProductCollectionService _productCollectionService;
 <header>
     <nav id="nav">
         <div class="header_top" id="navbar">
@@ -8,10 +9,13 @@
                 </a>
             </div>
             <div class="icons">
-                <a asp-action="ShoppingCart" asp-controller="Account">
+                <a asp-action="ShoppingCart" asp-controller="Account" class="me-2">
                     <i class="fa-regular fa-basket-shopping-simple fa-fade">
                     </i>
                     <span>Shopping Cart</span>
+                </a>
+                <a asp-controller="Account" asp-action="Favourite">
+                    <i class="fa-regular fa-heart"></i>
                 </a>
                 <a asp-action="@(User.Identity.IsAuthenticated ? "Profile" : "Login")" asp-controller="Account" class="ms-2">
                     <i class="fa-regular fa-user"></i>
@@ -31,6 +35,9 @@
                 <a asp-action="ShoppingCart" asp-controller="Account">
                     <i class="fa-regular fa-basket-shopping-simple fa-fade">
                     </i>
+                </a>
+                <a asp-controller="Account" asp-action="Favourite">
+                    <i class="fa-regular fa-heart"></i>
                 </a>
                 <a asp-action="@(User.Identity.IsAuthenticated ? "Profile" : "Login")" asp-controller="Account" class="ms-2">
                     <i class="fa-regular fa-user"></i>
@@ -70,13 +77,7 @@
                 <a asp-controller="Product" asp-action="Index" asp-route-isTrending="true" class="nav_link">Trending</a>
             </li>
             <li class="nav_item">
-                <a href="new-additions.html" class="nav_link">New Additions</a>
-            </li>
-            <li class="nav_item">
                 <a asp-controller="Home" asp-action="About" class="nav_link">About Us</a>
-            </li>
-            <li class="nav_item">
-                <a asp-controller="Blog" asp-action="Index" class="nav_link">Blogs</a>
             </li>
             <li class="nav_item drop_down">
                 <div href="#" class="nav_link dropdown_link cursor-pointer d-inline">
@@ -84,103 +85,66 @@
                     <i class="fa-solid fa-chevron-down dropdown_icon"></i>
                 </div>
                 <div class="megamenu">
+                    @{
+                        List<ProductCollectionGetDto> collections = (await _productCollectionService.GetAllAsync(false)).Data;
+                        int additional_content = collections.Count % 3;
+                        int first_collection_content = collections.Count / 3;
+                        int second_collection_content = collections.Count / 3;
+                        if (additional_content > 0)
+                        {
+                            first_collection_content++;
+                            if (additional_content == 2)
+                            {
+                                second_collection_content++;
+                            }
+                        }
+                    }
                     <ul class="content">
-                        <li class="megamenu_item">
-                            <div class="menu_icon">
-                                <span>🌸</span>
-                            </div>
-                            <div class="megamenu_link">
-                                <a href="#">Sakura Breeze</a>
-                                <p>Inspired by serene Japanese streets 🌸</p>
-                            </div>
-                        </li>
-                        <li class="megamenu_item">
-                            <div class="menu_icon">
-                                <span>🖤</span>
-                            </div>
-                            <div class="megamenu_link">
-                                <a href="#">Academia Collection</a>
-                                <p>Inspired by the arts with classical roots 🖤</p>
-                            </div>
-                        </li>
-                        <li class="megamenu_item">
-                            <div class="menu_icon">
-                                <span>👧🏻</span>
-                            </div>
-                            <div class="megamenu_link">
-                                <a href="#">Happy day Collection</a>
-                                <p>Inspired by Peppoko’s iconic girl illustrations 👧🏻</p>
-                            </div>
-                        </li>
-                        <li class="megamenu_item">
-                            <div class="menu_icon">
-                                <span>🔮</span>
-                            </div>
-                            <div class="megamenu_link">
-                                <a href="#">Moonlit Spells</a>
-                                <p>Inspired by moon rituals + midnight magic ✨</p>
-                            </div>
-                        </li>
+                        @foreach (ProductCollectionGetDto collection in collections.Take(first_collection_content))
+                        {
+                            <li class="megamenu_item">
+                                <div class="menu_icon">
+                                    <span>@collection.CollectionIcon</span>
+                                </div>
+                                <div class="megamenu_link">
+                                    <a asp-action="Detail" asp-controller="Collection" asp-route-id="@collection.Id">@collection.Name</a>
+                                    <p>@collection.Description</p>
+                                </div>
+                            </li>
+                        }
                     </ul>
                     <ul class="content">
-                        <li class="megamenu_item">
-                            <div class="menu_icon">
-                                <span>🗝</span>
-                            </div>
-                            <div class="megamenu_link">
-                                <a href="#">LOVE LOCK</a>
-                                <p>Inspired by timeless romance and vintage charm 🗝️</p>
-                            </div>
-                        </li>
-                        <li class="megamenu_item">
-                            <div class="menu_icon">
-                                <span>🕊️</span>
-                            </div>
-                            <div class="megamenu_link">
-                                <a href="#">MOONFLOWER COLLECTION</a>
-                                <p>Inspired by the bloom of the moonflower ❄</p>
-                            </div>
-                        </li>
-                        <li class="megamenu_item">
-                            <div class="menu_icon">
-                                <span>🌊</span>
-                            </div>
-                            <div class="megamenu_link">
-                                <a href="#">OCEAN COLLECTION</a>
-                                <p>Inspired by our favourite marine mammals</p>
-                            </div>
-                        </li>
-                        <li class="megamenu_item">
-                            <div class="menu_icon">
-                                <span>💐</span>
-                            </div>
-                            <div class="megamenu_link">
-                                <a href="#">Floral Collection</a>
-                                <p>Our collection inspired by flowers + springtime.</p>
-                            </div>
-                        </li>
+                        @foreach (ProductCollectionGetDto collection in collections.Skip(first_collection_content).Take(second_collection_content))
+                        {
+                            <li class="megamenu_item">
+                                <div class="menu_icon">
+                                    <span>@collection.CollectionIcon</span>
+                                </div>
+                                <div class="megamenu_link">
+                                    <a asp-action="Detail" asp-controller="Collection" asp-route-id="@collection.Id">@collection.Name</a>
+                                    <p>@collection.Description</p>
+                                </div>
+                            </li>
+                        }
                     </ul>
                     <ul class="content">
-                        <li class="megamenu_item">
-                            <div class="menu_icon">
-                                <span>🍵</span>
-                            </div>
-                            <div class="megamenu_link">
-                                <a href="#">Tea Party Collection</a>
-                                <p>Enjoy your very own Tea Party ✨</p>
-                            </div>
-                        </li>
-                        <li class="megamenu_item">
-                            <div class="menu_icon">
-                                <span>🥀</span>
-                            </div>
-                            <div class="megamenu_link">
-                                <a href="#">Vintage Rose</a>
-                                <p>Inspired by all things vintage + romantic... 🥀</p>
-                            </div>
-                        </li>
+                        @foreach (ProductCollectionGetDto collection in collections.Skip(first_collection_content + second_collection_content).Take(collections.Count / 3))
+                        {
+                            <li class="megamenu_item">
+                                <div class="menu_icon">
+                                    <span>@collection.CollectionIcon</span>
+                                </div>
+                                <div class="megamenu_link">
+                                    <a asp-action="Detail" asp-controller="Collection" asp-route-id="@collection.Id">@collection.Name</a>
+                                    <p>@collection.Description</p>
+                                </div>
+                            </li>
+                        }
                     </ul>
                 </div>
+            </li>
+            <li class="nav_item">
+                <a asp-controller="Blog" asp-action="Index" class="nav_link">Blogs</a>
             </li>
             <li class="nav_item">
                 <a asp-controller="Home" asp-action="Contact" class="nav_link">Contact Us</a>
@@ -190,6 +154,9 @@
             <a asp-action="ShoppingCart" asp-controller="Account">
                 <i class="fa-regular fa-basket-shopping-simple fa-fade">
                 </i>
+            </a>
+            <a asp-controller="Account" asp-action="Favourite">
+                <i class="fa-regular fa-heart"></i>
             </a>
             <a asp-action="@(User.Identity.IsAuthenticated ? "Profile" : "Login")" asp-controller="Account" class="ms-2">
                 <i class="fa-regular fa-user"></i>

@@ -12,7 +12,7 @@
     <div class="wrapper">
         <div class="icon"><i id="left" class="fa-solid fa-angle-left"></i></div>
         <ul class="tabs tabs-box">
-            @foreach (FAQCategoryGetDto category in Model.Data)
+            @foreach (FAQCategoryGetDto category in Model.Data.Where(x=>x.FAQs.Count > 0))
             {
                 <li class="tab">@category.Name</li>
             }

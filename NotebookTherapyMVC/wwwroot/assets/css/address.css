@@ -1,0 +1,91 @@
+﻿body {
+    height: 100vh !important;
+    overflow-x: hidden;
+}
+
+.right {
+    height: 100vh;
+}
+
+.bg-gray {
+    background-color: whitesmoke;
+    border-left: 1px solid #d6d6d6;
+}
+
+.right p {
+    cursor: pointer;
+    transition: 0.5s all ease;
+}
+
+    .right p:hover {
+        color: #de94a5;
+    }
+
+.text-purple {
+    color: #de94a5;
+}
+
+.bg-purple {
+    background-color: #de94a5;
+}
+
+    .bg-purple:hover {
+        background-color: #de94a5;
+    }
+
+.imgContainer {
+    position: relative;
+    width: fit-content;
+}
+
+    .imgContainer img {
+        width: 64px;
+        height: 64px;
+        cursor: pointer;
+    }
+
+.count {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: #7f7f7f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    position: absolute;
+    right: -4px;
+    top: -4px;
+}
+
+.purple:focus {
+    border-color: #de94a5 !important;
+    box-shadow: 0 1px 1px #de94a5 inset, 0 0 5px #de94a5 !important;
+    outline: 0 none !important;
+}
+
+.btn-purple:disabled {
+    background-color: #c7c7c7;
+    color: white;
+}
+
+::placeholder {
+    font-size: 17px;
+}
+
+.btn-purple {
+    background-color: #de94a5;
+    color: #fff;
+    font-weight: bold;
+}
+
+.returnToCart a:hover, .returnToCart i:hover {
+    color: rgba(222, 148, 165, 0.8);
+}
+
+@media(max-width : 400px) {
+    .imgContainer img {
+        width: 40px;
+        height: 40px;
+    }
+}

@@ -7,7 +7,7 @@ public static class Includes
         "Favourites.Product",
         "Shippings",
         "Sales",
-        "Reviews"
+        "Reviews.Product"
     };
     public static readonly string[] SizeIncludes = {
         "ProductSizes",

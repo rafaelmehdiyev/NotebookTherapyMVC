@@ -1,13 +1,15 @@
 ﻿@{
-    ViewData["Title"] = "Order Confirmed";
+    ViewData["Title"] = "Order Pending";
     Layout = null;
 }
+@model int;
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>About us - NoteBookThreapy</title>
+    <title>Order - NoteBookThreapy</title>
     <meta charset="utf-8">
+    <meta http-equiv="refresh" content="2;url=@Url.Action("Address", "Account",new{saleId = Model})" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- === Favicon === -->
     <link rel="icon" type="image/x-icon"
@@ -18,22 +20,17 @@
     <link rel="stylesheet" href="~/Manage/assets/plugins/font-awesome/css/all.min.css">
     <!-- === Custom CSS === -->
     <link rel="stylesheet" href="~/assets/css/order-status.css">
-
-
 </head>
 
 <body>
     <div class="container">
         <div class="row">
             <div class="col-lg-6 m-auto d-flex justify-content-center">
-                <img src="~/assets/images/orderFailed.gif" alt="confetti" class="confetti">
+                <img src="~/assets/images/orderPrepare.gif" alt="confetti" class="confetti">
             </div>
             <div class="col-12 text-center">
-                <h1>You purchase failed</h1>
-                <button class="nav_back">
-                    <i class="fa-solid fa-compass fa-spin"></i>
-                    <a asp-action="Index" asp-controller="Home" class="ms-3">Go back to page</a>
-                </button>
+                <h1>We are preapring your order</h1>
+                <p>You will be redirected to another page in 2 seconds... <i class="fa-solid fa-compass fa-spin"></i></p>
             </div>
         </div>
     </div>

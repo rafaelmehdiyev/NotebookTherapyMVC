@@ -1,0 +1,64 @@
+﻿@{
+    Layout = null;
+}
+@model IDataResult<SaleGetDto>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Address - Notebook Thearpy</title>
+    <!-- === Bootstrap CSS v5.2.3 === -->
+    <link rel="stylesheet" href="~/assets/libs/bootstrap-5.2.3-dist/css/bootstrap.min.css">
+    <!-- ==== Font Awesome Pro === -->
+    <link rel="stylesheet" href="~/Manage/assets/plugins/font-awesome/css/all.min.css">
+    <!-- ==== Custom Css === -->
+    <link rel="stylesheet" href="~/assets/css/address.css">
+</head>
+<body>
+    <div class="mt-0">      
+        <div class="row">
+            <div class="col-lg-7 col-12 px-5">           
+                <div class="container py-5">
+                    <img src="~/assets/images/logo.png" class="img-fluid d-block m-auto pb-5" style="width:280px" />
+                    <h1 class="fw-bold fs-5">Shipping address</h1>
+                    <partial name="_addShippingPartial" model="new ShippingSaleVM{SaleId=Model.Data.Id,shippingDto = new()}">
+                </div>
+            </div>
+            <div class="col-lg-5 col-12 bg-gray">
+                <div class="container right py-5">
+                    <partial name="_saleItemListPartial" model="Model.Data">
+                </div>
+            </div>
+        </div>
+    </div>
+    <link rel="stylesheet" href="~/assets/libs/bootstrap-5.2.3-dist/js/bootstrap.bundle.min.js">
+    <script>
+        //if (!promokod.value) {
+        //    btn.disabled = "true"
+        //}
+        //else if (promokod.value) {
+        //    btn.disabled = "false"
+        //}
+
+
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+            'use strict'
+            var forms = document.querySelectorAll('.needs-validation')
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+
+    </script>
+</body>
+</html>

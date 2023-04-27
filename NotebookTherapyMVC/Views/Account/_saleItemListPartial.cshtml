@@ -1,0 +1,36 @@
+﻿@model SaleGetDto
+
+@foreach (SaleItemGetDto saleItem in Model.SaleItems)
+{
+    <div class="row d-flex align-items-center mb-5">
+    <div class="col-2 d-flex justify-content-center">
+        <div class="imgContainer">
+            <img class="rounded-2 image" src="~/uploads/product/@(saleItem.Product.ProductImages.FirstOrDefault().ImagePath)" alt="">
+            <p class="count">@saleItem.Quantity</p>
+        </div>
+    </div>
+    <div class="col-8">
+        <p class="fw-bold">@saleItem.Product.Name</p>
+    </div>
+    <div class="col-2">
+        <p class="fw-bold">$@saleItem.TotalPrice</p>
+    </div>
+</div>
+}
+
+@*<div class="row d-flex align-items-center mt-3">
+    <div class="col-10">
+        <input class="form-control form-control-lg purple" id="promokod" type="text" placeholder="Gift card or discount code" aria-label=".form-control-lg example">
+    </div>
+    <div class="col-2">
+        <button class="btn btn-purple p-2 " id="btn">Apply</button>
+    </div>
+</div>*@
+<div class="row mt-3">
+    <div class="col-10">
+        <p class="fw-bold">Total:</p>
+    </div>
+    <div class="col-2">
+        <p class="fw-bolder ms-3">$@Model.TotalPrice</p>
+    </div>
+</div>

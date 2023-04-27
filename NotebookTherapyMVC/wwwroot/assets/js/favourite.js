@@ -1,7 +1,13 @@
-﻿let favbtn = document.querySelector(".favbtn")
+﻿//  fav button
+let favbtn = document.querySelectorAll(".favbtn")
 let fav = document.querySelectorAll(".fav");
-favbtn.addEventListener("click", () => {
-    fav.forEach(item => {
-        item.classList.toggle("show")
+
+favbtn.forEach(btn => {
+    btn.addEventListener("click", (e) => {
+        let tags = e.currentTarget.children
+        console.log(tags);
+        Array.from(tags).forEach(i => {
+            i.classList.toggle("show")
+        })
     })
 })

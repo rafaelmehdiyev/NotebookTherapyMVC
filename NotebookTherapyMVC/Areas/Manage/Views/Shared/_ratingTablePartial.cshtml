@@ -8,6 +8,7 @@
             <th>Vendor</th>
             <th>Ratings</th>
             <th>Date</th>
+            <th>Status</th>
             <th>Action</th>
             <th>View</th>
         </tr>
@@ -32,6 +33,18 @@
                     </div>
                 </td>
                 <td>@review.CreatedDate</td>
+                <td>
+					@{
+						if (review.isDeleted)
+						{
+							@:<span class="badge badge-danger">Inactive</span>
+						}
+						else
+						{
+							@:<span class="badge badge-success">Active</span>
+						}
+					}
+				</td>
                 <td>
                     <div class="btn-group">
                         <button asp-action="Get" asp-controller="Review" asp-route-id="@review.Id" type="button" class="btn btn-outline-success">Info</button>

@@ -5,33 +5,31 @@
     <div class="col-md-6 col-lg-4">
         <div class="Card d-flex flex-column align-content-center">
             <div class="img-container" style="background-image:url(/uploads/product/@Url.Content(product.ProductImages.FirstOrDefault().ImagePath))"></div>
-            @{
-                if (product.Favourites.Count != 0)
-                {
-                    foreach (FavouriteGetDto fav in product.Favourites)
+            <button class="favbtn mb-4">
+                @{
+                    if (product.Favourites.Count != 0)
                     {
-                        if (fav.User.Id != User.FindFirstValue(ClaimTypes.NameIdentifier))
+                        foreach (FavouriteGetDto fav in product.Favourites)
                         {
-                            <button class="favori add-to-fav" onclick="AddToFav(this)" data-id="@product.Id">
-                                <i class="fa-regular fa-heart"></i>
-                            </button>
-
-                        }
-                        else
-                        {
-                            <button class="favori remove-from-fav" onclick="RemoveFromFav(this)" data-id="@fav.Id" data-product-id="@product.Id">
-                                <i class="fa-solid fa-heart"></i>
-                            </button>
+                            if (fav.User.Id != User.FindFirstValue(ClaimTypes.NameIdentifier))
+                            {
+                                <i class="fa-regular fa-heart add-to-fav fav show" onclick="AddToFav(this)" data-id="@fav.Product.Id"></i>
+                                <i class="fa-solid fa-heart remove-from-fav fav" onclick="RemoveFromFav(this)" data-id="@fav.Id" data-product-id="@fav.Product.Id"></i>
+                            }
+                            else
+                            {
+                                <i class="fa-regular fa-heart add-to-fav fav" onclick="AddToFav(this)" data-id="@fav.Product.Id"></i>
+                                <i class="fa-solid fa-heart remove-from-fav fav show" onclick="RemoveFromFav(this)" data-id="@fav.Id" data-product-id="@fav.Product.Id"></i>
+                            }
                         }
                     }
+                    else
+                    {
+                        <i class="fa-regular fa-heart add-to-fav fav show" onclick="AddToFav(this)" data-id="@product.Id"></i>
+                        <i class="fa-solid fa-heart remove-from-fav fav" onclick="RemoveFromFav(this)" data-id="" data-product-id="@product.Id"></i>
+                    }
                 }
-                else
-                {
-                    <button class="favori add-to-fav" onclick="AddToFav(this)" data-id="@product.Id">
-                        <i class="fa-regular fa-heart"></i>
-                    </button>
-                }
-            }
+            </button>
             <div class="p-2">
                 <a asp-action="Detail" asp-controller="Product" asp-route-id="@product.Id"><p class="title">@product.Name</p></a>
                 <p class="productPrice my-2">@product.Price $</p>

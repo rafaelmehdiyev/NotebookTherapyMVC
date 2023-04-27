@@ -156,6 +156,30 @@ button {
     font-size: 14px;
 }
 
+.favbtn {
+    width: 50px;
+    border: 0;
+    background: none;
+    position: absolute !important;
+    right: 10px;
+    top: 10px;
+}
+
+.fav {
+    color: #de94a5;
+    background-color: #fff;
+    padding: 13px;
+    border: 1px solid #dbdbdb;
+    border-radius: 50%;
+    font-size: 18px;
+    position: absolute;
+    display: none !important;
+}
+
+.show {
+    display: block !important;
+}
+
 .favori {
     width: 50px;
     height: 50px;

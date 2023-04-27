@@ -18,19 +18,11 @@
                 <td>@Model[i].Users.Count</td>
                 <td>
                     <div class="btn-group">
-                        <button type="button" class="btn btn-outline-success">Info</button>
-                        @{
-                            <button type="button" class="btn btn-outline-success dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
-                                <span class="sr-only">Info</span>
-                            </button>
-                            <div class="dropdown-menu">
-                                <a asp-action="Update" asp-controller="Role" asp-route-id="@Model[i].Id" class="dropdown-item">Edit</a>
-                                <a asp-action="Delete" asp-controller="Role" asp-route-id="@Model[i].Id" class="dropdown-item">Delete</a>
-                            </div>
-                        }
+                        <a asp-action="Update" asp-controller="Role" asp-route-id="@Model[i].Id" class="btn btn-outline-warning py-2 px-3">Edit</a>
+                        <a asp-action="Delete" asp-controller="Role" asp-route-id="@Model[i].Id" class="btn btn-outline-danger py-2 px-3">Delete</a>
                     </div>
                 </td>
-                  <td>
+                <td>
                     <a href="javascript:0" data-bs-toggle="modal" data-bs-target="#modal-contact" class="view-detail" id="infoBtn" data-id="@Model[i].Id">
                         <i class="mdi mdi-eye-plus-outline"></i>
                     </a>

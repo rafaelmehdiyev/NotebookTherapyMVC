@@ -1,5 +1,6 @@
 ﻿namespace NotebookTherapyMVC.Areas.Manage.Controllers;
 [Area("Manage")]
+[Authorize(Roles = "Admin,SuperAdmin")]
 public class UserController : Controller
 {
     private readonly IAccountService _accountService;

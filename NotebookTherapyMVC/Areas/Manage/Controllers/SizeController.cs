@@ -1,7 +1,7 @@
 ﻿namespace NotebookTherapyMVC.Areas.Manage.Controllers;
 
 [Area("Manage")]
-[Authorize(Roles = "Admin")]
+[Authorize(Roles = "Admin,SuperAdmin")]
 public class SizeController : Controller
 {
     private readonly ISizeService _sizeService;

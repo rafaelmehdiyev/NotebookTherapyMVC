@@ -1,0 +1,55 @@
+﻿@model ShippingSaleVM
+<form class="row g-3 needs-validation px-sm-2" novalidate asp-action="Charge" asp-controller="Account" method="post">
+    <input type="hidden" asp-for="SaleId" />
+    <div class="col-12">
+        <select class="form-select form-select-lg purple" id="validationCustom04" asp-for="shippingDto.Country" asp-items="Html.GetEnumSelectList<Country>()" required>
+            <option selected disabled value="">Choose your country...</option>
+        </select>
+        <div class="invalid-feedback">
+            Please select a valid state.
+        </div>
+    </div>
+    <div class="col-12">
+        <input type="text" asp-for="shippingDto.Address" class="form-control purple  form-control-lg" id="validationCustom01" placeholder="Adress" required>
+        <div class="valid-feedback">
+            Looks good!
+        </div>
+        <div class="invalid-feedback">
+            Please provide a valid adress.
+        </div>
+    </div>
+    <div class="col-12">
+        <input type="text" asp-for="shippingDto.Apartment" class="form-control form-control-lg purple" placeholder="Apartment , suite , etc.(optional)" id="validationCustom02" required>
+        <div class="valid-feedback">
+            Looks good!
+        </div>
+        <div class="invalid-feedback">
+            Please provide a valid apartment.
+        </div>
+    </div>
+    <div class="col-md-6">
+        <input type="text" asp-for="shippingDto.City" class="form-control form-control-lg purple" placeholder="City" id="validationCustom03" required>
+        <div class="invalid-feedback">
+            Please provide a valid city.
+        </div>
+    </div>
+    <div class="col-md-6">
+        <input type="text" asp-for="shippingDto.PostalCode" class="form-control form-control-lg purple" placeholder="Postal Code" id="validationCustom03" required>
+        <div class="invalid-feedback">
+            Please provide a valid postal code.
+        </div>
+    </div>
+    <div class="col-12">
+        <input type="number" asp-for="shippingDto.PhoneNumber" class="form-control form-control-lg purple" value="" placeholder="Phone (optional)" id="validationCustom03" required>
+        <div class="invalid-feedback">
+            Please provide a valid phone.
+        </div>
+    </div>
+    <div class="col-6 returnToCart">
+        <i class="fa-solid fa-chevron-left text-purple"></i>
+        <a href="./mainCard/mainCard.html" class="text-decoration-none text-purple">Return to cart</a>
+    </div>
+    <div class="col-6 d-flex justify-content-end">
+        <button class="btn bg-purple p-lg-3 text-white fw-bolder  mb-5" type="submit">Continue to shipping</button>
+    </div>
+</form>

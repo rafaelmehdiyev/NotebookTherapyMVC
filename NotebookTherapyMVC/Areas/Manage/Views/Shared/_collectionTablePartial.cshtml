@@ -3,13 +3,9 @@
 	<thead>
 		<tr>
 			<th>#</th>
-			<th>Title</th>
-			<th>CollectionHeaderImage</th>
-			<th>CollectionItemBackgroundImage</th>
-			<th>CollectionFooterImage</th>
-			<th>CollectionColor</th>
-			<th>CollectionItemColor</th>
-			<th>CollectionButtonColor</th>
+			<th>Icon</th>
+			<th>Name</th>
+			<th>Description</th>
 			<th>Status</th>
 			<th>Action</th>
 		</tr>
@@ -19,19 +15,9 @@
 		{
 			<tr>
 				<td>@collection.Id</td>
+				<td>@collection.CollectionIcon</td>
 				<td>@collection.Name</td>
-				<td class="text-center">
-					<img class="img-fluid" style="max-height:100px" src="~/uploads/productCollection/@(collection.CollectionHeaderImage)" alt="Header">
-				</td>
-				<td class="text-center">
-					<img class="img-fluid" style="max-height:100px" src="~/uploads/productCollection/@(collection.CollectionItemBackgroundImage)" alt="Item">
-				</td>
-				<td class="text-center">
-					<img class="img-fluid" style="max-height:100px" src="~/uploads/productCollection/@(collection.CollectionFooterImage)" alt="Footer">
-				</td>
-				<td style="background-color:@collection.CollectionColor"></td>
-				<td style="background-color:@collection.CollectionItemColor"></td>
-				<td style="background-color:@collection.CollectionButtonColor"></td>
+				<td>@collection.Description</td>
 				<td>
 					@{
 						if (collection.isDeleted)

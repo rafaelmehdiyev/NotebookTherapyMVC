@@ -35,16 +35,16 @@ public class ShippingManager : IShippingService
 	#endregion
 
 	#region Post Requests
-    public async Task<IResult> CreateAsync(ShippingPostDto dto)
+    public async Task<IDataResult<ShippingGetDto>> CreateAsync(ShippingPostDto dto)
     {
         Shipping shipping = _mapper.Map<Shipping>(dto);
         await _unitOfWork.ShippingRepository.CreateAsync(shipping);
         int result = await _unitOfWork.SaveAsync();
         if (result is 0)
         {
-            return new ErrorResult(Messages.NotCreated(Messages.Shipping));
+            return new ErrorDataResult<ShippingGetDto>(Messages.NotCreated(Messages.Shipping));
         }
-        return new SuccessResult(Messages.Created(Messages.Shipping));
+        return new SuccessDataResult<ShippingGetDto>(_mapper.Map<ShippingGetDto>(shipping),Messages.Created(Messages.Shipping));
     }
 
 	#endregion
